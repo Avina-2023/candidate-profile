@@ -20,5 +20,3 @@ RUN npm run build
 FROM nginx:1.17.1-alpine
 COPY --from=build /usr/src/app/dist/skillsProfile /usr/share/nginx/html
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
-COPY ./bundle.crt /etc/ssl/certs/
-COPY ./lntiggnite.key /etc/ssl/certs/
