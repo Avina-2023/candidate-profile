@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: candidateprofileui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: candidateprofileui
+  template:
+    metadata:
+      labels:
+        app: candidateprofileui
+    spec:
+      containers:
+        - name: candidateprofileui
+          image: lxpdevqa.azurecr.io/webportal:$tag
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: mysecret
