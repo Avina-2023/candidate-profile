@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
 import {  MatFormFieldModule } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {  MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-top-right',

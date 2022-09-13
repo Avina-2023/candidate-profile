@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'
 import { SignupComponent } from './signup/signup.component';
+import { ForgoPasswordComponent } from './forgo-password/forgo-password.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,6 @@ import { SignupComponent } from './signup/signup.component';
   ],
   entryComponents:[],
 
-  declarations: [LoginpageComponent,SignupComponent]
+  declarations: [LoginpageComponent,SignupComponent,ForgoPasswordComponent]
 })
 export class LoginModule { }

@@ -137,7 +137,7 @@ export class LoginpageComponent implements OnInit {
   }
 
   forgotPassword() {
-    this.appConfig.routeNavigation("");
+    this.appConfig.routeNavigation("forgot-password");
   }
 
   createAccount() {
