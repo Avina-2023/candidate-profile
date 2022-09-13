@@ -1,1 +1,1481 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// @import "./assets/css/fonts.scss";
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+$primary: $mat-blue;
+$accent: $mat-orange;
+$warn: $mat-red;
+$lxp-theme-primary:mat-palette($mat-blue, 800);
+$lxp-theme-accent:mat-palette($accent, 900);
+$lxp-theme-warn:mat-palette($warn);
+$lxp-theme: mat-light-theme($lxp-theme-primary, $lxp-theme-accent, $lxp-theme-warn);
+@include angular-material-theme($lxp-theme);
+@import "./app/themes/themes.scss";
+@import "./assets/scss/fonts.scss";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 14px;
+    transition-duration: 580ms;
+    transition-timing-function: ease;
+}
+
+// @import 'ag-grid-community/dist/styles/ag-grid.css';
+// @import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+.ag-theme-material .ag-checkbox-input-wrapper {
+    background: none;
+}
+
+.ag-theme-material .ag-checkbox-input-wrapper.ag-checked::after {
+    color: $primary-checkbox-color;
+}
+
+.ag-theme-material .ag-checkbox-input-wrapper.ag-indeterminate::after {
+    color: $primary-checkbox-color;
+}
+
+// New
+.ag-theme-material .ag-checkbox-input-wrapper {
+    background: none;
+}
+
+.ag-theme-material .ag-checkbox-input-wrapper.ag-checked::after {
+    color: $primary-checkbox-color;
+}
+
+.ag-theme-material .ag-checkbox-input-wrapper.ag-indeterminate::after {
+    color: $primary-checkbox-color;
+}
+
+.ag-theme-alpine input[class^="ag-"][type="text"]:focus {
+    box-shadow: none !important;
+    border: 1px solid $primary-input-border-color;
+}
+
+.ag-theme-alpine .ag-row-selected {
+    background-color: $lineColor;
+}
+
+.ag-theme-alpine .ag-ltr .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+    // border-color: $color-dark-border;
+    border: none;
+}
+
+.ag-theme-alpine .ag-checkbox-input-wrapper:focus-within,
+.ag-theme-alpine .ag-checkbox-input-wrapper:active {
+    box-shadow: none !important;
+}
+
+.ag-theme-alpine .ag-checkbox-input-wrapper.ag-checked::after {
+    content: "\f106";
+    color: $primary-checkbox-color !important;
+}
+
+.ag-paging-panel {
+    background: $footer-bg !important;
+    height: 35px !important;
+    font-weight: 400 !important;
+    color: black !important;
+    margin-bottom: 0px !important;
+}
+
+.ag-row-hover {
+    background-color: $ag-hover !important;
+}
+
+.ag-row-even {
+    background-color: $th-bg;
+}
+
+.material-icons {
+    font-family: 'Material Icons' !important;
+}
+
+@mixin sm {
+    @media screen and (max-width: 600px) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media screen and (min-width: 600px) and (max-width: 900px) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media screen and (min-width: 900px) {
+        @content;
+    }
+}
+
+@mixin cus-width($min, $max) {
+    @media screen and (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}
+
+// Scrollbar
+/* width */
+:root {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px !important;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  background: $scroll-bg;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #969696cb;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #969696cb;
+}
+
+.sidenav {
+   ::-webkit-scrollbar {
+      width: 4px !important;
+  }
+   ::-webkit-scrollbar-thumb {
+      border-radius: 100px !important;
+  }
+  li {
+      margin: 0 !important;
+  }
+}
+
+// Nz selet css
+.ant-select-selection {
+  width: 100% !important;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.ant-select-open {
+  .ant-select-selection {
+    border: solid 1px $primary-input-border-color !important;
+  }
+}
+.ant-select-open .ant-select-selection {
+  box-shadow: none;
+}
+.ant-select-selection__rendered {
+  overflow: hidden !important;
+  width: 100%;
+}
+
+.ant-select-selection-selected-value {
+  padding-right: 10px !important;
+}
+
+.anticon.ant-select-close-icon {
+  font-size: 16px;
+  margin-left: -0.25em;
+  color: $primary;
+}
+
+.ant-select-arrow {
+  position: absolute;
+}
+
+.anticon.ant-select-arrow-icon::after {
+  // .dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  margin-top: 0.25em;
+  border-top: 0.5em solid;
+  border-right: 0.4em solid transparent;
+  border-bottom: 0;
+  border-left: 0.4em solid transparent;
+  color: $primary;
+  opacity: 0.9;
+}
+
+.ant-select-arrow-icon {
+  svg {
+      display: none !important;
+      visibility: hidden !important;
+  }
+}
+// nz select css ends
+
+.mat-dialog-container {
+  padding: 0 !important;
+  // overflow: hidden !important;
+}
+
+// Fontsizes
+.f_size_10 {
+  font-size: 10px;
+}
+
+.f_size_11 {
+  font-size: 11px;
+}
+
+.f_size_12 {
+    font-size: 12px;
+}
+
+.f_size_13 {
+    font-size: 13px;
+}
+
+.f_size_14 {
+    font-size: 14px !important;
+}
+
+.f_size_15 {
+    font-size: 15px !important;
+}
+
+.f_size_16 {
+    font-size: 16px !important;
+}
+
+.f_size_17 {
+    font-size: 17px !important;
+}
+
+.f_size_18 {
+    font-size: 18px !important;
+}
+
+.f_size_19 {
+    font-size: 19px !important;
+}
+
+.f_size_20 {
+    font-size: 20px !important;
+}
+
+.f_size_21 {
+    font-size: 21px !important;
+}
+
+.f_size_22 {
+    font-size: 22px !important;
+}
+
+.f_size_23 {
+    font-size: 23px !important;
+}
+
+.f_size_25 {
+    font-size: 25px !important;
+}
+
+.f_size_30 {
+    font-size: 30px !important;
+}
+
+.asterick {
+    color: $red;
+}
+
+/* status screen css */
+.tpo-pre-assessment-wrapper {
+    .mat-datepicker-toggle {
+        display: flex !important;
+    }
+    .mat-icon-button {
+        width: 20px !important;
+        height: 20px !important;
+    }
+    .anticon.ant-select-close-icon {
+        font-size: 13px !important;
+        margin-left: -0.1em !important;
+        color: #666666;
+    }
+    .mat-sort-header-container {
+        justify-content: center !important;
+    }
+    td {
+        text-align: center;
+    }
+}
+
+/* status screen css ends */
+
+/* common css */
+.hide {
+  display: none;
+}
+.btn-margin-space {
+  margin: 0 2em !important;
+}
+
+.btn-margin-space-1 {
+  margin: 0 1em !important;
+}
+
+.btn-margin-space-05 {
+  margin: 0 0.5em !important;
+}
+
+.sort {
+  width: 10px;
+}
+
+/* common button css */
+.mat-raised-button {
+  font-weight: 400;
+}
+.mat-button-focus-overlay {
+  background-color: transparent!important;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+button {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+/* common button css ends */
+
+/* common css ends */
+
+// Angular Material Custom css
+
+mat-icon {
+  font-size: 18px !important;
+  top: 50%;
+  width: 8px;
+  transform: translateY(12%);
+}
+
+/* mat radio css */
+.mat-radio-button {
+    display: inline-block;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0;
+    width: 12px;
+    height: 12px;
+}
+
+.mat-radio-label {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    vertical-align: text-top !important;
+    width: 100%;
+}
+
+.mat-radio-container {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    width: 12px !important;
+    height: 12px !important;
+    flex-shrink: 0;
+}
+
+.mat-radio-outer-circle {
+    box-sizing: border-box;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: border-color ease 280ms;
+    width: 12px !important;
+    height: 12px !important;
+    border-width: 1px !important;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.mat-radio-outer-circle {
+    border-color: $primary-color;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle,
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: $primary-color;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: $primary-color !important;
+}
+
+.mat-radio-inner-circle {
+    border-radius: 50%;
+    box-sizing: border-box;
+    height: 12px !important;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: transform ease 280ms, background-color ease 280ms;
+    width: 12px !important;
+    transform: scale(0.001);
+}
+
+.mat-radio-button .mat-radio-ripple {
+    position: absolute;
+    left: calc(50% - 20px);
+    top: calc(50% - 20px);
+    height: 0;
+    width: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* mat radio css ends */
+
+/* mat calendar css */
+.mat-datepicker-content .mat-calendar {
+    height: auto !important;
+}
+
+.mat-calendar {
+  th {
+      background: none !important;
+  }
+}
+/* mat calendar css ends */
+
+
+/* mat tool tip css */
+.mat-tooltip {
+    color: $white;
+    font-size: 12.5px;
+    font-weight: 400;
+}
+/* mat tool tip css ends */
+
+/* mat input css */
+// To Prevent aligning from center by default
+.mat-input-element {
+    text-align: left !important;
+    caret-color: $light-black;
+}
+/* mat input css ends */
+
+/* mat table hover color */
+.light-bg,
+.light-bg:hover {
+    background: $white 0% 0% no-repeat padding-box !important;
+    border-top: 0.25px solid $table-border;
+    border-bottom: 0.25px solid $table-border;
+}
+
+.dark-bg,
+.dark-bg:hover {
+    background: $th-bg 0% 0% no-repeat padding-box;
+    border-top: 0.25px solid $table-border;
+    border-bottom: 0.25px solid $table-border;
+}
+
+.light-bg:hover {
+    background: $white 0% 0% no-repeat padding-box !important;
+    border-top: 0.25px solid $table-border;
+    border-bottom: 0.25px solid $table-border;
+}
+
+.dark-bg:hover {
+    background: $th-bg 0% 0% no-repeat padding-box;
+    border-top: 0.25px solid $table-border;
+    border-bottom: 0.25px solid $table-border;
+}
+
+.light-bg:hover,
+.dark-bg:hover {
+    background: $td-hover !important;
+}
+
+/* mat table hover color  ends*/
+
+/* mat table css*/
+
+.mat-paginator {
+  font-size: 13px !important;
+}
+
+tr.mat-row:hover {
+  background: $td-hover !important;
+}
+
+.no-data-available.mat-header-row {
+    padding: 4px;
+    height: 40px !important;
+    th {
+        padding: 4px !important;
+        height: 40px !important;
+        text-align: center !important;
+        font-size: 20px !important;
+        background: $white-primary 0% 0% no-repeat padding-box !important;
+        color: $header-blue !important;
+        font-weight: 400 !important;
+    }
+}
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}
+
+mat-paginator {
+  background: $table-header !important;
+}
+
+.mat-header-row {
+  background: $table-header !important;
+}
+
+.mat-paginator-range-actions {
+  height: 25px !important;
+}
+
+.mat-paginator-container {
+  height: 39px !important;
+}
+
+.mat-paginator-page-size {
+  display: flex;
+  align-items: center !important;
+  margin-right: 8px;
+  height: 39px !important;
+}
+
+.mat-paginator-outer-container {
+  display: flex;
+  height: 100% !important;
+  .mat-paginator-container {
+      min-height: 100% !important;
+      height: 100% !important;
+  }
+}
+
+/* mat table css  ends*/
+
+/* Table related css */
+td,
+th {
+    padding: 0px 8px !important;
+}
+
+th {
+    white-space: nowrap !important;
+}
+
+table {
+  background: transparent;
+  box-shadow: none;
+  width: 100%;
+}
+
+td {
+  border: none;
+  height: 45px !important;
+  color: $light-black !important;
+  font-size: 13px;
+  margin: 1em;
+}
+
+th {
+  color: $black;
+  background: $table-header !important;
+  font-size: 13px;
+  font-weight: 400;
+  outline: none;
+  border: none;
+}
+
+/* Table related css ends */
+
+/* mat checkbox css */
+.mat-checkbox-inner-container {
+  display: inline-block;
+  line-height: 0;
+  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-right: 8px;
+  order: 0;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0;
+}
+
+.mat-checkbox-ripple,
+.mat-radio-ripple {
+  display: none !important;
+}
+
+.mat-checkbox-layout {
+  margin-bottom: .15rem !important;
+}
+/* mat checkbox css ends */
+
+/* mat select css*/
+.mat-select-custom {
+  width: 100% !important;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0 !important;
+  .mat-form-field-wrapper {
+      padding: 0px !important;
+      width: 100% !important;
+  }
+  .mat-select-trigger {
+      padding: 0 .5em !important;
+  }
+  .mat-form-field-infix {
+      // width: 100% !important;
+      border: none !important;
+  }
+  .mat-select-value {
+      max-width: 100% !important;
+  }
+  .mat-select-trigger {
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+  }
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled),
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: $primary-color !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple,
+.mat-calendar-body-selected {
+    background-color: $primary-color !important;
+}
+/* mat-select css ends*/
+
+/* mat date picker css */
+.mat-datepicker-toggle-active {
+  color: $primary-color;
+}
+/* mat date picker css ends */
+
+/* Mat expansion panel css */
+
+.mat-expansion-indicator {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+  color: $white !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+  color: rgba(0, 0, 0, .54) !important;
+}
+
+/* Mat expansion panel css ends */
+
+/* mat tab css */
+.mat-tab-nav-bar,
+.mat-tab-header {
+  border-bottom: none !important;
+}
+
+.mat-tab-label .mat-tab-label-content {
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  color: $black !important;
+  // margin-right: 58%;
+  // color: $lxp-gray !important;
+}
+
+.mat-tab-label-active {
+  // color: $color-blank !important;
+  opacity: 1 !important;
+}
+
+/* mat tab css ends */
+
+/* material custom css ends */
+
+// bulk upload design css
+.upload-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 1em;
+.upload {
+min-width: 400px;
+  max-width: 400px;
+  background: $white-primary;
+  border: solid 0.5px $table-border;
+  height: auto;
+  display: block;
+  text-align: center;
+  padding: 2em 1em 1em 1em;
+}
+
+.text-wrapper {
+display: flex;
+justify-content: center;
+align-items: center;
+.inner-wrapper {
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 50px;
+    max-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $light-black;
+    font-weight: 400;
+    font-size: 15px;
+    background: $white-primary 0% 0% no-repeat padding-box;
+    box-shadow: none;
+    border: solid 0.5px $table-border;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    input {
+      display: none;
+      cursor: pointer !important;
+        opacity: 0;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        /* IE 5-7 */
+        filter: alpha(opacity=0);
+        /* Netscape or and older firefox browsers */
+        -moz-opacity: 0;
+        /* older Safari browsers */
+        -khtml-opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+    img {
+        width: 30px;
+        margin: 0 0.5em 0 0;
+    }
+    .list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 4px;
+        height: 25px;
+        width: 100%;
+        background: $background-7 0% 0% no-repeat padding-box;
+        span {
+            color: $primary;
+            font-size: 12px;
+            img {
+                margin-left: 4px;
+                cursor: pointer;
+                width: 15px;
+            }
+        }
+    }
+}
+}
+.text {
+color: $black-4;
+text-align: center;
+margin: 8px 0 0 0;
+font-size: 11px;
+position: relative !important;
+}
+.error {
+color: $red;
+text-align: center;
+margin: 8px 0 0 0;
+font-weight: 400;
+font-size: 11px;
+}
+
+.buttons {
+display: flex;
+width: auto;
+justify-content: center;
+margin: 1em 0;
+.cancel {
+    margin: 0 1em 0 0;
+    box-shadow: $shadow-light-black-1;
+    border: 1px solid $gray-dark;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    height: 25px;
+    color: $background;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 4px 26px;
+    background: transparent;
+    justify-content: center;
+}
+.upload {
+    background: $background 0% 0% no-repeat padding-box;
+    box-shadow: $shadow-light-black-1;
+    border-radius: 6px;
+    height: 25px;
+    color: $white;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 4px 26px;
+    display: flex;
+    align-items: center;
+    min-width: auto !important;
+    width: auto !important;
+    justify-content: center;
+}
+}
+
+.download {
+min-width: 400px;
+max-width: 400px;
+background: $white-primary;
+border: solid 0.5px $table-border;
+height: auto;
+display: block;
+text-align: center;
+padding: 2.5em 1em 2.5em 1em;
+.outer-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .inner-wrapper {
+        min-width: 300px;
+        max-width: 300px;
+        min-height: 50px;
+        max-height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $light-black;
+        font-weight: 400;
+        font-size: 15px;
+        background: $white-primary 0% 0% no-repeat padding-box;
+        box-shadow: none;
+        // border-radius: 5px;
+        border: solid 0.5px $table-border;
+        cursor: pointer;
+        img {
+            width: 30px;
+            height: 20px;
+            margin: 0 0.5em 0 0;
+        }
+    }
+}
+}
+}
+
+.green-1 {
+    color: $green-2;
+}
+
+.red-1 {
+    color: $primary-red;
+}
+
+.disabled-ag {
+    pointer-events: none !important;
+    opacity: 0.6 !important;
+}
+
+.ant-select-dropdown {
+  border-radius: 0;
+  width: 200% !important;
+}
+
+
+//AG grid overall search
+.search-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #333333;
+  font-size: 14px;
+  border: 1px solid #c5c5c5 !important;
+  background: #fff !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 0px 5px #00000029 !important;
+  box-sizing: border-box;
+  padding: 0 0.15em;
+  height: 32px;
+  min-width: 200px;
+  max-width: 200px;
+  position: relative;
+  margin: 0;
+  flex-direction: row-reverse !important;
+  img {
+    width: 20px;
+    height: 13px;
+    filter: invert(98%) sepia(0%) saturate(0%) hue-rotate(134deg) brightness(85%) contrast(82%);
+  }
+  input {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    color: #333333;
+    font-size: 14px;
+    background: #fffdfd 0% 0% no-repeat padding-box !important;
+    box-sizing: border-box;
+    border: none;
+    padding: 4px;
+    height: 30px;
+    width: 100%;
+  }
+  ::placeholder {
+    color: $black-1;
+    opacity: 0.6;
+    font-size: 12px;
+  }
+}
+
+
+//icon font-size
+.icon-24 {
+  font-size: 24px;
+}
+.icon-20 {
+  font-size: 20px;
+}
+.icon-18 {
+  font-size: 18px;
+}
+
+// Common button css
+.common-button {
+  background: $common-button-bg;
+  color: $white;
+  padding: 0 !important;
+  border-radius: 3px !important;
+  span.mat-button-wrapper {
+    position: relative;
+    min-width: 120px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 12px;
+  }
+}
+.common-cancel-button {
+  background: transparent;
+  color: $mediumGrey;
+  padding: 0 !important;
+  border-radius: 3px !important;
+  border: solid 1px $primary-text-color !important;
+  span.mat-button-wrapper {
+    position: relative;
+    min-width: 90px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 12px;
+  }
+}
+.common-outline-button-not-hover {
+  background: transparent;
+  color: $mediumGrey;
+  padding: 0 !important;
+  border-radius: 3px !important;
+  border: 1px solid $common-button-bg !important;
+  transition: background-color 580ms linear;
+  span.mat-button-wrapper {
+    position: relative;
+    min-width: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 12px;
+  }
+}
+
+.common-outline-button {
+  background: transparent;
+  color: $primary-text-color;
+  padding: 0 !important;
+  border: 1px solid $outline-button-border !important;
+  transition: background-color 580ms linear;
+  span.mat-button-wrapper {
+    position: relative;
+    min-width: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 12px;
+  }
+}
+.common-outline-button:hover {
+  background-color: $common-button-bg;
+  color: $white;
+  border: none !important;
+  transition: background-color 580ms linear;
+}
+
+.common-button-with-icon,.statusButtons {
+  background: $common-button-bg;
+  color: $white;
+  padding: 0 !important;
+  border-radius: 4px;
+  span.mat-button-wrapper {
+    position: relative;
+    min-width: 120px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 12px;
+  }
+}
+.videoInterviewFlowPopup {
+  .min-width-80 {
+    span.mat-button-wrapper {
+      min-width: 80px !important;
+    }
+  }
+}
+
+// Candidate joining form
+.joining-form-submit {
+  min-width: 150px !important;
+  border-radius: 18px !important;
+  min-height: 34px !important;
+  font-size: 14px !important;
+  align-items: center !important;
+  display: flex !important;
+}
+.animation {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.animation-zoom:hover {
+  transform: perspective(1px) scale(1.04);
+  // font-size: 15px;
+  transition: transform .5s ease;
+}
+
+.onFocusButton {
+  color: $primary-text-color;
+  border: 1px dashed #BEBEBE !important;
+  min-width: 100px !important;
+}
+.onFocusButton:hover {
+  background: $common-button-bg;
+  border: none !important;
+  color: $white;
+  transition: background-color 580ms linear;
+}
+
+// Joining form End
+
+/* Common button css */
+.common-button-with-icon.disabled,.common-button.disabled,.common-cancel-button.disabled,.common-outline-button.disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.common-button-with-icon[disabled][disabled],.common-button[disabled][disabled],.common-outline-button[disabled][disabled] {
+  background: $common-button-bg !important;
+  color: $white !important;
+  cursor: not-allowed;
+  opacity: .6;
+}
+.common-cancel-button[disabled][disabled] {
+  cursor: not-allowed;
+  opacity: .6;
+  background: transparent !important;
+  color: $mediumGrey !important;
+}
+.common-button-height-32 {
+  height: 32px;
+}
+.common-button-height-33 {
+  height: 33px;
+}
+.common-button-height-35 {
+  height: 35px;
+}
+.common-button-height-40 {
+  height: 40px;
+}
+.common-button-height-30 {
+  height: 30px;
+}
+.common-button-height-28 {
+  height: 28px;
+}
+
+.mat-raised-button {
+  box-shadow: none !important;
+}
+
+// Ag grid common button and icon css
+.ag-button-color {
+  background-color: $ag-button-bg;
+  color: $ag-button-color;
+}
+.ag-icon-color {
+  color: $ag-icon-color;
+}
+
+.ag-button-cellClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ag-button-custom {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    border: none;
+    padding: 4px 8px;
+    min-width: 100px !important;
+}
+.ag-icon-custom {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center;
+  border: none;
+  padding: 4px 8px;
+  min-width: 100px !important;
+  span:nth-child(1) {
+    display: flex;
+  }
+}
+.ag-icon-font-size {
+  font-size: 24px;
+}
+.ag-icon-font-size-20 {
+  font-size: 20px;
+}
+.ag-icon-font-size-18 {
+  font-size: 18px;
+}
+.ag-icon-font-size-14 {
+  font-size: 14px;
+}
+.pointer {
+  cursor: pointer;
+}
+
+//Status colors
+.ag-grid-buttons-icon {
+  height: 27px;
+  border: none;
+  border-radius: 3px !important;
+  padding: 6px 12px;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 100px;
+  &.disabled {
+    background-color: #bababa;
+    cursor: not-allowed;
+  }
+  em {
+    margin-right: 7px;
+  }
+}
+
+.status-field {
+  min-width: 100px !important;
+  font-size: 12px;
+  border-radius: 3px;
+  padding: 3px 8px;
+  display: flex;
+  height: 23px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.ag-grid-status {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inprogress-color {
+  background-color: #ffbc00;
+  color: $white;
+}
+.inprogress1-color {
+  background-color: #fbb03b;
+  color: $white;
+}
+
+.completed-color {
+  background-color: #48cc83;
+  color: $white;
+}
+.yet-to-start-color {
+  background-color: #1B4E9B;
+  color: $white;
+}
+.not-scheduled-white-color {
+  background-color: #bababa !important;
+  color: $white !important;
+}
+.not-scheduled-color {
+  background-color: #bababa;
+  color: #666666;
+}
+.rejected-color {
+  background-color: #c02222;
+  color: $white;
+}
+.not-allowed {
+  cursor: not-allowed !important;
+}
+/* Common button css ends */
+
+
+::placeholder {
+    color: $black !important;
+    opacity: 0.5 !important;
+    font-size: 14px !important;
+}
+
+/* joining form css */
+
+.joining-personal-wrapper {
+    padding-top: 1em;
+}
+
+/* joining form date picker toggle css */
+.joining-form-main {
+    .mat-datepicker-toggle {
+        .mat-icon-button {
+            min-height: 35px !important;
+            max-height: 35px !important;
+            height: 35px !important;
+        }
+    }
+}
+
+.sub-grid {
+  .joining-form-main .mat-datepicker-toggle .mat-icon-button {
+      min-height: 30px !important;
+      max-height: 30px !important;
+      height: 30px !important;
+  }
+  .mat-datepicker-toggle {
+      min-height: 30px !important;
+      max-height: 30px !important;
+      top: -1px;
+  }
+}
+
+/* joining form date picker toggle css ends */
+
+.sub-header-accordion {
+  .mat-expansion-indicator::after {
+      color: rgb(0, 0, 0, 0.4) !important;
+  }
+}
+
+/* joining form css ends */
+
+::ng-deep .owl-dt-calendar-header {
+    th {
+        background: white !important;
+    }
+}
+
+::ng-deep .owl-dt-container-row {
+    &:first-child {
+        border-bottom: 0 !important;
+    }
+}
+
+// Ant select drop down css and mat input css
+.ant-select-dropdown-menu-item {
+  font-size: 13px !important;
+}
+
+.input {
+  position: relative;
+  border: solid 0.8px #bebebe;
+  border-radius: 2px;
+  color: #6b6b6b;
+  outline: none;
+  box-sizing: border-box;
+  min-height: 35px !important;
+  max-height: 35px !important;
+  line-height: 35px;
+  padding: 4px 8px;
+  background-color: $white;
+  width: 100%;
+}
+.select {
+  display: flex;
+  align-items: center;
+  padding: 0px !important;
+  border: none !important;
+}
+
+.ant-select-selection {
+  border: solid 0.8px #bebebe !important;
+  height: 35px !important;
+  padding: 4px 8px;
+  border-radius: 0px !important;
+}
+
+.ant-select-selection:hover,
+.ant-select-selection:focus,
+.ant-select-selection:active {
+  border: solid $primary-hover-color 1px !important;
+  border-radius: 0px !important;
+  z-index: 0 !important;
+  box-shadow: none !important;
+}
+
+nz-select.ng-invalid.ng-touched {
+  border: solid $primary-error-color 1px !important;
+  .ant-select-selection {
+      border: solid $primary-error-color 1px !important;
+  }
+}
+
+.ant-select-selection__placeholder,
+.ant-select-search__field__placeholder {
+  color: #a5a5a5 !important;
+  opacity: 0.9 !important;
+  font-size: 13px !important;
+}
+
+.ant-select-selection__rendered {
+  position: relative;
+  display: block;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  line-height: 35px !important;
+}
+
+.ant-select-arrow {
+  right: 0 !important;
+  padding: 0 8px !important;
+}
+
+.ant-select-selection__clear {
+  right: 18px !important;
+  margin-top: -7px !important;
+}
+.anticon.ant-select-arrow-icon::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  margin-top: 0.25em;
+  border-top: 0.5em solid;
+  border-right: 0.4em solid transparent;
+  border-bottom: 0;
+  border-left: 0.4em solid transparent;
+  color: #666666;
+  opacity: 0.9;
+  border: solid #a5a5a5 !important;
+  border-width: 0 1px 1px 0 !important;
+  display: inline-block !important;
+  padding: 3px !important;
+  transform: rotate(45deg) !important;
+  -webkit-transform: rotate(45deg) !important;
+  margin-top: 1px !important;
+}
+
+.ant-select-dropdown-menu-item:first-child,
+.ant-select-dropdown-menu-item:last-child {
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: #eaeaea !important;
+}
+
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+  background-color: rgb(211, 211, 211, 0.7) !important;
+}
+
+.ant-select-dropdown {
+  border: 1px solid #bebebe !important;
+}
+
+.ant-select-selection-selected-value {
+  padding-right: 16px !important;
+}
+
+// Ant select drop down css and mat input css close
+.loading03 {
+  // span {
+	margin: 0 -.075em;
+    animation: loading03 .7s infinite alternate;
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i+1}) {
+        animation-delay: #{$i*.1}s;
+      }
+    }
+  // }
+}
+@keyframes loading03 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(.8);
+  }
+}
