@@ -1,0 +1,15 @@
+<mat-toolbar class="headerShadow">
+  <div class="header-cont">
+    <span class="img-wrapper" (click)="goToHome()">
+      <img [src]="logoURL" alt="">
+    </span>
+    <span class="rightlog">
+      <span class="title">
+        {{username ? 'Welcome, ' + username : ''}}
+      </span>
+      <span matTooltip="Logout" class="logout" (click)="logOut()">
+        <em class="icon-logout"></em>
+      </span>
+    </span>
+  </div>
+</mat-toolbar>

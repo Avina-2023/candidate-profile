@@ -91,6 +91,7 @@ export class LoginpageComponent implements OnInit {
 
 
   submit() {
+    this.appConfig.routeNavigation('/profile/candidate/personal')
     this.disableLogin = true;
     const apiData = {
       name: this.loginForm.value.email,
