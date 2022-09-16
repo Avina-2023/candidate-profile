@@ -2,7 +2,7 @@
 <app-general-join-interview *ngIf="role == 'candidate' && !showJoiningForm && isPermissionGranted()"></app-general-join-interview>
 
 <div class="joining-form-wrapper">
-    <div  class="stepper">
+    <div *ngIf="!hideStepper" class="stepper">
         <div class="stepper-wrapper">
             <ul>
                 <li (click)="validCheck('personal')"

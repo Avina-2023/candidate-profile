@@ -29,6 +29,7 @@ export class ApiServiceService {
       .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       // .set('X-CSRF-Token', this.appConfig.getSessionData('csrf'))
+      .set('Authorization',"Bearer aqSkKT6qguVyANMPtR6qqWaiCLUTRNpS7aki0COQm6WEg9WE8VWiopu9rF5oQank2AdWyM3UKr62WUu9l1R1BfaO9CzM16Vi89ecAX6ADPfhGBzpAEXze1do0SqtMkdQ5oGqFqtXphoc4DZL4hb6wRdg09RWzEJcnYJLtvska9HfvQiywtu1LZvDt1AD104ypzLaIRV6dGtKWHrhYgxVn7D3Q9mkTS3oejbVX8z81RwN3Ely6g59t5RRU88BVJiv")
       .set('Access-Control-Allow-Origin', '*');
     return headers;
   }
@@ -82,12 +83,12 @@ export class ApiServiceService {
   //   return this.http.get(`${this.BASE_URL_CITY}/states.php`, { headers: this.withoutTokens() });
   // }
 
-  // Forgot Password
-  forgotPassword(email) {
-    // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/user/lost-password?_format=json`, email,
-      { headers: this.withoutTokens(), withCredentials: true });
-  }
+  // // Forgot Password
+  // forgotPassword(email) {
+  //   // this.datas is api body data
+  //   return this.http.post(`${this.BASE_URL}/user/lost-password?_format=json`, email,
+  //     { headers: this.withoutTokens(), withCredentials: true });
+  // }
 
   passwordTokenVerification(data) {
     return this.http.post(`${this.BASE_URL}/rest/verify-password?_format=json`, data,
@@ -97,7 +98,7 @@ export class ApiServiceService {
   // Reset Password
   passwordReset(data) {
     // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/user/lost-password-reset?_format=json`, data,
+    return this.http.post(`${this.BASE_URL}/submitResetPassword`, data,
       { headers: this.getCustomHeaders(), withCredentials: true });
   }
 
@@ -148,8 +149,9 @@ export class ApiServiceService {
   decrypt(data) {
     try {
       const bytes = CryptoJS.AES.decrypt(data, this.EncryptKEY);
+      // console.log(JSON.parse(bytes.toString(CryptoJS.enc.Utf8)));
       if (bytes.toString()) {
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        return bytes.toString(CryptoJS.enc.Utf8);
       }
       return data;
     } catch (e) {

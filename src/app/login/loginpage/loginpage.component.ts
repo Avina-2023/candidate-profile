@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ApiServiceService } from 'src/app/service/api-service.service';
 import { environment } from 'src/environments/environment';
 import { AppConfigService } from '../../config/app-config.service';
 @Component({
@@ -22,7 +23,8 @@ export class LoginpageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private appConfig:AppConfigService
+    private appConfig:AppConfigService,
+    private apiService: ApiServiceService,
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class LoginpageComponent implements OnInit {
         this.apiCalling();
       }
       if (params['mail']) {
-        this.prePoulteEmailId = params['mail'];
+        this.prePoulteEmailId = this.apiService.decrypt(params['mail']);
       } else {
         this.appConfig.routeNavigation('/login');
       }

@@ -34,8 +34,8 @@ export const CONSTANT = {
     },
     PASSWORD: {
       FORGOT: '/forgot-password',
-      RESET: '/password/reset',
-      SETUP: '/password/setup'
+      RESET: '/resetpwd',
+      SETUP: '/setpwd'
     },
     LOGIN: '/login',
     LOGOUT: '/logout',
@@ -173,11 +173,7 @@ export const CONSTANT = {
   ROUTES: {
     HOME: 'home',
     MAINTENANCE: 'unavailable',
-    REGISTER: {
-      CORPORATE: 'register/corporate',
-      INSTITUTE: 'register/institute',
-      CANDIDATE: 'register/candidate',
-    },
+
     VERIFY: {
       OTP: 'verify/otp',
       EMAIL: 'verify/email',
@@ -213,21 +209,6 @@ export const CONSTANT = {
     CANDIDATE_DASHBOARD: {
       HOME: 'candidate',
       DASHBOARD: 'dashboard',
-      // Lnt Profile Routes Start
-      CANDIDATE_LARSEN: 'l&t',
-      JOINING: 'joining',
-      JOINING_PERSONAL: 'personal',
-      JOINING_CONTACT: 'contact',
-      JOINING_DEPENDENT: 'dependent',
-      JOINING_EDUCATION: 'education',
-      JOINING_WORK: 'work',
-      JOINING_UPLOAD: 'upload',
-      JOINING_PREVIEW: 'preview',
-      JOINING_SUBMIT: 'submit',
-      JOINING_FAQ: 'faq',
-      DOCUMENT: 'document',
-      DOCUMENT_LIST: 'list',
-      // Lnt Profile Routes End
 
       // General Profile Routes Start
       GENERAL_CANDIDATE: 'general',
@@ -245,79 +226,8 @@ export const CONSTANT = {
       GENERAL_DOCUMENT_LIST: 'list',
       // General Profile Routes End
 
-      // ADANI Profile Routes Start
-      CANDIDATE_ADANI: 'adani',
-      ADANI_JOINING: 'joining',
-      ADANI_JOINING_PERSONAL: 'personal',
-      ADANI_JOINING_CONTACT: 'contact',
-      ADANI_JOINING_DEPENDENT: 'dependent',
-      ADANI_JOINING_EDUCATION: 'education',
-      ADANI_JOINING_WORK: 'work',
-      ADANI_JOINING_UPLOAD: 'upload',
-      ADANI_JOINING_PREVIEW: 'preview',
-      ADANI_JOINING_SUBMIT: 'submit',
-      ADANI_JOINING_FAQ: 'faq',
-      ADANI_DOCUMENT: 'document',
-      ADANI_DOCUMENT_LIST: 'list',
-      // ADANI Profile Routes End
+
     },
-    HR_DASHBOARD: {
-      HOME: 'hr',
-      DASHBOARD: 'dashboard',
-      SHORTLISTING: 'shortlist',
-      FIRSTSHORTLISTING: '1st',
-      FIRSTSHORTLISTING_LIST: 'list',
-      FIRSTSHORTLISTING_CRITERIA: 'criteria',
-      SECONDSHORTLISTING: '2nd',
-      SECONDSHORTLISTING_ASSESSMENT_LIST: 'assessment-list',
-      SECONDSHORTLISTING_ASSESSMENTCANDIDATE_LIST: 'candidateslist',
-      SECONDSHORTLISTING_VIDEO_ASSESSMENT_EVALUATION_HOME: 'video-assessment',
-      SECONDSHORTLISTING_VIDEO_ASSESSMENT_EVALUATION_SCREEN: 'evaluator-assign',
-      SECONDSHORTLISTED_CANDIDATE_REPORT: 'shortlisted-report',
-      VIDEO_ASSESSMENT_SCHEDULE: 'video-schedule',
-      USER_MANAGEMENT: 'user-management',
-      EVALUATION: 'evaluation',
-      NEW_INTERVIEW_PANEL_ASSIGNMENT: 'interview-panelist-assign',
-      NEW_INTERVIEW_PANEL_ASSIGNED: 'assigned',
-      ASSIGNED_DETAILS: 'details',
-      HR_PANEL_EVALUATION: 'candidate-details',
-      NEW_INTERVIEW_PANEL_RESULTS_UPLOAD: 'upload',
-      SUB_ASSESSMENTS: 'assessment',
-      SUB_EDUCATION: 'education',
-      SUB_EMPLOYMENT: 'employment',
-      HR_USER_MANAGEMENT_USERS_LIST: 'user-list',
-      HR_USER_MANAGEMENT_BULK_UPLOAD: 'bulk-uploads',
-      REPORTS: 'reports',
-      REPORTS_LIST: 'second',
-      REPORTS_LIST_VIEW: 'view',
-      FIRST_LEVEL_REPORTS_LIST: 'first',
-      HR_STATUS: 'status',
-      HR_STATUS_PREASSESSMENT: 'pre-assessment',
-      HR_STATUS_RECRUITMENT: 'recruitment',
-      BUSINESSROUTE: 'ic',
-      IC_ADDorLIST: 'list',
-      OfferedCandidatesLIST: 'candidates'
-    },
-    TPO_DASHBOARD: {
-      HOME: 'tpo',
-      DASHBOARD: 'dashboard',
-      USER_MANAGEMENT: 'user-management',
-      USER_MANAGEMENT_USERS_LIST: 'user-list',
-      USER_MANAGEMENT_BULK_UPLOAD: 'bulk-uploads',
-      STATUS: 'status',
-      STATUS_PREASSESSMENT: 'pre-assessment',
-      STATUS_RECRUITMENT: 'recruitment',
-    },
-    INTERVIEW_PANEL_DASHBOARD: {
-      HOME: 'interview-panel',
-      CANDIDATE_DETAILS: 'candidates',
-      CANDIDATE_DETAILS_ASSESSMENT_LIST: 'assessment-list',
-      CANDIDATE_DETAILS_PARTICULAR_ASSESSMENT_LIST: 'assessments',
-      CANDIDATE_DETAILS_SUBMITTED: 'submitted',
-      INTERVIEW_PANEL_EVALUATION: 'evaluation',
-      VIDEO_ASSESS_TAB_HOME: 'video-assess',
-      VIDEO_ASSESS_ASSIGNED_DETAILS: 'candidates',
-      VIDEO_ASSESS_EVALUATION_DETAILS: 'evaluation'
-    }
+
   }
 };

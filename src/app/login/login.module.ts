@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'
 import { SignupComponent } from './signup/signup.component';
 import { ForgoPasswordComponent } from './forgo-password/forgo-password.component';
+import { SetPasswordComponent } from './setPassword/setPassword.component';
 
 @NgModule({
   imports: [
@@ -20,11 +21,9 @@ import { ForgoPasswordComponent } from './forgo-password/forgo-password.componen
     MatIconModule,
     MatButtonModule,
     MatInputModule
-
-
   ],
   entryComponents:[],
 
-  declarations: [LoginpageComponent,SignupComponent,ForgoPasswordComponent]
+  declarations: [LoginpageComponent,SignupComponent,ForgoPasswordComponent,SetPasswordComponent]
 })
 export class LoginModule { }

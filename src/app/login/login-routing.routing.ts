@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ForgoPasswordComponent } from './forgo-password/forgo-password.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { SetPasswordComponent } from './setPassword/setPassword.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
@@ -13,6 +14,12 @@ const routes: Routes = [
       },
       {
         path: "forgot-password", component: ForgoPasswordComponent
+      },
+      {
+        path: "setpwd", component: SetPasswordComponent
+      },
+      {
+        path: "resetpwd", component: SetPasswordComponent
       },
       {
         path: '',
