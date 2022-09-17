@@ -16,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { SharedModule } from "../shared/shared.module"
+
 // import { MatDatepicker, MatDateRangePicker } from '@angular/material/datepicker';
 
 
@@ -130,7 +132,7 @@ const routes: Routes = [
     MatIconModule,
     MatButtonModule,
     MatInputModule,
-
+    SharedModule
   ]
 })
 export class GeneralModuleModule { }

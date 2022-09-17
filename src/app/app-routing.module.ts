@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CandidateCanloadGuard } from './gaurds/candidate_canload.guard';
+import { IsLoggedinGuard } from './gaurds/is-loggedin.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>     import('./login/login.module')
-      .then(m => m.LoginModule)
+    loadChildren: () =>     import('./login/login.module').then(m => m.LoginModule),canActivate:[IsLoggedinGuard]
     },
     {
       path: 'profile',
-      loadChildren: () =>     import('./general_profile/general-module.module')
-        .then(m => m.GeneralModuleModule)
+      loadChildren: () =>     import('./general_profile/general-module.module').then(m => m.GeneralModuleModule), canLoad: [ CandidateCanloadGuard ], canActivate: [ CandidateCanloadGuard ]
       },
 ];
 

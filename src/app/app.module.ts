@@ -13,6 +13,9 @@ import { SharedModule } from './shared/shared.module';
 import { ModalBoxComponent } from './shared/modal-box/modal-box.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MaterialModule } from './material.module';
+import { IsLoggedinGuard } from './gaurds/is-loggedin.guard';
+import { CandidateCanloadGuard } from './gaurds/candidate_canload.guard';
+import { AppConfigService } from './config/app-config.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { MaterialModule } from './material.module';
     MatToolbarModule,
     HttpClientModule,
     SharedModule,
+
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-top-right',
@@ -39,7 +43,7 @@ import { MaterialModule } from './material.module';
     }),
   ],
   entryComponents:[ModalBoxComponent],
-  providers: [NgxSpinnerService],
+  providers: [AppConfigService,NgxSpinnerService,IsLoggedinGuard,CandidateCanloadGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 

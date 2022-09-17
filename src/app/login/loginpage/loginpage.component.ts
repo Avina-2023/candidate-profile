@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import {  ToastrService } from 'ngx-toastr';
 import { ApiServiceService } from 'src/app/service/api-service.service';
+import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { environment } from 'src/environments/environment';
 import { AppConfigService } from '../../config/app-config.service';
+
 @Component({
   selector: 'app-loginpage',
   templateUrl: './loginpage.component.html',
@@ -25,6 +28,10 @@ export class LoginpageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private appConfig:AppConfigService,
     private apiService: ApiServiceService,
+    private candidateService : CandidateMappersService,
+    public toast: ToastrService,
+    private router: Router,
+
   ) { }
 
   ngOnInit() {
@@ -93,16 +100,39 @@ export class LoginpageComponent implements OnInit {
 
 
   submit() {
-    this.appConfig.routeNavigation('/profile/candidate/personal')
+    // this.appConfig.routeNavigation('/profile/candidate/personal')
     this.disableLogin = true;
+
     const apiData = {
-      name: this.loginForm.value.email,
-      pass: this.loginForm.value.password
+      email: this.apiService.encrypt(this.loginForm.value.email,environment.cryptoEncryptionKey),
+      password: this.apiService.encrypt(this.loginForm.value.password,environment.cryptoEncryptionKey)
     };
 
     // Login API
     if (this.loginForm.valid) {
-      if (apiData.name && apiData.pass) {
+      if (apiData.email && apiData.password) {
+        this.candidateService.login(apiData).subscribe((data:any)=> {
+          if(data.success)
+          {
+          this.appConfig.setLocalData('username', data && data.data.email ? data.data.email: '');
+          this.appConfig.setLocalData('userId', data && data.data.userId ? data.data.userId : '');
+          this.appConfig.setLocalData('userEmail', data && data.data.email ? data.data.email : '');
+          this.appConfig.setLocalData('csrf-login', data && data.token ? data.token : '');
+          // this.appConfig.setLocalData('logout-token', data && data.logout_token ? data.logout_token : '');
+          // this.appConfig.setLocalData('masters', data && data.master_list && data.master_list.data ? JSON.stringify(data.master_list.data) : '');
+          // this.appConfig.setLocalData('roles', data && data.current_user && data.current_user.roles && data.current_user.roles[1] ? data.current_user.roles[1] : null);
+        this.loginRedirection(data);
+        }else{
+          this.disableLogin = false;
+          this.toast.warning(data.message)
+          this.appConfig.warning(data.message)
+        }
+
+
+        },(error) => {
+            this.disableLogin = false;
+          });
+
           // this.apiService.login(apiData).subscribe((data: any) => {
           //   // this.sharedService.sessionTimeStartSubject.next('start');
           //   this.appConfig.setLocalData('username', data && data.current_user.name ? data.current_user.name : '');
@@ -133,10 +163,9 @@ export class LoginpageComponent implements OnInit {
       this.appConfig.setLocalData('multiCustomer', 'true');
     }
 
-    if (data && data.current_user && data.current_user.roles && data.current_user.roles[1] === 'candidate') {
-      return this.appConfig.routeNavigation('/');
-    } else {
-    }
+    //  re this.appConfig.routeNavigation('/profile/candidate/personal');
+    this.router.navigate(['/profile/candidate/personal'])
+
   }
 
   forgotPassword() {

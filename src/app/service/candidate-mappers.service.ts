@@ -27,7 +27,7 @@ export class CandidateMappersService {
       .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
-      .set('Access-Control-Allow-Origin', '*')
+      //.aset('Access-Control-Allow-Origin', '*')
       .set('Authorization', 'Basic ' + btoa(`${CONSTANT.DRUPAL_ADMIN_USERNAME}:${CONSTANT.DRUPAL_ADMIN_PASSWORD}`));
     return headers;
   }
@@ -41,7 +41,7 @@ export class CandidateMappersService {
       .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
-      .set('Access-Control-Allow-Origin', '*')
+      //.aset('Access-Control-Allow-Origin', '*')
       .set('Authorization', 'Basic ' + btoa(`${CONSTANT.DRUPAL_ADMIN_USERNAME}:${CONSTANT.DRUPAL_ADMIN_PASSWORD}`));
     return headers;
   }
@@ -49,35 +49,38 @@ export class CandidateMappersService {
 
   getAfterCustomHeaders(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com',
+      "Access-Control-Allow-Credentials": 'true'
     })
       .set('Content-Type', 'application/json')
       .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
       .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
-      .set('Access-Control-Allow-Origin', '*');
+      //.aset('Access-Control-Allow-Origin', '*');
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
   }
 
   getAfterCustomHeadersWithMultiPart(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*.lntedutech.com*',
+      "Access-Control-Allow-Credentials": 'true',
     })
       .set('Content-Type', 'multipart/form-data')
       .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
       .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
-      .set('Access-Control-Allow-Origin', '*');
+      //.aset('Access-Control-Allow-Origin', '*');
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
   }
 
   forImage(uniqueName): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com',
+      "Access-Control-Allow-Credentials": "true"
     })
       .set('Content-Type', 'application/octet-stream')
       .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
@@ -86,20 +89,21 @@ export class CandidateMappersService {
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
       // tslint:disable-next-line: quotemark
       .set('Content-Disposition', `filename="${uniqueName}"`)
-      .set('Access-Control-Allow-Origin', '*')
+      //.aset('Access-Control-Allow-Origin', '*')
       .set('Authorization', 'Basic ' + btoa(`${CONSTANT.DRUPAL_ADMIN_USERNAME}:${CONSTANT.DRUPAL_ADMIN_PASSWORD}`));
     return headers;
   }
 
   withoutTokens(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com',
+      "Access-Control-Allow-Credentials": "true"
     })
     .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
     .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
     .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
     .set('Content-Type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*');
+      .set('Access-Control-Allow-Origin', '*.lntedutech.com');
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
   }
@@ -137,6 +141,13 @@ export class CandidateMappersService {
         headers: this.getAfterCustomHeaders(),
         withCredentials: true
       });
+  }
+
+  // userlogin
+  login(loginData) {
+    // this.datas is api body data
+    return this.http.post(`${this.BASE_URL}/userLogin`, loginData,
+      { headers: this.withoutTokens(), withCredentials: true });
   }
 
   // Forgot Password
