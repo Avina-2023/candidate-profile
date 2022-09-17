@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ApiServiceService } from '../../service/api-service.service';
 import { AppConfigService } from 'src/app/config/app-config.service';
+import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
+import { environment } from 'src/environments/environment';
 // import { CONSTANT } from 'src/app/constants/app-constants.service';
 
 @Component({
@@ -19,7 +21,8 @@ export class ForgoPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private apiService: ApiServiceService,
-    private appConfig: AppConfigService
+    private appConfig: AppConfigService,
+    private candidateServ: CandidateMappersService
   ) { }
 
   ngOnInit() {
@@ -44,33 +47,25 @@ export class ForgoPasswordComponent implements OnInit {
 
   submit() {
 
-    if (this.forgotPasswordForm.get('mobile').valid || this.forgotPasswordForm.get('email').valid) {
+    if ( this.forgotPasswordForm.get('email').valid) {
       let data;
-      if (this.forgotPasswordForm.get('mobile').valid) {
-        data = {
-          mobile: [{ value: this.forgotPasswordForm.value.mobile }],
-        };
-      }
+
       if (this.forgotPasswordForm.get('email').valid) {
         data = {
-          mail: this.forgotPasswordForm.value.email
+          email: this.apiService.encrypt(this.forgotPasswordForm.value.email,environment.cryptoEncryptionKey)
         };
       }
-      if (this.forgotPasswordForm.get('mobile').valid && this.forgotPasswordForm.get('email').valid) {
-        data = {
-          mail: this.forgotPasswordForm.value.email
-        };
-      }
+
       // this.appConfig.consoleLog('Registration Data which is passed to API', data);
       // API
 
-      // this.apiService.forgotPassword(data).subscribe((success: any) => {
+      this.apiService.forgotPassword(data).subscribe((success: any) => {
 
       //   // this.appConfig.consoleLog('success', success);
-      //   this.appConfig.success('Password Reset link has been successfully sent to your Email ID', '');
-      //   this.appConfig.routeNavigation("home");
-      // }, (error) => {
-      // });
+        this.appConfig.success('Password Reset link has been successfully sent to your Email ID', '');
+        this.appConfig.routeNavigation("/login");
+      }, (error) => {
+      });
     } else {
       this.validateAllFields(this.forgotPasswordForm);
     }

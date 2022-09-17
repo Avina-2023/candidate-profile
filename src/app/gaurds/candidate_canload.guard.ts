@@ -45,23 +45,8 @@ export class CandidateCanloadGuard implements CanLoad, CanActivate {
 
       return true;
     } else {
-      if (this.appConfig.getLocalData('logout-token')) {
-        this.apiService.logout(this.appConfig.getLocalData('logout-token')).subscribe((data: any) => {
-          this.appConfig.clearLocalData();
-
-          this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
-          return false;
-        }, (err) => {
-          this.appConfig.clearLocalData();
-
-          this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
-          return false;
-        });
-      } else {
-        this.appConfig.clearLocalData();
-        this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
-        return false;
-      }
+      this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
+      return false
     }
   }
 }

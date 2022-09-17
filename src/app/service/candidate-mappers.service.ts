@@ -151,11 +151,11 @@ export class CandidateMappersService {
   }
 
   // Forgot Password
-  forgotPassword(email) {
-    // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/user/lost-password?_format=json`, email,
-      { headers: this.withoutTokens(), withCredentials: true });
-  }
+  // forgotPassword(email) {
+  //   // this.datas is api body data
+  //   return this.http.post(`${this.BASE_URL}/user/lost-password?_format=json`, email,
+  //     { headers: this.withoutTokens(), withCredentials: true });
+  // }
 
   // For Image
   imageUpload(file, uniqueName) {

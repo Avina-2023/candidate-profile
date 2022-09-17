@@ -71,13 +71,9 @@ export class CommonHeaderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const token = this.appConfig.getLocalData('logout-token');
-        this.apiService.logout(token).subscribe((data: any) => {
           this.appConfig.clearLocalData();
-
           this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
-        }, (err) => {
-        });
+
         // this.appConfig.consoleLog('resultlogout', result);
       }
     });
