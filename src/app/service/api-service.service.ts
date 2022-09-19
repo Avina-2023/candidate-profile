@@ -89,8 +89,7 @@ export class ApiServiceService {
   // Forgot Password
   forgotPassword(email) {
     // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/userforgotPassword`, email,
-      { headers: this.getCustomHeaders(), withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/userforgotPassword`, email);
   }
 
   passwordTokenVerification(data) {
@@ -101,8 +100,7 @@ export class ApiServiceService {
   // Reset Password
   passwordReset(data) {
     // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/submitResetPassword`, data,
-      { headers: this.getCustomHeaders(), withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/submitResetPassword`, data);
   }
 
   // Login

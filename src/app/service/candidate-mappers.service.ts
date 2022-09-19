@@ -146,8 +146,7 @@ export class CandidateMappersService {
   // userlogin
   login(loginData) {
     // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/userLogin`, loginData,
-      { headers: this.withoutTokens(), withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/userLogin`, loginData);
   }
 
   // Forgot Password
