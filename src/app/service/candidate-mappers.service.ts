@@ -20,7 +20,7 @@ export class CandidateMappersService {
 
   getAfterCustomHeadersWithBasicAuth(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com'
     })
       .set('Content-Type', 'application/json')
       .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
@@ -34,7 +34,7 @@ export class CandidateMappersService {
 
   getCustomHeadersWithBasicAuthWithHalContentType(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com'
     })
       .set('Content-Type', 'application/hal+json')
       .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')

@@ -22,7 +22,7 @@ export class ApiServiceService {
 
   getCustomHeaders(): HttpHeaders {
     const headers = new HttpHeaders({
-      // 'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com'
     })
       .set('Content-Type', 'application/json')
       .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
@@ -35,7 +35,7 @@ export class ApiServiceService {
   }
   getAfterCustomHeaders(): HttpHeaders {
     const headers = new HttpHeaders({
-      // 'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com'
     })
       .set('Content-Type', 'application/json')
       .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
@@ -47,7 +47,7 @@ export class ApiServiceService {
   }
   withoutTokens(): HttpHeaders {
     const headers = new HttpHeaders({
-      // 'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Origin': '*.lntedutech.com'
     })
     .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
     .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
