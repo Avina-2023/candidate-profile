@@ -222,11 +222,11 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         form_name: 'joining',
         section_name: ''
       }
-      this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
-        this.candidateService.saveAllProfileToLocal(data);
-        this.sharedService.joiningFormDataPassing.next();
-        this.statusOfForms();
-      });
+      // this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
+      //   this.candidateService.saveAllProfileToLocal(data);
+      //   this.sharedService.joiningFormDataPassing.next();
+      //   this.statusOfForms();
+      // });
     }
   }
 

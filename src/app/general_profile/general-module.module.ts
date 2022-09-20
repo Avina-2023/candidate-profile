@@ -32,9 +32,7 @@ const path = {
     GENERAL_JOINING_UPLOAD: 'upload',
     GENERAL_JOINING_PREVIEW: 'preview',
     GENERAL_JOINING_SUBMIT: 'submit',
-    GENERAL_JOINING_FAQ: 'faq',
-    GENERAL_DOCUMENT: 'document',
-    GENERAL_DOCUMENT_LIST: 'list',
+    
   },
 };
 const routes: Routes = [
