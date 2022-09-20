@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CandidateMappersService {
-  BASE_URL = environment.API_BASE_URL;
+  BASE_URL = environment.MASTER_BASE_URL;
 
   httpOptions: { headers: HttpHeaders };
 
@@ -96,14 +96,12 @@ export class CandidateMappersService {
 
   withoutTokens(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*.lntedutech.com',
-      "Access-Control-Allow-Credentials": "true"
+      'Access-Control-Allow-Origin': '*',
     })
     .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
     .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
     .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
     .set('Content-Type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*.lntedutech.com');
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
   }
@@ -143,11 +141,7 @@ export class CandidateMappersService {
       });
   }
 
-  // userlogin
-  login(loginData) {
-    // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/userLogin`, loginData);
-  }
+
 
   // Forgot Password
   // forgotPassword(email) {

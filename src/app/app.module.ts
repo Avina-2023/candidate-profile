@@ -17,6 +17,12 @@ import { IsLoggedinGuard } from './gaurds/is-loggedin.guard';
 import { CandidateCanloadGuard } from './gaurds/candidate_canload.guard';
 import { AppConfigService } from './config/app-config.service';
 import { InterceptorService } from './interceptor/interceptor.service';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+
+registerLocaleData(en);
 
 @NgModule({
   declarations: [
@@ -34,7 +40,6 @@ import { InterceptorService } from './interceptor/interceptor.service';
     MatToolbarModule,
     HttpClientModule,
     SharedModule,
-
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-top-right',
@@ -48,7 +53,7 @@ import { InterceptorService } from './interceptor/interceptor.service';
     {
       provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true
       },
-    AppConfigService,NgxSpinnerService,IsLoggedinGuard,CandidateCanloadGuard],
+    AppConfigService,NgxSpinnerService,IsLoggedinGuard,CandidateCanloadGuard, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 

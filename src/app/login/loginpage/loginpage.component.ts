@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {  ToastrService } from 'ngx-toastr';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
+import { SkillexService } from 'src/app/service/skillex.service';
 import { environment } from 'src/environments/environment';
 import { AppConfigService } from '../../config/app-config.service';
 
@@ -28,6 +29,7 @@ export class LoginpageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private appConfig:AppConfigService,
     private apiService: ApiServiceService,
+    private skillexService: SkillexService,
     private candidateService : CandidateMappersService,
     public toast: ToastrService,
     private router: Router,
@@ -111,10 +113,10 @@ export class LoginpageComponent implements OnInit {
     // Login API
     if (this.loginForm.valid) {
       if (apiData.email && apiData.password) {
-        this.candidateService.login(apiData).subscribe((data:any)=> {
+        this.skillexService.login(apiData).subscribe((data:any)=> {
           if(data.success)
           {
-          this.appConfig.setLocalData('username', data && data.data.email ? data.data.email: '');
+          this.appConfig.setLocalData('username', data && data.data.firstName ? data.data.firstName: '');
           this.appConfig.setLocalData('userId', data && data.data.userId ? data.data.userId : '');
           this.appConfig.setLocalData('userEmail', data && data.data.email ? data.data.email : '');
           this.appConfig.setLocalData('csrf-login', data && data.token ? data.token : '');
