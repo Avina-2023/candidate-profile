@@ -35,12 +35,18 @@ export class InterceptorService implements HttpInterceptor {
       // id = 'RNpS7aki0COQm6WEg9WE8VWiopu9rF5oQank2AdWyM3UKr62WUu9l1R1BfaO9';
       token = 'Bearer aqSkKT6qguVyANMPtR6qqWaiCLUTRNpS7aki0COQm6WEg9WE8VWiopu9rF5oQank2AdWyM3UKr62WUu9l1R1BfaO9CzM16Vi89ecAX6ADPfhGBzpAEXze1do0SqtMkdQ5oGqFqtXphoc4DZL4hb6wRdg09RWzEJcnYJLtvska9HfvQiywtu1LZvDt1AD104ypzLaIRV6dGtKWHrhYgxVn7D3Q9mkTS3oejbVX8z81RwN3Ely6g59t5RRU88BVJiv'
     }
-    const clone = request.clone({
-              headers: new HttpHeaders({
-              'Accept': 'application/json',
-              'Authorization':token
-            })
-    });
+    let heads = {}
+    if(request.url.includes(environment.SKILLEX_BASE_URL)){
+      heads = {
+        headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Authorization':token
+        })
+      }
+    }
+    
+
+    const clone = request.clone(heads);
 
     return next.handle(clone).pipe(
       map((event: HttpEvent<any>) => {
@@ -49,6 +55,7 @@ export class InterceptorService implements HttpInterceptor {
         }
         return event;
       }),
+
       retry(1),
 
       catchError((error: HttpErrorResponse) => {

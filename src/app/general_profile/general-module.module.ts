@@ -12,11 +12,8 @@ import { GeneralJoiningUploadComponent } from './general-candidate-joining-form/
 import { GeneralJoiningPreviewComponent } from './general-candidate-joining-form/general-joining-preview/joining-preview.component';
 import { GeneralJoiningSubmitComponent } from './general-candidate-joining-form/general-joining-submit/joining-submit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from "../shared/shared.module"
+import { MaterialModule } from '../material.module';
 
 // import { MatDatepicker, MatDateRangePicker } from '@angular/material/datepicker';
 
@@ -128,11 +125,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    SharedModule
+    
+    SharedModule,
+    MaterialModule
   ]
 })
 export class GeneralModuleModule { }

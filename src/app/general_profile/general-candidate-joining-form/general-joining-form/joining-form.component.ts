@@ -115,7 +115,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   routingSelection: any;
   requestnavigationRoute: any;
   noSave: boolean;
-  hideStepper: boolean = true;
+  hideStepper: boolean = false;
   redirectToPreview: boolean;
   constructor(
     private appConfig: AppConfigService,
@@ -138,7 +138,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 
   activeSelectorRxJs() {
     this.joiningFormActiveSelectorSubscribe = this.sharedService.joiningFormActiveSelector.pipe(delay(0)).subscribe((data: any)=> {
-      this.hideStepper = this.appConfig.getLocalData('isEditAllowed') == 'true' ? false : true;
+      // this.hideStepper = this.appConfig.getLocalData('isEditAllowed') == 'true' ? false : true;
       let datas = this.candidateService.getLocalsection_flags();
         this.routingSelection = null;
         this.routingSelection = data ? data : this.routingSelection;
@@ -156,7 +156,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   }
 
   checkFormSubmitted() {
-    this.hideStepper = this.appConfig.getLocalData('isEditAllowed') == 'true' ? false : true;
+    // this.hideStepper = this.appConfig.getLocalData('isEditAllowed') == 'true' ? false : true;
     if (this.appConfig.getLocalData('joiningFormAccess') == 'true') {
       return this.redirectToPreview = false;
     }

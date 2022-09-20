@@ -8,7 +8,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class ApiServiceService {
 
-  BASE_URL = environment.API_BASE_URL;
+  BASE_URL = environment.MASTER_BASE_URL;
   // BASE_URL_CITY = environment.API_BASE_URL_city;
   httpOptions: { headers: HttpHeaders; };
   EncryptKEY = environment.cryptoEncryptionKey;
@@ -86,22 +86,14 @@ export class ApiServiceService {
   //   return this.http.get(`${this.BASE_URL_CITY}/states.php`, { headers: this.withoutTokens() });
   // }
 
-  // Forgot Password
-  forgotPassword(email) {
-    // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/userforgotPassword`, email);
-  }
+
 
   passwordTokenVerification(data) {
     return this.http.post(`${this.BASE_URL}/rest/verify-password?_format=json`, data,
       { headers: this.getCustomHeaders(), withCredentials: true });
   }
 
-  // Reset Password
-  passwordReset(data) {
-    // this.datas is api body data
-    return this.http.post(`${this.BASE_URL}/submitResetPassword`, data);
-  }
+
 
   // Login
   login(loginData) {

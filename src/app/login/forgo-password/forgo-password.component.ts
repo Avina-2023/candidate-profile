@@ -5,6 +5,7 @@ import { ApiServiceService } from '../../service/api-service.service';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { environment } from 'src/environments/environment';
+import { SkillexService } from 'src/app/service/skillex.service';
 // import { CONSTANT } from 'src/app/constants/app-constants.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class ForgoPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private apiService: ApiServiceService,
+    private skillexService: SkillexService,
     private appConfig: AppConfigService,
     private candidateServ: CandidateMappersService
   ) { }
@@ -59,7 +61,7 @@ export class ForgoPasswordComponent implements OnInit {
       // this.appConfig.consoleLog('Registration Data which is passed to API', data);
       // API
 
-      this.apiService.forgotPassword(data).subscribe((success: any) => {
+      this.skillexService.forgotPassword(data).subscribe((success: any) => {
 
       //   // this.appConfig.consoleLog('success', success);
         this.appConfig.success('Password Reset link has been successfully sent to your Email ID', '');

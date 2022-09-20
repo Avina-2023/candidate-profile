@@ -8,6 +8,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
 import { HttpUrlEncodingCodec } from '@angular/common/http';
+import { SkillexService } from 'src/app/service/skillex.service';
 
 @Component({
   selector: 'app-setPassword',
@@ -32,6 +33,7 @@ export class SetPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private apiService: ApiServiceService,
+    private skillexService: SkillexService,
     private appConfig: AppConfigService,
     private activatedRoute: ActivatedRoute
   ) {
@@ -117,7 +119,7 @@ export class SetPasswordComponent implements OnInit {
         userSecretkey: this.passwordTempToken ? this.passwordTempToken : '',
         password: this.createForm.value.password
       };
-      this.apiService.passwordReset(apiData).subscribe((success: any) => {
+      this.skillexService.passwordReset(apiData).subscribe((success: any) => {
 
         // this.appConfig.consoleLog('success', success);
         this.appConfig.success((this.currentRoute.includes('Reset')) ? `Password has been reset successfully` :

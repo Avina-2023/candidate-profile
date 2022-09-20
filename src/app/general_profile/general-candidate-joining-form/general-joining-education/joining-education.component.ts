@@ -210,7 +210,7 @@ constructor(
     this.dateValidation();
     let mastersList = this.appConfig.getLocalData('masters') ? JSON.parse(this.appConfig.getLocalData('masters')) : [];
     // Filter education details baised on customer code
-    this.mastersList = mastersList ? mastersList.education_master : [];
+    this.mastersList = mastersList.lenght ? mastersList.education_master : [];
     let positive_array = this.mastersList.filter(value => value.customer_code == '#LTTS');
     this.mastersList = mastersList ? positive_array : [];
   }
@@ -292,26 +292,26 @@ constructor(
   }
 
   getEducationApiDetails() {
-    // if (this.candidateService.getLocalProfileData()) {
-    //   this.formInitialize();
-    //   this.educationDetails = this.candidateService.getLocaleducation_details().educations;
-    //   this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
-    //   this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
-    //   this.getSelectedPost();
-    //   this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
-    // } else {
-    // //   let apiData = {
-    // //     form_name: 'joining',
-    // //     section_name: ''
-    // //   }
-    // //   this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
-    // //     this.candidateService.saveAllProfileToLocal(data);
-    // //     this.educationDetails = this.candidateService.getLocaleducation_details().educations;
-    // //     this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
-    // //     this.getSelectedPost();
-    // //     this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
-    // //   });
-    // }
+    if (this.candidateService.getLocalProfileData()) {
+      this.formInitialize();
+      this.educationDetails = this.candidateService.getLocaleducation_details().educations;
+      this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
+      this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
+      this.getSelectedPost();
+      this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
+    } else {
+    //   let apiData = {
+    //     form_name: 'joining',
+    //     section_name: ''
+    //   }
+    //   this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
+    //     this.candidateService.saveAllProfileToLocal(data);
+    //     this.educationDetails = this.candidateService.getLocaleducation_details().educations;
+    //     this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
+    //     this.getSelectedPost();
+    //     this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
+    //   });
+    }
   }
 
   ifEducationDetails() {
