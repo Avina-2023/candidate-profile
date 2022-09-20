@@ -117,7 +117,7 @@ export class SetPasswordComponent implements OnInit {
       const apiData = {
         email: this.apiemail,
         userSecretkey: this.passwordTempToken ? this.passwordTempToken : '',
-        password: this.createForm.value.password
+        password: this.apiService.encrypt(this.createForm.value.password,environment.cryptoEncryptionKey)
       };
       this.skillexService.passwordReset(apiData).subscribe((success: any) => {
 

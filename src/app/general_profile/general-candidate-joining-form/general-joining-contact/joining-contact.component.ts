@@ -192,11 +192,12 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
         }
         const ContactApiRequestDetails = {
           // form_name: "joining",
+          email:this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "contact_details",
           saving_data: apiData
         }
       this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ContactApiRequestDetails).subscribe((data: any)=> {
-          this.candidateService.saveFormtoLocalDetails(data.section_name, data.saving_data);
+          this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
           this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');
           this.sharedService.joiningFormStepperStatus.next();
