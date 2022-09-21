@@ -9,6 +9,7 @@ import { GlobalValidatorService } from 'src/app/custom-form-validators/globalval
 import { ApiServiceService } from '../../../service/api-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
+import { SkillexService } from 'src/app/service/skillex.service';
 // import { CandidateMappersService } from 'src/app/services/candidate-mappers.service';
 // import { SharedServiceService } from 'src/app/services/shared-service.service';
 
@@ -56,6 +57,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
+    private skillexService:SkillexService,
     // private adminService: AdminServiceService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
@@ -189,11 +191,12 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
         user_id: this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : ''
         }
         const ContactApiRequestDetails = {
-          form_name: "joining",
+          // form_name: "joining",
+          email:this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "contact_details",
           saving_data: apiData
         }
-      this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(ContactApiRequestDetails).subscribe((data: any)=> {
+      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ContactApiRequestDetails).subscribe((data: any)=> {
           this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
           this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');

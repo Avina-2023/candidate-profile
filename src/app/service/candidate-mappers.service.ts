@@ -266,10 +266,10 @@ export class CandidateMappersService {
     }
 
     newGetProfileData(data) {
-      if ((data && data.candidate_user_id) || (data && data.form_name == 'documents_upload')) {
-      } else {
-        data.form_name = this.checkKycOrJoiningForm() ? 'joining' : 'kyc';
-      }
+      // if ((data && data.candidate_user_id) || (data && data.form_name == 'documents_upload')) {
+      // } else {
+      //   data.form_name = this.checkKycOrJoiningForm() ? 'joining' : 'kyc';
+      // }
       return this.http.post(`${this.BASE_URL}/profile/get_candidate_form_details`, data,
         { headers: this.getAfterCustomHeaders(), withCredentials: true});
     }
