@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: candidateprofileui
-          image: skillexchangedev.azurecr.io/candidate_profile_ui:$tag
+          image: uapprod.azurecr.io/candidate_profile_ui:$tag
           imagePullPolicy: Always
           ports:
           - containerPort: 80
