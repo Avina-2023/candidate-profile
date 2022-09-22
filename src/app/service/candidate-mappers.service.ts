@@ -23,8 +23,8 @@ export class CandidateMappersService {
       'Access-Control-Allow-Origin': '*.lntedutech.com'
     })
       .set('Content-Type', 'application/json')
-      .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
-      .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
+      .set('custCode', '15691')
+      .set('driveId', '2')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
       //.aset('Access-Control-Allow-Origin', '*')
@@ -37,8 +37,8 @@ export class CandidateMappersService {
       'Access-Control-Allow-Origin': '*.lntedutech.com'
     })
       .set('Content-Type', 'application/hal+json')
-      .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
-      .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
+      .set('custCode', '15691')
+      .set('driveId', '2')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
       //.aset('Access-Control-Allow-Origin', '*')
@@ -53,8 +53,8 @@ export class CandidateMappersService {
       "Access-Control-Allow-Credentials": 'true'
     })
       .set('Content-Type', 'application/json')
-      .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
-      .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
+      .set('custCode', '15691')
+      .set('driveId', '2')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
       //.aset('Access-Control-Allow-Origin', '*');
@@ -68,8 +68,8 @@ export class CandidateMappersService {
       "Access-Control-Allow-Credentials": 'true',
     })
       .set('Content-Type', 'multipart/form-data')
-      .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
-      .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
+      .set('custCode', '15691')
+      .set('driveId', '2')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
       //.aset('Access-Control-Allow-Origin', '*');
@@ -83,8 +83,8 @@ export class CandidateMappersService {
       "Access-Control-Allow-Credentials": "true"
     })
       .set('Content-Type', 'application/octet-stream')
-      .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
-      .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
+      .set('custCode', '15691')
+      .set('driveId', '2')
       .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
       .set('X-CSRF-Token', this.appConfig.getLocalData('csrf-login'))
       // tslint:disable-next-line: quotemark
@@ -96,12 +96,13 @@ export class CandidateMappersService {
 
   withoutTokens(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*.lntedutech.com',
     })
-    .set('custCode', this.appConfig.getSelectedCustomerCode() ? this.appConfig.getSelectedCustomerCode() : '')
-    .set('driveId', this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '')
-    .set('userId', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '')
+    .set('custCode', '15691')
+    .set('driveId', '2')
+    .set('userId', "15691")
     .set('Content-Type', 'application/json')
+    .set('Referer','http://localhost:4300/')
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
   }
@@ -111,7 +112,7 @@ export class CandidateMappersService {
   }
 
   getDriveId() {
-    return this.appConfig.getDriveId() ? this.appConfig.getDriveId() : '';
+    return '2';
   }
 
   forFetchCustomHeaders() {
@@ -253,7 +254,7 @@ export class CandidateMappersService {
 
     // Joining Form
     getBloodGroups() {
-      return this.http.get(`${this.BASE_URL}/profile/bg_list`, { headers: this.withoutTokens(), withCredentials: true });
+      return this.http.get(`../assets/files/bloodgroup.json`, { headers: this.withoutTokens(), withCredentials: true });
     }
 
     checkKycOrJoiningForm() {
@@ -266,10 +267,10 @@ export class CandidateMappersService {
     }
 
     newGetProfileData(data) {
-      if ((data && data.candidate_user_id) || (data && data.form_name == 'documents_upload')) {
-      } else {
-        data.form_name = this.checkKycOrJoiningForm() ? 'joining' : 'kyc';
-      }
+      // if ((data && data.candidate_user_id) || (data && data.form_name == 'documents_upload')) {
+      // } else {
+      //   data.form_name = this.checkKycOrJoiningForm() ? 'joining' : 'kyc';
+      // }
       return this.http.post(`${this.BASE_URL}/profile/get_candidate_form_details`, data,
         { headers: this.getAfterCustomHeaders(), withCredentials: true});
     }

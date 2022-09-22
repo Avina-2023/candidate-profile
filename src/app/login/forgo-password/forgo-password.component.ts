@@ -62,10 +62,12 @@ export class ForgoPasswordComponent implements OnInit {
       // API
 
       this.skillexService.forgotPassword(data).subscribe((success: any) => {
-
-      //   // this.appConfig.consoleLog('success', success);
-        this.appConfig.success('Password Reset link has been successfully sent to your Email ID', '');
+        if(success.success){
+        this.appConfig.success(success.message, '');
         this.appConfig.routeNavigation("/login");
+        }else{
+          this.appConfig.error(success.message, '');
+        }
       }, (error) => {
       });
     } else {

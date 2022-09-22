@@ -9,6 +9,7 @@ import { GlobalValidatorService } from 'src/app/custom-form-validators/globalval
 import { ApiServiceService } from '../../../service/api-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
+import { SkillexService } from 'src/app/service/skillex.service';
 // import { CandidateMappersService } from 'src/app/services/candidate-mappers.service';
 // import { SharedServiceService } from 'src/app/services/shared-service.service';
 
@@ -37,7 +38,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
   form_present_state = 'present_state';
   form_present_zip_code = 'present_zip';
   form_present_region = 'present_country';
-  form_same_as_checkbox = 'same_as_checkbox';
+  form_same_as_checkbox = 'is_sameas_presentaddr';
   form_permanent_address_1 = 'permanent_line1_street_add';
   form_permanent_address_2 = 'permanent_line2_street_add';
   form_permanent_address_3 = 'permanent_address_line_3';
@@ -56,6 +57,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
+    private skillexService:SkillexService,
     // private adminService: AdminServiceService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
@@ -170,30 +172,39 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     if (this.contactForm.valid) {
       let rawContactFormValue = this.contactForm.getRawValue();
       // form_same_as_checkbox = 'same_as_checkbox';
-        const apiData = {
-        [this.form_present_address_1]: rawContactFormValue[this.form_present_address_1],
-        [this.form_present_address_2]: rawContactFormValue[this.form_present_address_2],
-        [this.form_present_address_3]: rawContactFormValue[this.form_present_address_3],
-        [this.form_present_city]: rawContactFormValue[this.form_present_city],
-        [this.form_present_state]: rawContactFormValue[this.form_present_state],
-        [this.form_present_zip_code]: rawContactFormValue[this.form_present_zip_code],
-        [this.form_permanent_address_1]: rawContactFormValue[this.form_permanent_address_1],
-        [this.form_permanent_address_2]: rawContactFormValue[this.form_permanent_address_2],
-        [this.form_permanent_city]: rawContactFormValue[this.form_permanent_city],
-        [this.form_permanent_state]: rawContactFormValue[this.form_permanent_state],
-        [this.form_permanent_zip_code]: rawContactFormValue[this.form_permanent_zip_code],
-        [this.form_present_region]: rawContactFormValue[this.form_present_region],
-        [this.form_permanent_address_3]: rawContactFormValue[this.form_permanent_address_3],
-        [this.form_permanent_region]: rawContactFormValue[this.form_permanent_region],
-        [this.form_same_as_checkbox]: rawContactFormValue[this.form_same_as_checkbox] ? rawContactFormValue[this.form_same_as_checkbox] : false,
-        user_id: this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : ''
-        }
+      const apiData = {
+        presentaddress: {
+          [this.form_present_address_1]:rawContactFormValue[this.form_present_address_1],
+          [this.form_present_address_2]:rawContactFormValue[this.form_present_address_2],
+          [this.form_present_address_3]:rawContactFormValue[this.form_present_address_3],
+          [this.form_present_city]:rawContactFormValue[this.form_present_city],
+          [this.form_present_state]:rawContactFormValue[this.form_present_state],
+          [this.form_present_zip_code]:rawContactFormValue[this.form_present_zip_code],
+          [this.form_present_region]:rawContactFormValue[this.form_present_region],
+        },
+        permanentaddress: {
+          [this.form_permanent_address_1]:rawContactFormValue[this.form_permanent_address_1],
+          [this.form_permanent_address_2]:rawContactFormValue[this.form_permanent_address_2],
+          [this.form_permanent_city]:rawContactFormValue[this.form_permanent_city],
+          [this.form_permanent_state]:rawContactFormValue[this.form_permanent_state],
+          [this.form_permanent_zip_code]:rawContactFormValue[this.form_permanent_zip_code],
+          [this.form_permanent_address_3]:rawContactFormValue[this.form_permanent_address_3],
+          [this.form_permanent_region]:rawContactFormValue[this.form_permanent_region],
+        },
+        [this.form_same_as_checkbox]: rawContactFormValue[this.form_same_as_checkbox]? rawContactFormValue[this.form_same_as_checkbox] : false,
+
+
+        email: this.appConfig.getLocalData('userEmail')
+          ? this.appConfig.getLocalData('userEmail')
+          : '',
+      };
         const ContactApiRequestDetails = {
-          form_name: "joining",
+          // form_name: "joining",
+          email:this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "contact_details",
           saving_data: apiData
         }
-      this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(ContactApiRequestDetails).subscribe((data: any)=> {
+      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ContactApiRequestDetails).subscribe((data: any)=> {
           this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
           this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');
@@ -232,7 +243,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
       if (route == 'personal') {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PERSONAL);
       } else {
-        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().contact_details == '1') {
+        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().contact_details) {
           return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
         } else {
          if (this.contactForm.valid) {

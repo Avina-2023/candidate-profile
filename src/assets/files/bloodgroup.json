@@ -1,0 +1,11 @@
+[
+  { "bloodgroup_id": "1", "bloodgroup_name": "A+" },
+  { "bloodgroup_id": "2", "bloodgroup_name": "A-" },
+  { "bloodgroup_id": "3", "bloodgroup_name": "B+" },
+  { "bloodgroup_id": "4", "bloodgroup_name": "B-" },
+  { "bloodgroup_id": "5", "bloodgroup_name": "O+" },
+  { "bloodgroup_id": "6", "bloodgroup_name": "O-" },
+  { "bloodgroup_id": "7", "bloodgroup_name": "AB+" },
+  { "bloodgroup_id": "8", "bloodgroup_name": "AB-" },
+  { "bloodgroup_id": "9", "bloodgroup_name": "Others" }
+]

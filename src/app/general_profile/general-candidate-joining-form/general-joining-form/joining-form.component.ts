@@ -172,43 +172,43 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     if (this.candidateService.getLocalProfileData()) {
       let data = this.candidateService.getLocalsection_flags();
       this.checkFormSubmitted();
-      if ((data && data.submitted == '1') || this.redirectToPreview) {
+      if ((data && data.submitted) || this.redirectToPreview) {
         this.valid.tillsbmit();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PREVIEW);
         return this.activeStep = 'preview';
       }
 
-      if (data && data.previewed == '1') {
+      if (data && data.previewed) {
         this.valid.tillpreview();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
         return this.activeStep = 'submit';
       }
-      if (data && data.personal_details == '0') {
+      if (data && data.personal_details == false) {
         this.valid.tillPersonal();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PERSONAL);
         return this.activeStep = 'personal';//, this.routingSelection = param ? param : 'contact';
       }
-      if (data && data.contact_details == '0') {
+      if (data && data.contact_details == false) {
         this.valid.tillContact();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
         return this.activeStep = 'contact';
       }
-      if (data && data.dependent_details == '0') {
+      if (data && data.dependent_details == false) {
         this.valid.tilldependent();
        param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
        return this.activeStep = 'dependent';//, this.routingSelection = param ? param : 'education';
       }
-      if (data && data.education_details == '0') {
+      if (data && data.education_details == false) {
         this.valid.tilleducation();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
         return this.activeStep = 'education';
       }
-      if (data && data.experience_details == '0') {
+      if (data && data.experience_details == false) {
           this.valid.tillwork();
           param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
           return this.activeStep = 'work';
       }
-      if (data && data.document_details == '0') {
+      if (data && data.document_details == false) {
         this.valid.tillupload();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
         return this.activeStep = 'upload';
@@ -222,11 +222,11 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         form_name: 'joining',
         section_name: ''
       }
-      this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
-        this.candidateService.saveAllProfileToLocal(data);
-        this.sharedService.joiningFormDataPassing.next();
-        this.statusOfForms();
-      });
+      // this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
+      //   this.candidateService.saveAllProfileToLocal(data);
+      //   this.sharedService.joiningFormDataPassing.next();
+      //   this.statusOfForms();
+      // });
     }
   }
 

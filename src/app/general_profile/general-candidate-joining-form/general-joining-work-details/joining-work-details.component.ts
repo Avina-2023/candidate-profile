@@ -108,7 +108,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   form_disciplinary_proceedings = "disciplinary_proceedings";
   form_full_particulars = "full_particulars"
 
-  form_Employment_Array = "Employment";
+  form_Employment_Array = "employment";
   form_Skills_Array = "skills";
   form_Skill = "skill";
 
@@ -234,7 +234,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   ifworkDetails() {
     let work = {
       workDetails: this.workDetails && this.workDetails.work_details ? this.workDetails.work_details : null,
-      Employment: this.workDetails && this.workDetails.employments ? this.workDetails.employments : [],
+      employment: this.workDetails && this.workDetails.employments ? this.workDetails.employments : [],
       bgvDetails: this.workDetails && this.workDetails.bgv_details ? this.workDetails.bgv_details : null,
     }
     this.showWorkExp = this.workDetails && this.workDetails['is_work_exp'] =='1' ? '1' : '0';

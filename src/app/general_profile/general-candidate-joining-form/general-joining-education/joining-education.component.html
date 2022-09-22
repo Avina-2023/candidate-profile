@@ -11,16 +11,16 @@
     <div class="grids-wrapper">
         <div class="row-wrapper">
 
-    <div class="overall-input-wrapper w-75 d-flex align-items-center f_size_14 mt-2 mb-2" style="color: #565656;">
+    <!-- <div class="overall-input-wrapper w-75 d-flex align-items-center f_size_14 mt-2 mb-2" style="color: #565656;">
         <div style="width: 170px;">Profile Applied For*: </div>
-        <nz-select class="input select selectedPost" [(ngModel)]="selectedPost" (ngModelChange)="profileChanged()" [nzDisabled]="candidateService.checkKycOrJoiningForm() && isKYCNotExempted ? true : false" nzShowSearch nzPlaceHolder="Select">
+        <nz-select class="input select selectedPost" [(ngModel)]="selectedPost" (ngModelChange)="profileChanged()" [nzDisabled]="false" nzShowSearch nzPlaceHolder="Select">
         <nz-option *ngFor="let level of mastersList" [nzLabel]="level.label"
             [nzValue]="level.value"></nz-option>
     </nz-select>
-</div>
+</div> -->
 </div>
 
-        <form *ngIf="selectedPost" class="educatonForm" [formGroup]="educationForm" (ngSubmit)="formSubmit()">
+        <form  class="educatonForm" [formGroup]="educationForm" (ngSubmit)="formSubmit()">
             <ng-container *ngIf="getEducationArr && getEducationArr.controls" [formArrayName]="form_educationArray">
                 <ng-container *ngFor="let item of getEducationArr.controls; let i = index;" [formGroupName]="i">
                     <div class="container-wrapper flex-container d-flex justify-content-between align-items-center">
@@ -30,14 +30,9 @@
                                 <label>Qualification Type<span>*</span></label>
                                 <nz-select class="input select" (ngModelChange)="educationLevelChange(i)" [formControlName]="form_qualification_type"
                                     nzAllowClear nzShowSearch nzPlaceHolder="Select">
-                                    <ng-container *ngIf="i == 1">
-                                    <nz-option *ngFor="let level of educationLevels" [nzDisabled]="(level.education != 'SSLC' && level.education != 'UG' && level.education != 'PG') ? false : true" [nzLabel]="level.label"
-                                        [nzValue]="level.education"></nz-option>
-                                      </ng-container>
-                                      <ng-container *ngIf="i != 1">
-                                        <nz-option *ngFor="let level of educationLevels" [nzDisabled]="(level.education != 'SSLC' && level.education != 'HSC') ? false : true" [nzLabel]="level.label"
-                                            [nzValue]="level.education"></nz-option>
-                                        </ng-container>
+                                    
+                                    <nz-option *ngFor="let level of educationLevels" [nzLabel]="level.label"
+                                        [nzValue]="level.education"></nz-option>                                      
 
                                 </nz-select>
                                 <div class="form-error"
