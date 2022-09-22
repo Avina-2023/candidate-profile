@@ -21,6 +21,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(en);
 
@@ -47,6 +48,7 @@ registerLocaleData(en);
       preventDuplicates: true,
       autoDismiss: true
     }),
+    NgbModule,
   ],
   entryComponents:[ModalBoxComponent],
   providers: [
