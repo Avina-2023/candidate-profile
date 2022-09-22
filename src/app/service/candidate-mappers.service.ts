@@ -254,7 +254,7 @@ export class CandidateMappersService {
 
     // Joining Form
     getBloodGroups() {
-      return this.http.get(`${this.BASE_URL}/profile/bg_list`, { headers: this.withoutTokens(), withCredentials: true });
+      return this.http.get(`../assets/files/bloodgroup.json`, { headers: this.withoutTokens(), withCredentials: true });
     }
 
     checkKycOrJoiningForm() {

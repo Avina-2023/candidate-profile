@@ -484,6 +484,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       
       
     } catch (e) {
+      debugger
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -565,9 +566,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_right_eye_power_glass]: this.personalDetails[this.form_right_eye_power_glass]
     });
     this.profilePicture = {
-      file_path: this.personalDetails.profile_image[this.form_file_path],
+      file_path: this.personalDetails.profileImage,
     };
-    this.profilePictureFormControl.setValue(this.personalDetails.profile_image[this.form_file_path]);
+    this.profilePictureFormControl.setValue(this.personalDetails.profileImage);
     this.patchLanguageForm();
     this.checkIsMarried();
   }
