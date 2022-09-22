@@ -299,7 +299,7 @@ export class CandidateMappersService {
     }
 
     saveFormtoLocalDetails(formName, data) {
-      let profile = this.getLocalProfileData();
+      let profile = this.getLocalProfileData()?this.getLocalProfileData():{};
       profile[formName] = data;
       let saveasJson = JSON.stringify(profile);
       this.appConfig.setLocalData('profileData', saveasJson);

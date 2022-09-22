@@ -13,6 +13,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
+import { SkillexService } from 'src/app/service/skillex.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -90,6 +91,7 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
     // private adminService: AdminServiceService,
+    private skillexService:SkillexService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
     private fb: FormBuilder,
@@ -193,6 +195,7 @@ dateConvertion(date) {
 
   formSubmit(routeValue?: any) {
     if(this.dependentForm.valid) {
+      let dependentobj:any;
       let formArray = this.dependentForm.getRawValue()[this.form_dependentArray];
       formArray.forEach(element => {
         if (element[this.form_dependent_dob]) {
@@ -200,13 +203,13 @@ dateConvertion(date) {
         }
       });
       const DependentApiRequestDetails = {
-        form_name: "joining",
+        email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "dependent_details",
-        saving_data: formArray
+        saving_data: dependentobj.dependent_details = formArray
       }
-     this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(DependentApiRequestDetails).subscribe((data: any)=> {
-        this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
-        this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
+     this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(DependentApiRequestDetails).subscribe((data: any)=> {
+        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Dependent details is updated');
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
