@@ -508,9 +508,10 @@ validSelectedPost() {
       }
     });
   // }
-    if (this.educationForm.valid && this.selectedPost) {
-      let entryValid = this.validSelectedPost();
-      if (entryValid.valid) {
+  debugger
+    if (this.educationForm.valid ) {
+      // let entryValid = this.validSelectedPost();
+      // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
         const EducationApiRequestDetails = {
           form_name: "joining",
@@ -521,16 +522,16 @@ validSelectedPost() {
             educations: formArray
           }
         };
-      //  this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(EducationApiRequestDetails).subscribe((data: any)=> {
-      //   this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
-      //   this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
-      //   this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
-      //   this.sharedService.joiningFormStepperStatus.next();
-      //   return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
-      // });
-      } else {
-        this.appConfig.nzNotification('error', 'Not Submitted', entryValid?.value?.label == 'gct' ? '12th or Diploma and Undergraduate are mandatory' : entryValid?.value?.label == 'pgct' ? '12th or Diploma, Undergraduate and Postgraduate are mandatory' : entryValid?.value?.label == 'det' ? 'Diploma is mandatory' : 'CA or IGWA or CS is mandatory');
-      }
+       this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(EducationApiRequestDetails).subscribe((data: any)=> {
+        this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
+        this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
+        this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
+        this.sharedService.joiningFormStepperStatus.next();
+        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
+      });
+      // } else {
+      //   this.appConfig.nzNotification('error', 'Not Submitted', entryValid?.value?.label == 'gct' ? '12th or Diploma and Undergraduate are mandatory' : entryValid?.value?.label == 'pgct' ? '12th or Diploma, Undergraduate and Postgraduate are mandatory' : entryValid?.value?.label == 'det' ? 'Diploma is mandatory' : 'CA or IGWA or CS is mandatory');
+      // }
     } else {
       this.ngAfterViewInit();
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');

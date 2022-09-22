@@ -245,7 +245,7 @@ dateConvertion(date) {
       if (route == 'contact') {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
       } else {
-        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().dependent_details == '1') {
+        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().dependent_details) {
           return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
         } else {
          if (this.dependentForm.valid) {

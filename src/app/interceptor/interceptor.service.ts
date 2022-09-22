@@ -35,11 +35,7 @@ export class InterceptorService implements HttpInterceptor {
       // id = 'RNpS7aki0COQm6WEg9WE8VWiopu9rF5oQank2AdWyM3UKr62WUu9l1R1BfaO9';
       token = 'Bearer aqSkKT6qguVyANMPtR6qqWaiCLUTRNpS7aki0COQm6WEg9WE8VWiopu9rF5oQank2AdWyM3UKr62WUu9l1R1BfaO9CzM16Vi89ecAX6ADPfhGBzpAEXze1do0SqtMkdQ5oGqFqtXphoc4DZL4hb6wRdg09RWzEJcnYJLtvska9HfvQiywtu1LZvDt1AD104ypzLaIRV6dGtKWHrhYgxVn7D3Q9mkTS3oejbVX8z81RwN3Ely6g59t5RRU88BVJiv'
     }
-    let heads = {
-        headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type':'application/json'
-        })}
+    let heads = {}
     if(request.url.includes(environment.SKILLEX_BASE_URL)){
       heads = {
         headers: new HttpHeaders({

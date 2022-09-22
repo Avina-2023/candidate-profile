@@ -235,7 +235,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
       if (route == 'personal') {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PERSONAL);
       } else {
-        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().contact_details == '1') {
+        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().contact_details) {
           return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
         } else {
          if (this.contactForm.valid) {
