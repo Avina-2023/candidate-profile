@@ -484,7 +484,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       
       
     } catch (e) {
-      debugger
+      console.log("error while profile pic"+e)
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
