@@ -195,17 +195,18 @@ dateConvertion(date) {
 
   formSubmit(routeValue?: any) {
     if(this.dependentForm.valid) {
-      let dependentobj:any;
+      let dependentobj:any = {};
       let formArray = this.dependentForm.getRawValue()[this.form_dependentArray];
       formArray.forEach(element => {
         if (element[this.form_dependent_dob]) {
           element[this.form_dependent_dob] = element[this.form_dependent_dob];
         }
       });
+      dependentobj.dependent_details = formArray
       const DependentApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "dependent_details",
-        saving_data: dependentobj.dependent_details = formArray
+        saving_data: dependentobj
       }
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(DependentApiRequestDetails).subscribe((data: any)=> {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);

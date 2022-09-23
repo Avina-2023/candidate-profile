@@ -12,6 +12,7 @@ import { RemoveWhitespace } from 'src/app/custom-form-validators/removewhitespac
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
+import { SkillexService } from 'src/app/service/skillex.service';
 // import { AdminServiceService } from 'src/app/services/admin-service.service';
 
 
@@ -149,6 +150,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
     // private adminService: AdminServiceService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
+    private skillexService:SkillexService,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService
   ) {
@@ -682,18 +684,18 @@ addToTrainingArray() {
         [this.form_ca_achivement]: this.workDetailsForm.getRawValue()[this.form_ca_achivement],
         [this.form_is_ca_resaon_suitable]: this.workDetailsForm.getRawValue()[this.form_is_ca_resaon_suitable],
         skills,
-        relatives_in_company: this.workDetailsForm.getRawValue()[this.form_Relatives_Array],
-        faculty_references
+        // relatives_in_company: this.workDetailsForm.getRawValue()[this.form_Relatives_Array],
+        // faculty_references
       };
       const WorkExperienceApiRequestDetails = {
-        form_name: "joining",
+        email:  this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "experience_details",
         saving_data: apiData
       }
 
-     this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(WorkExperienceApiRequestDetails).subscribe((data: any) => {
-        this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
-        this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
+     this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(WorkExperienceApiRequestDetails).subscribe((data: any) => {
+        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Work Experience details is updated');
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);

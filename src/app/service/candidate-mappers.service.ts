@@ -96,7 +96,7 @@ export class CandidateMappersService {
 
   withoutTokens(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*.lntedutech.com',
+      'Access-Control-Allow-Origin': '*',
     })
     .set('custCode', '15691')
     .set('driveId', '2')
@@ -180,7 +180,7 @@ export class CandidateMappersService {
   }
 
   updatedCity(Id) {
-    return this.http.post(`${this.BASE_URL}/api/city_api`, Id, { headers: this.withoutTokens(), withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/api/city_api`, Id, { headers: this.withoutTokens()});
   }
 
   assessmentList(user) {
@@ -217,18 +217,18 @@ export class CandidateMappersService {
 
   // education
   getEducationList() {
-    return this.http.get(`${this.BASE_URL}/api/education?_format=json`, { headers: this.withoutTokens(), withCredentials: true });
+    return this.http.get(`${this.BASE_URL}/api/education?_format=json`, { headers: this.withoutTokens() });
   }
 
 
   // education
   getAllEducationFormDropdownList(param) {
-    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens(), withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens()});
   }
 
   // education
   getDiplomaList(param) {
-    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens(), withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens()});
   }
 
   // education
