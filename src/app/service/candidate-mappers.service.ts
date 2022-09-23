@@ -224,12 +224,12 @@ export class CandidateMappersService {
 
   // education
   getAllEducationFormDropdownList(param) {
-    return this.http.post(`../assets/files/colleges.json`, param, { headers: this.withoutTokens()});
+    return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
   }
 
   // education
   getDiplomaList(param) {
-    return this.http.post(`../assets/files/colleges.json`, param, { headers: this.withoutTokens()});
+    return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
   }
 
   // education
