@@ -1,0 +1,2019 @@
+{
+  "diploma_colleges": [
+    { "id": "272", "college_name": "" },
+    { "id": "1", "college_name": "A. V. Parekh Technical Institute, Rajkot" },
+    { "id": "2", "college_name": "Acharya Jagadish Chandra Bose Polytechnic" },
+    {
+      "id": "221",
+      "college_name": "Acharya Prafulla Chandra Roy Polytechnic, Jadavpur"
+    },
+    {
+      "id": "3",
+      "college_name": "Aditya Institute of Technology and Management,Tekkali"
+    },
+    { "id": "5", "college_name": "AL-Kabir Polytechnic College, Jamshedpur" },
+    {
+      "id": "4",
+      "college_name": "Aligarh Muslim University - Aligarh \u00c2\u00a0- Uttar Pradesh"
+    },
+    {
+      "id": "6",
+      "college_name": "Allahabad College of Engineering and Management"
+    },
+    { "id": "275", "college_name": "Anna University" },
+    { "id": "277", "college_name": "Anna university campus" },
+    { "id": "7", "college_name": "Apc Ray Polytechnic" },
+    { "id": "8", "college_name": "Aryabhatta Polytechnic - Delhi" },
+    {
+      "id": "9",
+      "college_name": "Atmiya Institute of Diploma Studies, Rajkot"
+    },
+    {
+      "id": "10",
+      "college_name": "B And B Institute Of Technology - Government, V V Nagar"
+    },
+    { "id": "237", "college_name": "Bhubannanda Orissa School Of Engineering" },
+    {
+      "id": "11",
+      "college_name": "Bipradas Pal Chowdhury Institute of Technology(BPC)"
+    },
+    { "id": "12", "college_name": "Birla Institute of Technology" },
+    {
+      "id": "14",
+      "college_name": "C.U. Shah Polytechnic\u00c2\u00a0 Surendranagar - Gujarat"
+    },
+    { "id": "15", "college_name": "Central Calcutta Polytechnic College" },
+    {
+      "id": "17",
+      "college_name": "Chandigarh Polytechnic College (CPC)/Chandigarh University"
+    },
+    { "id": "19", "college_name": "Chotu Ram Polytechnic" },
+    { "id": "21", "college_name": "Contai Polytechnic College" },
+    { "id": "22", "college_name": "Cooch Behar Polytechnic" },
+    { "id": "222", "college_name": "CT Polytechnic,Jalandhar" },
+    { "id": "23", "college_name": "Cusrow Wadia Institute of Technology" },
+    { "id": "265", "college_name": "d\u0026d college" },
+    { "id": "24", "college_name": "Datta Meghe Polytechnic, Nagpur" },
+    { "id": "263", "college_name": "dfgdf" },
+    { "id": "264", "college_name": "dip\u0027s college" },
+    { "id": "273", "college_name": "DiplomaCollege1" },
+    { "id": "26", "college_name": "Dr. B C Roy Engineering College, Durgapur" },
+    {
+      "id": "28",
+      "college_name": "Dr. S \u0026 S S Gandhy College Of Engg.\u0026 Tech. - Surat - Gujarat"
+    },
+    {
+      "id": "29",
+      "college_name": "Engineering Institute for Junior Executives"
+    },
+    { "id": "30", "college_name": "ESC Government Polytechnic, Nandyal" },
+    { "id": "31", "college_name": "Falakata Polytechnic" },
+    { "id": "32", "college_name": "GLA University, Mathura" },
+    {
+      "id": "33",
+      "college_name": "Global Institute of Science \u0026 Technology, Haldia"
+    },
+    { "id": "34", "college_name": "Gmb Polytechnic, Amreli" },
+    {
+      "id": "35",
+      "college_name": "Goel Institute of Technology \u0026 Management"
+    },
+    { "id": "36", "college_name": "Government  Polytechnic College , Ambad" },
+    {
+      "id": "38",
+      "college_name": "Government Dr. B.R. Ambedkar Polytechnic College - Gwalior - \u00c2\u00a0Madhya Pradesh"
+    },
+    {
+      "id": "48",
+      "college_name": "Government Polytechnic - Jhansi - Uttar Pradesh"
+    },
+    {
+      "id": "54",
+      "college_name": "Government Polytechnic - Porbandar -Gujarat"
+    },
+    {
+      "id": "55",
+      "college_name": "Government Polytechnic - Rajkot\u00c2\u00a0 - Gujarat"
+    },
+    {
+      "id": "62",
+      "college_name": "Government Polytechnic College - Ashok Nagar - Madhya Pradesh"
+    },
+    {
+      "id": "80",
+      "college_name": "Government Polytechnic College Perumbavoor"
+    },
+    {
+      "id": "134",
+      "college_name": "Government Polytechnic College Thuvakudimalai,Trichy"
+    },
+    {
+      "id": "116",
+      "college_name": "Government Polytechnic College, Adityapur"
+    },
+    {
+      "id": "117",
+      "college_name": "Government Polytechnic College, Ahmedabad"
+    },
+    {
+      "id": "118",
+      "college_name": "Government Polytechnic College, Ahmednagar"
+    },
+    { "id": "69", "college_name": "Government Polytechnic College, Ajmer" },
+    { "id": "176", "college_name": "Government Polytechnic College, Alwar" },
+    { "id": "82", "college_name": "Government Polytechnic College, Amristar" },
+    { "id": "59", "college_name": "Government Polytechnic College, Anantapur" },
+    { "id": "243", "college_name": "Government Polytechnic College, Angul" },
+    { "id": "223", "college_name": "Government Polytechnic College, Arvi" },
+    {
+      "id": "119",
+      "college_name": "Government Polytechnic College, Aurangabad"
+    },
+    {
+      "id": "224",
+      "college_name": "Government Polytechnic College, Awasari (Khurd)"
+    },
+    {
+      "id": "63",
+      "college_name": "Government Polytechnic College, Baharagora"
+    },
+    { "id": "225", "college_name": "Government Polytechnic College, Balaghat" },
+    { "id": "238", "college_name": "Government Polytechnic College, Balasore" },
+    { "id": "61", "college_name": "Government Polytechnic College, Beed" },
+    { "id": "70", "college_name": "Government Polytechnic College, Betul" },
+    {
+      "id": "239",
+      "college_name": "Government Polytechnic College, Bhubaneswar"
+    },
+    { "id": "83", "college_name": "Government Polytechnic College, Bikaner" },
+    { "id": "244", "college_name": "Government Polytechnic College, Bolangir" },
+    {
+      "id": "39",
+      "college_name": "Government Polytechnic College, Bramhapuri"
+    },
+    {
+      "id": "37",
+      "college_name": "Government Polytechnic College, Chelakkara"
+    },
+    { "id": "146", "college_name": "Government Polytechnic College, Dhanbad" },
+    { "id": "57", "college_name": "Government Polytechnic College, Dhule" },
+    { "id": "91", "college_name": "Government Polytechnic College, Fatehpur" },
+    {
+      "id": "44",
+      "college_name": "Government Polytechnic College, Gadchiroli"
+    },
+    { "id": "94", "college_name": "Government Polytechnic College, Ghatampur" },
+    { "id": "45", "college_name": "Government Polytechnic College, Gondia" },
+    { "id": "85", "college_name": "Government Polytechnic College, Harda" },
+    { "id": "95", "college_name": "Government Polytechnic College, Jalgaon" },
+    { "id": "96", "college_name": "Government Polytechnic College, Jalna" },
+    { "id": "97", "college_name": "Government Polytechnic College, Jamnagar" },
+    { "id": "98", "college_name": "Government Polytechnic College, Jintur" },
+    { "id": "66", "college_name": "Government Polytechnic College, Jodhpur" },
+    {
+      "id": "71",
+      "college_name": "Government Polytechnic College, Kalamassery"
+    },
+    {
+      "id": "245",
+      "college_name": "Government Polytechnic College, Kandhamal"
+    },
+    { "id": "67", "college_name": "Government Polytechnic College, Kannur" },
+    { "id": "145", "college_name": "Government Polytechnic College, Kanpur" },
+    { "id": "128", "college_name": "Government Polytechnic College, Karad" },
+    { "id": "72", "college_name": "Government Polytechnic College, Kasaragod" },
+    {
+      "id": "226",
+      "college_name": "Government Polytechnic College, Khirsadoh"
+    },
+    { "id": "100", "college_name": "Government Polytechnic College, Kolhapur" },
+    { "id": "89", "college_name": "Government Polytechnic College, Kota" },
+    {
+      "id": "74",
+      "college_name": "Government Polytechnic College, Kothamangalam"
+    },
+    { "id": "87", "college_name": "Government Polytechnic College, Kottayam" },
+    { "id": "101", "college_name": "Government Polytechnic College, Lucknow" },
+    { "id": "102", "college_name": "Government polytechnic College, Malvan" },
+    { "id": "75", "college_name": "Government Polytechnic College, Mattannur" },
+    {
+      "id": "76",
+      "college_name": "Government polytechnic college, Meenangadi"
+    },
+    { "id": "103", "college_name": "Government Polytechnic College, Mirzapur" },
+    { "id": "77", "college_name": "Government Polytechnic College, Muttom" },
+    { "id": "50", "college_name": "Government Polytechnic College, Nagpur" },
+    { "id": "42", "college_name": "Government Polytechnic College, Nanded" },
+    {
+      "id": "104",
+      "college_name": "Government polytechnic College, Nandurbar"
+    },
+    { "id": "105", "college_name": "Government Polytechnic College, Nashik" },
+    {
+      "id": "227",
+      "college_name": "Government Polytechnic College, Nasrullah Ganj"
+    },
+    { "id": "78", "college_name": "Government Polytechnic College, Nowgong" },
+    {
+      "id": "228",
+      "college_name": "Government Polytechnic College, Osmanabad"
+    },
+    { "id": "90", "college_name": "Government Polytechnic College, Palakkad" },
+    { "id": "106", "college_name": "Government Polytechnic College, Palanpur" },
+    { "id": "107", "college_name": "Government Polytechnic College, Pen" },
+    {
+      "id": "79",
+      "college_name": "Government Polytechnic College, Perinthalmanna"
+    },
+    { "id": "132", "college_name": "Government Polytechnic College, Pune" },
+    { "id": "108", "college_name": "Government Polytechnic College, Ranchi" },
+    {
+      "id": "133",
+      "college_name": "Government Polytechnic College, Ratnagiri"
+    },
+    { "id": "56", "college_name": "Government Polytechnic College, Sakoli" },
+    {
+      "id": "240",
+      "college_name": "Government Polytechnic College, Sambalpur"
+    },
+    { "id": "144", "college_name": "Government Polytechnic College, Seoni" },
+    { "id": "109", "college_name": "Government Polytechnic College, Solapur" },
+    {
+      "id": "110",
+      "college_name": "Government Polytechnic College, Srikakulam"
+    },
+    { "id": "88", "college_name": "Government Polytechnic College, Tuticorin" },
+    { "id": "229", "college_name": "Government Polytechnic College, Umaria" },
+    {
+      "id": "68",
+      "college_name": "Government Polytechnic College, Valangaiman"
+    },
+    {
+      "id": "112",
+      "college_name": "Government Polytechnic College, Vijayawada"
+    },
+    {
+      "id": "113",
+      "college_name": "Government Polytechnic College, Visakhapatnam"
+    },
+    {
+      "id": "92",
+      "college_name": "Government Polytechnic For Girls, Ahmedabad"
+    },
+    { "id": "93", "college_name": "Government Polytechnic For Girls, Surat" },
+    {
+      "id": "99",
+      "college_name": "Government Polytechnic Kashipur - Uttarankhand"
+    },
+    { "id": "195", "college_name": "Government Polytechnic Siliguri" },
+    { "id": "127", "college_name": "Government Polytechnic, Godhra" },
+    { "id": "73", "college_name": "Government Polytechnic, Khurai" },
+    { "id": "230", "college_name": "Government Polytechnic, Mumbai" },
+    { "id": "231", "college_name": "Government Polytechnic, Nainital" },
+    { "id": "232", "college_name": "Government Polytechnic, Shahdol" },
+    { "id": "136", "college_name": "Government Polytechnic, Vyara" },
+    {
+      "id": "115",
+      "college_name": "Government Polytechnic\u00c2\u00a0 - Junagadh - Gujarat"
+    },
+    {
+      "id": "137",
+      "college_name": "Government RamChandra Khaitan Polytechnic College, Jaipur"
+    },
+    {
+      "id": "138",
+      "college_name": "Government. Polytechnic - Valsad - Gujarat"
+    },
+    {
+      "id": "139",
+      "college_name": "Government. Polytechnic -\u00c2\u00a0 Himatnagar - Gujarat"
+    },
+    { "id": "142", "college_name": "Govind Ballabh Pant Polytechnic - Delhi" },
+    { "id": "143", "college_name": "Govt Polytechnic - Sirsa - Haryana" },
+    { "id": "147", "college_name": "Hewett Polytechnic College, Lucknow" },
+    { "id": "148", "college_name": "Hooghly Institute of Technology" },
+    {
+      "id": "149",
+      "college_name": "Institute of Engineering and Rural Technology, Allahabad"
+    },
+    { "id": "150", "college_name": "Jalpaiguri Polytechnic Institute" },
+    { "id": "151", "college_name": "Jamia Millia Polytechnic -Delhi" },
+    { "id": "152", "college_name": "Jnan Chandra Ghosh Polytechnic" },
+    { "id": "153", "college_name": "K. G. Engineering Institute" },
+    { "id": "154", "college_name": "K.J. Polytechnic - Bharuch - Gujarat" },
+    { "id": "155", "college_name": "K.K.Polytechnic College, Dhanbad" },
+    { "id": "156", "college_name": "Kalaniketan polytechnic College Jabalpur" },
+    {
+      "id": "233",
+      "college_name": "Kalinga Institute of Industrial Technology (KIIT) Polytechnic College,Bhubaneswar"
+    },
+    { "id": "276", "college_name": "Kamaraj College" },
+    { "id": "158", "college_name": "Kiit Polytechnic" },
+    {
+      "id": "159",
+      "college_name": "Kilachand.Devchand. Polytechnic - Patan -\u00c2\u00a0 - Gujarat"
+    },
+    { "id": "253", "college_name": "KLN" },
+    { "id": "259", "college_name": "KLNPC" },
+    {
+      "id": "160",
+      "college_name": "Lakshmi Ammal Polytechnic College, Kovilpatti"
+    },
+    { "id": "162", "college_name": "Lucknow Polytechnic College" },
+    { "id": "164", "college_name": "M S University, Vadodara" },
+    { "id": "165", "college_name": "Maharajas Technological Institute" },
+    { "id": "167", "college_name": "Malda Polytechnic" },
+    { "id": "248", "college_name": "MAVMM" },
+    {
+      "id": "168",
+      "college_name": "MBC Institute of Engineering \u0026 Technology, Burdwan"
+    },
+    {
+      "id": "169",
+      "college_name": "MEHR Chand Polytechnic College, Jalandhar"
+    },
+    { "id": "170", "college_name": "Murshidabad Institute of Technology" },
+    {
+      "id": "171",
+      "college_name": "MVGM Govt. Polytechnic College Vennikulam"
+    },
+    { "id": "172", "college_name": "Nilachal  Polytechnic College" },
+    { "id": "173", "college_name": "North Calcutta Polytechnic College" },
+    {
+      "id": "241",
+      "college_name": "Orissa School of Mining Engineering, Keonjhar"
+    },
+    {
+      "id": "174",
+      "college_name": "P.T.Lee Chengalvaraya Naicker Polytechnic College, Chennai"
+    },
+    { "id": "175", "college_name": "Parul Polytechnic Institute, Waghodia" },
+    { "id": "177", "college_name": "PSG Polytechnic College, Coimbatore" },
+    { "id": "270", "college_name": "PSNA College of Engg \u0026 Tech" },
+    {
+      "id": "268",
+      "college_name": "PSNA College of Engineering \u0026 Techology"
+    },
+    {
+      "id": "178",
+      "college_name": "Puranmal Lahoti Government Polytechnic College, Latur"
+    },
+    { "id": "179", "college_name": "Purulia Polytechnic College" },
+    { "id": "180", "college_name": "Pusa Polytechnic \u00c2\u00a0- Delhi" },
+    { "id": "181", "college_name": "R C Technical Institute, Ahmedabad" },
+    {
+      "id": "234",
+      "college_name": "Rajganj Government Polytechnic, Jalpaiguri"
+    },
+    {
+      "id": "235",
+      "college_name": "Rajiv Gandhi Prodyogiki Vishvidyalay (RGPV), Bhopal"
+    },
+    {
+      "id": "182",
+      "college_name": "Ramakrisha Mission Suri,Sree Ramkrishna Silpa Vidyapith"
+    },
+    {
+      "id": "236",
+      "college_name": "Ramakrishna Mission Polytechnic College, Chennai"
+    },
+    { "id": "183", "college_name": "Ramakrishna Mission Shilpamandira" },
+    {
+      "id": "184",
+      "college_name": "Ramakrishna Mission Shilpapitha, Belgharia, Kolkata-56."
+    },
+    {
+      "id": "186",
+      "college_name": "Regent Institute of Science and Technology"
+    },
+    {
+      "id": "188",
+      "college_name": "S.K.D.A.V. Government Polytechnic College, Rourkela"
+    },
+    {
+      "id": "187",
+      "college_name": "S.V Government Polytechnic College, BHOPAL"
+    },
+    { "id": "189", "college_name": "Sakthi Polytechnic College" },
+    {
+      "id": "190",
+      "college_name": "Samrat Ashok Technological Institute Polytechnic College"
+    },
+    { "id": "191", "college_name": "Sankar Polytechnic College" },
+    { "id": "269", "college_name": "Seshasayee Insititute of Technology" },
+    { "id": "192", "college_name": "Seshasayee Institute of Technology" },
+    {
+      "id": "193",
+      "college_name": "Sevdie Institute of Management \u0026 Technology, Lucknow"
+    },
+    { "id": "261", "college_name": "Sir Bhavsinhji polytechnic institute" },
+    {
+      "id": "196",
+      "college_name": "Sir Bhavsinhji Polytechnic Institute,Bhavnagar"
+    },
+    { "id": "278", "college_name": "Some clg" },
+    { "id": "197", "college_name": "Sreerama Government Polytechnic College" },
+    {
+      "id": "198",
+      "college_name": "Sri Mullapudi Venkataraya Memorial Polytechnic(SMVM), Tanaku"
+    },
+    {
+      "id": "199",
+      "college_name": "Sri Ramakrishna Mission Vidyalaya Polytechnic College, Coimbatore"
+    },
+    { "id": "200", "college_name": "Sri Venkateswara Polytechnic" },
+    { "id": "201", "college_name": "Srinivasa Subbaraya Polytechnic College" },
+    { "id": "274", "college_name": "SSN College" },
+    {
+      "id": "202",
+      "college_name": "St Aloysius Institute of Technology, abalpur"
+    },
+    {
+      "id": "203",
+      "college_name": "Tamilnadu Government Polytechnic College, Madurai"
+    },
+    { "id": "204", "college_name": "Technique Polytechnic Institute, Hoogly" },
+    { "id": "206", "college_name": "Thapar Polytechnic College" },
+    { "id": "207", "college_name": "The Calcutta Technical School" },
+    {
+      "id": "208",
+      "college_name": "The New Horizons Institute of Technology, Durgapur"
+    },
+    { "id": "209", "college_name": "Thiagarajar Polytechnic College" },
+    { "id": "254", "college_name": "TNPC" },
+    { "id": "266", "college_name": "tnpc madurai" },
+    { "id": "255", "college_name": "TNPLC" },
+    { "id": "260", "college_name": "TNPLC1" },
+    { "id": "242", "college_name": "Uma CharanPatnaik Engineering School" },
+    {
+      "id": "211",
+      "college_name": "Utkalmani Gopabandhu Institute of Engineering, Rourkela"
+    },
+    { "id": "213", "college_name": "VALIVALAM DESIKAR POLYTECHNIC COLLEGE" },
+    { "id": "262", "college_name": "vbnvbn" },
+    { "id": "214", "college_name": "VDF School of Polytechnic, Latur" },
+    {
+      "id": "215",
+      "college_name": "Veermata Jijabai Technological Institute, Mumbai"
+    },
+    {
+      "id": "216",
+      "college_name": "Vidya Bhawan Polytechnic College, Udaipur"
+    },
+    {
+      "id": "218",
+      "college_name": "Virudhunagar S.Vellaichamy Nadar Polytechnic College"
+    },
+    { "id": "219", "college_name": "VPMP POLYTECHNIC" },
+    {
+      "id": "220",
+      "college_name": "WEST BENGAL SURVEY INSTITUTE - WEST BENGAL"
+    }
+  ],
+  "ug_pg_colleges": [
+    { "id": "5", "college_name": "A. P. Shah Institute Of Technology" },
+    { "id": "588", "college_name": "aayira vaisyar polytechnic college" },
+    {
+      "id": "6",
+      "college_name": "Academy Of Technology, Adisaptagram, Hooghly"
+    },
+    { "id": "7", "college_name": "Acharya Institute Of Technology" },
+    { "id": "635", "college_name": "adad" },
+    {
+      "id": "8",
+      "college_name": "Adhiparasakthi Engineering College, Melmaruvathur"
+    },
+    { "id": "9", "college_name": "Adhiyamaan College Of Engineering" },
+    {
+      "id": "10",
+      "college_name": "Adithya Institute Of Technology, Coimbatore"
+    },
+    { "id": "11", "college_name": "Aditya Engineering College" },
+    { "id": "12", "college_name": "Aditya Group Of Colleges" },
+    { "id": "13", "college_name": "Aditya Group Of Educational Institutions" },
+    {
+      "id": "584",
+      "college_name": "Aditya silver oak institute of technology"
+    },
+    { "id": "14", "college_name": "Agni College Of Technology" },
+    {
+      "id": "15",
+      "college_name": "Akshaya College Of Engineering And Technology"
+    },
+    {
+      "id": "16",
+      "college_name": "Aldel Education Trust\u0027S St. John College Of Engineering \u0026 Management, Vevoor, Palghar"
+    },
+    { "id": "17", "college_name": "Aliah University, New Town" },
+    {
+      "id": "18",
+      "college_name": "Aligarh Muslim University - Aligarh - Uttar Pradesh"
+    },
+    {
+      "id": "19",
+      "college_name": "All India Shri Shivaji Memorial Society\u0027S College Of Engineering, Pune"
+    },
+    {
+      "id": "20",
+      "college_name": "All India Shri Shivaji Memorial Society\u0027S Institute Of Information Technology,Pune"
+    },
+    { "id": "21", "college_name": "Alpha College Of Engineering" },
+    {
+      "id": "22",
+      "college_name": "Alva`S Institute Of Engineering And Technology, Moodbidri"
+    },
+    { "id": "23", "college_name": "Am Jain College" },
+    { "id": "24", "college_name": "Amc Engineering College" },
+    { "id": "25", "college_name": "Amity University, Jaipur" },
+    { "id": "26", "college_name": "Amrita Vishwa Vidyapeetham University" },
+    {
+      "id": "27",
+      "college_name": "Amrutvahini College Of Engineering, Sangamner"
+    },
+    { "id": "28", "college_name": "Anand Institute Of Higher Technology" },
+    { "id": "29", "college_name": "Andhra Loyola College" },
+    { "id": "30", "college_name": "Andhra University College Of Engineering" },
+    {
+      "id": "31",
+      "college_name": "Angadi Institute Of Technology And Management"
+    },
+    { "id": "644", "college_name": "Anjalamai" },
+    {
+      "id": "32",
+      "college_name": "Anjuman-I-Islam\u0027S Kalsekar Technical Campus"
+    },
+    {
+      "id": "33",
+      "college_name": "Ankush Shikshan Sanstha\u0027S G.H.Raisoni College Of Engineering, Nagpur"
+    },
+    { "id": "640", "college_name": "Anna University" },
+    { "id": "34", "college_name": "Annamalai University" },
+    {
+      "id": "35",
+      "college_name": "Annasaheb Dange College Of Engineering And Technology, Ashta, Sangli"
+    },
+    { "id": "36", "college_name": "Anurag Group Of Institutions" },
+    { "id": "37", "college_name": "Aps College Of Engineering" },
+    { "id": "38", "college_name": "Army Institute Of Technology" },
+    {
+      "id": "39",
+      "college_name": "Arya College Of Engineering \u0026 Information Technology, Jaipur"
+    },
+    {
+      "id": "40",
+      "college_name": "Arya Institute Of Engineering \u0026 Technology, Jaipur"
+    },
+    {
+      "id": "41",
+      "college_name": "Asansol Engineering College, Asansol, Burdwan"
+    },
+    {
+      "id": "42",
+      "college_name": "Atal Bihari Vajpayee Indian Institute Of Information Technology- Gwalior"
+    },
+    {
+      "id": "43",
+      "college_name": "Atharva College Of Engineering (Ace), Malad, Mumbai"
+    },
+    { "id": "44", "college_name": "Atmaram Sanatan College" },
+    { "id": "45", "college_name": "Atria Institute Of Technology" },
+    { "id": "46", "college_name": "Avc College" },
+    { "id": "47", "college_name": "B.M.S. College Of Engineering" },
+    { "id": "48", "college_name": "B.N.M Institute Of Technology (Bnmit)" },
+    {
+      "id": "49",
+      "college_name": "B.P. Poddar Institute Of Management \u0026 Technology, Kolkata"
+    },
+    {
+      "id": "50",
+      "college_name": "B.S. A. Crescent Institute Of Science \u0026 Technology"
+    },
+    { "id": "51", "college_name": "B.V. Raju Institute Of Technology" },
+    { "id": "52", "college_name": "Babaria Institute Of Technology, Vadodara" },
+    { "id": "53", "college_name": "Bangalore Institute Of Technology" },
+    {
+      "id": "54",
+      "college_name": "Bannari Amman Institute Of Technology, Erode"
+    },
+    {
+      "id": "55",
+      "college_name": "Bapuji Institute Of Engineering \u0026 Technology"
+    },
+    {
+      "id": "56",
+      "college_name": "Bharath Institute Of Higher Education And Research"
+    },
+    {
+      "id": "57",
+      "college_name": "Bharati Vidyapeeth\u0027S College Of Engineering For Women, Katraj, Dhankawadi, Pune"
+    },
+    {
+      "id": "58",
+      "college_name": "Bharati Vidyapeeth\u0027S College Of Engineering, Mumbai"
+    },
+    {
+      "id": "59",
+      "college_name": "Bharati Vidyapeeth\u0027S College Of Engineering,Lavale, Pune"
+    },
+    {
+      "id": "60",
+      "college_name": "Bheemanna Khandre Institute Of Technology( Formerly Rec), Karnataka"
+    },
+    {
+      "id": "61",
+      "college_name": "Birla Institute Of Technology \u0026 Science, Pilani - Hyderabad"
+    },
+    {
+      "id": "62",
+      "college_name": "Birla Institute Of Technology And Science, Pilani"
+    },
+    {
+      "id": "63",
+      "college_name": "Birla Institute Of Technology And Science, Pilani \u00e2\u20ac\u201c Goa"
+    },
+    { "id": "64", "college_name": "Birla Institute Of Technology, Mesra" },
+    {
+      "id": "65",
+      "college_name": "Birla Vishvakarma Mahavidyalaya Engineering College"
+    },
+    { "id": "66", "college_name": "Birsa Institute Of Technology, Sindri" },
+    { "id": "67", "college_name": "Bishop Heber College" },
+    {
+      "id": "587",
+      "college_name": "BK School of Professional and Management Studies"
+    },
+    { "id": "68", "college_name": "Bmsce, Bangalore" },
+    { "id": "69", "college_name": "Brindavan College Of Engineering" },
+    { "id": "70", "college_name": "Btl Institute Of Technology" },
+    {
+      "id": "71",
+      "college_name": "Bvrit Hyderabad College Of Engineering For Women"
+    },
+    {
+      "id": "72",
+      "college_name": "Calcutta Institute Of Engineering \u0026 Management"
+    },
+    { "id": "73", "college_name": "Cambridge Institute Of Technology" },
+    { "id": "74", "college_name": "Canara Engineering College, Mangalore" },
+    { "id": "75", "college_name": "Careers College" },
+    {
+      "id": "76",
+      "college_name": "Chaitanya Bharathi Institute Of Technology"
+    },
+    {
+      "id": "77",
+      "college_name": "Channabasaveshwara Institute Of Technology (Cit, Tumkur)"
+    },
+    { "id": "78", "college_name": "City Engineering College" },
+    {
+      "id": "79",
+      "college_name": "Cmr College Of Engineering \u0026 Technology"
+    },
+    { "id": "80", "college_name": "Cmrit College Of Engineering, Bangalore" },
+    {
+      "id": "81",
+      "college_name": "Cochin University Of Science And Technology"
+    },
+    {
+      "id": "82",
+      "college_name": "Coimbatore Institute Of Engineering And Technology"
+    },
+    { "id": "83", "college_name": "Coimbatore Institute Of Technology" },
+    { "id": "512", "college_name": "College Of Engineering, Aurangabad" },
+    {
+      "id": "84",
+      "college_name": "College Of Engineering, Guindy - Anna University"
+    },
+    { "id": "85", "college_name": "College Of Engineering, Pune" },
+    { "id": "605", "college_name": "college test" },
+    {
+      "id": "86",
+      "college_name": "Cooch Behar Government Engineering College, Cooch Behar"
+    },
+    { "id": "87", "college_name": "Coorg Institute Of Technology, Ponnampet" },
+    {
+      "id": "88",
+      "college_name": "Cummins College Of Engineering For Women, Sukhali (Gupchup), Tal. Hingna Hingna Nagpur"
+    },
+    { "id": "592", "college_name": "cvbcfghfg" },
+    { "id": "89", "college_name": "Cvr College Of Engineering" },
+    { "id": "513", "college_name": "D J Shangvi College of Engineering" },
+    {
+      "id": "90",
+      "college_name": "Datta Meghe College Of Engineering, Navi Mumbai"
+    },
+    {
+      "id": "91",
+      "college_name": "Dattajirao Kadam Technical Education Society\u0027S Textile \u0026 Engineering Institute, Ichalkaranji"
+    },
+    {
+      "id": "92",
+      "college_name": "Dattajirao Kadam Technology Education Society\u0027S Textile \u0026 Engineering Institute, Ichalkaranji"
+    },
+    { "id": "93", "college_name": "Daulat Ram College" },
+    { "id": "94", "college_name": "Dayal Singh College" },
+    { "id": "95", "college_name": "Dayananda Sagar College Of Engineering" },
+    { "id": "96", "college_name": "Deen Dayal Upadhyaya College" },
+    { "id": "97", "college_name": "Delhi College Of Arts \u0026 Commerce" },
+    { "id": "98", "college_name": "Delhi Technological University" },
+    {
+      "id": "99",
+      "college_name": "Department Of Technology, Shivaji University, Kolhapur"
+    },
+    { "id": "591", "college_name": "dfsdfsdfsdf sdf" },
+    { "id": "549", "college_name": "DG Vaishnava College, Chennai" },
+    { "id": "100", "college_name": "Dhanalakshmi College Of Engineering" },
+    { "id": "101", "college_name": "Dj Sanghvi, Mumbai" },
+    { "id": "102", "college_name": "Dmi College Of Engineering" },
+    {
+      "id": "103",
+      "college_name": "Don Bosco Institute Of Technology, Bangalore"
+    },
+    { "id": "514", "college_name": "Don Bosco Mumbai" },
+    { "id": "104", "college_name": "Dr. Ambedkar Institute Of Technology" },
+    {
+      "id": "105",
+      "college_name": "Dr. B. R. Ambedkar National Institute Of Technology, Jalandhar"
+    },
+    {
+      "id": "106",
+      "college_name": "Dr. Babasaheb Ambedkar Technological University, Lonere"
+    },
+    {
+      "id": "107",
+      "college_name": "Dr. D. Y. Patil Pratishthan\u0027S D.Y.Patil College Of Engineering Akurdi, Pune"
+    },
+    {
+      "id": "108",
+      "college_name": "Dr. D. Y. Patil School Of Engineering \u0026 Technology, Charholi(Bk), Via Lohgaon, Pune"
+    },
+    {
+      "id": "109",
+      "college_name": "Dr. D. Y. Patil School Of Engineering, Lohegaon, Pune"
+    },
+    {
+      "id": "110",
+      "college_name": "Dr. D.Y. Patil Vidya Pratishthan Society\u0027S, Dr. D.Y. Patil Institute Of Engineering \u0026 Technology, Pimpri"
+    },
+    {
+      "id": "111",
+      "college_name": "Dr. J. J. Magdum Charitable Trust\u0027S Dr. J.J. Magdum College Of Engineering, Jaysingpur"
+    },
+    { "id": "112", "college_name": "Dr. Ngp Arts And Science College" },
+    { "id": "113", "college_name": "Dr. T Thimaiah Institute Of Technology" },
+    {
+      "id": "114",
+      "college_name": "Dr.Mahalingam College Of Engineering And Technology"
+    },
+    { "id": "115", "college_name": "Dr.N.G.P. Institute Of Technology" },
+    { "id": "593", "college_name": "dsfsdf sdfsdf" },
+    {
+      "id": "116",
+      "college_name": "East Point College Of Engineering And Technology"
+    },
+    { "id": "117", "college_name": "East West Institute Of Technology" },
+    { "id": "118", "college_name": "Ethiraj College For Women" },
+    {
+      "id": "119",
+      "college_name": "Excelsior Education Society\u0027S K.C. College Of Engineering"
+    },
+    {
+      "id": "515",
+      "college_name": "Father Conceicao Rodrigues Institute of Technology, Vashi, Mumbai"
+    },
+    { "id": "120", "college_name": "Fr Agnel, Bandra" },
+    { "id": "121", "college_name": "Fr. Agnels, Vashi" },
+    {
+      "id": "122",
+      "college_name": "Future Institute Of Engineering \u0026 Management,Sonarpur"
+    },
+    {
+      "id": "580",
+      "college_name": "G H Patel College of engineering and technology, Vv Nagar"
+    },
+    {
+      "id": "123",
+      "college_name": "G.H. Raisoni Academy Of Engineering \u0026 Technology, Nagpur"
+    },
+    { "id": "124", "college_name": "G.H. Raisoni Group" },
+    {
+      "id": "125",
+      "college_name": "Gharda Foundation\u0027S Gharda Institute Of Technology,Khed, Ratnagiri"
+    },
+    {
+      "id": "126",
+      "college_name": "Gkm College Of Engineering And Technology"
+    },
+    { "id": "127", "college_name": "Gl Bajaj" },
+    { "id": "128", "college_name": "Global Academy Of Technology (Gat)" },
+    { "id": "129", "college_name": "Global Institute Of Technology, Jaipur" },
+    { "id": "130", "college_name": "Gmr" },
+    { "id": "131", "college_name": "Gmr Institute Of Technology, Rajam" },
+    {
+      "id": "132",
+      "college_name": "Godavari\u00c2\u00a0Institute Of Engineering And Technology"
+    },
+    {
+      "id": "133",
+      "college_name": "Gokaraju Rangaraju Institute Of Engineering And Technology"
+    },
+    {
+      "id": "134",
+      "college_name": "Gokhale Education Society\u0027S, R.H. Sapat College Of Engineering, Management Studies And Research, Nashik"
+    },
+    {
+      "id": "135",
+      "college_name": "Goswami Ganesh Dutta Sanatan Dharma College"
+    },
+    {
+      "id": "136",
+      "college_name": "Government College Of Engineering And Leather Technology, Kolkata"
+    },
+    {
+      "id": "137",
+      "college_name": "Government College Of Engineering, Amravati"
+    },
+    {
+      "id": "138",
+      "college_name": "Government College Of Engineering, Bargur"
+    },
+    {
+      "id": "139",
+      "college_name": "Government College Of Engineering, Jalgaon"
+    },
+    { "id": "140", "college_name": "Government College Of Engineering, Karad" },
+    { "id": "141", "college_name": "Government College Of Engineering, Salem" },
+    {
+      "id": "142",
+      "college_name": "Government College Of Technology, Coimbatore"
+    },
+    { "id": "586", "college_name": "Government engineering college Bhavnagar" },
+    { "id": "582", "college_name": "Government engineering college Rajkot" },
+    {
+      "id": "643",
+      "college_name": "Government Polytechnic College, Kandhamal"
+    },
+    {
+      "id": "143",
+      "college_name": "Govt. College Of Engineering \u0026 Ceramic Technology, Kolkata"
+    },
+    {
+      "id": "144",
+      "college_name": "Govt. College Of Engineering \u0026 Textile Technology, Serampore"
+    },
+    {
+      "id": "145",
+      "college_name": "Gsss Institute Of Engineering \u0026 Technology For Women, Mysore"
+    },
+    { "id": "146", "college_name": "Guru Dev Khalsa College" },
+    { "id": "147", "college_name": "Guru Nanak Institutions Technical Campus" },
+    { "id": "148", "college_name": "Haldia Institute Of Technology" },
+    { "id": "149", "college_name": "Harcourt Butler Technical University" },
+    {
+      "id": "150",
+      "college_name": "Heritage Institute Of Technology, Kolkata"
+    },
+    {
+      "id": "151",
+      "college_name": "Hindusthan College Of Engineering And Technology"
+    },
+    { "id": "152", "college_name": "Hindusthan Institute Of Technology" },
+    { "id": "153", "college_name": "Hirasugar Institute Of Technology" },
+    { "id": "154", "college_name": "Hkbk College Of Engineering" },
+    {
+      "id": "155",
+      "college_name": "Hope Foundation And Research Center\u0027S Finolex Academy Of Management And Technology, Ratnagiri"
+    },
+    { "id": "544", "college_name": "ICAI" },
+    { "id": "156", "college_name": "Iidt - Tirupati" },
+    { "id": "157", "college_name": "Iiit Hyderabad" },
+    {
+      "id": "158",
+      "college_name": "Indian Institute Of Engineering Science And Technology"
+    },
+    {
+      "id": "159",
+      "college_name": "Indian Institute Of Engineering Science And Technology, Shibpur"
+    },
+    {
+      "id": "160",
+      "college_name": "Indian Institute Of Information Technology, Chittoor"
+    },
+    {
+      "id": "161",
+      "college_name": "Indian Institute Of Information Technology, Una, Hp"
+    },
+    {
+      "id": "162",
+      "college_name": "Indian Institute Of Information Technology, Vadodara"
+    },
+    { "id": "517", "college_name": "Indian Institute of Petroleum, Vizag" },
+    { "id": "518", "college_name": "Indian Institute of Science, Bangalore" },
+    {
+      "id": "520",
+      "college_name": "Indian Institute of Technology (BHU), Varanasi"
+    },
+    {
+      "id": "519",
+      "college_name": "Indian Institute of Technology (ISM), Dhanbad"
+    },
+    { "id": "163", "college_name": "Indian Institute Of Technology, Bhilai" },
+    {
+      "id": "164",
+      "college_name": "Indian Institute Of Technology, Bhubaneswar"
+    },
+    { "id": "521", "college_name": "Indian Institute of Technology, Bombay" },
+    { "id": "522", "college_name": "Indian Institute of Technology, Delhi" },
+    { "id": "165", "college_name": "Indian Institute Of Technology, Dharwad" },
+    {
+      "id": "166",
+      "college_name": "Indian Institute Of Technology, Gandhinagar"
+    },
+    { "id": "167", "college_name": "Indian Institute Of Technology, Goa" },
+    { "id": "523", "college_name": "Indian Institute of Technology, Guwahati" },
+    {
+      "id": "524",
+      "college_name": "Indian Institute of Technology, Hyderabad"
+    },
+    { "id": "168", "college_name": "Indian Institute Of Technology, Indore" },
+    { "id": "169", "college_name": "Indian Institute Of Technology, Jammu" },
+    { "id": "170", "college_name": "Indian Institute Of Technology, Jodhpur" },
+    { "id": "525", "college_name": "Indian Institute of Technology, Kanpur" },
+    {
+      "id": "526",
+      "college_name": "Indian Institute of Technology, Kharagpur"
+    },
+    { "id": "527", "college_name": "Indian Institute of Technology, Madras" },
+    { "id": "171", "college_name": "Indian Institute Of Technology, Mandi" },
+    { "id": "172", "college_name": "Indian Institute Of Technology, Palakkad" },
+    { "id": "173", "college_name": "Indian Institute Of Technology, Patna" },
+    { "id": "528", "college_name": "Indian Institute of Technology, Roorkee" },
+    { "id": "174", "college_name": "Indian Institute Of Technology, Ropar" },
+    { "id": "175", "college_name": "Indian Institute Of Technology, Tirupati" },
+    { "id": "529", "college_name": "Indian Maritime University" },
+    { "id": "176", "college_name": "Indian Statistical Institute" },
+    {
+      "id": "177",
+      "college_name": "Indira College Of Engineering \u0026 Management, Pune"
+    },
+    {
+      "id": "178",
+      "college_name": "Institute Of Aeronautical Engineering, Dundigal"
+    },
+    { "id": "516", "college_name": "Institute of Chemical Technology, Mumbai" },
+    {
+      "id": "179",
+      "college_name": "Institute Of Engineering \u0026 Management, Salt Lake"
+    },
+    {
+      "id": "180",
+      "college_name": "Institute Of Knowledge College Of Engineering"
+    },
+    {
+      "id": "181",
+      "college_name": "International Institute Of Information Technology, Pune (I2It)"
+    },
+    { "id": "182", "college_name": "Ips Academy" },
+    { "id": "183", "college_name": "Isdi, Mumbai" },
+    { "id": "585", "college_name": "ITM (SLS) BARODA UNIVERSITY, VADODARA" },
+    { "id": "184", "college_name": "Jabalpur Engg College" },
+    { "id": "185", "college_name": "Jadavpur University" },
+    {
+      "id": "186",
+      "college_name": "Jaipur Engineering College \u0026 Research Centre, Jaipur"
+    },
+    {
+      "id": "187",
+      "college_name": "Jalpaiguri Goverment Engineering College ,Jalpaiguri"
+    },
+    { "id": "188", "college_name": "Jamal Mohamed College" },
+    { "id": "189", "college_name": "Jamia Millia Islamia, Delhi" },
+    {
+      "id": "190",
+      "college_name": "Jawahar Education Society\u0027S Annasaheb Chudaman Patil College Of Engineering"
+    },
+    {
+      "id": "191",
+      "college_name": "Jawaharlal Nehru Technological University, Kakinada"
+    },
+    { "id": "192", "college_name": "Jaya Engineering College" },
+    { "id": "193", "college_name": "Jd Birla" },
+    { "id": "194", "college_name": "Jeppiaar Engineering College" },
+    { "id": "1", "college_name": "Jeppiaar Institute Of Technology" },
+    {
+      "id": "2",
+      "college_name": "Jeppiaar Maamallan Engineering College Kancheepuram"
+    },
+    { "id": "195", "college_name": "Jeppiaar Srr Engineering College" },
+    { "id": "196", "college_name": "Jerusalem College Of Engineering" },
+    { "id": "627", "college_name": "JJ college" },
+    { "id": "197", "college_name": "Jnana Vikas Institute Of Technology" },
+    { "id": "198", "college_name": "Jntuh" },
+    { "id": "199", "college_name": "Jspm Narhe Technical Campus, Pune" },
+    {
+      "id": "200",
+      "college_name": "Jss Academy Of Technical Education, Bangalore"
+    },
+    {
+      "id": "201",
+      "college_name": "K. E. Society\u0027S Rajarambapu Institute Of Technology, Walwa, Sangli"
+    },
+    {
+      "id": "203",
+      "college_name": "Kalaignar Karunanidhi Institute Of Technology"
+    },
+    { "id": "579", "college_name": "Kalol institute of technology" },
+    {
+      "id": "204",
+      "college_name": "Kalyani Goverment Engineering College,Kalyani,Nadia"
+    },
+    { "id": "641", "college_name": "Kamaraj College" },
+    {
+      "id": "639",
+      "college_name": "kamaraj College of Engineering and Technology"
+    },
+    {
+      "id": "205",
+      "college_name": "Kammavari Sangham Institute Of Technology (Ksit)"
+    },
+    {
+      "id": "206",
+      "college_name": "Karmveer Kakasaheb Wagh Institute Of Engineering Education \u0026 Research (K. K. Wagh)"
+    },
+    {
+      "id": "207",
+      "college_name": "Karnatak Law Society\u00e2\u20ac\u2122S Gogte Institute Of Technology, Belagavi"
+    },
+    { "id": "208", "college_name": "Karpaga Vinayaga Educational Group" },
+    { "id": "209", "college_name": "Karpagam Group Of Colleges" },
+    { "id": "210", "college_name": "Kc College, Churchgate" },
+    { "id": "211", "college_name": "Kcg College Of Technology" },
+    { "id": "212", "college_name": "Kgisl Institute Of Technology" },
+    { "id": "213", "college_name": "Kirori Mal College" },
+    { "id": "530", "college_name": "KJ SOMAIYA College Of Engineering" },
+    {
+      "id": "214",
+      "college_name": "Kle Dr M. S. Sheshagiri College Of Engineering, Belgaum"
+    },
+    {
+      "id": "215",
+      "college_name": "Kolhapur Institute Of Technology College Of Engineering, Kolhapu"
+    },
+    { "id": "216", "college_name": "Koneru Lakshmaiah College Of Engineering" },
+    { "id": "217", "college_name": "Kongu College Of Arts \u0026 Science" },
+    { "id": "218", "college_name": "Kongu Engineering College" },
+    { "id": "219", "college_name": "Kongunadu Arts \u0026 Science College" },
+    { "id": "618", "college_name": "kor\u0027s college" },
+    {
+      "id": "220",
+      "college_name": "Kpr Institute Of Engineering And Technology"
+    },
+    {
+      "id": "221",
+      "college_name": "Krishnasamy College Of Engineering And Technology"
+    },
+    { "id": "552", "college_name": "KSR College, Tiruchengode" },
+    { "id": "625", "college_name": "Kumar\u0027s institute" },
+    { "id": "222", "college_name": "Kumaraguru College Of Technology" },
+    { "id": "223", "college_name": "Kvg College Of Engineering" },
+    { "id": "224", "college_name": "L.D.College Of Engineering Ahmedabad" },
+    {
+      "id": "225",
+      "college_name": "Late Shri. Vishnu Waman Thakur Charitable Trust, Viva Institute Of Technology, Shirgaon"
+    },
+    {
+      "id": "531",
+      "college_name": "LBS Institute Of Technology for Women, Thiruvananthapuram"
+    },
+    {
+      "id": "227",
+      "college_name": "Lokmanya Tilak Jankalyan Shikshan Sanstha\u0027S Lokmanya Tilak College Of Engineering"
+    },
+    {
+      "id": "226",
+      "college_name": "Lokmanya Tilak Jankalyan Shikshan Sanstha, Priyadarshani College Of Engineering, Nagpur"
+    },
+    { "id": "228", "college_name": "Loyola College" },
+    { "id": "551", "college_name": "Loyola College, Chennai" },
+    {
+      "id": "229",
+      "college_name": "Loyola-Icam College Of Engineering And Technology"
+    },
+    {
+      "id": "230",
+      "college_name": "M.G.M.\u0027S College Of Engineering And Technology, Kamothe, Navi Mumbai"
+    },
+    {
+      "id": "231",
+      "college_name": "M.H. Saboo Siddik College Of Engineering, Byculla"
+    },
+    {
+      "id": "232",
+      "college_name": "Madhav Institute Of Technology And Science"
+    },
+    { "id": "233", "college_name": "Madras Christian College" },
+    { "id": "550", "college_name": "Madras Christian College, Chennai" },
+    { "id": "548", "college_name": "Madras School of Social Work" },
+    { "id": "234", "college_name": "Maharaja Agarsen College" },
+    { "id": "235", "college_name": "Maharaja Engineering College" },
+    { "id": "236", "college_name": "Maharaja Institute Of Technology, Mysore" },
+    { "id": "547", "college_name": "Maharaja Sayajirao University, Baroda" },
+    { "id": "532", "college_name": "Maharaja Sayajirao University, Vadodara" },
+    { "id": "545", "college_name": "Maharashtra Institute of Labour Studies" },
+    {
+      "id": "237",
+      "college_name": "Maharshi Karve Stree Shikshan Samstha\u0027S Cummins College Of Engineering For Women"
+    },
+    {
+      "id": "238",
+      "college_name": "Mahatma Education Society\u0027S Pillai Hoc College Of Engineering \u0026 Technology, Tal. Khalapur. Dist. Raigad"
+    },
+    { "id": "239", "college_name": "Mahatma Gandhi Institute Of Technology" },
+    { "id": "240", "college_name": "Mahatma Gandhi Mission Group" },
+    { "id": "241", "college_name": "Mahendra College Of Arts \u0026 Science" },
+    { "id": "242", "college_name": "Mahindra Ecole Centrale" },
+    {
+      "id": "243",
+      "college_name": "Malaviya National Institute Of Technology, Jaipur"
+    },
+    { "id": "244", "college_name": "Malla Reddy Engineering College" },
+    {
+      "id": "245",
+      "college_name": "Mangalore Institute Of Technology \u0026 Engineering, Mangalore"
+    },
+    { "id": "246", "college_name": "Manipal Insitute Of Technology" },
+    {
+      "id": "247",
+      "college_name": "Manjara Charitable Trust\u0027S, Rajiv Gandhi Institute Of Technology, Versova"
+    },
+    { "id": "563", "college_name": "Mannar College" },
+    { "id": "248", "college_name": "Mar Ivanious" },
+    { "id": "249", "college_name": "Marathwada Mitra Mandal\u0027S Group" },
+    {
+      "id": "250",
+      "college_name": "Marathwada Mitra Mandal\u0027S Institute Of Technology, Lohgaon, Pune"
+    },
+    { "id": "611", "college_name": "marwadi college of engineering" },
+    {
+      "id": "251",
+      "college_name": "Maulana Abul Kalam Azad University Of Technology"
+    },
+    {
+      "id": "252",
+      "college_name": "Maulana Azad National Institute Of Technology, Bhopal"
+    },
+    {
+      "id": "253",
+      "college_name": "Mauli Group Of Institutions, College Of Engineering And Technology, Shegaon"
+    },
+    {
+      "id": "254",
+      "college_name": "Mckv Institute Of Engineering, Liluah, Howrah"
+    },
+    { "id": "255", "college_name": "Meenakshi College Of Engineering" },
+    {
+      "id": "256",
+      "college_name": "Meenakshi Sundararajan Engineering College"
+    },
+    {
+      "id": "257",
+      "college_name": "Meghnad Saha Institute Of Technology, Kolkata"
+    },
+    { "id": "258", "college_name": "Mepco Schlenk Engineering College" },
+    {
+      "id": "259",
+      "college_name": "Met Bhujbal Knowledge City Met League\u0027S Engineering College, Adgaon, Nashik"
+    },
+    {
+      "id": "260",
+      "college_name": "Misrimal Navajee Munoth Jain Engineering College"
+    },
+    { "id": "261", "college_name": "Mit, Pune" },
+    { "id": "262", "college_name": "Mithibai College" },
+    { "id": "263", "college_name": "Mits, Madanapalle" },
+    { "id": "264", "college_name": "Mlr Institute Of Technology" },
+    {
+      "id": "265",
+      "college_name": "Modern Education Society\u0027S College Of Engineering, Pune"
+    },
+    {
+      "id": "266",
+      "college_name": "Modern Education Society\u0027S Group Of Colleges"
+    },
+    {
+      "id": "267",
+      "college_name": "Modern Institute Of Engineering \u0026 Technology,Bandel,Hooghly"
+    },
+    {
+      "id": "268",
+      "college_name": "Motilal Nehru National Institute Of Technology, Allahabad"
+    },
+    { "id": "269", "college_name": "Msrit" },
+    { "id": "270", "college_name": "Mulund College Of Commerce" },
+    { "id": "271", "college_name": "Mumbai University" },
+    { "id": "272", "college_name": "Mvj College Of Engineering" },
+    {
+      "id": "3",
+      "college_name": "N.Y.S.S.\u0027S Datta Meghe College Of Engineering, Airoli, Navi Mumbai"
+    },
+    {
+      "id": "273",
+      "college_name": "Nagarjuna College Of Engineering \u0026 Technology"
+    },
+    {
+      "id": "274",
+      "college_name": "Nashik District Maratha Vidya Prasarak Samaj\u0027S Karmaveer Adv.Babaurao Ganpatrao Thakare College Of Engineering, Nashik"
+    },
+    { "id": "275", "college_name": "National College, Trichy" },
+    { "id": "543", "college_name": "National Fire Service College" },
+    { "id": "276", "college_name": "National Institute Of Design" },
+    {
+      "id": "277",
+      "college_name": "National Institute Of Engineering, Institute Of Technology, Mysore"
+    },
+    {
+      "id": "278",
+      "college_name": "National Institute Of Engineering, Mysore"
+    },
+    {
+      "id": "279",
+      "college_name": "National Institute Of Technology Karnataka, Surathkal"
+    },
+    { "id": "280", "college_name": "National Institute Of Technology Mizoram" },
+    { "id": "281", "college_name": "National Institute Of Technology Sikkim" },
+    {
+      "id": "282",
+      "college_name": "National Institute Of Technology Uttarakhand"
+    },
+    {
+      "id": "283",
+      "college_name": "National Institute Of Technology, Agartala"
+    },
+    {
+      "id": "284",
+      "college_name": "National Institute Of Technology, Arunachal Pradesh"
+    },
+    {
+      "id": "285",
+      "college_name": "National Institute Of Technology, Calicut"
+    },
+    { "id": "286", "college_name": "National Institute Of Technology, Delhi" },
+    {
+      "id": "287",
+      "college_name": "National Institute Of Technology, Durgapur"
+    },
+    { "id": "288", "college_name": "National Institute Of Technology, Goa" },
+    {
+      "id": "289",
+      "college_name": "National Institute Of Technology, Hamirpur"
+    },
+    {
+      "id": "290",
+      "college_name": "National Institute Of Technology, Jamshedpur"
+    },
+    {
+      "id": "291",
+      "college_name": "National Institute Of Technology, Karaikal"
+    },
+    {
+      "id": "292",
+      "college_name": "National Institute Of Technology, Kurukshetra"
+    },
+    {
+      "id": "293",
+      "college_name": "National Institute Of Technology, Manipur"
+    },
+    {
+      "id": "294",
+      "college_name": "National Institute Of Technology, Meghalaya"
+    },
+    {
+      "id": "295",
+      "college_name": "National Institute Of Technology, Nagaland"
+    },
+    { "id": "296", "college_name": "National Institute Of Technology, Patna" },
+    { "id": "297", "college_name": "National Institute Of Technology, Raipur" },
+    {
+      "id": "298",
+      "college_name": "National Institute Of Technology, Rourkela"
+    },
+    {
+      "id": "299",
+      "college_name": "National Institute Of Technology, Silchar"
+    },
+    {
+      "id": "300",
+      "college_name": "National Institute Of Technology, Srinagar"
+    },
+    {
+      "id": "301",
+      "college_name": "National Institute Of Technology, Tadepalligudem, Andhra Pradesh"
+    },
+    { "id": "302", "college_name": "National Institute Of Technology, Trichy" },
+    {
+      "id": "303",
+      "college_name": "National Institute Of Technology, Warangal"
+    },
+    { "id": "533", "college_name": "Navrachna University" },
+    {
+      "id": "304",
+      "college_name": "Nehru Institute Of Engineering And Technology"
+    },
+    {
+      "id": "305",
+      "college_name": "Netaji Subhas Engineering College, Garia, Kolkata"
+    },
+    { "id": "571", "college_name": "New College" },
+    { "id": "613", "college_name": "new college 5" },
+    { "id": "614", "college_name": "new college 6" },
+    { "id": "615", "college_name": "new College 7" },
+    { "id": "619", "college_name": "New College Chennai" },
+    { "id": "575", "college_name": "New College1" },
+    { "id": "576", "college_name": "New College2" },
+    {
+      "id": "306",
+      "college_name": "New Horizon College Of Engineering (Nhce)"
+    },
+    {
+      "id": "307",
+      "college_name": "New Horizon Institute Of Technology \u0026 Management, Thane"
+    },
+    {
+      "id": "308",
+      "college_name": "New Prince Shri Bhavani College Of Engg \u0026 Tech"
+    },
+    { "id": "534", "college_name": "NICMAR Delhi" },
+    { "id": "535", "college_name": "NICMAR Goa" },
+    { "id": "536", "college_name": "NICMAR Hyderabad" },
+    { "id": "537", "college_name": "NICMAR Pune" },
+    { "id": "538", "college_name": "NIRMA University" },
+    {
+      "id": "309",
+      "college_name": "Nitte Meenakshi Institute Of Technology, Bangalore"
+    },
+    { "id": "310", "college_name": "Nm College" },
+    { "id": "311", "college_name": "Nmims" },
+    {
+      "id": "312",
+      "college_name": "Nutan Maharashtra Institute Of Engineering And Technology"
+    },
+    { "id": "624", "college_name": "Old College" },
+    { "id": "313", "college_name": "Osmania University" },
+    { "id": "511", "college_name": "Others" },
+    { "id": "314", "college_name": "Oxford College Of Engineering" },
+    { "id": "315", "college_name": "P. A. College Of Engineering, Mangalore" },
+    {
+      "id": "316",
+      "college_name": "P. R. Pote (Patil) Education \u0026 Welfare Trust\u0027S Group Of Institution(Integrated Campus), Amravati"
+    },
+    { "id": "317", "college_name": "Pa Engineering College" },
+    {
+      "id": "318",
+      "college_name": "Pad. Dr.D.Y.Patil Institute Of Engineering, Management \u0026 Reseach, Akurdi, Pune"
+    },
+    {
+      "id": "319",
+      "college_name": "Padmabhushan Vasantdada Patil Pratishthan\u0027S College Of Engineering"
+    },
+    { "id": "320", "college_name": "Pallavan College Of Engineering" },
+    { "id": "321", "college_name": "Pandit Deendayal Petroleum University" },
+    {
+      "id": "322",
+      "college_name": "Pandit Dwarka Prasad Mishra Indian Institute Of Information Technology, Design And Manufacturing, Jabalpur (Iiitdm)"
+    },
+    { "id": "323", "college_name": "Panimalar Engineering College, Chennai" },
+    { "id": "324", "college_name": "Park College Of Engineering" },
+    {
+      "id": "325",
+      "college_name": "Park College Of Engineering And Technology"
+    },
+    {
+      "id": "581",
+      "college_name": "Parul Institute of Engineering and Technology"
+    },
+    { "id": "326", "college_name": "Patkar College" },
+    { "id": "327", "college_name": "Pc Jabin" },
+    { "id": "328", "college_name": "Pd Patel College Of Arts \u0026 Science" },
+    { "id": "329", "college_name": "Pearl Academy" },
+    { "id": "330", "college_name": "Pes College Of Engineering, Mandya" },
+    { "id": "331", "college_name": "Pesit, Bangalore" },
+    { "id": "332", "college_name": "Pict, Pune" },
+    {
+      "id": "333",
+      "college_name": "Pillai Institute Of Information Technology, Engineering, Media Studies And Research, New Panvel"
+    },
+    {
+      "id": "334",
+      "college_name": "Pimpri Chinchwad Education Trust\u0027S Pimpri Chinchwad College Of Engineering"
+    },
+    { "id": "335", "college_name": "Pondicherry Engg College" },
+    {
+      "id": "336",
+      "college_name": "Poojya Dodappa Appa College Of Engineering"
+    },
+    { "id": "337", "college_name": "Poornima College Of Engineering, Jaipur" },
+    {
+      "id": "338",
+      "college_name": "Poornima Institute Of Engineering \u0026 Technology, Jaipur"
+    },
+    { "id": "339", "college_name": "Ppg Institute Of Technology" },
+    {
+      "id": "340",
+      "college_name": "Pradnya Niketan Education Society\u0027S Nagesh Karajagi Orchid College Of Engineering \u0026 Technology, Solapur"
+    },
+    { "id": "341", "college_name": "Presidency" },
+    {
+      "id": "342",
+      "college_name": "Prince Shri Venkateshwara Padmawathy Engineering College"
+    },
+    {
+      "id": "343",
+      "college_name": "Prof. Ram Meghe Institute Of Technology \u0026 Research, Amravati"
+    },
+    {
+      "id": "344",
+      "college_name": "Progressive Education Society\u0027S Modern College Of Engineering"
+    },
+    { "id": "345", "college_name": "Psg College Of Arts And Science" },
+    { "id": "346", "college_name": "Psg College Of Technology, Coimbatore" },
+    { "id": "347", "college_name": "Psit" },
+    { "id": "628", "college_name": "PSNA College of Engg \u0026 Tech" },
+    {
+      "id": "626",
+      "college_name": "PSNA College of Engineering \u0026 Techology"
+    },
+    {
+      "id": "348",
+      "college_name": "Pune Vidhyarthi Griha\u0027S College Of Engineering And Technology"
+    },
+    { "id": "349", "college_name": "Punjab Engineering College" },
+    { "id": "599", "college_name": "qweqweqwe" },
+    {
+      "id": "350",
+      "college_name": "R L Jalappa Institute Of Technology, Bangalore"
+    },
+    {
+      "id": "351",
+      "college_name": "R.M.K. College Of Engineering And Technology (Group)"
+    },
+    { "id": "352", "college_name": "Rajalakshmi Engineering College" },
+    { "id": "4", "college_name": "Rajalakshmi Institute Of Technology" },
+    { "id": "353", "college_name": "Rajarajeswari College Of Engineering" },
+    { "id": "354", "college_name": "Rajeev Institute Of Technology" },
+    {
+      "id": "355",
+      "college_name": "Rajiv Gandhi College Of Engineering \u0026 Research, Hingna Road, Nagpur"
+    },
+    {
+      "id": "539",
+      "college_name": "Rajiv Gandhi Institute of Petroleum Technology"
+    },
+    { "id": "356", "college_name": "Rajiv Gandhi Institute Of Technology" },
+    { "id": "357", "college_name": "Ramaiah Institute Of Technology" },
+    {
+      "id": "358",
+      "college_name": "Ramkrishna Mahato Government Engineering College, Purulia (Earlier Purulia Government Engineering College, Purulia)"
+    },
+    {
+      "id": "359",
+      "college_name": "Ramrao Adik Institute Of Technology, Nerul"
+    },
+    {
+      "id": "360",
+      "college_name": "Rashtreeya Vidyalaya College Of Engineering"
+    },
+    {
+      "id": "361",
+      "college_name": "Rcc Institute Of Information Technology, Kolkata"
+    },
+    {
+      "id": "362",
+      "college_name": "Reva Institute Of\u00c2\u00a0 Technology \u0026 Management"
+    },
+    { "id": "363", "college_name": "Rizvi College Of Engineering" },
+    {
+      "id": "364",
+      "college_name": "Rns Institute Of Technology, Bangalore (Rnsit)"
+    },
+    {
+      "id": "365",
+      "college_name": "Rvs College Of Engineering \u0026 Technology"
+    },
+    { "id": "607", "college_name": "s" },
+    {
+      "id": "366",
+      "college_name": "S V National Institute Of Technology, Surat"
+    },
+    { "id": "367", "college_name": "S. B. College" },
+    { "id": "368", "college_name": "S. B. Patil College Of Engineering" },
+    { "id": "369", "college_name": "S.A.Engineering College" },
+    {
+      "id": "577",
+      "college_name": "S.P.B PATEL ENGINEERING COLLEGE (SAFFRONY INSTITUTE OF TECHNOLOGY)"
+    },
+    {
+      "id": "370",
+      "college_name": "S.S.P.M.\u0027S College Of Engineering, Kankavli"
+    },
+    { "id": "372", "college_name": "Sacred Heart College" },
+    { "id": "553", "college_name": "Sacred Heart College, Tirupattur" },
+    {
+      "id": "373",
+      "college_name": "Sahyadri College Of Engineering \u0026 Management, Mangalore"
+    },
+    { "id": "374", "college_name": "Sai Vidya Institute Of Technology" },
+    {
+      "id": "375",
+      "college_name": "Sal College Of Engineering, Sola Road, Ahmedabad"
+    },
+    { "id": "376", "college_name": "Sal Education Campus, Ahmedabad" },
+    {
+      "id": "377",
+      "college_name": "Sal Institute Of Technology \u0026 Engineering Research, Ahmedabad"
+    },
+    { "id": "378", "college_name": "Sambhram Institute Of Technology" },
+    {
+      "id": "379",
+      "college_name": "Samridhi Sarwajanik Charitable Trust, Jhulelal Institute Of Technology, Nagpur"
+    },
+    {
+      "id": "380",
+      "college_name": "Sandip Foundation, Sandip Institute Of Technology And Research Centre, Mahiravani, Nashik"
+    },
+    {
+      "id": "381",
+      "college_name": "Sanjivani Rural Education Society\u0027S Sanjivani College Of Engineering, Kopargaon"
+    },
+    { "id": "383", "college_name": "Saptagiri College Of Engineering (Sce)" },
+    {
+      "id": "384",
+      "college_name": "Saraswati Education Society\u0027S Saraswati College Of Engineering,Kharghar Navi Mumbai"
+    },
+    {
+      "id": "385",
+      "college_name": "Sardar Patel College Of Engineering, Mumbai"
+    },
+    { "id": "540", "college_name": "Sardar Patel Institute Of Technology" },
+    {
+      "id": "386",
+      "college_name": "Sardar Vallabhbhai Patel Institute Of Technology (Svit), Vasad"
+    },
+    { "id": "387", "college_name": "Sastra" },
+    { "id": "388", "college_name": "Sastra University" },
+    { "id": "389", "college_name": "Sasurie Group Of Colleges" },
+    {
+      "id": "390",
+      "college_name": "Sathyabama Institute Of Science And Technology"
+    },
+    { "id": "391", "college_name": "Saveetha Engineering College" },
+    { "id": "392", "college_name": "Seshadripuram College" },
+    { "id": "393", "college_name": "Sgsits, Indore" },
+    { "id": "394", "college_name": "Shah And Anchor , Mumbai" },
+    { "id": "395", "college_name": "Shaheed Bhagat" },
+    {
+      "id": "396",
+      "college_name": "Shetkari Shikshan Mandal\u0027S Pad. Vasantraodada Patil Institute Of Technology, Budhgaon, Sangli"
+    },
+    {
+      "id": "397",
+      "college_name": "Shirdi Sai Engineering College, Bangalore"
+    },
+    { "id": "398", "college_name": "Shiv Nadar University" },
+    { "id": "620", "college_name": "Shiva Eng College" },
+    { "id": "622", "college_name": "shivaji engineering college" },
+    { "id": "623", "college_name": "shivaji engineering college, mumbai" },
+    {
+      "id": "399",
+      "college_name": "Shivajirao S. Jondhale College Of Engineering, Dombivali,Mumbai"
+    },
+    { "id": "621", "college_name": "ShivaMandir Eng College" },
+    { "id": "400", "college_name": "Shree Devi Group Of Institutions" },
+    {
+      "id": "401",
+      "college_name": "Shree L.R. Tiwari College Of Engineering, Mira Road, Mumbai"
+    },
+    {
+      "id": "402",
+      "college_name": "Shri Dharmasthala Manjunatheshwara College Of Engineering \u0026 Technology (Sdm)"
+    },
+    {
+      "id": "404",
+      "college_name": "Shri Guru Gobind Singhji Institute Of Engineering \u0026 Technology"
+    },
+    {
+      "id": "405",
+      "college_name": "Shri Ramdeobaba College Of Engineering And Management"
+    },
+    {
+      "id": "406",
+      "college_name": "Shri Sant Gajanan Maharaj College Of Engineering,Shegaon"
+    },
+    {
+      "id": "407",
+      "college_name": "Shri Vithal Education And Research Institute\u0027S College Of Engineering, Pandharpur"
+    },
+    { "id": "612", "college_name": "Shriram College" },
+    {
+      "id": "408",
+      "college_name": "Siddaganga Institute Of Technology, Tumkur"
+    },
+    {
+      "id": "409",
+      "college_name": "Siddharth Institute Of Engineering And Technology, Puttur\u00c2\u00a0\u00c2\u00a0\u00c2\u00a0"
+    },
+    { "id": "410", "college_name": "Sies College, Nerul" },
+    {
+      "id": "411",
+      "college_name": "Sipna Shikshan Prasarak Mandal College Of Engineering \u0026 Technology, Amravati"
+    },
+    { "id": "578", "college_name": "Sir Bhavsinhji polytechnic institute" },
+    {
+      "id": "412",
+      "college_name": "Sir Mokshagundam Visvesvaraya Institute Of Technology (Mvit)"
+    },
+    {
+      "id": "413",
+      "college_name": "Sir Shantilal Badjate Charitable Trust\u0027S S. B. Jain Institute Of Technology, Management \u0026 Research, Nagpur"
+    },
+    { "id": "414", "college_name": "Sjb Institute Of Technology" },
+    {
+      "id": "415",
+      "college_name": "Sjc Institute Of Technology, Chickaballapur"
+    },
+    {
+      "id": "416",
+      "college_name": "Smt. Indira Gandhi College Of Engineering, Navi Mumbai"
+    },
+    {
+      "id": "417",
+      "college_name": "Snjb\u0027S Late Sau. Kantabai Bhavarlalji Jain College Of Engineering, (Jain Gurukul), Neminagar,Chandwad,(Nashik)"
+    },
+    { "id": "418", "college_name": "Sns Institutions Group" },
+    { "id": "642", "college_name": "Some college" },
+    { "id": "419", "college_name": "Sona College Of Technology" },
+    {
+      "id": "420",
+      "college_name": "Sou. Sushila Danchand Ghodawat Cha.Trust\u0027S Sanjay Ghodavat Group Of Institution (Integrated Campus), Atigre, Kolhapur"
+    },
+    {
+      "id": "421",
+      "college_name": "South Indian Education Society\u0027S Graduate School Of Technology, Navi Mumbai"
+    },
+    { "id": "422", "college_name": "Spit, Mumbai" },
+    {
+      "id": "423",
+      "college_name": "Sree Sastha Institute Of Engineering And Technology"
+    },
+    { "id": "424", "college_name": "Sri Eshwar College Of Engineering" },
+    {
+      "id": "425",
+      "college_name": "Sri Jayachamarajendra College Of Engineering"
+    },
+    { "id": "426", "college_name": "Sri Krishna Arts And Science College" },
+    {
+      "id": "427",
+      "college_name": "Sri Krishna College Of Engineering \u0026 Technology"
+    },
+    { "id": "428", "college_name": "Sri Krishna College Of Technology" },
+    { "id": "429", "college_name": "Sri Krishna Institute Of Technology" },
+    { "id": "430", "college_name": "Sri Muthukumaran Institute Of Technology" },
+    { "id": "431", "college_name": "Sri Ramakrishna Engineering College" },
+    { "id": "432", "college_name": "Sri Ramakrishna Institute Of Technology" },
+    { "id": "433", "college_name": "Sri Sai Ram Group Of Colleges" },
+    { "id": "434", "college_name": "Sri Shakthi Institutions Group" },
+    { "id": "435", "college_name": "Sri Siddhartha Institute Of Technology" },
+    {
+      "id": "436",
+      "college_name": "Sri Sivasubramaniya Nadar (Ssn) College Of Engineering"
+    },
+    {
+      "id": "437",
+      "college_name": "Sri Taralabalu Jagadguru Institute Of Technology"
+    },
+    { "id": "438", "college_name": "Sri Venkateswara College Of Engineering" },
+    {
+      "id": "439",
+      "college_name": "Sri Venkateswara College Of Engineering \u0026\u00c2\u00a0Technology, Chittoor"
+    },
+    {
+      "id": "440",
+      "college_name": "Sri Vidyanikethan Engineering College, Tirupati"
+    },
+    { "id": "441", "college_name": "Sriguru Institute Of Technology" },
+    {
+      "id": "442",
+      "college_name": "Srinivasa Institute Of Engineering And Technology"
+    },
+    { "id": "443", "college_name": "Srm Easwari Engineering College" },
+    { "id": "444", "college_name": "Srm Institute Of Science And Technology" },
+    { "id": "445", "college_name": "Srm University" },
+    { "id": "638", "college_name": "SSN College" },
+    {
+      "id": "637",
+      "college_name": "SSN College of Engineering and Technology"
+    },
+    { "id": "446", "college_name": "St. Alosiyus College" },
+    { "id": "447", "college_name": "St. Andrews College" },
+    { "id": "448", "college_name": "St. Francis Institute Of Technology" },
+    { "id": "449", "college_name": "St. Joseph Engineering College" },
+    {
+      "id": "450",
+      "college_name": "St. Thomas College Of Engineering \u0026 Technology, Khidirpur, Kolkata"
+    },
+    {
+      "id": "451",
+      "college_name": "St. Vincent Pallotti College Of Engineering \u0026 Technology, Nagpur"
+    },
+    { "id": "452", "college_name": "St. Xavier" },
+    { "id": "453", "college_name": "St. Xaviers" },
+    { "id": "454", "college_name": "Svcoe, Chennai" },
+    { "id": "455", "college_name": "Svs College Of Engineering" },
+    {
+      "id": "456",
+      "college_name": "Swami Keshwanand Institute Of Technology Management \u0026 Gramothan, Jaipur"
+    },
+    {
+      "id": "583",
+      "college_name": "SWAMINARAYAN COLLEGE OF ENGINEERING \u0026 TECHNOLOGY"
+    },
+    { "id": "457", "college_name": "Tagore Engineering College" },
+    { "id": "458", "college_name": "Tamil Nadu Institute Of Labour Studies" },
+    {
+      "id": "459",
+      "college_name": "Techno India College Of Technology, Rajarhat, New Town"
+    },
+    { "id": "460", "college_name": "Techno India University, Kolkata" },
+    {
+      "id": "461",
+      "college_name": "Techno India-Salt Lake, Sector-V, Salt Lake"
+    },
+    {
+      "id": "462",
+      "college_name": "Terna Public Charitable Trust\u0027S, Terna Engineering College"
+    },
+    { "id": "606", "college_name": "test" },
+    { "id": "604", "college_name": "test dip" },
+    { "id": "589", "college_name": "testcollege" },
+    { "id": "633", "college_name": "TestCollege 3" },
+    { "id": "629", "college_name": "TestCollege1" },
+    { "id": "630", "college_name": "TestCollege2" },
+    { "id": "632", "college_name": "TestCollege3" },
+    { "id": "634", "college_name": "TestCollege4" },
+    { "id": "636", "college_name": "TestCollege5" },
+    { "id": "463", "college_name": "Thadomal Shahani Engineering College" },
+    { "id": "464", "college_name": "Thangavelu Engineering College" },
+    {
+      "id": "465",
+      "college_name": "Thapar Institute Of Engineering And Technology"
+    },
+    {
+      "id": "466",
+      "college_name": "The Bombay Salesian Society\u0027S Don Bosco Institute Of Technology (Dbit), Kurla"
+    },
+    { "id": "467", "college_name": "Thiagarajar College" },
+    {
+      "id": "468",
+      "college_name": "Thiagarajar College Of Engineering, Madurai"
+    },
+    { "id": "555", "college_name": "TNPC" },
+    { "id": "469", "college_name": "United Institute Of Technology" },
+    {
+      "id": "470",
+      "college_name": "Universal College Of Engineering,Kaman Dist. Thane"
+    },
+    {
+      "id": "471",
+      "college_name": "University Institute Of Technology, Burdwan"
+    },
+    { "id": "472", "college_name": "University Of Calcutta" },
+    {
+      "id": "541",
+      "college_name": "University of Petroleum and Energy Studies"
+    },
+    {
+      "id": "473",
+      "college_name": "University Visveswariah College Of Engineering (Uvce)"
+    },
+    { "id": "546", "college_name": "Utkal University" },
+    { "id": "474", "college_name": "Valliammai Engineering College" },
+    {
+      "id": "475",
+      "college_name": "Vallurupalli Nageswara Rao Vignana Jyothi Institute Of Engineering \u0026Technology"
+    },
+    { "id": "476", "college_name": "Vardhaman College Of Engineering" },
+    { "id": "477", "college_name": "Vasavi College Of Engineering, Hyderabad" },
+    {
+      "id": "478",
+      "college_name": "Veer Surendra Sai University Of Technology, Burla"
+    },
+    {
+      "id": "479",
+      "college_name": "Veermata Jijabai Technological Institute, Mumbai"
+    },
+    { "id": "480", "college_name": "Velammal Engineering College" },
+    { "id": "481", "college_name": "Vellore Institute Of Technology" },
+    {
+      "id": "482",
+      "college_name": "Veltech Multi Tech Dr Rangarajan Dr Sakunthala Engineering College, Chennai"
+    },
+    { "id": "483", "college_name": "Vemana Institute Of Technology" },
+    {
+      "id": "484",
+      "college_name": "Vemu Institute Of\u00c2\u00a0Technology, Chittoor"
+    },
+    { "id": "542", "college_name": "VESIT, Mumbai" },
+    {
+      "id": "485",
+      "college_name": "Vidya Pratishthan\u0027S Kamalnayan Bajaj Institute Of Engineering \u0026 Technology, Baramati Dist.Pune"
+    },
+    {
+      "id": "487",
+      "college_name": "Vidya Vardhaka College Of Engineering Mysuru"
+    },
+    {
+      "id": "488",
+      "college_name": "Vidya Vikas Institute Of Engineering \u0026 Technology, Mysore"
+    },
+    { "id": "489", "college_name": "Vidyalankar Institute Of Technology" },
+    { "id": "490", "college_name": "Vidyanikethan College" },
+    { "id": "554", "college_name": "Vidyanikethan College, Tirupati" },
+    {
+      "id": "491",
+      "college_name": "Vidyavardhini College Of Engineering And Technology"
+    },
+    { "id": "492", "college_name": "Vignan University" },
+    {
+      "id": "493",
+      "college_name": "Vishwakarma Institute Of Information Technology Viit Pune"
+    },
+    {
+      "id": "494",
+      "college_name": "Visvesvaraya National Institute Of Technology, Nagpur"
+    },
+    { "id": "495", "college_name": "Vit, Pune" },
+    { "id": "496", "college_name": "Vivekanand , Mumbai" },
+    { "id": "497", "college_name": "Vivekanand College" },
+    {
+      "id": "498",
+      "college_name": "Vivekananda College Of Engineering And Technology, Puttur"
+    },
+    { "id": "499", "college_name": "Vivekananda College, Madurai" },
+    { "id": "500", "college_name": "Vlb Group Of Institutions" },
+    {
+      "id": "501",
+      "college_name": "Vsb College Of Engineering Technical Campus"
+    },
+    {
+      "id": "502",
+      "college_name": "Vtmt Dr R Rangarajan Dr R Sakunthala Engineering College, Avadi"
+    },
+    { "id": "503", "college_name": "Walchand College Of Engineering, Sangli" },
+    {
+      "id": "504",
+      "college_name": "Walchand Institute Of Technology, Solapur"
+    },
+    {
+      "id": "505",
+      "college_name": "Watumull Institute Of Electronics Engineering \u0026 Computer Technology"
+    },
+    { "id": "506", "college_name": "Welingkar" },
+    { "id": "598", "college_name": "werw erwr" },
+    { "id": "507", "college_name": "Xavier Institute Of Engineering, Mahim" },
+    { "id": "601", "college_name": "xcv xcvxv" },
+    { "id": "600", "college_name": "xcvx cvbcvbcv" },
+    { "id": "603", "college_name": "xcvx xcvxcv" },
+    { "id": "602", "college_name": "xcvxc xcvxcv" },
+    { "id": "596", "college_name": "xcvxcv" },
+    { "id": "597", "college_name": "xcvxcvxcv" },
+    { "id": "595", "college_name": "xfgdf dfgdfgd" },
+    { "id": "594", "college_name": "xvx xfsdg" },
+    {
+      "id": "508",
+      "college_name": "Yeshwantrao Chavan College Of Engineering"
+    },
+    {
+      "id": "509",
+      "college_name": "Zagdu Singh Charitable Trust\u0027S, Thakur College Of Engineering \u0026 Technology"
+    },
+    {
+      "id": "510",
+      "college_name": "Zeal Education Society\u0027S Zeal College Of Engineering \u0026 Reserch, Narhe, Pune"
+    }
+  ],
+  "diploma_disciplines": [
+    { "id": "2", "discipline_name": "Automobile" },
+    { "id": "11", "discipline_name": "Chemical" },
+    { "id": "1", "discipline_name": "Civil" },
+    { "id": "8", "discipline_name": "Computer Science" },
+    { "id": "3", "discipline_name": "Electrical" },
+    { "id": "9", "discipline_name": "Electronics and Communications" },
+    { "id": "4", "discipline_name": "Health and Safety" },
+    { "id": "10", "discipline_name": "Inst. \u0026 Control" },
+    { "id": "6", "discipline_name": "Mechanical" },
+    { "id": "12", "discipline_name": "Mechatronics" },
+    { "id": "7", "discipline_name": "Metallurgy" },
+    { "id": "5", "discipline_name": "Mining" },
+    { "id": "13", "discipline_name": "Others1" }
+  ],
+  "ug_disciplines": [
+    { "id": "16", "discipline_name": "Accounts" },
+    { "id": "2", "discipline_name": "Automobile" },
+    { "id": "21", "discipline_name": "Botany" },
+    { "id": "11", "discipline_name": "Chemical" },
+    { "id": "18", "discipline_name": "Chemistry" },
+    { "id": "1", "discipline_name": "Civil" },
+    { "id": "8", "discipline_name": "Computer Science" },
+    { "id": "22", "discipline_name": "Economics" },
+    { "id": "3", "discipline_name": "Electrical" },
+    { "id": "9", "discipline_name": "Electronics and Communication" },
+    { "id": "23", "discipline_name": "Finance" },
+    { "id": "29", "discipline_name": "Fire and Safety" },
+    { "id": "28", "discipline_name": "Geo-Informatics" },
+    { "id": "4", "discipline_name": "Health and Safety" },
+    { "id": "24", "discipline_name": "Human Resources" },
+    { "id": "12", "discipline_name": "Information Technology" },
+    { "id": "10", "discipline_name": "Instrumentation" },
+    { "id": "26", "discipline_name": "Law" },
+    { "id": "25", "discipline_name": "Marketing" },
+    { "id": "17", "discipline_name": "Maths" },
+    { "id": "6", "discipline_name": "Mechanical" },
+    { "id": "14", "discipline_name": "Mechatronics" },
+    { "id": "7", "discipline_name": "Metallurgy" },
+    { "id": "5", "discipline_name": "Mining" },
+    { "id": "27", "discipline_name": "Others1" },
+    { "id": "15", "discipline_name": "Petroleum" },
+    { "id": "19", "discipline_name": "Physics" },
+    { "id": "13", "discipline_name": "Production" },
+    { "id": "32", "discipline_name": "Sample" },
+    { "id": "33", "discipline_name": "Test" },
+    { "id": "20", "discipline_name": "Zoology" }
+  ],
+  "pg_disciplines": [
+    { "id": "28", "discipline_name": "Accounts" },
+    { "id": "5", "discipline_name": "Architecture" },
+    { "id": "33", "discipline_name": "Botany" },
+    { "id": "20", "discipline_name": "Chemical" },
+    { "id": "30", "discipline_name": "Chemistry" },
+    { "id": "18", "discipline_name": "Communication" },
+    { "id": "17", "discipline_name": "Computer Science" },
+    { "id": "1", "discipline_name": "Construction Management" },
+    { "id": "34", "discipline_name": "Economics" },
+    { "id": "12", "discipline_name": "Environmental" },
+    { "id": "35", "discipline_name": "Finance" },
+    { "id": "40", "discipline_name": "Fire and Safety" },
+    { "id": "24", "discipline_name": "Fluid Mechanics" },
+    { "id": "22", "discipline_name": "Geo-Informatics" },
+    { "id": "15", "discipline_name": "Geotechnical" },
+    { "id": "14", "discipline_name": "Health and Safety" },
+    { "id": "36", "discipline_name": "Human Resources" },
+    { "id": "19", "discipline_name": "Instrumentation \u0026 Control" },
+    { "id": "38", "discipline_name": "Law" },
+    { "id": "25", "discipline_name": "Manufacturing" },
+    { "id": "16", "discipline_name": "Marine" },
+    { "id": "37", "discipline_name": "Marketing" },
+    { "id": "29", "discipline_name": "Maths" },
+    { "id": "7", "discipline_name": "Mech - Design" },
+    { "id": "6", "discipline_name": "Mech - Thermal" },
+    { "id": "23", "discipline_name": "Mechatroncis" },
+    { "id": "26", "discipline_name": "Mechatronics" },
+    { "id": "41", "discipline_name": "new demo" },
+    { "id": "39", "discipline_name": "Others" },
+    { "id": "27", "discipline_name": "Petroleum" },
+    { "id": "31", "discipline_name": "Physics" },
+    { "id": "9", "discipline_name": "Power Electronics \u0026 Drives" },
+    { "id": "8", "discipline_name": "Power Systems" },
+    { "id": "3", "discipline_name": "Project Engineering \u0026 Management" },
+    { "id": "2", "discipline_name": "Quantitative Surveying" },
+    { "id": "10", "discipline_name": "Renewable Energy" },
+    { "id": "21", "discipline_name": "Rock Mechanics" },
+    { "id": "4", "discipline_name": "Structural" },
+    { "id": "13", "discipline_name": "Transportation" },
+    { "id": "11", "discipline_name": "Water Resources" },
+    { "id": "32", "discipline_name": "Zoology" }
+  ],
+  "ug_specifications": [
+    { "id": "7", "specification_name": "B.A." },
+    { "id": "6", "specification_name": "B.Arch." },
+    { "id": "5", "specification_name": "B.B.A" },
+    { "id": "8", "specification_name": "B.C.A." },
+    { "id": "4", "specification_name": "B.Com." },
+    { "id": "2", "specification_name": "B.E." },
+    { "id": "3", "specification_name": "B.Sc." },
+    { "id": "1", "specification_name": "B.Tech" },
+    { "id": "9", "specification_name": "L.L.B." },
+    { "id": "10", "specification_name": "Others1" },
+    { "id": "11", "specification_name": "others2" }
+  ],
+  "pg_specifications": [
+    { "id": "9", "specification_name": "L.L.M." },
+    { "id": "7", "specification_name": "M.A." },
+    { "id": "6", "specification_name": "M.Arch." },
+    { "id": "5", "specification_name": "M.B.A" },
+    { "id": "8", "specification_name": "M.C.A." },
+    { "id": "4", "specification_name": "M.Com." },
+    { "id": "2", "specification_name": "M.E." },
+    { "id": "3", "specification_name": "M.Sc." },
+    { "id": "1", "specification_name": "M.Tech" },
+    { "id": "10", "specification_name": "Others1" }
+  ]
+}

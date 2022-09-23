@@ -117,7 +117,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
         this.allPresentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
       }
-      this.allPresentCityList = datas[0];
+      this.allPresentCityList = datas.data.districts;
     }, (err) => {
     });
   }
@@ -133,7 +133,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
         this.allPermanentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
       }
-      this.allPermanentCityList = datas[0];
+      this.allPermanentCityList = datas.data.districts;
     }, (err) => {
     });
   }

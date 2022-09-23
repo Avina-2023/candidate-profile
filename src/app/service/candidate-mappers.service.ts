@@ -96,12 +96,13 @@ export class CandidateMappersService {
 
   withoutTokens(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
+      // 'Access-Control-Allow-Origin': '*',
     })
     .set('custCode', '15691')
     .set('driveId', '2')
     .set('userId', "15691")
     .set('Content-Type', 'application/json')
+    // .set('Access-Control-Allow-Origin', '*')
     .set('Referer','http://localhost:4300/')
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
@@ -180,7 +181,7 @@ export class CandidateMappersService {
   }
 
   updatedCity(Id) {
-    return this.http.post(`${this.BASE_URL}/api/city_api`, Id, { headers: this.withoutTokens()});
+    return this.http.post(`${this.BASE_URL}/profile/get-district-by-state`, Id, { headers: this.withoutTokens()});
   }
 
   assessmentList(user) {
@@ -217,18 +218,18 @@ export class CandidateMappersService {
 
   // education
   getEducationList() {
-    return this.http.get(`${this.BASE_URL}/api/education?_format=json`, { headers: this.withoutTokens() });
+    return this.http.get(`../assets/files/educationLevel.json`, { headers: this.withoutTokens() });
   }
 
 
   // education
   getAllEducationFormDropdownList(param) {
-    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens()});
+    return this.http.post(`../assets/files/colleges.json`, param, { headers: this.withoutTokens()});
   }
 
   // education
   getDiplomaList(param) {
-    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens()});
+    return this.http.post(`../assets/files/colleges.json`, param, { headers: this.withoutTokens()});
   }
 
   // education
