@@ -102,7 +102,7 @@ export class CandidateMappersService {
     .set('driveId', '2')
     .set('userId', "15691")
     .set('Content-Type', 'application/json')
-    .set('Referer','http://localhost:4300/')
+    // .set('Referer','http://localhost:4300/')
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
   }
@@ -180,7 +180,7 @@ export class CandidateMappersService {
   }
 
   updatedCity(Id) {
-    return this.http.post(`${this.BASE_URL}/api/city_api`, Id, { headers: this.withoutTokens()});
+    return this.http.post(`${this.BASE_URL}/profile/get-district-by-state`, Id, { headers: this.withoutTokens()});
   }
 
   assessmentList(user) {
