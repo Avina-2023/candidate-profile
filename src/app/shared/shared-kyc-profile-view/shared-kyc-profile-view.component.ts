@@ -16,6 +16,7 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { RemoveWhitespace } from 'src/app/custom-form-validators/removewhitespace';
+import { SkillexService } from 'src/app/service/skillex.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -368,6 +369,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
     public candidateService: CandidateMappersService,
     private fb: FormBuilder,
     private dialog: MatDialog,
+    private skillexService:SkillexService,
     private glovbal_validators: GlobalValidatorService,
     // private adminService: AdminServiceService,
   ) {
@@ -856,7 +858,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
       state_id: id
     };
     let city;
-   this.updatedCitySubscription = this.candidateService.updatedCity(ApiData).subscribe((datas: any) => {
+   this.updatedCitySubscription = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
       this.allPresentCityList = datas[0];
@@ -876,7 +878,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
       state_id: id
     };
     let city;
-   this.updatedCitySubscription1 = this.candidateService.updatedCity(ApiData).subscribe((datas: any) => {
+   this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
       this.allPermanentCityList = datas[0];

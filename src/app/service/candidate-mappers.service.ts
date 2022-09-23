@@ -180,9 +180,9 @@ export class CandidateMappersService {
     return this.http.get(`../assets/files/state.json`, { headers: this.withoutTokens(), withCredentials: true });
   }
 
-  updatedCity(Id) {
-    return this.http.post(`${this.BASE_URL}/profile/get-district-by-state`, Id, { headers: this.withoutTokens()});
-  }
+  // updatedCity(Id) {
+  //   return this.http.post(`${this.BASE_URL}/profile/get-district-by-state`, Id, { headers: this.withoutTokens()});
+  // }
 
   assessmentList(user) {
     return this.http.post(`${this.BASE_URL}/profile/hallticket`, user,
@@ -223,14 +223,14 @@ export class CandidateMappersService {
 
 
   // education
-  getAllEducationFormDropdownList(param) {
-    return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
-  }
+  // getAllEducationFormDropdownList(param) {
+  //   return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
+  // }
 
   // education
-  getDiplomaList(param) {
-    return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
-  }
+  // getDiplomaList(param) {
+  //   return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
+  // }
 
   // education
   getoverallInstitute() {

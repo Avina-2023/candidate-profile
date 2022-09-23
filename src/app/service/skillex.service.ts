@@ -36,4 +36,11 @@ constructor(
     // this.datas is api body data
     return this.http.post(`${environment.SKILLEX_BASE_URL}/uploadCandidateProfileImage`, profileform);
   }
+  districtList(stateId) {
+    // this.datas is api body data
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/districtList`, stateId);
+  }
+  collegeList(){
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/collegesList`,{});
+  }
 }
