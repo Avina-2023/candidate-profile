@@ -670,11 +670,11 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
 
   formInitialization() {
     this.acknowledgmentForm = this.fb.group({
-      [this.form_bgv]: [null, [Validators.requiredTrue]],
-      [this.form_caste_preview]: [null, [Validators.requiredTrue]],
-      [this.form_coc]: [null, [Validators.requiredTrue]],
-      [this.form_joining]: [null,[Validators.requiredTrue]],
-      [this.form_terms_conditions]: [null, [Validators.requiredTrue]],
+      [this.form_bgv]: [null, [Validators.required ]],
+      [this.form_caste_preview]: [null, [Validators.required ]],
+      [this.form_coc]: [null, [Validators.required ]],
+      [this.form_joining]: [null,[Validators.required ]],
+      [this.form_terms_conditions]: [null, [Validators.required ]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
     });
@@ -1006,15 +1006,15 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   }
 
   formSubmitFinal() {
-    if (this.acknowledgmentForm.valid) {
-      if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
+    // if (this.acknowledgmentForm.valid) {
+    //   if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
         return this.matDialogOpen();
-      }
-      this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
-    } else {
-      this.glovbal_validators.validateAllFields(this.acknowledgmentForm);
-      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields in Acknowledgements and Declarations');
-    }
+    //   }
+    //   this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
+    // } else {
+    //   this.glovbal_validators.validateAllFields(this.acknowledgmentForm);
+    //   this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields in Acknowledgements and Declarations');
+    // }
   }
 
   checkAllFormsValid() {
@@ -1130,13 +1130,13 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       signature_image: this.signature
     }
     const ProfileSubmitApiRequestDetails = {
-      form_name: "joining",
+      email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
       section_name: "acknowledgement",
       saving_data: apiData
     }
-   this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(ProfileSubmitApiRequestDetails).subscribe((data: any) => {
-    this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
-    this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
+   this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ProfileSubmitApiRequestDetails).subscribe((data: any) => {
+    this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+    this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
     this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Congrats, Form has been successfully submitted');
     this.sharedService.joiningFormStepperStatus.next();
     return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
