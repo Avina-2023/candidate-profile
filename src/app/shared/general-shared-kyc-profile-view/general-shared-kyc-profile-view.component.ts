@@ -1,3 +1,4 @@
+import { RemoveWhitespace } from '../../custom-form-validators/removewhitespace';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { Subscription } from 'rxjs';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
@@ -5,17 +6,15 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, TemplateRef, In
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { GlobalValidatorService } from 'src/app/custom-form-validators/globalvalidators/global-validator.service';
-// import { AdminServiceService } from 'src/app/services/admin-service.service';
 import * as moment from 'moment'; //in your component
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { environment } from 'src/environments/environment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
-import { RemoveWhitespace } from 'src/app/custom-form-validators/removewhitespace';
 import { SkillexService } from 'src/app/service/skillex.service';
 
 export const MY_FORMATS = {
@@ -32,9 +31,9 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'app-shared-kyc-profile-view',
-  templateUrl: './shared-kyc-profile-view.component.html',
-  styleUrls: ['./shared-kyc-profile-view.component.scss'],
+  selector: 'app-general-shared-kyc-profile-view',
+  templateUrl: './general-shared-kyc-profile-view.component.html',
+  styleUrls: ['./general-shared-kyc-profile-view.component.scss'],
   providers: [
     // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
     // application's root module. We provide it at the component level here, due to limitations of
@@ -49,7 +48,7 @@ export const MY_FORMATS = {
   ],
 })
 
-export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('matDialog', { static: false }) matDialogRef: TemplateRef<any>;
   @ViewChild('matDialogTerms', { static: false }) matDialogRefTerms: TemplateRef<any>;
@@ -106,15 +105,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
     maxsize: '',
     minsize: ''
   };
-  signature = {
-    name: null,
-    file_id: null,
-    file_path: null,
-    file_size: null,
-    filename: null,
-    filetype: null,
-    label: null
-  };
+  signature:any;
 
   selectedImage: any;
   // Title Dropdown list
@@ -360,16 +351,16 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
   customerName: any;
   customerCode: any;
   lttsCustomerCode = '#LTTS';
-  BASE_URL = environment.MASTER_BASE_URL;
+  // BASE_URL = environment.API_BASE_URL;
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
     private loadingService: LoaderService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
+    private skillexService:SkillexService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private skillexService:SkillexService,
     private glovbal_validators: GlobalValidatorService,
     // private adminService: AdminServiceService,
   ) {
@@ -386,8 +377,8 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
   }
 
   downloadAsPDF(){
-    // return false
-    // let uid = this.nonCandidate.candidate_user_id;
+    let uid = this.nonCandidate.candidate_user_id;
+    this.appConfig.warning('No Documents Available');
     //  this.adminService.getprofileDoc(uid).subscribe((data: any) => {
     //    if (data) {
     //      const documents = `${this.BASE_URL}/${data}`;
@@ -515,11 +506,11 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
       this.signature = {
         name: 'Signature',
         label: 'Signature',
-        file_id: sign.file_id,
-        file_path: sign.file_path,
-        file_size: sign.file_size,
-        filename: sign.filename,
-        filetype: sign.filetype,
+        // file_id: sign.file_id,
+        // file_path: sign.file_path,
+        // file_size: sign.file_size,
+        // filename: sign.filename,
+        // filetype: sign.filetype,
       }
     }
   }
@@ -679,10 +670,10 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
 
   formInitialization() {
     this.acknowledgmentForm = this.fb.group({
-      [this.form_bgv]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.requiredTrue] : []],
-      [this.form_caste_preview]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.requiredTrue] : []],
-      [this.form_coc]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.requiredTrue] : []],
-      [this.form_joining]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.requiredTrue] : []],
+      [this.form_bgv]: [null, [Validators.requiredTrue]],
+      [this.form_caste_preview]: [null, [Validators.requiredTrue]],
+      [this.form_coc]: [null, [Validators.requiredTrue]],
+      [this.form_joining]: [null,[Validators.requiredTrue]],
       [this.form_terms_conditions]: [null, [Validators.requiredTrue]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
@@ -861,7 +852,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
    this.updatedCitySubscription = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
-      this.allPresentCityList = datas[0];
+      this.allPresentCityList = datas.data;
       this.allPresentCityList.forEach(element => {
         if (element.id == cityId) {
           city = element.name;
@@ -881,7 +872,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
    this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
-      this.allPermanentCityList = datas[0];
+      this.allPermanentCityList = datas.data;
       this.allPermanentCityList.forEach(element => {
         if (element.id == cityId) {
           city = element.name;
@@ -1001,7 +992,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
       [this.form_left_eyepower_glass]: this.personalDetails?.[this.form_left_eyepower_glass] ? this.personalDetails[this.form_left_eyepower_glass] : 'NA',
       [this.form_right_eye_power_glass]: this.personalDetails?.[this.form_right_eye_power_glass] ? this.personalDetails[this.form_right_eye_power_glass] : 'NA'
     };
-    this.url = this.personalDetails?.profile_image.file_path;
+    this.url = this.personalDetails?.profileImage;
     this.personalDetailsMap = data;
   }
 
@@ -1016,7 +1007,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
 
   formSubmitFinal() {
     if (this.acknowledgmentForm.valid) {
-      if (this.signature && this.signature.file_path && this.checkAllFormsValid()) {
+      if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
         return this.matDialogOpen();
       }
       this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
@@ -1205,25 +1196,28 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
     try {
 
       this.loadingService.setLoading(true);
-      const data = await (await this.candidateService.uploadJoiningDocs(file)).json();
-      if (data && data.error_code) {
-        this.loadingService.setLoading(false);
-       return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
-      }
-      this.loadingService.setLoading(false);
-      if (data && data.file_id) {
-        this.signature = {
-          name: 'Signature',
-          label: 'Signature',
-          file_id: data.file_id,
-          file_path: data.file_path,
-          file_size: data.file_size,
-          filename: data.file_name,
-          filetype: data.type,
-        };
-      }
+      const data = await (await this.skillexService.uploadfile(file)).subscribe((data:any)=>{
+        if (data && !data.success) {
+                this.loadingService.setLoading(false);
+              return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
+              }
+              this.loadingService.setLoading(false);
+              if (data && data.data.file_path) {
+                this.signature = {
+                  email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
+                  name: 'Signature',
+                  label: 'Signature',
+                  // file_id: data.file_id,
+                  file_path: data.data.file_path,
+                  file_size: data.data.file_size,
+                  filename: data.data.file_name,
+                  filetype: data.data.type,
+                };
+              }
 
-      this.appConfig.nzNotification('success', 'Uploaded', 'Signature uploaded successfully');
+              this.appConfig.nzNotification('success', 'Uploaded', 'Signature uploaded successfully');
+      })
+      
     } catch (e) {
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -1234,7 +1228,7 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
   public delete() {
     this.signature = {
       name: null,
-      file_id: null,
+      // file_id: null,
       file_path: null,
       file_size: null,
       filename: null,
@@ -1249,11 +1243,12 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
       if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
           let image = event.target.files[0];
 
-        fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
+        fd.append('email',this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '');
         fd.append('description', 'signature');
-        fd.append('label', 'signature');
-        fd.append('level', 'signature');
-        fd.append('product_image', image);
+        // fd.append('label', 'signature');
+        // fd.append('level', 'signature');
+        fd.append('uploadFile', image);
+        fd.append('uploadType', "signature");
         this.uploadImage(fd);
        }
       } else {
@@ -1291,3 +1286,4 @@ export class SharedKycProfileViewComponent implements OnInit, AfterViewInit, OnD
     this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
   }
 }
+
