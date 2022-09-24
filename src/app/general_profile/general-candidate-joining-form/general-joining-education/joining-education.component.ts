@@ -852,19 +852,15 @@ validSelectedPost() {
   }
 
   educationDropdownValues() {
-    const api = {
-      level: '',
-      discipline: '',
-      specification: ''
-    };
-   this.getAllEducationFormDropdownListSubscription = this.candidateService.getAllEducationFormDropdownList(api).subscribe((data: any) => {
-      this.ugSpecializationList = data && data.ug_specifications ? data.ug_specifications : [];
-      this.pgSpecializationList = data && data.pg_specifications ? data.pg_specifications : [];
-      this.diplomaDisciplineList = data && data.diploma_disciplines ? data.diploma_disciplines : [];
-      this.ugDisciplineList = data && data.ug_disciplines ? data.ug_disciplines : [];
-      this.pgDisciplineList = data && data.pg_disciplines ? data.pg_disciplines : [];
-      this.diplomaInstitutesList = data && data.diploma_colleges ? data.diploma_colleges : [];
-      const list = data && data.ug_pg_colleges ? data.ug_pg_colleges : [];
+    
+   this.getAllEducationFormDropdownListSubscription = this.skillexService.collegeList().subscribe((data: any) => {
+      this.ugSpecializationList = data && data.data.ug_specifications ? data.data.ug_specifications : [];
+      this.pgSpecializationList = data && data.data.pg_specifications ? data.data.pg_specifications : [];
+      this.diplomaDisciplineList = data && data.data.diploma_disciplines ? data.data.diploma_disciplines : [];
+      this.ugDisciplineList = data && data.data.ug_disciplines ? data.data.ug_disciplines : [];
+      this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
+      this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
+      const list = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
       this.ugInstitutesList = list;
       const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
       this.pgInstitutesList = exceptOthers;

@@ -110,14 +110,14 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     const ApiData = {
       state_id: id
     };
-   this.updatedCitySubscription = this.candidateService.updatedCity(ApiData).subscribe((datas: any) => {
+   this.updatedCitySubscription = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
-      if(datas && datas[0] && datas[0].error) {
+      if(datas && datas.data[0] && !datas.success) {
         this.allPresentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
       }
-      this.allPresentCityList = datas.data.districts;
+      this.allPresentCityList = datas.data;
     }, (err) => {
     });
   }
@@ -126,14 +126,14 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     const ApiData = {
       state_id: id
     };
-   this.updatedCitySubscription1 = this.candidateService.updatedCity(ApiData).subscribe((datas: any) => {
+   this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
-      if(datas && datas[0] && datas[0].error) {
+      if(datas && datas.data[0] && !datas.success) {
         this.allPermanentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
       }
-      this.allPermanentCityList = datas.data.districts;
+      this.allPermanentCityList = datas.data
     }, (err) => {
     });
   }

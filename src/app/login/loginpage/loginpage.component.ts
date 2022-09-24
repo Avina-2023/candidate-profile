@@ -120,7 +120,7 @@ export class LoginpageComponent implements OnInit {
           this.appConfig.setLocalData('userId', data && data.data.userId ? data.data.userId : '');
           this.appConfig.setLocalData('userEmail', data && data.data.email ? data.data.email : '');
           this.appConfig.setLocalData('csrf-login', data && data.token ? data.token : '');
-          // this.candidateService.saveAllProfileToLocal({})
+          this.candidateService.saveAllProfileToLocal(data.data)
           // this.appConfig.setLocalData('logout-token', data && data.logout_token ? data.logout_token : '');
           // this.appConfig.setLocalData('masters', data && data.master_list && data.master_list.data ? JSON.stringify(data.master_list.data) : '');
           // this.appConfig.setLocalData('roles', data && data.current_user && data.current_user.roles && data.current_user.roles[1] ? data.current_user.roles[1] : null);
