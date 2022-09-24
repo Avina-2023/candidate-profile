@@ -464,7 +464,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     try {
       this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(true);
-      this.skillexService.uploadProfilePic(file).subscribe((data:any) => {
+      this.skillexService.uploadfile(file).subscribe((data:any) => {
         // if (data && !data.succes) {
         //   this.loadingService.setLoading(false);
         //   return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -507,7 +507,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           let image = event.target.files[0];
 
           fd.append('email', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
-          fd.append('profileImage', image);
+          fd.append('uploadFile', image);
+          fd.append('uploadType',"profileImage");
           this.uploadImage(fd);
         }
        } else {

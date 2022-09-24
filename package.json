@@ -30,6 +30,7 @@
     "ng-zorro-antd": "^11.4.2",
     "ngx-spinner": "^11.0.2",
     "ngx-toastr": "^13.2.1",
+    "pdf-viewer": "^0.8.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "xlsx": "^0.18.5",
