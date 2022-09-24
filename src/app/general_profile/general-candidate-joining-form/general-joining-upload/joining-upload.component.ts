@@ -784,35 +784,38 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
 }
 
   formSubmit(routeValue?: any) {
-    if (this.uploadForm.valid) {
-    if (this.checkJoiningNotUploaded() && this.candidateService.checkKycOrJoiningForm()) {
-      this.openNodocs(routeValue ? routeValue : '');
-    } else {
+    // if (this.uploadForm.valid) {
+    // if (this.checkJoiningNotUploaded() && this.candidateService.checkKycOrJoiningForm()) {
+    //   this.openNodocs(routeValue ? routeValue : '');
+    // } else {
       this.beforeSubmit(routeValue ? routeValue : '');
-    }
-    } else {
-      this.ngAfterViewInit();
-      this.accordion.openAll();
-      this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_resumeArray]) as FormArray);
-      this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_educationArray]) as FormArray);
-      this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_bankArray]) as FormArray);
-      this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_CertificationArray]) as FormArray);
-      this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_otherCertArray]) as FormArray);
-      if (this.getEducationArr.invalid) {
-        return this.appConfig.nzNotification('error', 'Education Uploads', 'Please fill all the red highlighted fields in Education Uploads to proceed further');
-      }
-      if (this.getBankArr.invalid) {
-        return this.appConfig.nzNotification('error', 'Banking Details', 'Please fill all the red highlighted fields in Banking Details to proceed further');
-      }
-      if (this.getCertificationsArr.invalid) {
-        return this.selectedPost == 'ca' ? this.appConfig.nzNotification('error', 'CA Certification Uploads', 'Please fill all the red highlighted fields in CA Certifications Uploads to proceed further') : this.appConfig.nzNotification('error', 'Certification Uploads', 'Please fill all the red highlighted fields in Certifications Uploads to proceed further');
-      }
-      if (this.getOtherCertArr.invalid) {
-        return this.appConfig.nzNotification('error', 'Other Certifications', 'Please fill all the red highlighted fields in Other Certifications to proceed further');
-      } else {
-        this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
-      }
-    }
+    // }
+    // } else {
+    //   this.ngAfterViewInit();
+    //   this.accordion.openAll();
+    //   this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_resumeArray]) as FormArray);
+    //   // this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_educationArray]) as FormArray);
+    //   // this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_bankArray]) as FormArray);
+    //   // this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_CertificationArray]) as FormArray);
+    //   // this.glovbal_validators.validateAllFormArrays(this.uploadForm.get([this.form_otherCertArray]) as FormArray);
+    //   // if (this.getEducationArr.invalid) {
+    //   //   return this.appConfig.nzNotification('error', 'Education Uploads', 'Please fill all the red highlighted fields in Education Uploads to proceed further');
+    //   // }
+    //   // if (this.getBankArr.invalid) {
+    //   //   return this.appConfig.nzNotification('error', 'Banking Details', 'Please fill all the red highlighted fields in Banking Details to proceed further');
+    //   // }
+    //   // if (this.getCertificationsArr.invalid) {
+    //   //   return this.selectedPost == 'ca' ? this.appConfig.nzNotification('error', 'CA Certification Uploads', 'Please fill all the red highlighted fields in CA Certifications Uploads to proceed further') : this.appConfig.nzNotification('error', 'Certification Uploads', 'Please fill all the red highlighted fields in Certifications Uploads to proceed further');
+    //   // }
+    //   // if (this.getOtherCertArr.invalid) {
+    //   //   return this.appConfig.nzNotification('error', 'Other Certifications', 'Please fill all the red highlighted fields in Other Certifications to proceed further');
+    //   // }
+    //   if (this.getResumeArr.invalid) {
+    //     return this.appConfig.nzNotification('error', 'Resume Uploads', 'Please fill all the red highlighted fields in Education Uploads to proceed further');
+    //   }else {
+    //     this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+    //   }
+    // }
   }
 
 
@@ -1001,6 +1004,7 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
   }
 
   finalSubmit(routeValue?: any) {
+    console.log("final submit")
     let joiningArray = this.getJoiningArr.getRawValue();
     let educationArray = this.getEducationArr.getRawValue();
     let transferArray = this.getTransferArr.getRawValue();
@@ -1009,24 +1013,24 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
     let certArray = this.getCertificationsArr.getRawValue();
     let otherArray = this.getOtherCertArr.getRawValue();
     const apiData = {
-      joining_details: joiningArray,
-      education_documents: educationArray,
+      // joining_details: joiningArray,
+      // education_documents: educationArray,
       resume: resumeArray,
-      certifications: certArray,
-      other_certifications: otherArray,
-      transfer_certificate: transferArray,
-      banking_details: bankArray
+      // certifications: certArray,
+      // other_certifications: otherArray,
+      // transfer_certificate: transferArray,
+      // banking_details: bankArray
     }
     const UploadApiRequestDetails = {
-      form_name: "joining",
+      email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
       section_name: "document_details",
       saving_data: apiData
     }
 
     // if(this.dependentForm.valid) {
-     this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(UploadApiRequestDetails).subscribe((data: any)=> {
-        this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
-        this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
+     this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(UploadApiRequestDetails).subscribe((data: any)=> {
+        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Upload details is updated');
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PREVIEW);
@@ -1129,7 +1133,6 @@ if (form == this.conditionOther) {
 }
 
 onSelectFile(event, i, form) {
-  debugger
   if (form == this.conditionJoining && this.getJoiningArr.at(i).value[this.form_name] == 'PhotoID') {
     return this.onPhotoUpload(event, i, form);
   }
@@ -1146,14 +1149,14 @@ onSelectFile(event, i, form) {
         if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
         this.selectedImage = event.target.files[0];
 
-        if (form == this.conditionJoining) {
-          fd.append('email', this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',);
-          // fd.append('description', this.getJoiningArr.at(i).value[this.form_description]);
-          // fd.append('label', form);
-          fd.append('level', this.getJoiningArr.at(i).value[this.form_name]);
-          // fd.append('product_image', this.selectedImage);
-          // this.uploadImage(fd, i, form);
-        }
+        // if (form == this.conditionJoining) {
+        //   fd.append('email', this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',);
+        //   fd.append('description', this.getJoiningArr.at(i).value[this.form_description]);
+        //   fd.append('label', form);
+        //   fd.append('level', this.getJoiningArr.at(i).value[this.form_name]);
+        //   fd.append('product_image', this.selectedImage);
+        //   this.uploadImage(fd, i, form);
+        // }
         // if (form == this.conditionTransfer) {
         //   fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
         //   fd.append('description', this.getTransferArr.at(i).value[this.form_description]);
