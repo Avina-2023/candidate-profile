@@ -308,7 +308,7 @@ export class CandidateMappersService {
 
     getLocalpersonal_details() {
       let profile = this.getLocalProfileData();
-      return profile ? profile.personal_details : null;
+      return profile.personal_details?.name? profile.personal_details : null;
     }
     getLocalcontact_details() {
     let profile = this.getLocalProfileData();

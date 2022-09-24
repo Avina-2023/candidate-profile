@@ -347,6 +347,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       let rawPersonalFormValue = this.personalForm.getRawValue();
       const apiData = {
         "basicinfo":{
+          profileImage:this.profilePicture.file_path,
           [this.form_name]: rawPersonalFormValue[this.form_name],
           [this.form_aadhar]: rawPersonalFormValue[this.form_aadhar],
           [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
