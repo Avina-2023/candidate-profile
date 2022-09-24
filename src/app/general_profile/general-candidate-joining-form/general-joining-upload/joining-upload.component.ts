@@ -1146,14 +1146,14 @@ onSelectFile(event, i, form) {
         if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
         this.selectedImage = event.target.files[0];
 
-        // if (form == this.conditionJoining) {
-        //   fd.append('email', this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',);
-        //   fd.append('description', this.getJoiningArr.at(i).value[this.form_description]);
-        //   fd.append('label', form);
-        //   fd.append('level', this.getJoiningArr.at(i).value[this.form_name]);
-        //   fd.append('product_image', this.selectedImage);
-        //   this.uploadImage(fd, i, form);
-        // }
+        if (form == this.conditionJoining) {
+          fd.append('email', this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',);
+          // fd.append('description', this.getJoiningArr.at(i).value[this.form_description]);
+          // fd.append('label', form);
+          fd.append('level', this.getJoiningArr.at(i).value[this.form_name]);
+          // fd.append('product_image', this.selectedImage);
+          // this.uploadImage(fd, i, form);
+        }
         // if (form == this.conditionTransfer) {
         //   fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
         //   fd.append('description', this.getTransferArr.at(i).value[this.form_description]);
