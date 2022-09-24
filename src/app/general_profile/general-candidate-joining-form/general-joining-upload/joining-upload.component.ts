@@ -15,6 +15,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
+import { SkillexService } from 'src/app/service/skillex.service';
 
 
 export const MY_FORMATS = {
@@ -151,6 +152,7 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
     private loadingService: LoaderService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
+    private skillexService: SkillexService,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService,
     private dialog: MatDialog,
@@ -1034,70 +1036,29 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
 async uploadImage(file, i, form) {
   try {
     this.loadingService.setLoading(true);
-    const data = await (await this.candidateService.uploadJoiningDocs(file)).json();
-    if (data && data.error_code) {
+    const data = await (await this.skillexService.uploadfile(file)).subscribe((data:any)=>{
+      if (data && !data.success) {
+        this.loadingService.setLoading(false);
+       return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
+      }
       this.loadingService.setLoading(false);
-     return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
-    }
-    this.loadingService.setLoading(false);
-    if (data && data.file_id) {
-      if (form == this.conditionJoining) {
-      this.getJoiningArr.at(i).patchValue({
-        [this.form_file_name]: data.file_name,
-        [this.form_file_id]: data.file_id,
-        [this.form_file_path]: data.file_path,
-        [this.form_file_size]: data.file_size,
-        [this.form_file_type]: data.type,
-      });
-    }
-    if (form == this.conditionTransfer) {
-      this.getTransferArr.at(i).patchValue({
-        [this.form_file_name]: data.file_name,
-        [this.form_file_id]: data.file_id,
-        [this.form_file_path]: data.file_path,
-        [this.form_file_size]: data.file_size,
-        [this.form_file_type]: data.type,
-      });
-    }
-    if (form == this.conditionResume) {
-      this.getResumeArr.at(i).patchValue({
-        [this.form_file_name]: data.file_name,
-        [this.form_file_id]: data.file_id,
-        [this.form_file_path]: data.file_path,
-        [this.form_file_size]: data.file_size,
-        [this.form_file_type]: data.type,
-      });
-    }
-    if (form == this.conditionBank) {
-      this.getBankArr.at(i).patchValue({
-        [this.form_file_name]: data.file_name,
-        [this.form_file_id]: data.file_id,
-        [this.form_file_path]: data.file_path,
-        [this.form_file_size]: data.file_size,
-        [this.form_file_type]: data.type,
-      });
-    }
-    if (form == this.conditionCert) {
-      this.getCertificationsArr.at(i).patchValue({
-        [this.form_file_name]: data.file_name,
-        [this.form_file_id]: data.file_id,
-        [this.form_file_path]: data.file_path,
-        [this.form_file_size]: data.file_size,
-        [this.form_file_type]: data.type,
-      });
-    }
-    if (form == this.conditionOther) {
-      this.getOtherCertArr.at(i).patchValue({
-        [this.form_file_name]: data.file_name,
-        [this.form_file_id]: data.file_id,
-        [this.form_file_path]: data.file_path,
-        [this.form_file_size]: data.file_size,
-        [this.form_file_type]: data.type,
-      });
-    }
-    }
-
-    this.appConfig.nzNotification('success', 'Uploaded', 'Document uploaded successfully');
+      if (data && data.data.file_path) {
+     
+      if (form == this.conditionResume) {
+        this.getResumeArr.at(i).patchValue({
+          [this.form_file_name]: data.data.file_name,
+          [this.form_file_id]: data.data.file_id,
+          [this.form_file_path]: data.data.file_path,
+          [this.form_file_size]: data.data.file_size,
+          [this.form_file_type]: data.data.type,
+        });
+      }
+     
+      }
+  
+      this.appConfig.nzNotification('success', 'Uploaded', 'Document uploaded successfully');
+    })
+   
   } catch (e) {
     this.loadingService.setLoading(false);
     this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -1168,6 +1129,7 @@ if (form == this.conditionOther) {
 }
 
 onSelectFile(event, i, form) {
+  debugger
   if (form == this.conditionJoining && this.getJoiningArr.at(i).value[this.form_name] == 'PhotoID') {
     return this.onPhotoUpload(event, i, form);
   }
@@ -1184,54 +1146,55 @@ onSelectFile(event, i, form) {
         if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
         this.selectedImage = event.target.files[0];
 
-        if (form == this.conditionJoining) {
-          fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
-          fd.append('description', this.getJoiningArr.at(i).value[this.form_description]);
-          fd.append('label', form);
-          fd.append('level', this.getJoiningArr.at(i).value[this.form_name]);
-          fd.append('product_image', this.selectedImage);
-          this.uploadImage(fd, i, form);
-        }
-        if (form == this.conditionTransfer) {
-          fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
-          fd.append('description', this.getTransferArr.at(i).value[this.form_description]);
-          fd.append('label', form);
-          fd.append('level', this.getTransferArr.at(i).value[this.form_name]);
-          fd.append('product_image', this.selectedImage);
-          this.uploadImage(fd, i, form);
-        }
+        // if (form == this.conditionJoining) {
+        //   fd.append('email', this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',);
+        //   fd.append('description', this.getJoiningArr.at(i).value[this.form_description]);
+        //   fd.append('label', form);
+        //   fd.append('level', this.getJoiningArr.at(i).value[this.form_name]);
+        //   fd.append('product_image', this.selectedImage);
+        //   this.uploadImage(fd, i, form);
+        // }
+        // if (form == this.conditionTransfer) {
+        //   fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
+        //   fd.append('description', this.getTransferArr.at(i).value[this.form_description]);
+        //   fd.append('label', form);
+        //   fd.append('level', this.getTransferArr.at(i).value[this.form_name]);
+        //   fd.append('product_image', this.selectedImage);
+        //   this.uploadImage(fd, i, form);
+        // }
         if (form == this.conditionResume) {
-          fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
+          fd.append('email', this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',);
           fd.append('description', this.getResumeArr.at(i).value[this.form_description]);
-          fd.append('label', form);
-          fd.append('level', this.getResumeArr.at(i).value[this.form_name]);
-          fd.append('product_image', this.selectedImage);
+          // fd.append('label', form);
+          // fd.append('level', this.getResumeArr.at(i).value[this.form_name]);
+          fd.append('uploadType',"document")
+          fd.append('uploadFile', this.selectedImage);
           this.uploadImage(fd, i, form);
         }
-        if (form == this.conditionBank) {
-          fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
-          fd.append('description', this.getBankArr.at(i).value[this.form_description]);
-          fd.append('label', form);
-          fd.append('level', this.getBankArr.at(i).value[this.form_name]);
-          fd.append('product_image', this.selectedImage);
-          this.uploadImage(fd, i, form);
-        }
-        if (form == this.conditionCert) {
-          fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
-          fd.append('description', this.getCertificationsArr.at(i).value[this.form_description]);
-          fd.append('label', form);
-          fd.append('level', this.getCertificationsArr.at(i).value[this.form_label]);
-          fd.append('product_image', this.selectedImage);
-          this.uploadImage(fd, i, form);
-        }
-        if (form == this.conditionOther) {
-          fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
-          fd.append('description', this.getOtherCertArr.at(i).value[this.form_description]);
-          fd.append('label', form);
-          fd.append('level', this.getOtherCertArr.at(i).value[this.form_label]);
-          fd.append('product_image', this.selectedImage);
-          this.uploadImage(fd, i, form);
-        }
+        // if (form == this.conditionBank) {
+        //   fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
+        //   fd.append('description', this.getBankArr.at(i).value[this.form_description]);
+        //   fd.append('label', form);
+        //   fd.append('level', this.getBankArr.at(i).value[this.form_name]);
+        //   fd.append('product_image', this.selectedImage);
+        //   this.uploadImage(fd, i, form);
+        // }
+        // if (form == this.conditionCert) {
+        //   fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
+        //   fd.append('description', this.getCertificationsArr.at(i).value[this.form_description]);
+        //   fd.append('label', form);
+        //   fd.append('level', this.getCertificationsArr.at(i).value[this.form_label]);
+        //   fd.append('product_image', this.selectedImage);
+        //   this.uploadImage(fd, i, form);
+        // }
+        // if (form == this.conditionOther) {
+        //   fd.append('user_id', this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '');
+        //   fd.append('description', this.getOtherCertArr.at(i).value[this.form_description]);
+        //   fd.append('label', form);
+        //   fd.append('level', this.getOtherCertArr.at(i).value[this.form_label]);
+        //   fd.append('product_image', this.selectedImage);
+        //   this.uploadImage(fd, i, form);
+        // }
        }
       } else {
         // this.showResumeImgSizeError = true;

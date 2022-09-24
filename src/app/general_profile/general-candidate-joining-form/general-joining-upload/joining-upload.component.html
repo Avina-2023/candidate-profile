@@ -85,7 +85,7 @@
 
                                     <div class="overall-input-wrapper width-20 alignCenter top20">
                                         <button class="choose-button btnView" mat-raised-button
-                                            (click)="openMatDialog(getResumeArr.controls[j].get(form_file_path).value, getResumeArr.controls[j].get(form_file_type).value)"
+                                            (click)="openMatDialog(getResumeArr.controls[j].get(form_file_path).value, 'application/pdf')"
                                             [disabled]="getResumeArr.controls[j].get(form_file_path).value ? false : true"
                                             type="button"> View</button>
                                     </div>
