@@ -7,6 +7,7 @@ export const environment = {
   Image_Base_Url:"",
   cryptoEncryptionKey:"(!@#Passcode!@#)",
   SKILLEX_BASE_URL:"https://skilledgeqa.lntedutech.com",
+  SKILL_PROFILE_URL :'https://profile-qa.lntedutech.com',
   MASTER_BASE_URL:"https://campus-dev.lntedutech.com/dcampus"
 };
 
