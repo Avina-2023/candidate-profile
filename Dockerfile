@@ -1,15 +1,11 @@
 ### STAGE 1: Build ###
 FROM node:10.20.1 AS build
 WORKDIR /usr/src/app
-ARG environment
-ENV PORT=$environment
-RUN echo "Oh dang look at port ${PORT}"
 
 COPY package.json ./
 RUN npm config set registry http://registry.npmjs.org/ 
 RUN npm install
-RUN npm install @types/core-js --save-dev
-RUN npm install ng2-charts@2.2.3
+
 
 COPY . .
 #RUN ng serve
