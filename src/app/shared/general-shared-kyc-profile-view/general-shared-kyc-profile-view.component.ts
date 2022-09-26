@@ -411,7 +411,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.patchPersonalForm();
     this.contactDetails = data && data.contact_details ? data.contact_details : null;
     this.patchContactForm();
-    this.dependentDetails = data && data.dependent_details.dependent_details && data.dependent_details.dependent_details.length > 0 ? data.dependent_details.dependent_details : [];
+    this.dependentDetails = data && data.dependent_details && data.dependent_details.length > 0 ? data.dependent_details : [];
     if (this.dependentDetails.length > 0) {
       this.patchDependent();
     } else {
