@@ -374,7 +374,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           [this.form_nationality]: rawPersonalFormValue[this.form_nationality],
           // [this.form_blood_group]: rawPersonalFormValue[this.form_blood_group],
           // [this.form_caste]: rawPersonalFormValue[this.form_caste],
-          // [this.form_category]: rawPersonalFormValue[this.form_category],
+          [this.form_category]: rawPersonalFormValue[this.form_category],
           // [this.form_emergency_contact]: rawPersonalFormValue[this.form_emergency_contact],
           [this.form_mother_tongue]: rawPersonalFormValue[this.form_mother_tongue],
           // [this.form_father_name]: rawPersonalFormValue[this.form_father_name],
@@ -550,7 +550,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_mother_tongue]: this.personalDetails[this.form_mother_tongue],
       // [this.form_religion]: this.personalDetails[this.form_religion],
       // [this.form_caste]: this.personalDetails[this.form_caste],
-      // [this.form_category]: this.personalDetails[this.form_category],
+      [this.form_category]: this.personalDetails[this.form_category],
       // [this.form_blood_group]: this.personalDetails[this.form_blood_group] ? this.personalDetails[this.form_blood_group].toString() : null,
       // [this.form_father_name]: this.personalDetails[this.form_father_name],
       // [this.form_emergency_contact]: this.personalDetails[this.form_emergency_contact],
@@ -644,8 +644,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_pan]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.panNo()]],
       // [this.form_offer_reference]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.offer()]],
       // [this.form_offer_date]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
-      [this.form_height]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.numberDecimals()]],
-      [this.form_weight]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.numberDecimals()]],
+      [this.form_height]: [null, [RemoveWhitespace.whitespace(),, this.glovbal_validators.numberDecimals()]],
+      [this.form_weight]: [null, [RemoveWhitespace.whitespace(),, this.glovbal_validators.numberDecimals()]],
       // [this.form_identification_mark1]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       // [this.form_identification_mark2]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       // [this.form_emergency_contact_name]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
@@ -711,7 +711,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   //   this.personalForm.controls[this.form_mother_tongue].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_religion].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_caste].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
-  //   this.personalForm.controls[this.form_category].setValidators([Validators.required]);
+    // this.personalForm.controls[this.form_category].setValidators([Validators.required]);
   //   // this.personalForm.controls[this.form_blood_group].setValidators([Validators.required]);
   //   // this.personalForm.controls[this.form_father_name].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_emergency_contact].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.mobileRegex()]);

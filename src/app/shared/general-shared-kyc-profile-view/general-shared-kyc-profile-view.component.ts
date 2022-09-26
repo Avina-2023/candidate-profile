@@ -496,7 +496,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         // [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
         // [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
         [this.form_terms_conditions]: ackData.terms_conditions && (ackData.terms_conditions == '1' || ackData.terms_conditions == true) ? false : false,
-        [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : "goki",
+        [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : null,
         [this.form_ack_date]: ackData.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
       }
       this.actualDate = ackData.ack_date;
