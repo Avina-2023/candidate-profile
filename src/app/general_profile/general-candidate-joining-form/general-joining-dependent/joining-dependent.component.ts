@@ -209,7 +209,7 @@ dateConvertion(date) {
         saving_data: dependentobj
       }
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(DependentApiRequestDetails).subscribe((data: any)=> {
-        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data.dependent_details);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Dependent details is updated');
         this.sharedService.joiningFormStepperStatus.next();

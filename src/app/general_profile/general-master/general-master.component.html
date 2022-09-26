@@ -1,2 +1,54 @@
 <app-common-header></app-common-header>
-<router-outlet></router-outlet>
+<div class="scroll-height">
+  <div class="sticky-subheaders">
+    <div class="toolbar-wrapper">
+      <!-- <ol class="breadcrumb">
+        <li *ngFor="let breadcrumb of breadcrumbs">
+          <span [routerLink]="breadcrumb.url ? breadcrumb.url : '/'" [queryParams]="breadcrumb.params"
+            routerLinkActive="router-link-active">
+            {{ breadcrumb.label && breadcrumb.label == 'Joining Form' ? checkJoining() : breadcrumb.label }}
+          </span>
+        </li>
+      </ol> -->
+    </div>
+    <div class="d-flex pl-1 justify-content-between align-content-center drive-wrapper">
+    <div class="heading3">
+      Profile Form
+    </div>
+    <!-- <div class="d-flex align-content-center">
+      <div *ngIf="role != 'candidate'" class="drive">
+        <label>Selected Drive: </label>
+        <nz-select
+        class="input select"
+        (ngModelChange)="driveChanged($event)" [nzDisabled]="driveList && driveList.length > 1 ? false : true"
+        [(ngModel)]="activeDriveId"
+        nzShowSearch
+        nzPlaceHolder="Select Drive"
+      >
+          <nz-option
+            *ngFor="let drive of driveList"
+            [nzLabel]="drive.drive_name"
+            [nzValue]="drive.drive_id"
+          >
+          </nz-option>
+      </nz-select>
+        </div>
+    </div> -->
+  </div>
+  <!-- <div class="first-sidenav" *ngIf="subMenus && subMenus.length > 0">
+    <div class="main-toolbar" [ngClass]="!subMenus || subMenus.length === 0 ? 'toolbar-bg' : ''">
+      <ng-container *ngIf="subMenus && subMenus.length > 0">
+        <div [routerLink]="subMenus.router"
+          [queryParams]="subMenus.data ? {data: subMenus.data ? subMenus.data : ''} : ''"
+          *ngFor="let subMenus of subMenus; let i = index" class="sub-navs" routerLinkActive="active"
+          [ngClass]="subMenus.active ? 'active' : ''" [ngClass]="subMenus.router === null ? 'non-active' : ''">
+          <div *ngIf="subMenus.icon && !subMenus.icons"><img src="assets/images/{{subMenus.icon}}" alt=""></div>
+          <div *ngIf="subMenus.icon && subMenus.icons"><span class="d-flex"><em style="font-size: 22px;" class="{{subMenus.icon}}"></em></span></div>
+          <div *ngIf="subMenus.name">{{subMenus.name}}</div>
+        </div>
+      </ng-container>
+    </div>
+  </div> -->
+</div>
+  <router-outlet></router-outlet>
+</div>
