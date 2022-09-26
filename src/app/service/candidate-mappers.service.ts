@@ -259,12 +259,7 @@ export class CandidateMappersService {
     }
 
     checkKycOrJoiningForm() {
-      let isJoining = this.appConfig.getLocalData('joiningFormAccess') && this.appConfig.getLocalData('joiningFormAccess') == 'true' ? true : false;
-      if (this.appConfig.getLocalData('roles') == 'candidate') {
-        return isJoining;
-      } else {
-        return true;
-      }
+      return false
     }
 
     newGetProfileData(data) {
