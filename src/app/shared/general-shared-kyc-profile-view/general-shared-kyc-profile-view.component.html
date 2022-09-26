@@ -1824,7 +1824,7 @@
 
           <div class="row-wrapper-preview checkbox-pad">
             <div class="overall-input-wrapper width-45">
-              <label>Place<span></span></label>
+              <label>Place<span class="redTxt">*</span></label>
                   <input matInput [formControlName]="form_ack_place" placeholder="Enter here" class="input" type="text" />
                   <div class="form-error" *ngIf="ack_place?.invalid && ack_place?.touched">
                       <div *ngIf="ack_place?.errors?.required">

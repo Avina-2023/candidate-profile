@@ -411,7 +411,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.patchPersonalForm();
     this.contactDetails = data && data.contact_details ? data.contact_details : null;
     this.patchContactForm();
-    this.dependentDetails = data && data.dependent_details.dependent_details && data.dependent_details.dependent_details.length > 0 ? data.dependent_details.dependent_details : [];
+    this.dependentDetails = data && data.dependent_details && data.dependent_details.length > 0 ? data.dependent_details : [];
     if (this.dependentDetails.length > 0) {
       this.patchDependent();
     } else {
@@ -487,6 +487,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.getStateAPI();
   }
   ifFormNotSubmitted(data) {
+    console.log(data, "my dataa")
     if (data && data.acknowledgement) {
       let ackData = data.acknowledgement;
       let ack = {
@@ -495,7 +496,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         // [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
         // [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
         [this.form_terms_conditions]: ackData.terms_conditions && (ackData.terms_conditions == '1' || ackData.terms_conditions == true) ? false : false,
-        [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : null,
+        [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : "goki",
         [this.form_ack_date]: ackData.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
       }
       this.actualDate = ackData.ack_date;
@@ -670,10 +671,10 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
 
   formInitialization() {
     this.acknowledgmentForm = this.fb.group({
-      [this.form_bgv]: [null, [Validators.required ]],
-      [this.form_caste_preview]: [null, [Validators.required ]],
-      [this.form_coc]: [null, [Validators.required ]],
-      [this.form_joining]: [null,[Validators.required ]],
+      // [this.form_bgv]: [null, [Validators.required ]],
+      // [this.form_caste_preview]: [null, [Validators.required ]],
+      // [this.form_coc]: [null, [Validators.required ]],
+      // [this.form_joining]: [null,[Validators.required ]],
       [this.form_terms_conditions]: [null, [Validators.required ]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
@@ -1185,6 +1186,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     return this.acknowledgmentForm.get(this.form_terms_conditions);
   }
   get ack_place() {
+    console.log(this.acknowledgmentForm.get(this.form_ack_place).value)
     return this.acknowledgmentForm.get(this.form_ack_place);
   }
   get ack_date() {

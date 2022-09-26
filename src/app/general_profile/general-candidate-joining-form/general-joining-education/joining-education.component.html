@@ -27,7 +27,7 @@
                     <div class="form-grouping">
                         <div class="row-wrapper">
                             <div class="overall-input-wrapper width-45">
-                                <label>Qualification Type<span>*</span></label>
+                                <label>Qualification Type<span class="redTxt">*</span></label>
                                 <nz-select class="input select" (ngModelChange)="educationLevelChange(i)" [formControlName]="form_qualification_type"
                                     nzAllowClear nzShowSearch nzPlaceHolder="Select">
                                     
@@ -47,7 +47,7 @@
 
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'SSLC')">
                             <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC')" class="overall-input-wrapper width-45">
-                                <label>Qualification<!-- Asterick --><span *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC' && getEducationArr.controls[i].get(form_qualification_type).value != 'Diploma')">*</span>
+                                <label>Qualification<!-- Asterick --><span *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC' && getEducationArr.controls[i].get(form_qualification_type).value != 'Diploma')" class="redTxt">*</span>
                                 </label>
                             <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'HSC')">
                                 <input matInput placeholder="Enter here" class="input" type="text"
@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="overall-input-wrapper width-45">
-                                <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'Specialization' : 'Main Subject'}}<span>*</span></label>
+                                <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'Specialization' : 'Main Subject'}}<span class="redTxt">*</span></label>
                                 <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' else showCASpecialization">
                                 <nz-select class="input select" [formControlName]="form_specialization"
                                     nzAllowClear nzShowSearch nzPlaceHolder="Select">
@@ -146,7 +146,7 @@
                           </ng-container>
 
                             <div class="overall-input-wrapper width-45">
-                                <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name' : 'Institute Name'}}<span>*</span></label>
+                                <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name' : 'Institute Name'}}<span class="redTxt">*</span></label>
                                 <ng-template #showCollegeTextBox>
                                 <input matInput placeholder="Enter here" class="input" type="text"
                                     [formControlName]="form_collegeName">
@@ -183,7 +183,7 @@
                             </div>
                             <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS'">
                             <div class="overall-input-wrapper width-45">
-                                <label>{{getEducationArr.controls[i].get(form_qualification_type).value == 'CA' ? 'Group' : 'Board/university'}}<span *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'SSLC' || getEducationArr.controls[i].get(form_qualification_type).value == 'HSC') || (getEducationArr.controls[i].get(form_qualification_type).value == 'CA')">*</span>
+                                <label>{{getEducationArr.controls[i].get(form_qualification_type).value == 'CA' ? 'Group' : 'Board/university'}}<span *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'SSLC' || getEducationArr.controls[i].get(form_qualification_type).value == 'HSC') || (getEducationArr.controls[i].get(form_qualification_type).value == 'CA')" class="redTxt">*</span>
                                 </label>
                                 <!-- For Non SSLC and HSC -->
                                 <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma') || (getEducationArr.controls[i].get(form_qualification_type).value == 'UG') || (getEducationArr.controls[i].get(form_qualification_type).value == 'PG')">
@@ -246,7 +246,7 @@
 
                            <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
                                <div class="overall-input-wrapper width-45">
-                                <label>Start Date<span>*</span></label>
+                                <label>Start Date<span class="redTxt">*</span></label>
                                 <div class="date-relative">
                                     <input matInput class="input" [min]="minDate" [max]="maxDate"
                                         [matDatepicker]="picker" placeholder="DD-MM-YYYY"
@@ -277,7 +277,7 @@
                             </div>
 
                             <div class="overall-input-wrapper width-32">
-                                <label>End Date<span>*</span></label>
+                                <label>End Date<span class="redTxt">*</span></label>
                                 <div class="date-relative">
                                     <input matInput class="input" [min]="minDate" [max]="maxDate"
                                         [matDatepicker]="picker1" placeholder="DD-MM-YYYY"
@@ -309,7 +309,7 @@
                           </ng-container>
 
                             <div class="overall-input-wrapper" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-32' : 'width-45'">
-                                <label>Year of Passing<span>*</span></label>
+                                <label>Year of Passing<span class="redTxt">*</span></label>
                                 <div class="date-relative">
                                     <input matInput class="input" [ngClass]="getEducationArr.controls[i].get(form_startDate)?.errors?.notValid || getEducationArr.controls[i].get(form_endDate)?.errors?.notValid ? 'custom-input-error-border' : ''" [min]="minDate" [max]="maxDate"
                                         [matDatepicker]="pickerYearOfPassing" placeholder="Ex: Jan 2001"
@@ -347,7 +347,7 @@
                             </div>
 
                         <div class="overall-input-wrapper" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-24' : 'width-45'">
-                            <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Backlogs' : 'No. of Attempts'}}<span>*</span></label>
+                            <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Backlogs' : 'No. of Attempts'}}<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
                                 [formControlName]="form_backlog">
                             <div class="form-error"
@@ -362,7 +362,7 @@
                         </div>
                         <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
                           <div class="overall-input-wrapper width-32">
-                            <label>Mode<span>*</span></label>
+                            <label>Mode<span class="redTxt">*</span></label>
                             <nz-select class="input select" [formControlName]="form_mode"
                                 nzAllowClear nzShowSearch nzPlaceHolder="Select">
                                 <nz-option *ngFor="let modes of modesList" [nzLabel]="modes.label"
@@ -377,7 +377,7 @@
                         </div>
                         </ng-container>
                         <div class="overall-input-wrapper" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-32' : 'width-45'">
-                            <label>Percentage(%)<span>*</span></label>
+                            <label>Percentage(%)<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
                                 [formControlName]="form_cgpa">
                             <div class="form-error"
@@ -396,7 +396,7 @@
 
                         <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && ((getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma') || (getEducationArr.controls[i].get(form_qualification_type).value == 'UG') || (getEducationArr.controls[i].get(form_qualification_type).value == 'PG'))">
                             <div class="overall-input-wrapper width-24">
-                            <label>Final Percentage(%)<span>*</span></label>
+                            <label>Final Percentage(%)<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
                                 [formControlName]="form_Finalcgpa">
                             <div class="form-error"
