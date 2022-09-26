@@ -25,7 +25,7 @@
                     </div>
                 </div> -->
                 <div class="overall-input-wrapper width-100">
-                    <label>Name (as per Aadhar)<span>*</span></label>
+                    <label>Name (as per Aadhaar)<span>*</span></label>
                     <input matInput class="input" placeholder="Name (as per Aadhar)" type="text"
                         [formControlName]="form_name">
                     <div class="form-error" *ngIf="fname?.invalid && fname?.touched">
@@ -54,7 +54,7 @@
               </div>
 
               <div class="overall-input-wrapper width-45">
-                <label>Aadhar No.<span *ngIf="candidateService.checkKycOrJoiningForm()">*</span></label>
+                <label>Aadhaar No.<span>*</span></label>
                 <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_aadhar">
                 <div class="form-error" *ngIf="aadhar?.invalid && aadhar?.touched">
                     <div *ngIf="aadhar?.errors?.required">Aadhaar No. is Required</div>
@@ -106,7 +106,7 @@
                 </div>
 
     <div class="overall-input-wrapper" [ngClass]="(personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Married') || (personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Widow') ? 'width-22' : 'width-45'">
-        <label>Marital Status<span *ngIf="candidateService.checkKycOrJoiningForm()">*</span></label>
+        <label>Marital Status<span >*</span></label>
         <nz-select class="input select" (ngModelChange)="maritalStatusChange()" [formControlName]="form_marital_status" nzAllowClear nzShowSearch
             nzPlaceHolder="<--Select-->">
             <nz-option *ngFor="let marital of marital_list" [nzLabel]="marital.name"
@@ -165,7 +165,7 @@
             </ng-container>
 
             <div class="overall-input-wrapper width-45">
-                    <label>Nationality<span *ngIf="candidateService.checkKycOrJoiningForm()">*</span></label>
+                    <label>Nationality<span>*</span></label>
                     <input matInput placeholder="Enter here" class="input" type="text"
                         [formControlName]="form_nationality">
                     <div class="form-error" *ngIf="nationality?.invalid && nationality?.touched">
@@ -174,9 +174,8 @@
                             allowed</div>
                     </div>
                 </div>
-                <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
                   <div class="overall-input-wrapper width-45">
-                    <label>Mother Tongue<span *ngIf="candidateService.checkKycOrJoiningForm()">*</span></label>
+                    <label>Mother Tongue<span >*</span></label>
                     <input matInput placeholder="Enter here" class="input" type="text"
                         [formControlName]="form_mother_tongue">
                     <div class="form-error" *ngIf="mother_tongue?.invalid && mother_tongue?.touched">
@@ -185,7 +184,7 @@
                             only allowed</div>
                     </div>
                 </div>
-
+                <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
                 <div class="overall-input-wrapper width-45">
                     <label>Religion<span *ngIf="candidateService.checkKycOrJoiningForm()">*</span></label>
                     <input matInput placeholder="Enter here" class="input" type="text"
@@ -210,7 +209,7 @@
               </ng-container>
 
               <div class="overall-input-wrapper width-45">
-                    <label>Caste Category<span *ngIf="candidateService.checkKycOrJoiningForm()">*</span></label>
+                    <label>Community<span >*</span></label>
                     <nz-select class="input select" [formControlName]="form_category" nzAllowClear nzShowSearch
                         nzPlaceHolder="<--Select-->">
                         <nz-option *ngFor="let category of category" [nzLabel]="category.name"

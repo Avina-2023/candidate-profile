@@ -1,0 +1,12 @@
+[
+  [
+    { "id": "1", "education": "SSLC" },
+    { "id": "2", "education": "HSC" },
+    { "id": "3", "education": "Diploma" },
+    { "id": "4", "education": "UG" },
+    { "id": "5", "education": "PG" },
+    { "id": "6", "education": "CA" },
+    { "id": "7", "education": "ICWA" },
+    { "id": "8", "education": "CS" }
+  ]
+]

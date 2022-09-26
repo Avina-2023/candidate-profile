@@ -15,6 +15,7 @@ import { Moment } from 'moment';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
+import { SkillexService } from 'src/app/service/skillex.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -204,6 +205,7 @@ constructor(
     // private adminService: AdminServiceService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
+    private skillexService:SkillexService,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService
   ) {
@@ -295,7 +297,7 @@ constructor(
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.educationDetails = this.candidateService.getLocaleducation_details().educations;
-      this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
+      // this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
       this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
       this.getSelectedPost();
       this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
@@ -508,23 +510,23 @@ validSelectedPost() {
       }
     });
   // }
-  debugger
+  // debugger
     if (this.educationForm.valid ) {
       // let entryValid = this.validSelectedPost();
       // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
         const EducationApiRequestDetails = {
-          form_name: "joining",
+          email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "education_details",
           saving_data: {
-            selected_post: this.selectedPost,
-            ca_bothgroup_status: this.checkLastIndexOfCA() ? (this.ca_bothgroup_status.value ? 1 : 0) : null,
+            // selected_post: this.selectedPost,
+            // ca_bothgroup_status: this.checkLastIndexOfCA() ? (this.ca_bothgroup_status.value ? 1 : 0) : null,
             educations: formArray
           }
         };
-       this.newSaveProfileDataSubscription = this.candidateService.newSaveProfileData(EducationApiRequestDetails).subscribe((data: any)=> {
-        this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
-        this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
+       this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(EducationApiRequestDetails).subscribe((data: any)=> {
+        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
@@ -850,19 +852,15 @@ validSelectedPost() {
   }
 
   educationDropdownValues() {
-    const api = {
-      level: '',
-      discipline: '',
-      specification: ''
-    };
-   this.getAllEducationFormDropdownListSubscription = this.candidateService.getAllEducationFormDropdownList(api).subscribe((data: any) => {
-      this.ugSpecializationList = data && data.ug_specifications ? data.ug_specifications : [];
-      this.pgSpecializationList = data && data.pg_specifications ? data.pg_specifications : [];
-      this.diplomaDisciplineList = data && data.diploma_disciplines ? data.diploma_disciplines : [];
-      this.ugDisciplineList = data && data.ug_disciplines ? data.ug_disciplines : [];
-      this.pgDisciplineList = data && data.pg_disciplines ? data.pg_disciplines : [];
-      this.diplomaInstitutesList = data && data.diploma_colleges ? data.diploma_colleges : [];
-      const list = data && data.ug_pg_colleges ? data.ug_pg_colleges : [];
+    
+   this.getAllEducationFormDropdownListSubscription = this.skillexService.collegeList().subscribe((data: any) => {
+      this.ugSpecializationList = data && data.data.ug_specifications ? data.data.ug_specifications : [];
+      this.pgSpecializationList = data && data.data.pg_specifications ? data.data.pg_specifications : [];
+      this.diplomaDisciplineList = data && data.data.diploma_disciplines ? data.data.diploma_disciplines : [];
+      this.ugDisciplineList = data && data.data.ug_disciplines ? data.data.ug_disciplines : [];
+      this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
+      this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
+      const list = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
       this.ugInstitutesList = list;
       const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
       this.pgInstitutesList = exceptOthers;

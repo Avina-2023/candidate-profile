@@ -96,12 +96,13 @@ export class CandidateMappersService {
 
   withoutTokens(): HttpHeaders {
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*.lntedutech.com',
+      // 'Access-Control-Allow-Origin': '*',
     })
     .set('custCode', '15691')
     .set('driveId', '2')
     .set('userId', "15691")
     .set('Content-Type', 'application/json')
+    // .set('Access-Control-Allow-Origin', '*')
     .set('Referer','http://localhost:4300/')
     // .set('Authorization', 'Basic ' + btoa('admin' + ':' + 'Cint@na@321'));
     return headers;
@@ -179,9 +180,9 @@ export class CandidateMappersService {
     return this.http.get(`../assets/files/state.json`, { headers: this.withoutTokens(), withCredentials: true });
   }
 
-  updatedCity(Id) {
-    return this.http.post(`${this.BASE_URL}/api/city_api`, Id, { headers: this.withoutTokens(), withCredentials: true });
-  }
+  // updatedCity(Id) {
+  //   return this.http.post(`${this.BASE_URL}/profile/get-district-by-state`, Id, { headers: this.withoutTokens()});
+  // }
 
   assessmentList(user) {
     return this.http.post(`${this.BASE_URL}/profile/hallticket`, user,
@@ -217,19 +218,19 @@ export class CandidateMappersService {
 
   // education
   getEducationList() {
-    return this.http.get(`${this.BASE_URL}/api/education?_format=json`, { headers: this.withoutTokens(), withCredentials: true });
+    return this.http.get(`../assets/files/educationLevel.json`, { headers: this.withoutTokens() });
   }
 
 
   // education
-  getAllEducationFormDropdownList(param) {
-    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens(), withCredentials: true });
-  }
+  // getAllEducationFormDropdownList(param) {
+  //   return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
+  // }
 
   // education
-  getDiplomaList(param) {
-    return this.http.post(`${this.BASE_URL}/api/diploma_colleges?_format=json`, param, { headers: this.withoutTokens(), withCredentials: true });
-  }
+  // getDiplomaList(param) {
+  //   return this.http.get(`../assets/files/colleges.json`, { headers: this.withoutTokens()});
+  // }
 
   // education
   getoverallInstitute() {
@@ -258,12 +259,7 @@ export class CandidateMappersService {
     }
 
     checkKycOrJoiningForm() {
-      let isJoining = this.appConfig.getLocalData('joiningFormAccess') && this.appConfig.getLocalData('joiningFormAccess') == 'true' ? true : false;
-      if (this.appConfig.getLocalData('roles') == 'candidate') {
-        return isJoining;
-      } else {
-        return true;
-      }
+      return false
     }
 
     newGetProfileData(data) {
@@ -299,7 +295,7 @@ export class CandidateMappersService {
     }
 
     saveFormtoLocalDetails(formName, data) {
-      let profile = this.getLocalProfileData();
+      let profile = this.getLocalProfileData()?this.getLocalProfileData():{};
       profile[formName] = data;
       let saveasJson = JSON.stringify(profile);
       this.appConfig.setLocalData('profileData', saveasJson);
@@ -307,7 +303,7 @@ export class CandidateMappersService {
 
     getLocalpersonal_details() {
       let profile = this.getLocalProfileData();
-      return profile ? profile.personal_details : null;
+      return profile.personal_details?.name? profile.personal_details : null;
     }
     getLocalcontact_details() {
     let profile = this.getLocalProfileData();
@@ -315,7 +311,7 @@ export class CandidateMappersService {
     }
     getLocaldependent_details() {
     let profile = this.getLocalProfileData();
-    return profile ? profile.dependent_details : null;
+    return profile ? profile.dependent_details.dependent_details : null;
     }
     getLocaleducation_details() {
     let profile = this.getLocalProfileData();

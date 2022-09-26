@@ -110,14 +110,14 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     const ApiData = {
       state_id: id
     };
-   this.updatedCitySubscription = this.candidateService.updatedCity(ApiData).subscribe((datas: any) => {
+   this.updatedCitySubscription = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
-      if(datas && datas[0] && datas[0].error) {
+      if(datas && datas.data[0] && !datas.success) {
         this.allPresentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
       }
-      this.allPresentCityList = datas[0];
+      this.allPresentCityList = datas.data;
     }, (err) => {
     });
   }
@@ -126,14 +126,14 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     const ApiData = {
       state_id: id
     };
-   this.updatedCitySubscription1 = this.candidateService.updatedCity(ApiData).subscribe((datas: any) => {
+   this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
 
-      if(datas && datas[0] && datas[0].error) {
+      if(datas && datas.data[0] && !datas.success) {
         this.allPermanentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
       }
-      this.allPermanentCityList = datas[0];
+      this.allPermanentCityList = datas.data
     }, (err) => {
     });
   }
@@ -205,8 +205,8 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
           saving_data: apiData
         }
       this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ContactApiRequestDetails).subscribe((data: any)=> {
-          this.candidateService.saveFormtoLocalDetails(data.section_name, data.saved_data);
-          this.candidateService.saveFormtoLocalDetails('section_flags', data.section_flags);
+          this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+          this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');
           this.sharedService.joiningFormStepperStatus.next();
           return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
