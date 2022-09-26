@@ -490,10 +490,10 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     if (data && data.acknowledgement) {
       let ackData = data.acknowledgement;
       let ack = {
-        [this.form_bgv]: ackData.bgv && (ackData.bgv == '1' || ackData.bgv == true) ? false : false,
-        [this.form_caste]: ackData.caste && (ackData.caste == '1' || ackData.caste == true) ? false : false,
-        [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
-        [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
+        // [this.form_bgv]: ackData.bgv && (ackData.bgv == '1' || ackData.bgv == true) ? false : false,
+        // [this.form_caste]: ackData.caste && (ackData.caste == '1' || ackData.caste == true) ? false : false,
+        // [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
+        // [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
         [this.form_terms_conditions]: ackData.terms_conditions && (ackData.terms_conditions == '1' || ackData.terms_conditions == true) ? false : false,
         [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : null,
         [this.form_ack_date]: ackData.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
@@ -1119,13 +1119,13 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
 
   formSubmit(routeValue?: any) {
     let ackForm = this.acknowledgmentForm.getRawValue();
-    ackForm[this.form_bgv] = ackForm[this.form_bgv] && (ackForm[this.form_bgv] == '1' || ackForm[this.form_bgv] == true) ? '1' : '0';
-    ackForm[this.form_coc] = ackForm[this.form_coc] && (ackForm[this.form_coc] == '1' || ackForm[this.form_coc] == true) ? '1' : '0';
-    ackForm[this.form_joining] = ackForm[this.form_joining] && (ackForm[this.form_joining] == '1' || ackForm[this.form_joining] == true) ? '1' : '0';
-    ackForm[this.form_caste_preview] = ackForm[this.form_caste_preview] && (ackForm[this.form_caste_preview] == '1' || ackForm[this.form_caste_preview] == true) ? '1' : '0';
+    // ackForm[this.form_bgv] = ackForm[this.form_bgv] && (ackForm[this.form_bgv] == '1' || ackForm[this.form_bgv] == true) ? '1' : '0';
+    // ackForm[this.form_coc] = ackForm[this.form_coc] && (ackForm[this.form_coc] == '1' || ackForm[this.form_coc] == true) ? '1' : '0';
+    // ackForm[this.form_joining] = ackForm[this.form_joining] && (ackForm[this.form_joining] == '1' || ackForm[this.form_joining] == true) ? '1' : '0';
+    // ackForm[this.form_caste_preview] = ackForm[this.form_caste_preview] && (ackForm[this.form_caste_preview] == '1' || ackForm[this.form_caste_preview] == true) ? '1' : '0';
     ackForm[this.form_terms_conditions] = ackForm[this.form_terms_conditions] && (ackForm[this.form_terms_conditions] == '1' || ackForm[this.form_terms_conditions] == true) ? '1' : '0';
     let apiData = {
-      selected_post: this.selectedPost,
+      // selected_post: this.selectedPost,
       acknowledgement: ackForm,
       signature_image: this.signature
     }
