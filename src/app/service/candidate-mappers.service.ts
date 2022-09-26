@@ -259,12 +259,7 @@ export class CandidateMappersService {
     }
 
     checkKycOrJoiningForm() {
-      let isJoining = this.appConfig.getLocalData('joiningFormAccess') && this.appConfig.getLocalData('joiningFormAccess') == 'true' ? true : false;
-      if (this.appConfig.getLocalData('roles') == 'candidate') {
-        return isJoining;
-      } else {
-        return true;
-      }
+      return false
     }
 
     newGetProfileData(data) {
@@ -316,7 +311,7 @@ export class CandidateMappersService {
     }
     getLocaldependent_details() {
     let profile = this.getLocalProfileData();
-    return profile ? profile.dependent_details : null;
+    return profile ? profile.dependent_details.dependent_details : null;
     }
     getLocaleducation_details() {
     let profile = this.getLocalProfileData();
