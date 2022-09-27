@@ -16,7 +16,7 @@
                       </div>
                       <div style="width: 66%" class="row-wrapper mt-0">
                           <div class="overall-input-wrapper width-50">
-                              <label>Name (as per Aadhar)<span></span></label>
+                              <label>Name (as per Aadhaar)<span></span></label>
                               <div class="inpu-preview size-16 bold-700 color-black">
                                   {{ personalDetailsMap[form_name] }}
                               </div>
@@ -161,7 +161,7 @@
                       </div>
 
                       <div class="overall-input-wrapper mt-3 width-32">
-                          <label>Aadhar No.<span></span></label>
+                          <label>Aadhaar No.<span></span></label>
                           <div class="inpu-preview size-16 bold-700 color-black">
                               {{ personalDetailsMap[form_aadhar] }}
                           </div>
@@ -354,7 +354,7 @@
                   <div class="row-wrapper mt-0">
                       <div class="overall-input-wrapper mt-0 width-100">
                           <label>Present Address<span
-                *ngIf="contactDetailsMap[form_same_as_checkbox]"
+                *ngIf="contactDetails.is_sameas_presentaddr"
                 >/Permanent Address</span
               ></label
             >
@@ -391,7 +391,7 @@
                       </div>
                   </div>
 
-                  <ng-container *ngIf="!contactDetailsMap[form_same_as_checkbox]">
+                  <ng-container *ngIf="!contactDetails.is_sameas_presentaddr">
                       <div class="row-wrapper mt-4">
                           <div class="overall-input-wrapper mt-0 width-100">
                               <label>Permanent Address<span></span></label>
