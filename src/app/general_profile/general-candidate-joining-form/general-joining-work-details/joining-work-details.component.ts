@@ -239,8 +239,8 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
       employment: this.workDetails && this.workDetails.employments ? this.workDetails.employments : [],
       bgvDetails: this.workDetails && this.workDetails.bgv_details ? this.workDetails.bgv_details : null,
     }
-    this.showWorkExp = this.workDetails && this.workDetails['is_work_exp'] =='1' ? '1' : '0';
-    this.isWorkExp.setValue(this.workDetails && this.workDetails['is_work_exp'] && this.workDetails['is_work_exp'] == '1' ? true : false);
+    this.showWorkExp = this.workDetails && this.workDetails['is_anywork_exp'];
+    this.isWorkExp.setValue(this.workDetails['is_anywork_exp']);
     this.workDetails = work;
     this.patchWorkForm();
   }
@@ -290,9 +290,9 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
     if (this.workDetails && this.workDetails.workDetails) {
       this.OtherDetailsPatch(this.workDetails.workDetails);
     }
-    if (this.workDetails && this.workDetails.Employment && this.workDetails.Employment.length > 0) {
+    if (this.workDetails && this.workDetails.employment && this.workDetails.employment.length > 0) {
       this.getEmploymentArr.clear();
-      this.workDetails.Employment.forEach((element, i) => {
+      this.workDetails.employment.forEach((element, i) => {
         this.getEmploymentArr.push(this.EmploymentArrayPatch(element));
       });
     } else {
@@ -621,19 +621,19 @@ addToTrainingArray() {
 
   formSubmit(routeValue?: any) {
     // this.requiredDesc();
-    let some = this.showWorkExp == '1' ? this.workDetailsForm.getRawValue()[this.form_Employment_Array] : this.getEmploymentArr.clear();
+    let some = this.showWorkExp ? this.workDetailsForm.getRawValue()[this.form_Employment_Array] : this.getEmploymentArr.clear();
     let formValues = this.workDetailsForm.getRawValue();
     if (this.workDetailsForm.valid) {
       const work_details = {
-        [this.form_total_exp_years]: this.showWorkExp == '1' ? formValues[this.form_total_exp_years] : null,
-        [this.form_total_exp_months]: this.showWorkExp == '1' ? formValues[this.form_total_exp_months] : null,
-        [this.form_break_in_emp]: this.showWorkExp == '1' ? formValues[this.form_break_in_emp] : null,
-        [this.form_employed_us]: formValues[this.form_employed_us] && (formValues[this.form_employed_us] == '1' || formValues[this.form_employed_us] == true) ? '1' : '0',
-        [this.form_oc]: formValues[this.form_oc],
-        [this.form_payslip]: formValues[this.form_payslip],
-        [this.form_interviewed_by_us]: formValues[this.form_interviewed_by_us] && (formValues[this.form_interviewed_by_us] == '1' || formValues[this.form_interviewed_by_us] == true) ? '1' : '0',
-        [this.form_post]: formValues[this.form_post],
-        [this.form_when_interview]: formValues[this.form_when_interview]
+        [this.form_total_exp_years]: this.showWorkExp ? formValues[this.form_total_exp_years] : null,
+        [this.form_total_exp_months]: this.showWorkExp ? formValues[this.form_total_exp_months] : null,
+        [this.form_break_in_emp]: this.showWorkExp ? formValues[this.form_break_in_emp] : null,
+        // [this.form_employed_us]: formValues[this.form_employed_us] && (formValues[this.form_employed_us] == '1' || formValues[this.form_employed_us] == true) ? '1' : '0',
+        // [this.form_oc]: formValues[this.form_oc],
+        // [this.form_payslip]: formValues[this.form_payslip],
+        // [this.form_interviewed_by_us]: formValues[this.form_interviewed_by_us] && (formValues[this.form_interviewed_by_us] == '1' || formValues[this.form_interviewed_by_us] == true) ? '1' : '0',
+        // [this.form_post]: formValues[this.form_post],
+        // [this.form_when_interview]: formValues[this.form_when_interview]
       };
       const bgv_details = {
         [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
@@ -648,7 +648,7 @@ addToTrainingArray() {
         [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
         [this.form_full_particulars]: formValues[this.form_full_particulars]
       }
-      const employments = this.showWorkExp == '1' ? this.workDetailsForm.getRawValue()[this.form_Employment_Array] : [];
+      const employments = this.showWorkExp? this.workDetailsForm.getRawValue()[this.form_Employment_Array] : [];
 
       let skills = [];
       this.workDetailsForm.getRawValue()[this.form_Skills_Array].forEach(element => {
@@ -676,13 +676,13 @@ addToTrainingArray() {
         work_details,
         bgv_details,
         employments,
-        is_work_exp: this.showWorkExp == '1' ? '1' : '0',
+        is_anywork_exp: this.showWorkExp,
         [this.form_training_Array]: intern,
-        [this.form_is_training_status]: this.workDetailsForm.getRawValue()[this.form_is_training_status] ? 1 : 0,
+        [this.form_is_training_status]: this.workDetailsForm.getRawValue()[this.form_is_training_status] ,
         [this.form_training_is_articleship_status]: this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] == '0' ? 0 : 1,
-        [this.form_ca_dateofcompletion]: (this.workDetailsForm.getRawValue()[this.form_ca_dateofcompletion] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] == '0') ? this.momentForm(this.workDetailsForm.getRawValue()[this.form_ca_dateofcompletion]) : null,
-        [this.form_ca_achivement]: this.workDetailsForm.getRawValue()[this.form_ca_achivement],
-        [this.form_is_ca_resaon_suitable]: this.workDetailsForm.getRawValue()[this.form_is_ca_resaon_suitable],
+        // [this.form_ca_dateofcompletion]: (this.workDetailsForm.getRawValue()[this.form_ca_dateofcompletion] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] == '0') ? this.momentForm(this.workDetailsForm.getRawValue()[this.form_ca_dateofcompletion]) : null,
+        // [this.form_ca_achivement]: this.workDetailsForm.getRawValue()[this.form_ca_achivement],
+        // [this.form_is_ca_resaon_suitable]: this.workDetailsForm.getRawValue()[this.form_is_ca_resaon_suitable],
         skills,
         // relatives_in_company: this.workDetailsForm.getRawValue()[this.form_Relatives_Array],
         // faculty_references

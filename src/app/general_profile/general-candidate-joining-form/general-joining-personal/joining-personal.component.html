@@ -26,10 +26,10 @@
                 </div> -->
                 <div class="overall-input-wrapper width-100">
                     <label>Name (as per Aadhaar)<span class="redTxt">*</span></label>
-                    <input matInput class="input" placeholder="Name (as per Aadhar)" type="text"
+                    <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
                         [formControlName]="form_name">
                     <div class="form-error" *ngIf="fname?.invalid && fname?.touched">
-                        <div *ngIf="fname?.errors?.required">Name (as per Aadhar) is Required</div>
+                        <div *ngIf="fname?.errors?.required">Name (as per Aadhaar) is Required</div>
                         <div *ngIf="fname.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
                         </div>
                     </div>

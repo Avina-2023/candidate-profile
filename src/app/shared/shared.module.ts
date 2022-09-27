@@ -6,13 +6,15 @@ import { MaterialModule } from '../material.module';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { GeneralSharedKycProfileViewComponent } from './general-shared-kyc-profile-view/general-shared-kyc-profile-view.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     NzSelectModule,
-    PdfViewerModule
+    PdfViewerModule,
+    FormsModule,ReactiveFormsModule
     
   ],
   declarations: [CommonHeaderComponent,ModalBoxComponent,GeneralSharedKycProfileViewComponent],
