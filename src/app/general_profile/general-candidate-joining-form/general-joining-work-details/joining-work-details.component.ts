@@ -128,8 +128,8 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   form_training_to_date = "to_date";
   form_training_work_responsiability = "work_responsiability";
 
-  form_training_is_articleship_status = "is_articleship_status";
-  form_ca_dateofcompletion = "ca_dateofcompletion";
+  // form_training_is_articleship_status = "is_articleship_status";
+  // form_ca_dateofcompletion = "ca_dateofcompletion";
   form_ca_achivement = "ca_achivement";
   form_is_ca_resaon_suitable = "ca_resaon_suitable";
 
@@ -177,19 +177,19 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   changeInIsArticleship(e) {
     if (e.checked) {
     } else {
-      this.workDetailsForm['controls'][this.form_ca_dateofcompletion].clearValidators();
-      this.workDetailsForm['controls'][this.form_ca_dateofcompletion].updateValueAndValidity();
-      this.workDetailsForm['controls'][this.form_training_is_articleship_status].setValue('1');
+      // this.workDetailsForm['controls'][this.form_ca_dateofcompletion].clearValidators();
+      // this.workDetailsForm['controls'][this.form_ca_dateofcompletion].updateValueAndValidity();
+      // this.workDetailsForm['controls'][this.form_training_is_articleship_status].setValue('1');
     }
   }
   changeInTrainingExp(e) {
     if (e.value == '1') {
-      this.workDetailsForm['controls'][this.form_ca_dateofcompletion].clearValidators();
-      this.workDetailsForm['controls'][this.form_ca_dateofcompletion].updateValueAndValidity();
+      // this.workDetailsForm['controls'][this.form_ca_dateofcompletion].clearValidators();
+      // this.workDetailsForm['controls'][this.form_ca_dateofcompletion].updateValueAndValidity();
     }
     if (e.value == '0') {
-      this.workDetailsForm['controls'][this.form_ca_dateofcompletion].setValidators([Validators.required]);
-      this.workDetailsForm['controls'][this.form_ca_dateofcompletion].updateValueAndValidity();
+      // this.workDetailsForm['controls'][this.form_ca_dateofcompletion].setValidators([Validators.required]);
+      // this.workDetailsForm['controls'][this.form_ca_dateofcompletion].updateValueAndValidity();
     }
   }
 
@@ -329,12 +329,12 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
       [this.form_faculty_reference]: this.workDetailsAllData['faculty_references'] && this.workDetailsAllData['faculty_references'][0] ? this.workDetailsAllData['faculty_references'][0] : null,
       [this.form_faculty_reference_1]: this.workDetailsAllData['faculty_references'] && this.workDetailsAllData['faculty_references'][1] ? this.workDetailsAllData['faculty_references'][1] : null,
       [this.form_is_training_status]: this.workDetailsAllData[this.form_is_training_status] && this.workDetailsAllData[this.form_is_training_status] == 1 ? this.workDetailsAllData[this.form_is_training_status] : null,
-      [this.form_training_is_articleship_status]: this.workDetailsAllData[this.form_training_is_articleship_status] == 0 ? '0' : '1',
-      [this.form_ca_dateofcompletion]: this.workDetailsAllData[this.form_ca_dateofcompletion] ? this.dateConvertion(this.workDetailsAllData[this.form_ca_dateofcompletion]) : null,
+      // [this.form_training_is_articleship_status]: this.workDetailsAllData[this.form_training_is_articleship_status] == 0 ? '0' : '1',
+      // [this.form_ca_dateofcompletion]: this.workDetailsAllData[this.form_ca_dateofcompletion] ? this.dateConvertion(this.workDetailsAllData[this.form_ca_dateofcompletion]) : null,
       [this.form_ca_achivement]: this.workDetailsAllData[this.form_ca_achivement],
       [this.form_is_ca_resaon_suitable]: this.workDetailsAllData[this.form_is_ca_resaon_suitable]
     });
-    this.changeInTrainingExp({value: this.workDetailsForm.value[this.form_training_is_articleship_status]});
+    // this.changeInTrainingExp({value: this.workDetailsForm.value[this.form_training_is_articleship_status]});
   }
 
   OtherConditionsPatch(data) {
@@ -487,8 +487,8 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
       [this.form_Relatives_Array]: this.fb.array([this.initRelativesArray()]),
       [this.form_training_Array]: this.fb.array([this.initTrainingArray()]),
       [this.form_is_training_status]: [null],
-      [this.form_training_is_articleship_status]: ['1'],
-      [this.form_ca_dateofcompletion]: [null],
+      // [this.form_training_is_articleship_status]: ['1'],
+      // [this.form_ca_dateofcompletion]: [null],
       [this.form_ca_achivement]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]],
       [this.form_is_ca_resaon_suitable]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]]
     })
@@ -679,7 +679,7 @@ addToTrainingArray() {
         is_anywork_exp: this.showWorkExp,
         [this.form_training_Array]: intern,
         [this.form_is_training_status]: this.workDetailsForm.getRawValue()[this.form_is_training_status] ,
-        [this.form_training_is_articleship_status]: this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] == '0' ? 0 : 1,
+        // [this.form_training_is_articleship_status]: this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] == '0' ? 0 : 1,
         // [this.form_ca_dateofcompletion]: (this.workDetailsForm.getRawValue()[this.form_ca_dateofcompletion] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] && this.workDetailsForm.getRawValue()[this.form_training_is_articleship_status] == '0') ? this.momentForm(this.workDetailsForm.getRawValue()[this.form_ca_dateofcompletion]) : null,
         // [this.form_ca_achivement]: this.workDetailsForm.getRawValue()[this.form_ca_achivement],
         // [this.form_is_ca_resaon_suitable]: this.workDetailsForm.getRawValue()[this.form_is_ca_resaon_suitable],
@@ -878,12 +878,12 @@ addToTrainingArray() {
   get is_training_status() {
     return this.workDetailsForm.get(this.form_is_training_status);
   }
-  get training_is_articleship_status() {
-    return this.workDetailsForm.get(this.form_training_is_articleship_status);
-  }
-  get ca_dateofcompletion() {
-    return this.workDetailsForm.get(this.form_ca_dateofcompletion);
-  }
+  // get training_is_articleship_status() {
+  //   return this.workDetailsForm.get(this.form_training_is_articleship_status);
+  // }
+  // get ca_dateofcompletion() {
+  //   return this.workDetailsForm.get(this.form_ca_dateofcompletion);
+  // }
   get ca_achivement() {
     return this.workDetailsForm.get(this.form_ca_achivement);
   }

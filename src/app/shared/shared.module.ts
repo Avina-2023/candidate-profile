@@ -7,6 +7,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { GeneralSharedKycProfileViewComponent } from './general-shared-kyc-profile-view/general-shared-kyc-profile-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 
 @NgModule({
   imports: [
@@ -17,13 +18,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,ReactiveFormsModule
     
   ],
-  declarations: [CommonHeaderComponent,ModalBoxComponent,GeneralSharedKycProfileViewComponent],
+  declarations: [CommonHeaderComponent,ModalBoxComponent,GeneralSharedKycProfileViewComponent,DashboardHeaderComponent],
   exports:[
     CommonHeaderComponent,
     ModalBoxComponent,
     NzSelectModule,
     PdfViewerModule,
-    GeneralSharedKycProfileViewComponent
+    GeneralSharedKycProfileViewComponent,
+    DashboardHeaderComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 
