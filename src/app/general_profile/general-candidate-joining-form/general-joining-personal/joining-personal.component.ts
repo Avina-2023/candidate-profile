@@ -279,6 +279,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     
     if (this.candidateService.getLocalProfileData()) {
       this.personalDetails = this.candidateService.getLocalpersonal_details();
+      this.personalDetails.email = this.personalDetails.email?this.personalDetails.email:this.appConfig.getLocalData('userEmail');
       this.personalDetails ? this.patchPersonalForm() : '';
     } else {
     //   let apiData = {
