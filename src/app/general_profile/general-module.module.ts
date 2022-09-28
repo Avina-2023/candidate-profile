@@ -123,7 +123,6 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    
     SharedModule,
     MaterialModule
   ]

@@ -45,3 +45,5 @@ testem.log
 .DS_Store
 Thumbs.db
 .vscode/launch.json
+src/environments/environment.ts
+src/environments/environment.prod.ts
