@@ -279,6 +279,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     
     if (this.candidateService.getLocalProfileData()) {
       this.personalDetails = this.candidateService.getLocalpersonal_details();
+      this.personalDetails.email = this.personalDetails.email?this.personalDetails.email:this.appConfig.getLocalData('userEmail');
       this.personalDetails ? this.patchPersonalForm() : '';
     } else {
     //   let apiData = {
@@ -364,8 +365,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       let rawPersonalFormValue = this.personalForm.getRawValue();
       const apiData = {
         "basicinfo":{
-          profileImage:this.profilePicture.file_path,
-          [this.form_name]: rawPersonalFormValue[this.form_name],
+          // profileImage:this.profilePicture.file_path,
+          // [this.form_name]: rawPersonalFormValue[this.form_name],
           [this.form_aadhar]: rawPersonalFormValue[this.form_aadhar],
           [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
           [this.form_email]: rawPersonalFormValue[this.form_email],
@@ -627,7 +628,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_title]: [null, [Validators.required]],
       [this.form_name]: [{value: this.appConfig.getLocalData('username'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
-      [this.form_gender]: [{value: null}, [Validators.required]],
+      [this.form_gender]: [null, [Validators.required]],
       // [this.form_place_of_birth]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_state_of_birth]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
       [this.form_nationality]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],

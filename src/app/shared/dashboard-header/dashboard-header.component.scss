@@ -1,0 +1,43 @@
+@import "../../themes/themes.scss";
+@import "../../../styles.scss";
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+mat-toolbar {
+  height: 30px;
+  background: $footer-bg !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400 !important;
+  padding: 0 12px;
+  ul:first-child {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    li {
+      font-size: 12px !important;
+      color: $footer-color;
+      list-style: none;
+      // padding: 1em 2em;
+      box-sizing: border-box;
+    }
+  }
+  ul:last-child {
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    li {
+      font-size: 12px !important;
+      color: $footer-color;
+      list-style: none;
+      // padding: 1em 2em;
+      // text-transform: uppercase;
+      box-sizing: border-box;
+    }
+  }
+}
