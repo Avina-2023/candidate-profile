@@ -15,6 +15,7 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import { environment } from 'src/environments/environment';
 
 export const MY_FORMATS = {
   parse: {
@@ -50,6 +51,7 @@ export const MY_FORMATS = {
 
 export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  blobToken = environment.blobToken
   marital_list = [
     
     {

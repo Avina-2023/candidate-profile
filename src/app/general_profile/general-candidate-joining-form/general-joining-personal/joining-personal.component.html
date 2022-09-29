@@ -607,7 +607,7 @@
                         </ng-container>
                         <ng-container *ngIf="profilePicture && profilePicture.file_path">
                             <div class="urlExist">
-                                <img [src]="profilePicture.file_path" alt="">
+                                <img [src]="profilePicture.file_path+blobToken" alt="">
                             </div>
                         </ng-container>
 
