@@ -16,7 +16,7 @@
                       </div>
                       <div style="width: 66%" class="row-wrapper mt-0">
                           <div class="overall-input-wrapper width-50">
-                              <label>Name (as per Aadhar)<span></span></label>
+                              <label>Name (as per Aadhaar)<span></span></label>
                               <div class="inpu-preview size-16 bold-700 color-black">
                                   {{ personalDetailsMap[form_name] }}
                               </div>
@@ -118,7 +118,7 @@
                           </div>
                       </div>
 
-                      <div *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm" class="overall-input-wrapper mt-3 width-32">
+                      <div  class="overall-input-wrapper mt-3 width-32">
                           <label>Mother Tongue<span></span></label>
                           <div class="inpu-preview size-16 bold-700 color-black">
                               {{ personalDetailsMap[form_mother_tongue] }}
@@ -161,7 +161,7 @@
                       </div>
 
                       <div class="overall-input-wrapper mt-3 width-32">
-                          <label>Aadhar No.<span></span></label>
+                          <label>Aadhaar No.<span></span></label>
                           <div class="inpu-preview size-16 bold-700 color-black">
                               {{ personalDetailsMap[form_aadhar] }}
                           </div>
@@ -354,7 +354,7 @@
                   <div class="row-wrapper mt-0">
                       <div class="overall-input-wrapper mt-0 width-100">
                           <label>Present Address<span
-                *ngIf="contactDetailsMap[form_same_as_checkbox]"
+                *ngIf="contactDetails.is_sameas_presentaddr"
                 >/Permanent Address</span
               ></label
             >
@@ -391,7 +391,7 @@
                       </div>
                   </div>
 
-                  <ng-container *ngIf="!contactDetailsMap[form_same_as_checkbox]">
+                  <ng-container *ngIf="!contactDetails.is_sameas_presentaddr">
                       <div class="row-wrapper mt-4">
                           <div class="overall-input-wrapper mt-0 width-100">
                               <label>Permanent Address<span></span></label>
@@ -524,7 +524,7 @@
                               </div>
                           </div>
 
-                          <div *ngIf="education[form_qualification_type] != 'SSLC/10th'" class="overall-input-wrapper mt-2 width-32">
+                          <div *ngIf="(education[form_qualification_type] != 'SSLC/10th')&&(education[form_qualification_type] != 'HSC/12th')" class="overall-input-wrapper mt-2 width-32">
                               <label>Qualification</label>
                               <div class="inpu-preview size-16 bold-700 color-black">
                                   {{ education[form_qualification] }}
@@ -647,7 +647,7 @@
                                   <button class="add-button" (click)="
                             openMatDialog(
                               document[form_file_path],
-                              document[form_file_type]
+                              'application/pdf'
                             )
                           " mat-raised-button type="button">
                           View
@@ -707,7 +707,7 @@
                                       <button class="add-button" (click)="
                     openMatDialog(
                       document[form_file_path],
-                      document[form_file_type]
+                      'application/pdf'
                     )
                   " mat-raised-button type="button">
                   View
@@ -790,7 +790,7 @@
                                       <button class="add-button" (click)="
                     openMatDialog(
                       document[form_file_path],
-                      document[form_file_type]
+                      'application/pdf'
                     )
                   " mat-raised-button type="button">
                   View
@@ -850,7 +850,7 @@
                                       <button class="add-button" (click)="
                     openMatDialog(
                       document[form_file_path],
-                      document[form_file_type]
+                      'application/pdf'
                     )
                   " mat-raised-button type="button">
                   View
@@ -916,7 +916,7 @@
                                               <button class="add-button" (click)="
                         openMatDialog(
                           document[form_file_path],
-                          document[form_file_type]
+                          'application/pdf'
                         )
                       " mat-raised-button type="button">
                       View
@@ -982,7 +982,7 @@
                                       <button class="add-button" (click)="
                     openMatDialog(
                       document[form_file_path],
-                      document[form_file_type]
+                      'application/pdf'
                     )
                   " mat-raised-button type="button">
                   View
@@ -1043,7 +1043,7 @@
                                   <button class="add-button" (click)="
                     openMatDialog(
                       document[form_file_path],
-                      document[form_file_type]
+                      'application/pdf'
                     )
                   " mat-raised-button type="button">
                   View

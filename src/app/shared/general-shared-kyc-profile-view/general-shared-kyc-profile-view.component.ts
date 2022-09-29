@@ -186,7 +186,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_present_state = 'present_state';
   form_present_zip_code = 'present_zip';
   form_present_region = 'present_country';
-  form_same_as_checkbox = 'same_as_checkbox';
+  form_same_as_checkbox = 'form_same_as_checkbox';
   form_permanent_address_1 = 'permanent_line1_street_add';
   form_permanent_address_2 = 'permanent_line2_street_add';
   form_permanent_address_3 = 'permanent_address_line_3';
@@ -490,15 +490,14 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.getStateAPI();
   }
   ifFormNotSubmitted(data) {
-    console.log(data, "my dataa")
     if (data && data.acknowledgement) {
-      let ackData = data.acknowledgement;
+      let ackData = data.acknowledgement.acknowledgement;
       let ack = {
         // [this.form_bgv]: ackData.bgv && (ackData.bgv == '1' || ackData.bgv == true) ? false : false,
         // [this.form_caste]: ackData.caste && (ackData.caste == '1' || ackData.caste == true) ? false : false,
         // [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
         // [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
-        [this.form_terms_conditions]: ackData.terms_conditions && (ackData.terms_conditions == '1' || ackData.terms_conditions == true) ? false : false,
+        [this.form_terms_conditions]: false,
         [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : null,
         [this.form_ack_date]: ackData.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
       }
@@ -511,7 +510,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         name: 'Signature',
         label: 'Signature',
         // file_id: sign.file_id,
-        // file_path: sign.file_path,
+        file_path: sign.file_path,
         // file_size: sign.file_size,
         // filename: sign.filename,
         // filetype: sign.filetype,
@@ -519,40 +518,13 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     }
   }
   getPreviewData() {
-    if (this.nonCandidate) {
-      let apiData = {
-        candidate_user_id: this.nonCandidate.candidate_user_id
-      }
-    if (!this.personalDetails) {
-     this.newGetProfileDataSubscription = this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
-        this.checkFormSubmitted();
-        let apiPreviewDetails = data;
-        this.currentForm = data && data.form_name == 'joining' ? false : true;
-        this.ifPreviewDetails(apiPreviewDetails);
-      }, (e)=> {
-        this.formSubmitted = true;
-      });
-    }
-    } else {
+   
       if (this.candidateService.getLocalProfileData()) {
-        this.checkFormSubmitted();
+        // this.checkFormSubmitted();
         let apiPreviewDetails = this.candidateService.getLocalProfileData();
         this.ifPreviewDetails(apiPreviewDetails);
-      } else {
-        // let apiData = {
-        //   form_name: 'joining',
-        //   section_name: ''
-        // }
-        // this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
-        //   this.candidateService.saveAllProfileToLocal(data);
-        //   this.checkFormSubmitted();
-        //   let apiPreviewDetails = this.candidateService.getLocalProfileData();
-        //   this.ifPreviewDetails(apiPreviewDetails);
-        // }, (e)=> {
-        //   this.formSubmitted = true;
-        // });
-      }
-    }
+      } 
+    
   }
 
   dateValidation() {
@@ -580,19 +552,19 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     }
   }
 
-  checkFormSubmitted() {
-    if (this.nonCandidate) {
-      return this.formSubmitted = true;
-    }
-    if (this.appConfig.getLocalData('joiningFormAccess') == 'true') {
-     return this.formSubmitted = this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().submitted == '1' ? true : false;
-    }
-    if (this.appConfig.getLocalData('isEditAllowed') == 'false') {
-     return this.formSubmitted = true;
-    } else {
-      return this.formSubmitted = false;
-    }
-}
+//   checkFormSubmitted() {
+//     if (this.nonCandidate) {
+//       return this.formSubmitted = true;
+//     }
+//     if (this.appConfig.getLocalData('joiningFormAccess') == 'true') {
+//      return this.formSubmitted = this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().submitted == '1' ? true : false;
+//     }
+//     if (this.appConfig.getLocalData('isEditAllowed') == 'false') {
+//      return this.formSubmitted = true;
+//     } else {
+//       return this.formSubmitted = false;
+//     }
+// }
 
   getStateAPI() {
 
@@ -678,7 +650,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       // [this.form_caste_preview]: [null, [Validators.required ]],
       // [this.form_coc]: [null, [Validators.required ]],
       // [this.form_joining]: [null,[Validators.required ]],
-      [this.form_terms_conditions]: [null, [Validators.required ]],
+      [this.form_terms_conditions]: [false, [Validators.required ]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
     });
@@ -894,6 +866,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     let permanentState: any;
     let presentCity: any;
     let permanentCity: any;
+    console.log(this.contactDetails)
     const data = {
       [this.form_present_address_1]: this.contactDetails?.[this.form_present_address_1] ? this.contactDetails[this.form_present_address_1] : null,
       [this.form_present_address_2]: this.contactDetails?.[this.form_present_address_2] ? this.contactDetails[this.form_present_address_2] : null,
@@ -912,6 +885,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       [this.form_permanent_zip_code]: this.contactDetails?.[this.form_permanent_zip_code] ? this.contactDetails[this.form_permanent_zip_code] : 'NA'
     };
     this.contactDetailsMap = data;
+    console.log(this.contactDetailsMap)
     this.contactDetailsMap.presentAddress =  this.getPresentAddress(this.contactDetails?.[this.form_present_address_1], this.contactDetails?.[this.form_present_address_2], this.contactDetails?.[this.form_present_address_3]);
     this.contactDetailsMap.permanentAddress = this.getPermanentAddress(this.contactDetails?.[this.form_permanent_address_1], this.contactDetails?.[this.form_permanent_address_2], this.contactDetails?.[this.form_permanent_address_3]);
   }
@@ -1010,15 +984,15 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   }
 
   formSubmitFinal() {
-    // if (this.acknowledgmentForm.valid) {
-    //   if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
+    if (this.acknowledgmentForm.valid) {
+      if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
         return this.matDialogOpen();
-    //   }
-    //   this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
-    // } else {
-    //   this.glovbal_validators.validateAllFields(this.acknowledgmentForm);
-    //   this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields in Acknowledgements and Declarations');
-    // }
+      }
+      this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
+    } else {
+      this.glovbal_validators.validateAllFields(this.acknowledgmentForm);
+      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields in Acknowledgements and Declarations');
+    }
   }
 
   checkAllFormsValid() {
@@ -1127,7 +1101,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     // ackForm[this.form_coc] = ackForm[this.form_coc] && (ackForm[this.form_coc] == '1' || ackForm[this.form_coc] == true) ? '1' : '0';
     // ackForm[this.form_joining] = ackForm[this.form_joining] && (ackForm[this.form_joining] == '1' || ackForm[this.form_joining] == true) ? '1' : '0';
     // ackForm[this.form_caste_preview] = ackForm[this.form_caste_preview] && (ackForm[this.form_caste_preview] == '1' || ackForm[this.form_caste_preview] == true) ? '1' : '0';
-    ackForm[this.form_terms_conditions] = ackForm[this.form_terms_conditions] && (ackForm[this.form_terms_conditions] == '1' || ackForm[this.form_terms_conditions] == true) ? '1' : '0';
+    ackForm[this.form_terms_conditions] = ackForm[this.form_terms_conditions];
     let apiData = {
       // selected_post: this.selectedPost,
       acknowledgement: ackForm,
@@ -1189,7 +1163,6 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     return this.acknowledgmentForm.get(this.form_terms_conditions);
   }
   get ack_place() {
-    console.log(this.acknowledgmentForm.get(this.form_ack_place).value)
     return this.acknowledgmentForm.get(this.form_ack_place);
   }
   get ack_date() {

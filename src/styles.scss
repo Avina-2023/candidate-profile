@@ -182,7 +182,10 @@ body {
   height: 100%;
   align-items: center;
 }
-
+.ant-select-clear {
+  margin-top: -8px !important;
+  right: 18px !important;
+}
 .ant-select-open {
   .ant-select-selection {
     border: solid 1px $primary-input-border-color !important;
