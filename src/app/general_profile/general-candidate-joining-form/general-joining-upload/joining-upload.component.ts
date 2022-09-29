@@ -16,6 +16,7 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import { environment } from 'src/environments/environment';
 
 
 export const MY_FORMATS = {
@@ -146,6 +147,7 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
   joiningFormDataPassingSubscription: Subscription;
   newSaveProfileDataSubscription: Subscription;
 
+  blobToken = environment.blobToken
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -1464,7 +1466,7 @@ dateConvertion(date) {
 }
 
 downloadFile(path: any, type?: any) {
-  this.appConfig.downloadFile(path);
+  this.appConfig.downloadFile(path+this.blobToken);
 }
 
   ngOnDestroy() {
