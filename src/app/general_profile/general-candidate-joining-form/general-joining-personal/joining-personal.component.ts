@@ -51,7 +51,7 @@ export const MY_FORMATS = {
 export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   marital_list = [
-    
+
     {
       name: 'Single',
       value: 'Single'
@@ -276,7 +276,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
 
   getPersonalData() {
-    
+
     if (this.candidateService.getLocalProfileData()) {
       this.personalDetails = this.candidateService.getLocalpersonal_details();
       this.personalDetails.email = this.personalDetails.email?this.personalDetails.email:this.appConfig.getLocalData('userEmail');
@@ -361,6 +361,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
 
   formSubmit(routeValue?:any) {
+    this.loadingService.setLoading(true)
     if (this.personalForm.valid && this.profilePictureFormControl.valid) {
       let rawPersonalFormValue = this.personalForm.getRawValue();
       const apiData = {
@@ -421,6 +422,10 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         saving_data: apiData
       }
     this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(PersonalApiRequestDetails).subscribe((data: any)=> {
+      setTimeout(() => {
+        this.loadingService.setLoading(false)
+
+      }, 2000);
       if(data && data.success)
         {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
@@ -491,7 +496,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         this.loadingService.setLoading(false);
         if (data ) {
           this.profilePicture = {
-           
+
             file_path: data.data.file_path,
 
           };
@@ -500,8 +505,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         this.appConfig.nzNotification('success', 'Uploaded', 'Profile Picture uploaded successfully');
 
       });
-      
-      
+
+
     } catch (e) {
       console.log("error while profile pic"+e)
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
@@ -594,7 +599,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
 
   patchLanguageForm() {
-    
+
     if (this.personalDetails && this.personalDetails[this.form_language_array] && this.personalDetails[this.form_language_array].length > 0) {
       this.getLanguageArr.clear();
       this.personalDetails[this.form_language_array].forEach((element, i) => {
@@ -742,7 +747,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   //   this.personalForm.controls[this.form_physical_disability].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
   //   this.personalForm.controls[this.form_left_eyepower_glass].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]);
   //   this.personalForm.controls[this.form_right_eye_power_glass].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]);
-   
+
   //   let form = this.personalForm;
   //   for (const key in form.controls) {
   //     if (key) {

@@ -362,6 +362,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     private fb: FormBuilder,
     private dialog: MatDialog,
     private glovbal_validators: GlobalValidatorService,
+
     // private adminService: AdminServiceService,
   ) {
     this.dateValidation();
@@ -515,13 +516,13 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     }
   }
   getPreviewData() {
-   
+
       if (this.candidateService.getLocalProfileData()) {
         // this.checkFormSubmitted();
         let apiPreviewDetails = this.candidateService.getLocalProfileData();
         this.ifPreviewDetails(apiPreviewDetails);
-      } 
-    
+      }
+
   }
 
   dateValidation() {
@@ -1192,7 +1193,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
 
               this.appConfig.nzNotification('success', 'Uploaded', 'Signature uploaded successfully');
       })
-      
+
     } catch (e) {
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
