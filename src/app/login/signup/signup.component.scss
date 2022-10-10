@@ -5,16 +5,21 @@
   display: flex;
   justify-content: center;
   height: 100%;
+  background: url('/assets/images/loginBG.png') no-repeat;
+  background-size: auto ;
+
   .sub-wrapper {
+    background-color: #00000073;
     padding: 0;
     color: $primary;
     display: flex;
     justify-content: center;
     text-align: center;
     position: relative;
-    background: $wrapper-light-gray 0% 0% no-repeat padding-box;
+    // background: $wrapper-light-gray 0% 0% no-repeat padding-box;
     width: 100%;
     box-sizing: border-box;
+    flex-direction: column;
   }
 }
 
@@ -63,15 +68,15 @@
     @media only screen and (max-width: 767px) {
       display: none;
     }
-    &::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 1px;
-      height: 100%;
-      background-color: rgba(0,0,0,0.15);
-    }
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   right: 0;
+    //   top: 0;
+    //   width: 1px;
+    //   height: 100%;
+    //   background-color: rgba(0,0,0,0.15);
+    // }
   }
   .right {
     flex-direction: column;
@@ -80,6 +85,9 @@
       margin: 0 auto;
     }
   }
+}
+.ltext{
+  display: flex;
 }
 
 .landing-heading {
@@ -92,31 +100,12 @@
 }
 
 // Footer area
-.footer20 {
-  position: absolute;
-  bottom: 14px;
-  color: $lightGrey !important;
-  font-size: 13px;
-  left: 30px;
-}
-.footer-area {
-  position: absolute;
-  bottom: 14px;
-  right: 20px;
-  color: $lightGrey !important;
-  font-size: 13px;
-
-  display: flex;
-  justify-content: flex-start;
-  text-align: left;
-  align-items: center;
-  .sub-text {
-    white-space: nowrap;
-    margin-right: 1em;
-  }
-  img {
-    width: 50px;
-  }
+.footer-section{
+display: flex;
+margin-left: 100px;
+padding: 5px 0px;
+font-size: 10px;
+color: #F0F0F0;
 }
 
 // mobile
