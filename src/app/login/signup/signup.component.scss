@@ -13,7 +13,7 @@
     padding: 0;
     color: $primary;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
     position: relative;
     // background: $wrapper-light-gray 0% 0% no-repeat padding-box;
@@ -187,3 +187,9 @@ color: #F0F0F0;
    display: block;
  }
 }
+
+.middleCT{
+  width: 30%;
+  margin: 0 auto;
+}
+

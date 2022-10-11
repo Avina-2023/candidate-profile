@@ -9,10 +9,13 @@ import { AppConfigService } from '../../config/app-config.service';
 export class SignupComponent implements OnInit {
 
   getCurrentYear = this.appConfig.getCurrentYear();
-
+  isloginPG = true;
   constructor(
     private appConfig: AppConfigService
-  ) { }
+  ) {
+
+
+  }
 
   ngOnInit() {
   }

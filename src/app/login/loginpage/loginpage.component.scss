@@ -17,18 +17,19 @@ mat-form-field {
 .mat-card{
   width: 70% !important;
   margin:auto;
-}
-@media (min-width:320px)  {
-  .mat-card{
-  width: 100% !important;
-  margin:auto;
-} }
-@media (min-width:481px)  {
-  .mat-card{
+  @media (min-width:320px)  {
+    .mat-card{
     width: 100% !important;
     margin:auto;
+  } }
+  @media (min-width:481px)  {
+    .mat-card{
+      width: 100% !important;
+      margin:auto;
+    }
   }
 }
+
 @media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
 @media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
 @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
