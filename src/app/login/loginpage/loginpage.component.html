@@ -5,7 +5,7 @@
     <h1 class="animated animatedFadeInUp fadeInUp signIn"> {{'Welcome!'}}</h1>
     <div style="text-align: left;">
       <div class="label-color mb-10" floatLabel="never">Log in to your account </div>
-      <mat-label class="label-color" floatLabel="never">Email <span class="astre">*</span></mat-label>
+      <mat-label class="label-color" floatLabel="never">Username <span class="astre">*</span></mat-label>
       <mat-form-field class="mat-form-spacing" appearance="outline">
         <input matInput  id="username" #username [placeholder]="'Enter the email'"  formControlName="email" maxlength="64"
         required>
@@ -38,7 +38,7 @@
       <div class="center loginPg">
         <button class="btn" id="login" mat-raised-button [disabled]="loginForm.invalid || disableLogin" type="submit">{{'Sign In'}}</button>
 
-        <div class="mt-20 signupTxt">New User? <a class="forgot">Sign Up</a></div>
+        <div class="mt-20 signupTxt">New User? <a class="forgot" [href]="registerURL">Sign Up</a></div>
         <!-- <div class="ins-note">
    <span style="font-weight: 600;">Note: </span> <span>Please clear browser cache before logging into the application for uploading the documents.</span>
    </div> -->

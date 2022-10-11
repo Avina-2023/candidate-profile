@@ -16,6 +16,7 @@ import { AppConfigService } from '../../config/app-config.service';
 export class LoginpageComponent implements OnInit {
 
   loginForm: FormGroup;
+  registerURL = environment.register_Redirect
   isProduction = environment.production;
   toggleVisibility = true;
   toggleVisibilityConfirmPassword = true;

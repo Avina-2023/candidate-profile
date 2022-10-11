@@ -24,10 +24,12 @@
 }
 
 .beforeloginimg {
-  width: 90%;
-  @media only screen and (min-width: 1400px) {
-      width: 100%;
+  // margin-bottom:10%;
+  @media only screen and (min-width: 766px) {
+      display:none;
   }
+
+
 }
 
 .absolute-line {
@@ -42,6 +44,9 @@
 
 .formWrapper {
   width: 75%;
+  @media only screen and (max-width: 767px) {
+    width:100%
+  }
   @media only screen and (min-width: 1400px) {
     width: 60%;
   }
@@ -83,11 +88,39 @@
     @media only screen and (max-width: 767px) {
       width: 90%;
       margin: 0 auto;
+      justify-content: space-evenly;
     }
   }
 }
 .ltext{
+  text-align: left;
+  align-items:left;
   display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  .talentxt{
+    margin-top: 100px;
+    font-size: 40px;
+    color: white;
+    width: 80%;
+    .slim{
+      font-weight: lighter;
+    }
+    .decocolor{
+      background: rgb(38,193,246);
+      background: linear-gradient(90deg, rgba(38,193,246,1) 0%, rgba(92,182,70,1) 100%);
+      border-radius: 5px;
+      height: 3px;
+      width: 64px;
+      margin-top:10px;
+    }
+    p{
+      margin-top:30px;
+      font-style: Roboto;
+      font-weight: lighter;
+      font-size: 16px;
+    }
+  }
 }
 
 .landing-heading {
@@ -102,17 +135,20 @@
 // Footer area
 .footer-section{
 display: flex;
-margin-left: 100px;
-padding: 5px 0px;
+align-items: center;
+padding: 0px 0px 0px 100px;
 font-size: 10px;
+height: 40px;
 color: #F0F0F0;
+// border-top: 1px solid #929292;
+  border-bottom: 3px solid;
+  border-image-source: linear-gradient(90deg, rgba(27,78,155,1) 0%, rgba(28,90,164,1) 33%, rgba(38,191,245,1) 33%, rgba(38,193,246,1) 67%, rgba(84,184,98,1) 67%, rgba(92,182,70,1) 100%);
+  border-image-slice: 1;
 }
 
+
 // mobile
-@media (max-width: 480px) and (max-width: 320px) {
-  .beforeloginimg {
-    display: none;
-  }
+@media (max-width: 480px) and (max-width: 320px) and (orientation: portrait){
   .row {
       display: flex;
       flex-wrap: wrap;
@@ -130,14 +166,10 @@ color: #F0F0F0;
     margin-right: 0px !important;
     margin-left: 0px !important;
   }
-  .beforeloginimg {
-    width: 90%;
-    height: 0vh !important;
-    padding: 10px;
-  }
+
 }
 
-@media only screen and (max-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+@media only screen and (max-width: 768px) and (max-width: 1024px)  {
   .col-md-4 {
       flex: 0 0 100%;
       max-width: 100%;
@@ -146,11 +178,8 @@ color: #F0F0F0;
       margin-right: 0px !important;
       margin-left: 0px !important;
   }
-  .beforeloginimg {
-      width: 90%;
-       height: 0vh !important;
-       padding: 10px;
-  }
+
+
 }
 
 @media (min-width: 768px) {
