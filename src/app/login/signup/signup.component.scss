@@ -7,6 +7,15 @@
   height: 100%;
   background: url('/assets/images/loginBG.png') no-repeat;
   background-size: auto ;
+  @media only screen and (min-width: 1366px) {
+    background-size: 100% auto ;
+  }
+  @media only screen and (min-height:900px) {
+    background-size: auto 100% ;
+  }
+  @media only screen and (min-width: 1366px) and (min-height:900px) {
+    background-size: 100% 100% ;
+  }
 
   .sub-wrapper {
     background-color: #000000a6;
@@ -212,5 +221,11 @@ color: #F0F0F0;
 .middleCT{
   width: 25%;
   margin: 0 auto;
+  @media only screen and (max-width: 1024px) {
+    width: 50%;
+  }
+ @media only screen and (max-width: 580px) {
+    width: 80%;
+  }
 }
 
