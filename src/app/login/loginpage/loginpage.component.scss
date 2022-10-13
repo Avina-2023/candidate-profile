@@ -2,8 +2,7 @@
 
 .wrap-reg {
   width: 100%;
-  display: flex;
-  justify-content: center;
+
 }
 
 mat-form-field {
@@ -11,16 +10,35 @@ mat-form-field {
 }
 
 .form-wrapper {
-  width: 75%;
   @media only screen and (min-width: 1440px) {
     width: 100%;
   }
 }
+.mat-card{
+  width: 70% !important;
+  margin:auto;
+  @media (min-width:320px)  {
+    .mat-card{
+    width: 100% !important;
+    margin:auto;
+  } }
+  @media (min-width:481px)  {
+    .mat-card{
+      width: 100% !important;
+      margin:auto;
+    }
+  }
+}
+
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
 
 .forgot {
-  color: $mediumGrey;
+  color: #27BBEE;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .forgot:hover {
@@ -34,17 +52,15 @@ a:hover {
 
 .btn {
   font-size: 16px;
-  background: $common-button-bg !important;
+  background: #27BBEE !important;
   color: $white;
-  border-radius: 50px !important;
-  width: 50%;
-  margin-left: 23%;
-  margin-right: 23%;
+  border-radius: 5px !important;
+  width: 100%;
   padding: 5px 18px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .btn:hover {
-  background: $primary-hover-color !important;
+  background: #28BBEE !important;
   transition: ease-out .3s;
 }
 .center{
@@ -59,12 +75,16 @@ font-size: 16px;
 }
 
 .signIn {
-  text-align: center;
-  color: $mediumGrey;
-  font-size: 18px;
-  font-weight: 400;
-  margin: 0 0 40px 0;
+  text-align: left;
+  color: #262626;
+  margin: 0 0 20px 0;
   letter-spacing: 0.5px;
+}
+.tLeft{
+  font-size: 24px;
+  text-align: left;
+  font-weight: lighter;
+  letter-spacing: 1px;
 }
 
 .ins-note {
@@ -73,6 +93,9 @@ font-size: 16px;
   font-size: 12px;
   text-align: left;
   margin-top: 40px;
+}
+.astre{
+  color:red
 }
 
 
@@ -95,7 +118,8 @@ top: -4px;
 }
 
 .label-color{
-  color: #5c6873;
+  color: #262626;
+  font-size: 14px;
 }
 
 .mat-form-spacing {
@@ -137,14 +161,19 @@ top: -4px;
 
 input.mat-input-element {
   margin-top: -3px !important;
+  font-size: 14px;
 }
 
 :host ::ng-deep.mat-input-element {
   margin: 3px !important;
 }
 
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+  padding: 0.5em 0;
+}
+
 :host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: $primary-hover-color !important;
+  color: #28BBEE !important;
 }
 :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix {
   top: 0px;
@@ -155,7 +184,7 @@ input.mat-input-element {
 }
 
 :host ::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: $primary-hover-color !important;
+  color: #28BBEE !important;
 }
 :host ::ng-deep.mat-form-field-wrapper {
   padding-bottom: 0;
@@ -176,3 +205,14 @@ input.mat-input-element {
   position: relative;
   padding: 0 0 0 10px;
 }
+.mb-10{
+  margin-bottom: 10px !important;
+}
+.mt-20{
+  margin-top:20px !important
+}
+
+.signupTxt{
+  font-size: 12px;
+}
+

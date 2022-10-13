@@ -9,7 +9,8 @@ export const environment = {
   SKILLEX_BASE_URL:"https://skilledgeqa.lntedutech.com",
   SKILL_PROFILE_URL :'https://profile-qa.lntedutech.com',
   MASTER_BASE_URL:"https://campus-dev.lntedutech.com/dcampus",
-  supportEmail:"assess.support@lntedutech.com"
+  supportEmail:"assess.support@lntedutech.com",
+  register_Redirect:"https://skillexchange.lntedutech.com/register"
 };
 
 /*

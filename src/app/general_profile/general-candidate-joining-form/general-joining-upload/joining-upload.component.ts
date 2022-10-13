@@ -1009,6 +1009,7 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
 
   finalSubmit(routeValue?: any) {
     console.log("final submit")
+    this.loadingService.setLoading(true);
     let joiningArray = this.getJoiningArr.getRawValue();
     let educationArray = this.getEducationArr.getRawValue();
     let transferArray = this.getTransferArr.getRawValue();
@@ -1033,6 +1034,7 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
 
     // if(this.dependentForm.valid) {
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(UploadApiRequestDetails).subscribe((data: any)=> {
+      this.loadingService.setLoading(false);
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Upload details is updated');
@@ -1051,7 +1053,7 @@ async uploadImage(file, i, form) {
       }
       this.loadingService.setLoading(false);
       if (data && data.data.file_path) {
-     
+
       if (form == this.conditionResume) {
         this.getResumeArr.at(i).patchValue({
           [this.form_file_name]: data.data.file_name,
@@ -1061,12 +1063,12 @@ async uploadImage(file, i, form) {
           [this.form_file_type]: data.data.type,
         });
       }
-     
+
       }
-  
+
       this.appConfig.nzNotification('success', 'Uploaded', 'Document uploaded successfully');
     })
-   
+
   } catch (e) {
     this.loadingService.setLoading(false);
     this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');

@@ -10,6 +10,7 @@ import { ApiServiceService } from '../../../service/api-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import { LoaderService } from 'src/app/service/loader-service.service';
 // import { CandidateMappersService } from 'src/app/services/candidate-mappers.service';
 // import { SharedServiceService } from 'src/app/services/shared-service.service';
 
@@ -62,6 +63,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
     private fb: FormBuilder,
+    public loadingService: LoaderService,
     private glovbal_validators: GlobalValidatorService
   ) {
   }
@@ -110,15 +112,17 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     const ApiData = {
       state_id: id
     };
+    this.loadingService.setLoading(true)
    this.updatedCitySubscription = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
-
+      this.loadingService.setLoading(false)
       if(datas && datas.data[0] && !datas.success) {
         this.allPresentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
       }
       this.allPresentCityList = datas.data;
     }, (err) => {
+      this.loadingService.setLoading(false)
     });
   }
 
@@ -126,9 +130,10 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     const ApiData = {
       state_id: id
     };
+    this.loadingService.setLoading(true)
    this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
       // this.hideCityDropDown = false;
-
+      this.loadingService.setLoading(false)
       if(datas && datas.data[0] && !datas.success) {
         this.allPermanentCityList = [];
         return this.appConfig.warning('No City Data available for the selected state');
@@ -166,6 +171,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
   }
 
   formSubmit(routeValue?: any) {
+    this.loadingService.setLoading(true)
     if (this.contactForm['value'][this.form_same_as_checkbox]) {
       this.updatePermanentAsPerPresent();
     }
@@ -205,6 +211,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
           saving_data: apiData
         }
       this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ContactApiRequestDetails).subscribe((data: any)=> {
+        this.loadingService.setLoading(false);
           this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
           this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');
