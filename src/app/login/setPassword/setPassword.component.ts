@@ -61,10 +61,10 @@ export class SetPasswordComponent implements OnInit {
         this.passwordTempToken = params['temp-token'];
         this.prePoulteEmailId = params['email'];
         this.apiemail = params['email'];
-        this.currentRoute = 'Create the Password';
+        this.currentRoute = 'Create';
         if (this.router.url.includes(CONSTANT.ENDPOINTS.PASSWORD.RESET)) {
           this.type = 'reset';
-          this.currentRoute = 'Reset the Password';
+          this.currentRoute = 'Reset';
         }
       } else {
         this.appConfig.error(`Invalid URL found`, '');
