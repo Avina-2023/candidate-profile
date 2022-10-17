@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
     router.events.pipe(filter(event => event instanceof NavigationEnd))
     .subscribe((event:any) =>
      {
-        if(event.url=='/login'||event.url=='/'){
+        if(event.urls1.contains("/login")||event.url=='/'){
           this.isloginPG = true
         }else{
           this.isloginPG = false
