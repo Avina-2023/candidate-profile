@@ -351,6 +351,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   customerName: any;
   customerCode: any;
   lttsCustomerCode = '#LTTS';
+  useremail: string = "";
   // BASE_URL = environment.API_BASE_URL;
   constructor(
     private appConfig: AppConfigService,
@@ -375,6 +376,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.customerCode = this.appConfig.getSelectedCustomerCode();
+    this.useremail = localStorage.getItem("userEmail")
   }
 
   downloadAsPDF(){
@@ -496,7 +498,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         // [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
         // [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
         [this.form_terms_conditions]: false,
-        [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : null,
+        [this.form_ack_place]: ackData?.ack_place ? ackData?.ack_place : null,
         [this.form_ack_date]: ackData.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
       }
       this.actualDate = ackData.ack_date;
