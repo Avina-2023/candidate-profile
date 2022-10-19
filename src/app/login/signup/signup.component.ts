@@ -15,10 +15,12 @@ export class SignupComponent implements OnInit {
     private appConfig: AppConfigService,
     private router: Router
   ) {
+    let dataurl
     router.events.pipe(filter(event => event instanceof NavigationEnd))
     .subscribe((event:any) =>
      {
-        if(event.urls1.contains("/login")||event.url=='/'){
+       dataurl = event.url
+        if(dataurl.includes("/login")||event.url=='/'){
           this.isloginPG = true
         }else{
           this.isloginPG = false
