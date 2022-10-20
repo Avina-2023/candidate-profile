@@ -221,6 +221,7 @@ dateConvertion(date) {
       });
     } else {
       this.ngAfterViewInit();
+      this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.dependentForm.get([this.form_dependentArray]) as FormArray);
     }

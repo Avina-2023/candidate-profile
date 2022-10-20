@@ -789,6 +789,7 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
     //   this.openNodocs(routeValue ? routeValue : '');
     // } else {
       if (this.getResumeArr.invalid) {
+        this.loadingService.setLoading(false);
             return this.appConfig.nzNotification('error', 'Resume Uploads', 'Please fill all the red highlighted fields in resume Uploads to proceed further');
           }else {
       this.beforeSubmit(routeValue ? routeValue : '');
