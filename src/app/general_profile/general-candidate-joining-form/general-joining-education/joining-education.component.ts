@@ -540,6 +540,7 @@ validSelectedPost() {
       // }
     } else {
       this.ngAfterViewInit();
+      this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
     }

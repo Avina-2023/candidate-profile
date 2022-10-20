@@ -442,6 +442,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       this.ngAfterViewInit();
       this.profilePictureFormControl.markAsTouched();
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+      this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.personalForm);
     }
   }

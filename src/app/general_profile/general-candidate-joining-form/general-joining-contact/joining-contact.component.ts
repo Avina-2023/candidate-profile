@@ -220,6 +220,7 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
       });
     } else {
       this.ngAfterViewInit();
+      this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFields(this.contactForm);
     }
