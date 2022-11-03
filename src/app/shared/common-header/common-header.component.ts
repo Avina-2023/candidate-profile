@@ -30,6 +30,14 @@ export class CommonHeaderComponent implements OnInit {
     // this.logOut();
   }
 
+  gotopage(navpoint){
+    if(navpoint == 'apply'){
+      this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.JOB.JOBDESCRIPTION);
+    }else{
+      this.appConfig.routeNavigation('/profile/candidate/');
+    }
+  }
+
   logOut() {
     const data = {
       iconName: '',

@@ -1,0 +1,73 @@
+
+.btn {
+  font-size: 16px;
+  background: #004f9b !important;
+  color: white;
+  border-radius: 5px !important;
+  width: 100%;
+  padding: 5px 18px;
+  margin-top: 20px;
+}
+.btn:hover {
+  background: #003363 !important;
+  transition: ease-out .3s;
+}
+
+
+.pageWrapper{
+  padding:10px 20px;
+
+
+
+    .custom-card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+  .coverImage{
+    position: relative;
+    width: 100%;
+    img{
+      width: 100%;
+      height: 200px;
+    }
+    .companyLogo{
+      position: absolute;
+      top: 150px;
+      left: 45px;
+      img{
+        height: 100px;
+      }
+
+    }
+  }
+
+
+  .descriptionArea{
+    display: flex;
+    justify-content:space-between;
+    margin-top:10px
+  }
+}
+
+.custom-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 10px;
+
+.jobtopcontainer {
+  margin-top:60px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+}
+.cardpad{
+  padding: 20px;
+}
+.LAlign{
+  width:100%;
+}
+.RAlign{
+  width:60%;
+  margin-left:15px
+}

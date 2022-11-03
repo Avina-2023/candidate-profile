@@ -62,7 +62,21 @@ mat-toolbar {
 }
 .rightlog {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   font-weight: 400;
+}
+
+.btn {
+  font-size: 16px;
+  background: #004f9b !important;
+  color: $white;
+  border-radius: 5px !important;
+  width: 100%;
+  padding: 5px 18px;
+  margin-top: 20px;
+}
+.btn:hover {
+  background: #003363 !important;
+  transition: ease-out .3s;
 }
 
