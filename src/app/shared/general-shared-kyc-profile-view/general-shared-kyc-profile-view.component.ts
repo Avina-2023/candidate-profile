@@ -351,9 +351,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   customerName: any;
   customerCode: any;
   lttsCustomerCode = '#LTTS';
-  
-  blobToken = environment.blobToken;
-
+  useremail: string = "";
   // BASE_URL = environment.API_BASE_URL;
   constructor(
     private appConfig: AppConfigService,
@@ -365,6 +363,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     private fb: FormBuilder,
     private dialog: MatDialog,
     private glovbal_validators: GlobalValidatorService,
+
     // private adminService: AdminServiceService,
   ) {
     this.dateValidation();
@@ -377,6 +376,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.customerCode = this.appConfig.getSelectedCustomerCode();
+    this.useremail = localStorage.getItem("userEmail")
   }
 
   downloadAsPDF(){
@@ -497,11 +497,11 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         // [this.form_caste]: ackData.caste && (ackData.caste == '1' || ackData.caste == true) ? false : false,
         // [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
         // [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
-        [this.form_terms_conditions]: false,
-        [this.form_ack_place]: ackData.ack_place ? ackData.ack_place : null,
-        [this.form_ack_date]: ackData.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
+        [this.form_terms_conditions]: null,
+        [this.form_ack_place]: ackData?.ack_place ? ackData?.ack_place : null,
+        [this.form_ack_date]: ackData?.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
       }
-      this.actualDate = ackData.ack_date;
+      this.actualDate = ackData?.ack_date;
       this.patchAcknowledgementForm(ack);
     }
     if (data && data.acknowledgement && data.acknowledgement.signature_image) {
@@ -518,13 +518,13 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     }
   }
   getPreviewData() {
-   
+
       if (this.candidateService.getLocalProfileData()) {
         // this.checkFormSubmitted();
         let apiPreviewDetails = this.candidateService.getLocalProfileData();
         this.ifPreviewDetails(apiPreviewDetails);
-      } 
-    
+      }
+
   }
 
   dateValidation() {
@@ -650,10 +650,11 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       // [this.form_caste_preview]: [null, [Validators.required ]],
       // [this.form_coc]: [null, [Validators.required ]],
       // [this.form_joining]: [null,[Validators.required ]],
-      [this.form_terms_conditions]: [false, [Validators.required ]],
+      [this.form_terms_conditions]: [null, [Validators.requiredTrue, Validators.nullValidator]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
     });
+
   }
 
   patchAcknowledgementForm(data) {
@@ -1101,7 +1102,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     // ackForm[this.form_coc] = ackForm[this.form_coc] && (ackForm[this.form_coc] == '1' || ackForm[this.form_coc] == true) ? '1' : '0';
     // ackForm[this.form_joining] = ackForm[this.form_joining] && (ackForm[this.form_joining] == '1' || ackForm[this.form_joining] == true) ? '1' : '0';
     // ackForm[this.form_caste_preview] = ackForm[this.form_caste_preview] && (ackForm[this.form_caste_preview] == '1' || ackForm[this.form_caste_preview] == true) ? '1' : '0';
-    ackForm[this.form_terms_conditions] = ackForm[this.form_terms_conditions];
+    ackForm[this.form_terms_conditions] = ackForm[this.form_terms_conditions]?ackForm[this.form_terms_conditions]:null;
     let apiData = {
       // selected_post: this.selectedPost,
       acknowledgement: ackForm,
@@ -1115,9 +1116,9 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
    this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ProfileSubmitApiRequestDetails).subscribe((data: any) => {
     this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
     this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-    this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Congrats, Form has been successfully submitted');
+    this.appConfig.nzNotification('success', 'Saved','Profile form submitted successfully');
     this.sharedService.joiningFormStepperStatus.next();
-    return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
+    return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.JOB.JOBDESCRIPTION);
     });
   }
 
@@ -1195,7 +1196,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
 
               this.appConfig.nzNotification('success', 'Uploaded', 'Signature uploaded successfully');
       })
-      
+
     } catch (e) {
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');

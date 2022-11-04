@@ -5,24 +5,40 @@
   display: flex;
   justify-content: center;
   height: 100%;
+  background: url('/assets/images/loginBG.png') no-repeat;
+  background-size: auto ;
+  @media only screen and (min-width: 1366px) {
+    background-size: 100% auto ;
+  }
+  @media only screen and (min-height:900px) {
+    background-size: auto 100% ;
+  }
+  @media only screen and (min-width: 1366px) and (min-height:900px) {
+    background-size: 100% 100% ;
+  }
+
   .sub-wrapper {
+    background-color: #000000a6;
     padding: 0;
     color: $primary;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
     position: relative;
-    background: $wrapper-light-gray 0% 0% no-repeat padding-box;
+    // background: $wrapper-light-gray 0% 0% no-repeat padding-box;
     width: 100%;
     box-sizing: border-box;
+    flex-direction: column;
   }
 }
 
 .beforeloginimg {
-  width: 90%;
-  @media only screen and (min-width: 1400px) {
-      width: 100%;
+  // margin-bottom:10%;
+  @media only screen and (min-width: 766px) {
+      display:none;
   }
+
+
 }
 
 .absolute-line {
@@ -37,6 +53,9 @@
 
 .formWrapper {
   width: 75%;
+  @media only screen and (max-width: 767px) {
+    width:100%
+  }
   @media only screen and (min-width: 1400px) {
     width: 60%;
   }
@@ -63,21 +82,52 @@
     @media only screen and (max-width: 767px) {
       display: none;
     }
-    &::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 1px;
-      height: 100%;
-      background-color: rgba(0,0,0,0.15);
-    }
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   right: 0;
+    //   top: 0;
+    //   width: 1px;
+    //   height: 100%;
+    //   background-color: rgba(0,0,0,0.15);
+    // }
   }
   .right {
     flex-direction: column;
     @media only screen and (max-width: 767px) {
       width: 90%;
       margin: 0 auto;
+      justify-content: space-evenly;
+    }
+  }
+}
+.ltext{
+  text-align: left;
+  align-items:left;
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  .talentxt{
+    margin-top: 100px;
+    font-size: 40px;
+    color: white;
+    width: 80%;
+    .slim{
+      font-weight: lighter;
+    }
+    .decocolor{
+      background: rgb(38,193,246);
+      background: linear-gradient(90deg, rgba(38,193,246,1) 0%, rgba(92,182,70,1) 100%);
+      border-radius: 5px;
+      height: 3px;
+      width: 64px;
+      margin-top:10px;
+    }
+    p{
+      margin-top:30px;
+      font-style: Roboto;
+      font-weight: lighter;
+      font-size: 16px;
     }
   }
 }
@@ -92,38 +142,43 @@
 }
 
 // Footer area
-.footer20 {
-  position: absolute;
-  bottom: 14px;
-  color: $lightGrey !important;
-  font-size: 13px;
-  left: 30px;
+.footer-section{
+display: flex;
+position: relative;
+align-items: center;
+padding: 0px 0px 0px 100px;
+font-size: 10px;
+height: 40px;
+color: #F0F0F0;
+// border-top: 1px solid #929292;
+  border-bottom: 3px solid;
+  border-image-source: linear-gradient(90deg, rgba(27,78,155,1) 0%, rgba(28,90,164,1) 33%, rgba(38,191,245,1) 33%, rgba(38,193,246,1) 67%, rgba(84,184,98,1) 67%, rgba(92,182,70,1) 100%);
+  border-image-slice: 1;
 }
-.footer-area {
+.footer-section::before{
+  border-top: 1px solid #ffffff38;
   position: absolute;
-  bottom: 14px;
-  right: 20px;
-  color: $lightGrey !important;
-  font-size: 13px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  content: "";
+}
+.footer-section::after{
+  content: "";
+  position: absolute;
+  left: 7%;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 8px solid #00000000;
+  border-right: 8px solid #00000000;
+  border-bottom: 6px solid #00519c;
+  clear: both;
+}
 
-  display: flex;
-  justify-content: flex-start;
-  text-align: left;
-  align-items: center;
-  .sub-text {
-    white-space: nowrap;
-    margin-right: 1em;
-  }
-  img {
-    width: 50px;
-  }
-}
 
 // mobile
-@media (max-width: 480px) and (max-width: 320px) {
-  .beforeloginimg {
-    display: none;
-  }
+@media (max-width: 480px) and (max-width: 320px) and (orientation: portrait){
   .row {
       display: flex;
       flex-wrap: wrap;
@@ -141,14 +196,10 @@
     margin-right: 0px !important;
     margin-left: 0px !important;
   }
-  .beforeloginimg {
-    width: 90%;
-    height: 0vh !important;
-    padding: 10px;
-  }
+
 }
 
-@media only screen and (max-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+@media only screen and (max-width: 768px) and (max-width: 1024px)  {
   .col-md-4 {
       flex: 0 0 100%;
       max-width: 100%;
@@ -157,11 +208,8 @@
       margin-right: 0px !important;
       margin-left: 0px !important;
   }
-  .beforeloginimg {
-      width: 90%;
-       height: 0vh !important;
-       padding: 10px;
-  }
+
+
 }
 
 @media (min-width: 768px) {
@@ -169,3 +217,15 @@
    display: block;
  }
 }
+
+.middleCT{
+  width: 25%;
+  margin: 0 auto;
+  @media only screen and (max-width: 1024px) {
+    width: 50%;
+  }
+ @media only screen and (max-width: 580px) {
+    width: 80%;
+  }
+}
+

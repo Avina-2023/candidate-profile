@@ -1484,5 +1484,12 @@ nz-select.ng-invalid.ng-touched {
   }
 }
 
+
+.mat-card{
+  border-radius: 8px !important;
+  padding-top:40px !important;
+  padding-bottom:40px !important;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

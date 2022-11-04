@@ -14,6 +14,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import { LoaderService } from 'src/app/service/loader-service.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -91,6 +92,7 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
     // private adminService: AdminServiceService,
+    private loadingService:LoaderService,
     private skillexService:SkillexService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
@@ -194,6 +196,7 @@ dateConvertion(date) {
 }
 
   formSubmit(routeValue?: any) {
+    this.loadingService.setLoading(true)
     if(this.dependentForm.valid) {
       let dependentobj:any = {};
       let formArray = this.dependentForm.getRawValue()[this.form_dependentArray];
@@ -209,6 +212,7 @@ dateConvertion(date) {
         saving_data: dependentobj
       }
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(DependentApiRequestDetails).subscribe((data: any)=> {
+      this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data.dependent_details);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Dependent details is updated');
@@ -217,6 +221,7 @@ dateConvertion(date) {
       });
     } else {
       this.ngAfterViewInit();
+      this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.dependentForm.get([this.form_dependentArray]) as FormArray);
     }

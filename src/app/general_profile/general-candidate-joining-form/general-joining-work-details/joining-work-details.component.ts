@@ -13,6 +13,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import { LoaderService } from 'src/app/service/loader-service.service';
 // import { AdminServiceService } from 'src/app/services/admin-service.service';
 
 
@@ -150,6 +151,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
     // private adminService: AdminServiceService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
+    private loadingService:LoaderService,
     private skillexService:SkillexService,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService
@@ -692,8 +694,9 @@ addToTrainingArray() {
         section_name: "experience_details",
         saving_data: apiData
       }
-
+      this.loadingService.setLoading(true)
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(WorkExperienceApiRequestDetails).subscribe((data: any) => {
+      this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Work Experience details is updated');
@@ -702,6 +705,7 @@ addToTrainingArray() {
       });
     } else {
       this.ngAfterViewInit();
+      this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFields(this.workDetailsForm);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);

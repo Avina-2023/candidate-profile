@@ -49,4 +49,5 @@ export class CandidateCanloadGuard implements CanLoad, CanActivate {
       return false
     }
   }
+
 }

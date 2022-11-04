@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () =>     import('./login/login.module').then(m => m.LoginModule),canActivate:[IsLoggedinGuard]
     },
     {
+      path: 'job',
+      loadChildren: () =>     import('./jobApplication/job.module').then(m => m.JobModule), canLoad: [ CandidateCanloadGuard ], canActivate: [ CandidateCanloadGuard ]
+    },
+    {
       path: 'profile',
       loadChildren: () =>     import('./general_profile/general-module.module').then(m => m.GeneralModuleModule), canLoad: [ CandidateCanloadGuard ], canActivate: [ CandidateCanloadGuard ]
       },

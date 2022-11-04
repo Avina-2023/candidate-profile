@@ -59,6 +59,9 @@ export const CONSTANT = {
       GENERAL_DOCUMENT_LIST: 'profile/candidate/document/list',
       // General Profile Routes End
     },
+    JOB:{
+      JOBDESCRIPTION:'job/jobdescription'
+    }
   },
 
   ROUTES: {
@@ -118,6 +121,9 @@ export const CONSTANT = {
       // General Profile Routes End
 
     },
+    JOB:{
+      JobDescription:'job/jobdescription'
+    }
 
   }
 };

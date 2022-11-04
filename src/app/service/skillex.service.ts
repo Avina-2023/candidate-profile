@@ -43,4 +43,15 @@ constructor(
   collegeList(){
     return this.http.post(`${environment.SKILLEX_BASE_URL}/collegesList`,{});
   }
+
+  //get JOB Description page
+  getJobDetail(jobdata){
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/getJobDetail`,jobdata);
+    // {"jobId":"34567"}
+  }
+  //Apply for JOB
+  submitJobForm(jobdata){
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/submitJobForm`,jobdata);
+    // {"jobId":"34567"}
+  }
 }

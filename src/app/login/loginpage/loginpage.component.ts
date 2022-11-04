@@ -16,6 +16,7 @@ import { AppConfigService } from '../../config/app-config.service';
 export class LoginpageComponent implements OnInit {
 
   loginForm: FormGroup;
+  registerURL = environment.register_Redirect
   isProduction = environment.production;
   toggleVisibility = true;
   toggleVisibilityConfirmPassword = true;
@@ -102,7 +103,6 @@ export class LoginpageComponent implements OnInit {
 
 
   submit() {
-    // this.appConfig.routeNavigation('/profile/candidate/personal')
     this.disableLogin = true;
 
     const apiData = {
@@ -168,7 +168,7 @@ export class LoginpageComponent implements OnInit {
     }
 
     //  re this.appConfig.routeNavigation('/profile/candidate/personal');
-    this.router.navigate(['/profile/candidate/personal'])
+    this.router.navigate(['/job/jobdescription'])
 
   }
 

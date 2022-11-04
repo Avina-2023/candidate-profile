@@ -16,6 +16,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import { LoaderService } from 'src/app/service/loader-service.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -207,6 +208,7 @@ constructor(
     public candidateService: CandidateMappersService,
     private skillexService:SkillexService,
     private fb: FormBuilder,
+    private loadingService:LoaderService,
     private glovbal_validators: GlobalValidatorService
   ) {
     this.dateValidation();
@@ -491,6 +493,7 @@ validSelectedPost() {
 
 }
   formSubmit(routeValue?: any) {
+    this.loadingService.setLoading(true)
     // if (this.candidateService.checkKycOrJoiningForm()) {
     this.getEducationArr.controls.forEach((element: any, j) => {
       if (element['controls'][this.form_qualification_type]['value'] == 'CA' || element['controls'][this.form_qualification_type]['value'] == 'ICWA' || element['controls'][this.form_qualification_type]['value'] == 'CS') {
@@ -525,6 +528,7 @@ validSelectedPost() {
           }
         };
        this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(EducationApiRequestDetails).subscribe((data: any)=> {
+        this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
@@ -536,6 +540,7 @@ validSelectedPost() {
       // }
     } else {
       this.ngAfterViewInit();
+      this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
     }
@@ -565,7 +570,7 @@ validSelectedPost() {
 
   routeNext(route) {
     debugger
-    if (!this.educationForm.dirty) {
+    if (this.educationForm.valid) {
       if (route == 'dependent') {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
       } else {
@@ -844,8 +849,9 @@ validSelectedPost() {
   }
 
   educationDropdownValues() {
-    
+    this.loadingService.setLoading(true)
    this.getAllEducationFormDropdownListSubscription = this.skillexService.collegeList().subscribe((data: any) => {
+    this.loadingService.setLoading(false)
       this.ugSpecializationList = data && data.data.ug_specifications ? data.data.ug_specifications : [];
       this.pgSpecializationList = data && data.data.pg_specifications ? data.data.pg_specifications : [];
       this.diplomaDisciplineList = data && data.data.diploma_disciplines ? data.data.diploma_disciplines : [];

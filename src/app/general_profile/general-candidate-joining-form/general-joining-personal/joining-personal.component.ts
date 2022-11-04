@@ -53,7 +53,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
 
   blobToken = environment.blobToken
   marital_list = [
-    
+
     {
       name: 'Single',
       value: 'Single'
@@ -278,7 +278,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
 
   getPersonalData() {
-    
+
     if (this.candidateService.getLocalProfileData()) {
       this.personalDetails = this.candidateService.getLocalpersonal_details();
       this.personalDetails.email = this.personalDetails.email?this.personalDetails.email:this.appConfig.getLocalData('userEmail');
@@ -363,6 +363,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
 
   formSubmit(routeValue?:any) {
+    this.loadingService.setLoading(true)
     if (this.personalForm.valid && this.profilePictureFormControl.valid) {
       let rawPersonalFormValue = this.personalForm.getRawValue();
       const apiData = {
@@ -371,7 +372,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           // [this.form_name]: rawPersonalFormValue[this.form_name],
           [this.form_aadhar]: rawPersonalFormValue[this.form_aadhar],
           [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
-          [this.form_email]: rawPersonalFormValue[this.form_email],
+          // [this.form_email]: rawPersonalFormValue[this.form_email],
           [this.form_gender]: rawPersonalFormValue[this.form_gender],
           [this.form_mobile]: rawPersonalFormValue[this.form_mobile],
           [this.form_nationality]: rawPersonalFormValue[this.form_nationality],
@@ -423,6 +424,10 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         saving_data: apiData
       }
     this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(PersonalApiRequestDetails).subscribe((data: any)=> {
+      setTimeout(() => {
+        this.loadingService.setLoading(false)
+
+      }, 2000);
       if(data && data.success)
         {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
@@ -439,6 +444,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       this.ngAfterViewInit();
       this.profilePictureFormControl.markAsTouched();
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+      this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.personalForm);
     }
   }
@@ -493,7 +499,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         this.loadingService.setLoading(false);
         if (data ) {
           this.profilePicture = {
-           
+
             file_path: data.data.file_path,
 
           };
@@ -502,8 +508,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         this.appConfig.nzNotification('success', 'Uploaded', 'Profile Picture uploaded successfully');
 
       });
-      
-      
+
+
     } catch (e) {
       console.log("error while profile pic"+e)
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
@@ -596,7 +602,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
 
   patchLanguageForm() {
-    
+
     if (this.personalDetails && this.personalDetails[this.form_language_array] && this.personalDetails[this.form_language_array].length > 0) {
       this.getLanguageArr.clear();
       this.personalDetails[this.form_language_array].forEach((element, i) => {
@@ -744,7 +750,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   //   this.personalForm.controls[this.form_physical_disability].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
   //   this.personalForm.controls[this.form_left_eyepower_glass].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]);
   //   this.personalForm.controls[this.form_right_eye_power_glass].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]);
-   
+
   //   let form = this.personalForm;
   //   for (const key in form.controls) {
   //     if (key) {

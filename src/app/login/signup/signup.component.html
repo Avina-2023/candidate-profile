@@ -3,33 +3,52 @@
   <!-- <div class="border-right absolute-line">
   </div> -->
 
-    <div class="sub-wrapper">
-      <div class="container-reg200">
-        <div class="left">
-          <div class="main-logo">
-          <img alt="" class="beforeloginimg" src="assets/images/login_home.svg">
-        </div>
-        </div>
-        <div class="right">
-          <h1 class="landing-heading"> {{'SKILL EXCHANGE PLATFORM' }}</h1>
-          <div class="formWrapper">
-            <router-outlet></router-outlet>
+  <div class="sub-wrapper">
+    <div class="container-reg200" *ngIf="isloginPG">
+      <div class="left">
+        <div class="ltext">
+          <img
+            src="../../../assets/images/SE_White.png"
+            width="250px"
+            height="60"
+          />
+          <div class="talentxt">
+            <strong>Connecting </strong
+            ><span class="slim">Skilled Talent with Industry</span>
+            <div class="decocolor"></div>
+            <p>
+              Skill Exchange is a one-of-a-kind platform that provides talented
+              and skilled new graduates smooth transitioning from college to the
+              professional world!
+            </p>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Footer area -->
-    <ng-container>
-      <div class="footer20">
-        <div class="col-12 m-0 p-0">
-          <span class="forgot1">{{getCurrentYear}} © L&T EduTech. All Rights Reserved</span>
+      <div class="right">
+        <!-- <h1 class="landing-heading">{{'SKILL EXCHANGE PLATFORM'}}</h1> -->
+        <img
+          class="beforeloginimg"
+          src="../../../assets/images/SE_White.png"
+          width="250px"
+          height="60"
+        />
+        <div class="formWrapper">
+          <router-outlet></router-outlet>
         </div>
       </div>
-      <div class="footer-area">
-        <span class="sub-text">Powered by </span>
-        <img alt="" src="https://assets.lntedutech.com/edutech_logo.svg">
-      </div>
-    </ng-container>
+    </div>
+    <div *ngIf="!isloginPG"></div>
+    <div *ngIf="!isloginPG">
+    <img  src="../../../assets/images/SE_White.png"
+            width="250px"
+            height="60"
+          />
+          </div>
+    <div class="middleCT" *ngIf="!isloginPG">
 
+      <router-outlet></router-outlet>
+    </div>
+    <!-- Footer area -->
+    <div class="footer-section">© 2022 L&T EduTech. All Rights Reserved</div>
+  </div>
 </div>
