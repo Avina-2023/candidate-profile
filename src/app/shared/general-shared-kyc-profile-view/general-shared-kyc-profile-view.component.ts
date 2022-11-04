@@ -1252,7 +1252,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   }
 
   downloadFile(path: any, type?: any) {
-    this.appConfig.downloadFile(path+this.blobToken);
+    this.appConfig.downloadFile(path);
   }
 
   ngOnDestroy() {
