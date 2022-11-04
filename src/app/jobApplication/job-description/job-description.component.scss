@@ -109,3 +109,35 @@ div{
   display: flex;
   align-items: center;
 }
+
+  .wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+    margin: 20px;
+    .closer{
+      display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    em{
+      width: 20px;
+    }
+    }
+    .message{
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 30px;
+    }
+    .link{
+      color:blue;
+      text-decoration: underline;
+      cursor:pointer;
+    }
+    .msgsub{
+      font-weight: bold;
+      font-size: 17px;
+      margin-bottom: 70px;
+    }
+  }
+

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog,  } from '@angular/material/dialog';
 import { AppConfigService } from 'src/app/config/app-config.service';
+import { CONSTANT } from 'src/app/constants/app-constants.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 
 @Component({
@@ -9,14 +11,39 @@ import { SkillexService } from 'src/app/service/skillex.service';
 })
 export class JobDescriptionComponent implements OnInit {
   jobDescription: any;
+  @ViewChild('incompleteProfile',{static: false}) matDialogRef: TemplateRef<any>;
+  @ViewChild('successApply',{static: false}) applySuccess: TemplateRef<any>;
+  dialogData: any;
+
 
   constructor(
     private skillexService:SkillexService,
     private appConfig: AppConfigService,
+    private mdDialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.getpageData();
+  }
+
+  openDialog(verify){
+   this.dialogData =  this.mdDialog.open((verify=='success'?this.applySuccess:this.matDialogRef), {
+      width: '500px',
+      height: 'auto',
+      autoFocus: false,
+      closeOnNavigation: true,
+      disableClose: false,
+      panelClass: 'popupModalContainerForMessage'
+    });
+  }
+
+  gotopage(navpoint){
+    if(navpoint == 'apply'){
+      this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.JOB.JOBDESCRIPTION);
+    }else{
+      this.appConfig.routeNavigation('/profile/candidate/');
+    }
+    this.dialogData.close();
   }
 
   getpageData(){
@@ -38,8 +65,13 @@ export class JobDescriptionComponent implements OnInit {
 
       if(jobdata.success){
         this.appConfig.success(jobdata.message);
+        this.openDialog('success')
       }else{
-        this.appConfig.error(jobdata.message);
+        if(jobdata.message =="Profile not filled"){
+          this.openDialog('fail')
+        }else{
+          this.appConfig.error(jobdata.message);
+        }
       }
     });
 

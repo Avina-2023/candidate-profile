@@ -96,3 +96,20 @@
      </div>
   </div>
 </div>
+
+<ng-template #incompleteProfile>
+  <div class="wrapper">
+    <div class="closer"><em class="icon-close_black" mat-dialog-close="true"></em></div>
+    <div><img src="/assets/images/aler.png"></div>
+    <div class="message">Please complete your profile to apply for Jobs</div>
+    <div class="link" (click)="gotopage('profile')">Go to profile</div>
+  </div>
+</ng-template>
+
+<ng-template #successApply>
+  <div class="wrapper">
+    <div><img src="/assets/images/002-tick1.svg"></div>
+    <div class="message">Please complete your profile to apply for Jobs</div>
+    <div class="msgsub">You will be soon contacted by the recruiter</div>
+  </div>
+</ng-template>

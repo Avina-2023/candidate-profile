@@ -1116,9 +1116,9 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
    this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ProfileSubmitApiRequestDetails).subscribe((data: any) => {
     this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
     this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-    this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Congrats, Form has been successfully submitted');
+    this.appConfig.nzNotification('success', 'Saved','Profile form submitted successfully');
     this.sharedService.joiningFormStepperStatus.next();
-    return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
+    return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.JOB.JOBDESCRIPTION);
     });
   }
 
