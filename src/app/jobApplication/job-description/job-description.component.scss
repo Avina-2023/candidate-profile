@@ -88,19 +88,22 @@ div{
   color: #707070BF;
   padding-top: 4px;
 }
-.desTitle{
+.custom-card h1{
   font-size: 14px;
   color: #000000;
   padding-top: 14px;
   font-weight: 600;
-  ul li{
+}
+
+
+.custom-card ul li{
     font-size: 14px;
     color: #707070CC;
     margin-left: 18px;
     padding: 3px 0px;
     font-weight: normal;
   }
-}
+
 
 .iconSpace {
   margin-right: 5px;
@@ -109,3 +112,5 @@ div{
   display: flex;
   align-items: center;
 }
+
+
