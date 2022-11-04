@@ -18,7 +18,7 @@ export class IsLoggedinGuard implements CanActivate {
       return true;
     } else {
       if (this.appConfig.getLocalData('csrf-login')) {
-        this.appConfig.routeNavigation("/profile/candidate/personal");
+        this.appConfig.routeNavigation("/job/jobdescription");
         return false;
       }
     }

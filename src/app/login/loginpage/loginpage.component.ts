@@ -103,7 +103,6 @@ export class LoginpageComponent implements OnInit {
 
 
   submit() {
-    // this.appConfig.routeNavigation('/profile/candidate/personal')
     this.disableLogin = true;
 
     const apiData = {
@@ -169,7 +168,7 @@ export class LoginpageComponent implements OnInit {
     }
 
     //  re this.appConfig.routeNavigation('/profile/candidate/personal');
-    this.router.navigate(['/profile/candidate/personal'])
+    this.router.navigate(['/job/jobdescription'])
 
   }
 

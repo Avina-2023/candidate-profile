@@ -1,0 +1,111 @@
+div{
+  font-family: Lato;
+}
+.btn {
+  font-size: 16px;
+  background: #004f9b !important;
+  color: white;
+  border-radius: 5px !important;
+  width: 55%;
+  padding: 5px 18px;
+  margin-top: 20px;
+  float: right;
+}
+.btn:hover {
+  background: #003363 !important;
+  transition: ease-out .3s;
+}
+
+
+.pageWrapper{
+  padding:10px 20px;
+
+
+
+    .custom-card:hover {
+      box-shadow: 0 0px 9px 0 rgb(0 0 0 / 20%);
+    }
+
+  .coverImage{
+    position: relative;
+    width: 100%;
+    img{
+      width: 100%;
+      height: 200px;
+    }
+    .companyLogo{
+      position: absolute;
+      top: 150px;
+      left: 45px;
+      img{
+        height: 100px;
+      }
+
+    }
+  }
+
+
+  .descriptionArea{
+    display: flex;
+    justify-content:space-between;
+    margin-top:15px;
+  }
+}
+
+.custom-card {
+  box-shadow: 0px 0px 3px #00000033;
+  transition: 0.3s;
+  border-radius: 10px;
+
+.jobtopcontainer {
+  margin-top:60px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+}
+.cardpad{
+  padding: 20px;
+}
+.LAlign{
+  width:100%;
+}
+.RAlign{
+  width:60%;
+  margin-left:15px
+}
+.compTitle{
+  font-size: 20px;
+  color: #000;
+}
+.genTitle{
+  font-size: 14px;
+  color:#707070;
+  padding-top: 4px;
+}
+.genText{
+  font-size: 14px;
+  color: #707070BF;
+  padding-top: 4px;
+}
+.desTitle{
+  font-size: 14px;
+  color: #000000;
+  padding-top: 14px;
+  font-weight: 600;
+  ul li{
+    font-size: 14px;
+    color: #707070CC;
+    margin-left: 18px;
+    padding: 3px 0px;
+    font-weight: normal;
+  }
+}
+
+.iconSpace {
+  margin-right: 5px;
+}
+.calign{
+  display: flex;
+  align-items: center;
+}

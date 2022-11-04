@@ -1,0 +1,98 @@
+<div class="pageWrapper">
+  <div class="custom-card">
+     <div class="coverImage">
+        <div><img [onerror]="'/assets/images/compCover.png'" [src]="jobDescription.bannerImage?jobDescription.bannerImage:'/assets/images/compCover.png'"/></div>
+        <div class='companyLogo'><img [onerror]="'/assets/images/compPlaceholder.png'" [src]="jobDescription.companyLogo?jobDescription.companyLogo:'/assets/images/compPlaceholder.png'" /></div>
+     </div>
+     <div class="jobtopcontainer">
+        <div class="JT-left">
+           <div class='compTitle'><strong>{{jobDescription?.jobTitle}}</strong></div>
+           <div class='genTitle'>{{jobDescription?.company}}</div>
+           <div class="genText"><em class="icon-pin_drop_black_24dp iconSpace"></em>{{jobDescription?.address}}</div>
+        </div>
+        <div class="JT-right">
+           <div class="genText calign"><em class="icon-insert_invitation iconSpace"></em>Posted {{jobDescription?.postedDate|timeAgo}}</div>
+           <button class="btn" (click)="applyJob()" >Apply</button>
+        </div>
+     </div>
+  </div>
+  <div class="descriptionArea">
+     <!-- [innerHTML]="jobDescription.jobDescription" -->
+     <div class="custom-card cardpad LAlign" >
+        <div class="desTitle">
+           Job Requirements
+           <ul>
+              <li>Bachelor’s degree in Mechanical engineering discipline from an accredited college or University.</li>
+              <li>Minimum of 5 years of system engineering (material handling).</li>
+              <li>Knowledge of mechanical engineering principles, design calculation and drafting practices.</li>
+              <li>Knowledge of AutoCAD, 3D Software (Solid Edge etc.)</li>
+              <li>Proficient with Microsoft Office.</li>
+              <li>Ability to work effectively within a highly collaborative environment.</li>
+              <li>Ability to multi-task while maintaining attention to detail and deadlines.</li>
+              <li>Strategic thinking and problem-solving skills.</li>
+              <li>Exposure to discreet material handling - Baggage Handling/ Warehouses</li>
+           </ul>
+        </div>
+        <div class="desTitle">
+           Job Responsiblity:
+           <ul>
+              <li>Plan, organize, execute, monitor & control the Design & Engineering activities for the Layout engineering & G.A. drawing preparation of material handling equipment (belt conveyor etc.)</li>
+              <li>Participate, where relevant, in meetings with client, authorities, contractors / vendors to clarify technical issues.</li>
+              <li>Prepare 3D & 2D design, detailed drawings, and specifications using CAD tool, preparation of bill of materials, engineering calculations.</li>
+              <li>Able to understand the design concepts from the point of view of manufacturability.</li>
+              <li>Coordinate with all related sources / departments</li>
+           </ul>
+        </div>
+     </div>
+     <div class="custom-card cardpad RAlign">
+        <div class="listspace">
+           <div class="desTitle">
+              Job Title:
+           </div>
+           <div class="genText">
+            {{jobDescription?.jobTitle}}
+           </div>
+        </div>
+        <div class="listspace">
+           <div class="desTitle">
+              Division/Department
+           </div>
+           <div class="genText">
+            {{jobDescription?.division}}
+           </div>
+        </div>
+        <div class="listspace">
+           <div class="desTitle">
+              Job Family:
+           </div>
+           <div class="genText">
+            {{jobDescription?.jobFamily}}
+           </div>
+        </div>
+        <div class="listspace">
+           <div class="desTitle">
+              Education:
+           </div>
+           <div class="genText">
+            {{jobDescription?.education}}
+           </div>
+        </div>
+        <div class="listspace">
+           <div class="desTitle">
+              CTC:
+           </div>
+           <div class="genText">
+            {{jobDescription?.ctc}}
+           </div>
+        </div>
+        <div class="listspace">
+           <div class="desTitle">
+              Contract:
+           </div>
+           <div class="genText">
+              3 Years Bond
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
