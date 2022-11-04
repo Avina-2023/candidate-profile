@@ -1,18 +1,18 @@
 <div class="pageWrapper">
   <div class="custom-card">
      <div class="coverImage">
-        <div><img src="/assets/images/compCover.png" /></div>
-        <div class='companyLogo'><img src="/assets/images/compPlaceholder.png" /></div>
+        <div><img [onerror]="'/assets/images/compCover.png'" [src]="jobDescription.bannerImage?jobDescription.bannerImage:'/assets/images/compCover.png'"/></div>
+        <div class='companyLogo'><img [onerror]="'/assets/images/compPlaceholder.png'" [src]="jobDescription.companyLogo?jobDescription.companyLogo:'/assets/images/compPlaceholder.png'" /></div>
      </div>
      <div class="jobtopcontainer">
         <div class="JT-left">
-           <div class='compTitle'><strong>Mechanical Design Engineer</strong></div>
-           <div class='genTitle'>Beumer India Pvt Ltd.</div>
-           <div class="genText"><em class="icon-pin_drop_black_24dp iconSpace"></em>India - Gurgaon</div>
+           <div class='compTitle'><strong>{{jobDescription?.jobTitle}}</strong></div>
+           <div class='genTitle'>{{jobDescription?.company}}</div>
+           <div class="genText"><em class="icon-pin_drop_black_24dp iconSpace"></em>{{jobDescription?.address}}</div>
         </div>
         <div class="JT-right">
-           <div class="genText"><em class="icon-insert_invitation iconSpace"></em>Posted 2 Days ago</div>
-           <button class="btn">Apply</button>
+           <div class="genText calign"><em class="icon-insert_invitation iconSpace"></em>Posted {{jobDescription?.postedDate|timeAgo}}</div>
+           <button class="btn" (click)="applyJob()" >Apply</button>
         </div>
      </div>
   </div>
@@ -39,7 +39,7 @@
               Job Title:
            </div>
            <div class="genText">
-              Sr. Associate/Asst. Manager
+            {{jobDescription?.jobTitle}}
            </div>
         </div>
         <div class="listspace">
@@ -47,7 +47,7 @@
               Division/Department
            </div>
            <div class="genText">
-              Engineering
+            {{jobDescription?.division}}
            </div>
         </div>
         <div class="listspace">
@@ -55,7 +55,7 @@
               Job Family:
            </div>
            <div class="genText">
-              Airport & Logistics
+            {{jobDescription?.jobFamily}}
            </div>
         </div>
         <div class="listspace">
@@ -63,7 +63,7 @@
               Education:
            </div>
            <div class="genText">
-              Bachelor Degree in Mechanical
+            {{jobDescription?.education}}
            </div>
         </div>
         <div class="listspace">
@@ -71,7 +71,7 @@
               CTC:
            </div>
            <div class="genText">
-              4.2 LPA
+            {{jobDescription?.ctc}}
            </div>
         </div>
         <div class="listspace">

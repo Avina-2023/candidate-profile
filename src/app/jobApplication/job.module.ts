@@ -5,6 +5,7 @@ import { JobRoutingModule } from './job.routing';
 import { SharedModule } from '../shared/shared.module';
 import { JobComponent } from './job/job.component';
 import { MaterialModule } from '../material.module';
+import { TimeAgoPipe } from '../pipes/day-ago.pipe';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { MaterialModule } from '../material.module';
     JobRoutingModule,
     MaterialModule
   ],
-  declarations: [JobDescriptionComponent,JobComponent],
+  declarations: [JobDescriptionComponent,JobComponent,TimeAgoPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class JobModule { }
