@@ -570,7 +570,7 @@ validSelectedPost() {
 
   routeNext(route) {
     debugger
-    if (!this.educationForm.dirty) {
+    if (this.educationForm.valid) {
       if (route == 'dependent') {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
       } else {
