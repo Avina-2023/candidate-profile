@@ -497,7 +497,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         // [this.form_caste]: ackData.caste && (ackData.caste == '1' || ackData.caste == true) ? false : false,
         // [this.form_coc]: ackData.coc && (ackData.coc == '1' || ackData.coc == true) ? false : false,
         // [this.form_joining]: ackData.joining && (ackData.joining == '1' || ackData.joining == true) ? false : false,
-        [this.form_terms_conditions]: false,
+        [this.form_terms_conditions]: null,
         [this.form_ack_place]: ackData?.ack_place ? ackData?.ack_place : null,
         [this.form_ack_date]: ackData?.ack_date ? this.dateConvertionForm(new Date()) : this.dateConvertionForm(new Date()),
       }
@@ -650,10 +650,11 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       // [this.form_caste_preview]: [null, [Validators.required ]],
       // [this.form_coc]: [null, [Validators.required ]],
       // [this.form_joining]: [null,[Validators.required ]],
-      [this.form_terms_conditions]: [false, [Validators.required ]],
+      [this.form_terms_conditions]: [null, [Validators.requiredTrue, Validators.nullValidator]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
     });
+
   }
 
   patchAcknowledgementForm(data) {
@@ -1101,7 +1102,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     // ackForm[this.form_coc] = ackForm[this.form_coc] && (ackForm[this.form_coc] == '1' || ackForm[this.form_coc] == true) ? '1' : '0';
     // ackForm[this.form_joining] = ackForm[this.form_joining] && (ackForm[this.form_joining] == '1' || ackForm[this.form_joining] == true) ? '1' : '0';
     // ackForm[this.form_caste_preview] = ackForm[this.form_caste_preview] && (ackForm[this.form_caste_preview] == '1' || ackForm[this.form_caste_preview] == true) ? '1' : '0';
-    ackForm[this.form_terms_conditions] = ackForm[this.form_terms_conditions];
+    ackForm[this.form_terms_conditions] = ackForm[this.form_terms_conditions]?ackForm[this.form_terms_conditions]:null;
     let apiData = {
       // selected_post: this.selectedPost,
       acknowledgement: ackForm,
