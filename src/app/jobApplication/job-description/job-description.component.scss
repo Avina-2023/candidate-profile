@@ -1,5 +1,8 @@
 div{
-  font-family: Lato;
+  font-family: Lato !important;
+}
+li{
+  font-family: Lato !important;
 }
 .btn {
   font-size: 16px;
@@ -10,6 +13,7 @@ div{
   padding: 5px 18px;
   margin-top: 20px;
   float: right;
+  font-family: Lato !important;
 }
 .btn:hover {
   background: #003363 !important;

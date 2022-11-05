@@ -28,10 +28,28 @@
   font-weight: 500;
   font-style: normal;
 }
+/* lato Font */
 @font-face {
-    font-family: 'Roboto';
-    src: url('/assets/fonts/Roboto-Bold.woff2') format('woff2'),
-         url('/assets/fonts/Roboto-Bold.woff') format('woff');
+  font-family: 'lato';
+  src: url('../fonts/lato/Lato-Light.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+    font-family: 'lato';
+    src: url('../fonts/lato/Lato-Regular.ttf') format('ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+  font-family: 'lato';
+  src: url('../fonts/lato/Lato-Black.ttf') format('ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+    font-family: 'lato';
+    src: url('../fonts/lato/Lato-Bold.ttf') format('ttf');
     font-weight: 600;
     font-style: normal;
 }
