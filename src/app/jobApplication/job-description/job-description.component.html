@@ -1,8 +1,8 @@
 <div class="pageWrapper">
   <div class="custom-card">
      <div class="coverImage">
-        <div><img [onerror]="'/assets/images/compCover.png'" [src]="jobDescription.bannerImage?jobDescription.bannerImage:'/assets/images/compCover.png'"/></div>
-        <div class='companyLogo'><img [onerror]="'/assets/images/compPlaceholder.png'" [src]="jobDescription.companyLogo?jobDescription.companyLogo:'/assets/images/compPlaceholder.png'" /></div>
+        <div><img (error)="'/assets/images/compCover.png'" [src]="jobDescription?.bannerImage?jobDescription.bannerImage:'/assets/images/compCover.png'"/></div>
+        <div class='companyLogo'><img (error)="'/assets/images/compPlaceholder.png'" [src]="jobDescription?.companyLogo?jobDescription.companyLogo:'/assets/images/compPlaceholder.png'" /></div>
      </div>
      <div class="jobtopcontainer">
         <div class="JT-left">
@@ -110,7 +110,7 @@
   <div class="wrapper">
     <div class="closer"><em class="icon-close_black" mat-dialog-close="true"></em></div>
     <div><img class="ticsize" src="/assets/images/002-tick1.svg"></div>
-    <div class="message">Please complete your profile to apply for Jobs</div>
+    <div class="message">Thank you for applying for the Job</div>
     <div class="msgsub">You will be soon contacted by the recruiter</div>
   </div>
 </ng-template>
