@@ -12,7 +12,7 @@
               <ng-container *ngIf="personalDetailsMap; else noPersonal">
                   <div class="d-flex">
                       <div style="width: 33%" class="d-flex align-items-center">
-                          <img height="117px" width="104px" [src]="url ? url+blobToken : 'assets/images/img_avatar2.jpg'" alt="" srcset="" />
+                          <img height="117px" width="104px" [src]="url ? url : 'assets/images/img_avatar2.jpg'" alt="" srcset="" />
                       </div>
                       <div style="width: 66%" class="row-wrapper mt-0">
                           <div class="overall-input-wrapper width-50">
@@ -1870,7 +1870,7 @@
                     [ngClass]="!signature.file_path ? 'default' : 'profile'"
                     [src]="
                       signature && signature.file_path
-                        ? signature.file_path+blobToken
+                        ? signature.file_path
                         : 'assets/images/paper-clip.svg'
                     "
                     alt=""
@@ -1918,7 +1918,7 @@
               <ng-container *ngIf="signature && signature?.file_path; else noSign">
                   <div class="row-wrapper mt-0 mb-2" style="padding: 0 16px">
                       <div class="signatureShow">
-                          <img class="sign" *ngIf="signature && signature?.file_path" [src]="signature && signature?.file_path+blobToken" alt="" srcset="" />
+                          <img class="sign" *ngIf="signature && signature?.file_path" [src]="signature && signature?.file_path" alt="" srcset="" />
                       </div>
                   </div>
               </ng-container>

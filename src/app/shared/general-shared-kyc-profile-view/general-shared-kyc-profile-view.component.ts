@@ -352,6 +352,11 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   customerCode: any;
   lttsCustomerCode = '#LTTS';
   useremail: string = "";
+
+  // ######THIS CODE IS ONLY FOR PRODUCTION
+  blobToken = environment.blobToken;
+  // ######THIS CODE IS ONLY FOR PRODUCTION
+
   // BASE_URL = environment.API_BASE_URL;
   constructor(
     private appConfig: AppConfigService,
