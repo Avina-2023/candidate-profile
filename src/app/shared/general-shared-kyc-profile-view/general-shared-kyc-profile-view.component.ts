@@ -1118,7 +1118,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
     this.appConfig.nzNotification('success', 'Saved','Profile form submitted successfully');
     this.sharedService.joiningFormStepperStatus.next();
-    return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.JOB.JOBDESCRIPTION);
+    return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
     });
   }
 
