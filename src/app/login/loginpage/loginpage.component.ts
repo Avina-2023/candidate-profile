@@ -167,8 +167,8 @@ export class LoginpageComponent implements OnInit {
       this.appConfig.setLocalData('multiCustomer', 'true');
     }
 
-    //  re this.appConfig.routeNavigation('/profile/candidate/personal');
-    this.router.navigate(['/job/jobdescription'])
+    // this.router.navigate(['/job/jobdescription'])
+    this.appConfig.routeNavigation('/profile/candidate/personal');
 
   }
 
