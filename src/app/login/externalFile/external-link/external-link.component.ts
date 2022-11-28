@@ -35,13 +35,14 @@ export class ExternalLinkComponent implements OnInit {
             this.loginRedirection(data);
           } else {
             this.toast.warning(data.message)
-            this.appConfig.warning(data.message)
+            //this.appConfig.warning(data.message)
+            this.appConfig.routeNavigation('/login');
           }
         }, (error) => {
           console.log(error)
         });
       } else {
-        this.appConfig.routeNavigation('/');
+        this.appConfig.routeNavigation('/login');
       }
     });
   }
