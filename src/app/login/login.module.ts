@@ -8,7 +8,7 @@ import { ForgoPasswordComponent } from './forgo-password/forgo-password.componen
 import { SetPasswordComponent } from './setPassword/setPassword.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialModule } from '../material.module';
-import { ExternalLinkComponent } from './externalFile/external-link/external-link.component';
+import { ExternalLinkComponent } from './external-link/external-link.component';
 
 @NgModule({
   imports: [

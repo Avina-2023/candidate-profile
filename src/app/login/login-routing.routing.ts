@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ExternalLinkComponent } from './externalFile/external-link/external-link.component';
+import { ExternalLinkComponent } from './external-link/external-link.component';
 import { ForgoPasswordComponent } from './forgo-password/forgo-password.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { SetPasswordComponent } from './setPassword/setPassword.component';

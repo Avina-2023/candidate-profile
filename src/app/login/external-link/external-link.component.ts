@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SkillexService } from 'src/app/service/skillex.service';
-import { ApiServiceService } from './../../../service/api-service.service';
+import { ApiServiceService } from '../../service/api-service.service';
 
 @Component({
   selector: 'app-external-link',
@@ -28,6 +28,7 @@ export class ExternalLinkComponent implements OnInit {
         this.skillexService.externalLogin({ extId: decodeURIComponent(extId) }).subscribe((data: any) => {
           if (data.success) {
             this.appConfig.setLocalData('userId', data && data.data.userId ? data.data.userId : '');
+            this.appConfig.setLocalData('externalLogin', true);
             this.appConfig.setLocalData('userEmail', data && data.data.email ? data.data.email : '');
             this.appConfig.setLocalData('csrf-login', data && data.token ? data.token : '');
             this.candidateService.saveAllProfileToLocal(data.data);
