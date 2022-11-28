@@ -9,8 +9,11 @@
       <span class="title">
         {{username ? 'Welcome, ' + username : ''}}
       </span>
-      <span matTooltip="Logout" class="logout" (click)="logOut()">
+      <span *ngIf="!isExternal" matTooltip="Logout" class="logout" (click)="logOut()">
         <em class="icon-logout"></em>
+      </span>
+      <span *ngIf="isExternal" matTooltip="Logout" class="logout" (click)="extRedir()">
+        <button  class="btn"><div style="display: flex; align-items: center;"><em class="icon-logout"></em>&nbsp; Back</div></button>
       </span>
     </span>
   </div>

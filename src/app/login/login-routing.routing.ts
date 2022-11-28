@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ExternalLinkComponent } from './external-link/external-link.component';
 import { ForgoPasswordComponent } from './forgo-password/forgo-password.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { SetPasswordComponent } from './setPassword/setPassword.component';
@@ -27,6 +28,8 @@ const routes: Routes = [
         pathMatch: 'full'
       }
 ]
+},{
+  path: "externallogin", component: ExternalLinkComponent
 }
 ];
 
