@@ -41,7 +41,7 @@ export class ExternalLinkComponent implements OnInit {
           console.log(error)
         });
       } else {
-        console.log("no email found")
+        this.appConfig.routeNavigation('/');
       }
     });
   }
