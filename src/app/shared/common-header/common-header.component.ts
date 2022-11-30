@@ -43,8 +43,8 @@ export class CommonHeaderComponent implements OnInit {
 
   extRedir(){
     this.appConfig.clearLocalData();
-    this.appConfig.routeNavigation('/login')
-    window.open(environment.register_Redirect.replace('/register',''),'skillexchange');
+    // window.open(environment.register_Redirect.replace('/register',''),'skillexchange');
+    window.location.replace(environment.register_Redirect.replace('/register','/candidateview/dashboard'));
   }
 
 
