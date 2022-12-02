@@ -4,6 +4,7 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from '../modal-box/modal-box.component';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-common-header',
@@ -14,6 +15,7 @@ export class CommonHeaderComponent implements OnInit {
 
   username: any;
   logoURL: any;
+  isExternal: boolean = false;
 
   constructor(
     private appConfig: AppConfigService,
@@ -24,6 +26,7 @@ export class CommonHeaderComponent implements OnInit {
   ngOnInit() {
     this.username = this.appConfig.getLocalData('username') ? this.appConfig.getLocalData('username') : 'NA';
     this.logoURL = "../../../assets/images/EduTech_Logo.svg";//this.appConfig.logoBasedOnCustomer();
+    this.isExternal = this.appConfig.getLocalData('externalLogin')
   }
 
   goToHome() {
@@ -37,6 +40,13 @@ export class CommonHeaderComponent implements OnInit {
       this.appConfig.routeNavigation('/profile/candidate/');
     }
   }
+
+  extRedir(){
+    this.appConfig.clearLocalData();
+    // window.open(environment.register_Redirect.replace('/register',''),'skillexchange');
+    window.location.replace(environment.register_Redirect.replace('/register','/candidateview/dashboard'));
+  }
+
 
   logOut() {
     const data = {
@@ -82,7 +92,6 @@ export class CommonHeaderComponent implements OnInit {
           this.appConfig.clearLocalData();
           this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
 
-        // this.appConfig.consoleLog('resultlogout', result);
       }
     });
   }
