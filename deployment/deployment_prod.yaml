@@ -15,6 +15,13 @@ spec:
       containers:
         - name: candidateprofileui
           image: uapprod.azurecr.io/candidate_profile_ui:$tag
+          resources:
+           limits:
+             cpu: "200m"
+             memory: "200MiB"
+           requests:
+             cpu: "150m"
+             memory: "100MiB"
           imagePullPolicy: Always
           ports:
           - containerPort: 80
