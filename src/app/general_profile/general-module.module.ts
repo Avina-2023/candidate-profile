@@ -14,6 +14,9 @@ import { GeneralJoiningSubmitComponent } from './general-candidate-joining-form/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../shared/shared.module"
 import { MaterialModule } from '../material.module';
+import {MatIconModule} from '@angular/material/icon';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 
 // import { MatDatepicker, MatDateRangePicker } from '@angular/material/datepicker';
 
@@ -32,7 +35,7 @@ const path = {
     GENERAL_JOINING_UPLOAD: 'upload',
     GENERAL_JOINING_PREVIEW: 'preview',
     GENERAL_JOINING_SUBMIT: 'submit',
-    
+
   },
 };
 const routes: Routes = [
@@ -124,7 +127,9 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    MaterialModule
-  ]
+    MaterialModule,
+    MatIconModule,
+    ImageCropperModule
+  ],
 })
 export class GeneralModuleModule { }

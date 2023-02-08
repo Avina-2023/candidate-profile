@@ -41,3 +41,15 @@ mat-toolbar {
     }
   }
 }
+.filler{
+	justify-content: space-between;
+    position: relative;
+    flex: 1;
+}
+.footerblue{
+    background-color: #09568C;
+    color: #fff;
+	span{
+		font-size: 11px;
+	}
+}

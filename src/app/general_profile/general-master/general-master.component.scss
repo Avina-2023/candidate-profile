@@ -358,12 +358,51 @@ mat-drawer ul li span img {
 .main-section-padding {
   padding: 0px 8px;
 }
+.sticky-subheaders::after{
+  content: "Profile Completeness";
+  color: #ffffff;
+  background-color: #284B93;
+  position: relative;
+  bottom: 30px;
+    float: right;
+    padding: 0.2% 2%;
+  text-align: center;
+}
+.white{
+
+  height: 160px;
+  width: 100vw;
+  background: #ffffff;
+  overflow: hidden;
+}
 .sticky-subheaders {
-  position: sticky;
-  top: -4px;
-  z-index: 500;
-  background: white;
+  // position: sticky;
+  position: relative;
+  height: 160px;
+  // top: -425px;
+  z-index: 0;
+  background-color: #565656;
+  align-items: center;
+  // background: white;
   box-shadow: 0 4px 2px -2px #80808038;
+
+  .profilebanner{
+    // width: 100%;
+    // /* z-index: 99; */
+    position: absolute;
+    // background-blend-mode: overlay;
+    object-fit: cover;
+    opacity: 0.4;
+    height: 310px;
+    width: 100vw;
+    top: -150px;
+  }
+.overlay{
+  height: 160px;
+  width: 100vw;
+  background: black;
+  overflow: hidden;
+}
 }
 .footer {
   z-index: 2;
@@ -382,7 +421,7 @@ mat-drawer ul li span img {
   min-height: calc(100% - 30px);
   position: relative;
   width: 100%;
-  padding: 0 6px;
+  // padding: 0 6px;
   box-sizing: border-box;
 }
 .drive-wrapper {
@@ -498,5 +537,68 @@ mat-drawer ul li span img {
 
 :host ::ng-deep .ant-select-selection-selected-value {
     padding-right: 16px !important;
+}
+
+
+.bar{
+  background-color: #FFFFFF;
+  padding-right: 6% !important;
+  border-radius: 100px 0px 0px 100px;
+  padding: 6px;
+  float: right;
+  bottom: 6px;
+  position: relative;
+
+  div[role="progressbar"] {
+    --size: 5rem;
+    --fg: #6AC259;
+    --bg: #FFFFFF;
+    --pgPercentage: var(--value);
+    animation: growProgressBar 3s 1 forwards;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(
+        closest-side,
+        #fff 80%,
+        transparent 0 99.9%,
+        white 0
+      ),
+      conic-gradient(
+        var(--fg) calc(var(--pgPercentage) * 1%),
+        var(--bg) 0
+      );
+    // font-family: Helvetica, Arial, sans-serif;
+    font-size: calc(var(--size) / 5);
+    color: #000;
+    font-size: 15px;
+    font-family: Lato!important;
+    font-weight: 600;
+  }
+
+  div[role="progressbar"]::before {
+    counter-reset: percentage var(--value);
+    content: counter(percentage) "%";
+    position: relative;
+
+
+  }
+}
+// .subheadercontainer{
+//   display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     position: relative;
+//     top: 20%;
+    .bttn{
+      position: relative;
+      left: 2%;
+      top: 60px;
+  .backbtn{
+    background: linear-gradient(to right, #27bbee 0%, #88ba2f 100%);
+    color: #FFFFFF;
+  }
 }
 

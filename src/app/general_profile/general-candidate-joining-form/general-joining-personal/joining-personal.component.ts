@@ -15,6 +15,12 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
+export interface Fruit {
+  name: string;
+}
 
 export const MY_FORMATS = {
   parse: {
@@ -49,6 +55,19 @@ export const MY_FORMATS = {
 
 
 export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, OnDestroy {
+   public selection: string;
+
+  public customOption: string = 'customOption';
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruits: Fruit[] = [
+    {name: 'Lemon'},
+    {name: 'Lime'},
+    {name: 'Apple'},
+  ];
 
   marital_list = [
 
@@ -153,7 +172,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   // form_religion = 'religion';
   // form_caste = 'caste';
   form_category = 'category';
-  // form_blood_group = 'blood_group';
+  form_blood_group = 'blood_group';
   // form_father_name = 'father_name';
   // form_emergency_contact = 'emergency_contact_no';
   form_mobile = 'mobile';
@@ -172,7 +191,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   // form_personal_email = 'personal_email';
 
   form_marital_status = 'marital_status';
-  // form_domicile_state = 'domicile_state';
+  form_domicile_state = 'domicile_state';
   form_no_of_children = 'no_of_children';
 
   form_language_array = 'languages_known';
@@ -262,6 +281,29 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     if (top !== null) {
       top.scrollIntoView();
       top = null;
+    }
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.fruits.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(fruit: Fruit): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
     }
   }
 
@@ -389,7 +431,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           // [this.form_emergency_contact_name]: rawPersonalFormValue[this.form_emergency_contact_name],
           // [this.form_emergency_contact_relation]: rawPersonalFormValue[this.form_emergency_contact_relation],
           // [this.form_personal_email]: rawPersonalFormValue[this.form_personal_email],
-          // [this.form_domicile_state]: rawPersonalFormValue[this.form_domicile_state],
+          [this.form_domicile_state]: rawPersonalFormValue[this.form_domicile_state],
           [this.form_marital_status]: rawPersonalFormValue[this.form_marital_status],
           [this.form_no_of_children]: rawPersonalFormValue[this.form_no_of_children],
         },
@@ -574,7 +616,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_emergency_contact_name]: this.personalDetails[this.form_emergency_contact_name],
       // [this.form_emergency_contact_relation]: this.personalDetails[this.form_emergency_contact_relation],
       // [this.form_personal_email]: this.personalDetails[this.form_personal_email],
-      // [this.form_domicile_state]: this.personalDetails[this.form_domicile_state] ? this.personalDetails[this.form_domicile_state].toString() : null,
+      [this.form_domicile_state]: this.personalDetails[this.form_domicile_state] ? this.personalDetails[this.form_domicile_state].toString() : null,
       [this.form_marital_status]: this.personalDetails[this.form_marital_status],
       [this.form_no_of_children]: this.personalDetails[this.form_no_of_children] ? this.personalDetails[this.form_no_of_children].toString() : null,
       [this.form_passport_number]: this.personalDetails[this.form_passport_number],
@@ -658,7 +700,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_emergency_contact_name]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_emergency_contact_relation]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_personal_email]: [null, [RemoveWhitespace.whitespace(), , this.glovbal_validators.email()]],
-      // [this.form_domicile_state]: [null, [Validators.required]],
+      [this.form_domicile_state]: [null, [Validators.required]],
       [this.form_marital_status]: [null, [Validators.required]],
       [this.form_no_of_children]: [null],
       [this.form_passport_number]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
@@ -735,7 +777,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   //   // this.personalForm.controls[this.form_emergency_contact_name].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_emergency_contact_relation].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   this.personalForm.controls[this.form_personal_email].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.email()]);
-  //   // this.personalForm.controls[this.form_domicile_state].setValidators([Validators.required]);
+    // this.personalForm.controls[this.form_domicile_state].setValidators([Validators.required]);
   //   this.personalForm.controls[this.form_marital_status].setValidators([Validators.required]);
   //   this.personalForm.controls[this.form_passport_number].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
   //   this.personalForm.controls[this.form_name_as_in_passport].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
@@ -793,9 +835,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   get category1() {
     return this.personalForm.get(this.form_category);
   }
-  // get blood_group() {
-  //   return this.personalForm.get(this.form_blood_group);
-  // }
+  get blood_group() {
+    return this.personalForm.get(this.form_blood_group);
+  }
   // get father_name() {
   //   return this.personalForm.get(this.form_father_name);
   // }
@@ -845,9 +887,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   //   return this.personalForm.get(this.form_personal_email);
   // }
 
-  // get domicile_state() {
-  //   return this.personalForm.get(this.form_domicile_state);
-  // }
+  get domicile_state() {
+    return this.personalForm.get(this.form_domicile_state);
+  }
 
   get marital_status() {
     return this.personalForm.get(this.form_marital_status);

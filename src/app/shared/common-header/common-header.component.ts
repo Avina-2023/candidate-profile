@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild  } from '@angular/core';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from '../modal-box/modal-box.component';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
 import { environment } from 'src/environments/environment';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-common-header',
@@ -12,15 +13,22 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./common-header.component.scss']
 })
 export class CommonHeaderComponent implements OnInit {
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+
+  dropdownVisible = false;
+  candidateName = localStorage.getItem('name')
+  profileimge: any ="";
 
   username: any;
   logoURL: any;
   isExternal: boolean = false;
+  router: any;
 
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
     private matDialog: MatDialog,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -28,6 +36,25 @@ export class CommonHeaderComponent implements OnInit {
     this.logoURL = "../../../assets/images/EduTech_Logo.svg";//this.appConfig.logoBasedOnCustomer();
     this.isExternal = this.appConfig.getLocalData('externalLogin')
   }
+ dropdown() {
+    this.dropdownVisible = !this.dropdownVisible;
+  }
+  logout(){
+    this.dialog.open(this.matDialogRef, {
+      disableClose: true
+			// panelClass: 'spec_desk_dialog'
+		});
+  }
+  confirm(value){
+    if(value){
+    this.dialog.closeAll()
+    localStorage.clear();
+    this.router.navigate(['/login']);
+    }else{
+    this.dialog.closeAll()
+    }
+  }
+
 
   goToHome() {
     // this.logOut();

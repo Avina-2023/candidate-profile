@@ -1,13 +1,23 @@
 <app-common-header></app-common-header>
 <div class="scroll-height">
   <div class="sticky-subheaders">
-    <div class="d-flex pl-1 justify-content-between align-content-center drive-wrapper">
-    <div class="heading3">
-      Profile Form
-    </div>
+    <div class="white"><div class="overlay">
+      <img class="profilebanner" src="../../../assets/images/candidateprofile/se-banner.png">
+      <div class="bttn">
+        <span class="logout">
+          <button class="backbtn" mat-raised-button (click)="extRedir()" matTooltip="Back">Back to Dashboard
+          </button>
+        </span>
+      </div>
+      <div class="bar">
+        <div role="progressbar" aria-valuenow="{{profilepercentage}}" aria-valuemin="0" aria-valuemax="100"
+          style="--value:{{profilepercentage}}"></div>
+      </div>
+
+    </div></div>
+
 
   </div>
-</div>
   <router-outlet></router-outlet>
 </div>
 <app-dashboard-header></app-dashboard-header>

@@ -1,66 +1,226 @@
 <!-- Interview Component for Candidate Login -->
-<app-general-join-interview *ngIf="role == 'candidate' && !showJoiningForm && isPermissionGranted()"></app-general-join-interview>
+<app-general-join-interview
+  *ngIf="role == 'candidate' && !showJoiningForm && isPermissionGranted()"></app-general-join-interview>
 
-<div class="joining-form-wrapper">
-    <div *ngIf="!hideStepper" class="stepper">
-        <div class="stepper-wrapper">
-            <ul>
-                <li (click)="validCheck('personal')"
-                    [ngClass]="[activeStep == 'personal' ? 'active' : (activeStep == 'personal' || activeStep == 'contact' || activeStep == 'dependent' || activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'personal' ? 'font-600' : '']">
-                    <div *ngIf="activeStep != 'personal'" class="check"></div>
-                    Personal Details
-                </li>
-                <li (click)="validCheck('contact')"
-                    [ngClass]="[activeStep == 'contact' ? 'active' : (activeStep == 'contact' || activeStep == 'dependent' || activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'contact' ? 'font-600' : '']">
-                    <div *ngIf="activeStep != 'contact'" class="check"></div>
-                    Contact Details
-                </li>
-                <li (click)="validCheck('dependent')"
-                    [ngClass]="[activeStep == 'dependent' ? 'active' : (activeStep == 'dependent' || activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'dependent' ? 'font-600' : '']">
-                    <div *ngIf="activeStep != 'dependent'" class="check"></div>
-                    Dependent Details
-                </li>
-                <li (click)="validCheck('education')"
-                    [ngClass]="[activeStep == 'education' ? 'active' : (activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'education' ? 'font-600' : '']" >
-                    <div *ngIf="activeStep != 'education'" class="check"></div>
-                    Education Details
-                </li>
-                <li (click)="validCheck('work')"
-                [ngClass]="[activeStep == 'work' ? 'active' : (activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'work' ? 'font-600' : '']" >
-                    <div *ngIf="activeStep != 'work'" class="check"></div>
-                    Work Experience Details
-                </li>
-                <li (click)="validCheck('upload')"
-                    [ngClass]="[activeStep == 'upload' ? 'active' : (activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'upload' ? 'font-600' : '']">
-                    <div *ngIf="activeStep != 'upload'" class="check"></div>
-                    Upload Documents
-                </li>
-                <li (click)="validCheck('preview')"
-                    [ngClass]="[activeStep == 'preview' ? 'active' : (activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'preview' ? 'font-600' : '']">
-                    <div *ngIf="activeStep != 'preview'" class="check"></div>
-                    Preview & Submit
-                </li>
-                <li (click)="validCheck('submit')"
-                    [ngClass]="[activeStep == 'submit' ? 'active' : (activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'submit' ? 'font-600' : '']">
-                    <div *ngIf="activeStep != 'submit'" class="check"></div>
-                    Thankyou
-                </li>
-            </ul>
+<div class="joining-form-wrapper w-100">
+  <div *ngIf="!hideStepper" class="stepper">
+    <div class="profileExpansion">
+      <div class="exheader">
+        <div class="profileStatus"> </div>
+        <button mat-icon-button (click)="expand = !expand"><mat-icon>keyboard_arrow_down</mat-icon></button>
+      </div>
+      <div class="notexpand" *ngIf="!expand">
+        <div class="photo-wrapper">
+          <div class="avatar">
+            <div class="photo">
+              <div *ngIf="profilePicture && profilePicture.file_path" matTooltip="Remove Photo"
+                matTooltipPostion="after" (click)="delete()" class="remove">
+                <img src="assets/images/cancel-black-36dp.svg" alt="" srcset="">
+              </div>
+              <div  *ngIf="profilePicture && profilePicture.file_path" matTooltip="Change profile image"
+              matTooltipPostion="after" (click)="open()" id="upload" class="changeprofile" >
+                <img  [src]="'assets/images/MaskGroup1.png'" alt="" >
+              </div>
+              <label [ngClass]="profilePicture && profilePicture.file_path ? 'hoverable' : 'hoverable1'  " >
+                <ng-container *ngIf="!profilePicture.file_path">
+                  <div (click)="open()" class="icon" style="cursor: pointer;" >
+                    <img [src]="'assets/images/camera.svg'" alt="">
+                  </div>
+                  <div class="add-image">
+                    <div class="mini-icon">
+                      <img [src]="'assets/images/MaskGroup1.png'" alt="">
+                    </div>
+                    <span>Click and upload your photo here</span>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="profilePicture && profilePicture.file_path">
+                  <div class="urlExist">
+                    <img [src]="profilePicture.file_path" alt="">
+                  </div>
+                </ng-container>
+              </label>
+
+              <ng-template #matDialog1>
+                <div class="crop-popup">
+                  <div class="popUpHead mb-0" mat-dialog-title>
+                    <div class="heading">Select User Image</div>
+                    <!-- <mat-icon mat-dialog-close>close</mat-icon> -->
+                  </div>
+                  <mat-dialog-content class="md-content m-0 p-0">
+                    <div class="content">
+                      <!-- <label [ngClass]="profilePicture && profilePicture.file_path ? 'hoverable' : 'hoverable1'">
+                        <ng-container *ngIf="!profilePicture.file_path">
+                          <div class="icon">
+                            <img [src]="'assets/images/camera.svg'" alt="">
+                          </div>
+                          <div class="add-image">
+                            <div class="mini-icon">
+                              <img [src]="'assets/images/MaskGroup1.png'" alt="">
+                            </div>
+                            <span>Click and upload your photo here</span>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="profilePicture && profilePicture.file_path">
+                          <div class="urlExist">
+                            <img [src]="profilePicture.file_path" alt="">
+                          </div>
+                        </ng-container>
+
+                      </label> -->
+                      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                        (loadImageFailed)="loadImageFailed()"></image-cropper>
+                      <!-- <div class="col-md-4">
+                <img [src]="croppedImage" />
+                </div> -->
+                    </div>
+                  </mat-dialog-content>
+
+                  <div class="alignment">
+                    <span class="uploadbutton">
+                      <label for="upload" style="  cursor: pointer;
+                  position: relative;
+                  top: -2px;" class="upload p-1 mb-0"> Upload New Image </label>
+                      <input class="file-input"
+                        [matTooltip]="profilePicture && profilePicture.file_path ? 'Click to Change Photo' : 'No File Chosen'"
+                        (click)="files.value = null;" matTooltipPostion="left" title="" id="upload" #files type='file'
+                        name="profile" accept="image/*" (change)="fileChangeEvent($event)" /></span>
+                  </div>
+                  <div class="action" mat-dialog-actions>
+                    <button class="confirm btn" mat-button type="submit" [disabled]=" disableLoginButton" (click)="onSelectFile(croppedImage)">save </button>
+                    <button class="cancel" mat-button [mat-dialog-close]="true">Cancel </button>
+
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+            <div class="error-section">
+              <div class="notes mb-1" style="color: red"
+                *ngIf="profilePictureFormControl.touched && profilePictureFormControl.invalid && !profilePicture.file_path">
+                *Profile Picture is Required</div>
+              <!-- <div class="notes" *ngIf="!showSizeError.image"> JPEG and PNG only supported</div>
+                <div class="notes"> Size: Maximum 2MB</div>
+                <div class="error" *ngIf="showSizeError.image">JPEG and PNG only supported</div>
+                <div class="error" *ngIf="showSizeError.minsize">Minimum File Size: 10KB!</div>
+                <div class="error" *ngIf="showSizeError.maxsize">Maximum File Size: 2MB!</div> -->
+            </div>
+          </div>
         </div>
+        <div class="notexpanddetails">
+          <div class="name">John Doe</div>
+          <div class="email">johndoe@xyzmail.com</div>
+          <div class="loc">Chennai, Tamil Nadu, India</div>
+        </div>
+      </div>
+      <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
+          <mat-expansion-panel-header >
+            <mat-panel-description *ngIf="!panelOpenState" [collapsedHeight]="customCollapsedHeight"
+              [expandedHeight]="customExpandedHeight"> -->
+      <!-- </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel> -->
+      <div class="expand" *ngIf="expand">
+        <div class="photo-wrapper">
+          <div class="avatar">
+            <div class="photo">
+              <img src="">
+            </div>
+          </div>
+        </div>
+        <div class="notexpanddetails">
+          <div class="name mt-1">John Doe</div>
+          <div class="email mt-1">johndoe@xyzmail.com</div>
+          <div class="loc mt-1">Chennai, Tamil Nadu, India</div>
+          <div>
+            <div class="gender mt-1 mb-1 ">Male</div>
+          </div>
+          <div class="email mt-1">Member Since Jul 19, 2020 </div>
+          <div class="email mt-1">Profile Last Updated on</div>
+          <div class="date">Aug 19, 2022</div>
+        </div>
+      </div>
     </div>
-    <div class="router joining-form-main" [ngClass]="hideStepper ? 'routerLeft' : ''">
-        <router-outlet></router-outlet>
+    <div class="stepper-wrapper">
+
+      <div class="details">
+        <p>My Profile Details </p>
+      </div>
+      <ul>
+        <li (click)="validCheck('personal')"
+          [ngClass]="[activeStep == 'personal' ? 'active' : (activeStep == 'personal' || activeStep == 'contact' || activeStep == 'dependent' || activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'personal' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'personal'" class="check"></div>
+          Personal Details
+        </li>
+        <li (click)="validCheck('contact')"
+          [ngClass]="[activeStep == 'contact' ? 'active' : (activeStep == 'contact' || activeStep == 'dependent' || activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'contact' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'contact'" class="check"></div>
+          Contact Details
+        </li>
+        <li (click)="validCheck('dependent')"
+          [ngClass]="[activeStep == 'dependent' ? 'active' : (activeStep == 'dependent' || activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'dependent' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'dependent'" class="check"></div>
+          Dependent Details
+        </li>
+        <li (click)="validCheck('education')"
+          [ngClass]="[activeStep == 'education' ? 'active' : (activeStep == 'education' || activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'education' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'education'" class="check"></div>
+          Education Details
+        </li>
+        <li (click)="validCheck('work')"
+          [ngClass]="[activeStep == 'work' ? 'active' : (activeStep == 'work' || activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'work' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'work'" class="check"></div>
+          Work Experience Details
+        </li>
+        <li (click)="validCheck('upload')"
+          [ngClass]="[activeStep == 'upload' ? 'active' : (activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'upload' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'upload'" class="check"></div>
+          Project Details
+        </li>
+        <li (click)="validCheck('upload')"
+          [ngClass]="[activeStep == 'upload' ? 'active' : (activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'upload' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'upload'" class="check"></div>
+          Accomplishments
+        </li>
+        <li (click)="validCheck('upload')"
+          [ngClass]="[activeStep == 'upload' ? 'active' : (activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'upload' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'upload'" class="check"></div>
+          Upload Documents
+        </li>
+        <li (click)="validCheck('upload')"
+          [ngClass]="[activeStep == 'upload' ? 'active' : (activeStep == 'upload' || activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'upload' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'upload'" class="check"></div>
+          Disciplinary Details
+        </li>
+        <li (click)="validCheck('preview')"
+          [ngClass]="[activeStep == 'preview' ? 'active' : (activeStep == 'preview' || activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'preview' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'preview'" class="check"></div>
+          Preview & Submit
+        </li>
+        <li (click)="validCheck('submit')"
+          [ngClass]="[activeStep == 'submit' ? 'active' : (activeStep == 'submit') ? 'valid' : 'noCursor', routingSelection == 'submit' ? 'font-600' : '']">
+          <div *ngIf="activeStep != 'submit'" class="check"></div>
+          Thankyou
+        </li>
+      </ul>
     </div>
+  </div>
+  <div class="router joining-form-main" [ngClass]="hideStepper ? 'routerLeft' : ''">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 <ng-template #matDialog>
-    <div class="main-wrapper">
-<div class="text">Do you want to change in the existing form?</div>
-        <div class="button-wrapper-form-pop-up" [ngStyle]="{'grid-template-columns': !noSave ? '110px 110px 110px' : '110px 110px'}">
-            <button class="b1" (click)="closeDialog('save')" type="button" mat-raised-button>Save</button>
-            <button *ngIf="!noSave" class="b2" (click)="closeDialog('noSave')" type="button" mat-raised-button>Don't Save</button>
-            <button class="b3" (click)="closeDialog('cancel')" type="button" mat-raised-button>Cancel</button>
-        </div>
+  <div class="main-wrapper">
+    <div class="text">Do you want to change in the existing form?</div>
+    <div class="button-wrapper-form-pop-up"
+      [ngStyle]="{'grid-template-columns': !noSave ? '110px 110px 110px' : '110px 110px'}">
+      <button class="b1" (click)="closeDialog('save')" type="button" mat-raised-button>Save</button>
+      <button *ngIf="!noSave" class="b2" (click)="closeDialog('noSave')" type="button" mat-raised-button>Don't
+        Save</button>
+      <button class="b3" (click)="closeDialog('cancel')" type="button" mat-raised-button>Cancel</button>
     </div>
+  </div>
 
-  </ng-template>
+</ng-template>

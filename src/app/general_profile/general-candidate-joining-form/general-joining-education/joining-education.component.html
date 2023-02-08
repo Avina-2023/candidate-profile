@@ -1,12 +1,15 @@
-<div class="joining-personal-wrapper">
+<div class="joining-personal-wrapper p-0">
+  <div class="heading">
     <h5>
-        Education Details
-    </h5>
-      <ng-container *ngIf="!candidateService.checkKycOrJoiningForm()">
-        <div class="alert mb-0 pl-0 pt-1 pb-1">
-          Note : Please fill the educational details in chronological order i.e. starting from the latest qualification to 10th class details.
-        </div>
-      </ng-container>
+      Education Details
+  </h5>
+    <ng-container *ngIf="!candidateService.checkKycOrJoiningForm()">
+      <div class="alert mb-0 pl-0 pt-1 pb-2">
+        A wide-ranging education on your resume encapsulates the value your learnings and background will bring to job.
+      </div>
+    </ng-container>
+  </div>
+
 
     <div class="grids-wrapper">
         <div class="row-wrapper">
@@ -20,19 +23,27 @@
 </div> -->
 </div>
 
-        <form  class="educatonForm" [formGroup]="educationForm" (ngSubmit)="formSubmit()">
+        <form  class="educatonForm mr-0" [formGroup]="educationForm" (ngSubmit)="formSubmit()">
             <ng-container *ngIf="getEducationArr && getEducationArr.controls" [formArrayName]="form_educationArray">
                 <ng-container *ngFor="let item of getEducationArr.controls; let i = index;" [formGroupName]="i">
-                    <div class="container-wrapper flex-container d-flex justify-content-between align-items-center">
-                    <div class="form-grouping">
-                        <div class="row-wrapper">
-                            <div class="overall-input-wrapper width-45">
+                    <div class="container-wrapper flex-container  justify-content-between align-items-center ">
+                    <div class="form-grouping flex-column ">
+                        <div class="row-wrapper mt-0">
+                          <div class="Qualification-head w-100">
+                            <h6>Qualification{{i+1}}</h6>
+                            <div class="remove-wrapper">
+                              <div (click)="removeEducationArray(i)" *ngIf="i > 0" matTooltip="Remove" class="remove">
+                                  <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                              </div>
+                              </div>
+                          </div>
+                            <div class="overall-input-wrapper mb-3 width-100">
                                 <label>Qualification Type<span class="redTxt">*</span></label>
                                 <nz-select class="input select" (ngModelChange)="educationLevelChange(i)" [formControlName]="form_qualification_type"
                                     nzAllowClear nzShowSearch nzPlaceHolder="Select">
-                                    
+
                                     <nz-option *ngFor="let level of educationLevels" [nzLabel]="level.label"
-                                        [nzValue]="level.education"></nz-option>                                      
+                                        [nzValue]="level.education"></nz-option>
 
                                 </nz-select>
                                 <div class="form-error"
@@ -46,11 +57,11 @@
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value)">
 
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'SSLC')">
-                            <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC')" class="overall-input-wrapper width-45">
+                            <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC')" class="overall-input-wrapper mb-3 width-100">
                                 <label>Qualification<!-- Asterick --><span *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC' && getEducationArr.controls[i].get(form_qualification_type).value != 'Diploma')" class="redTxt">*</span>
                                 </label>
                             <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'HSC')">
-                                <input matInput placeholder="Enter here" class="input" type="text"
+                                <input matInput placeholder="Enter here" class="input width-60" type="text"
                                 [formControlName]="form_qualification">
                             </ng-container>
                             <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma')">
@@ -104,7 +115,7 @@
                                 </div>
                             </div>
 
-                            <div class="overall-input-wrapper width-45">
+                            <div class="overall-input-wrapper mb-3 width-100">
                                 <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'Specialization' : 'Main Subject'}}<span class="redTxt">*</span></label>
                                 <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' else showCASpecialization">
                                 <nz-select class="input select" [formControlName]="form_specialization"
@@ -145,7 +156,7 @@
                             </div>
                           </ng-container>
 
-                            <div class="overall-input-wrapper width-45">
+                            <div class="overall-input-wrapper mb-3 width-100">
                                 <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name' : 'Institute Name'}}<span class="redTxt">*</span></label>
                                 <ng-template #showCollegeTextBox>
                                 <input matInput placeholder="Enter here" class="input" type="text"
@@ -182,7 +193,7 @@
                                 </div>
                             </div>
                             <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS'">
-                            <div class="overall-input-wrapper width-45">
+                            <div class="overall-input-wrapper mb-3 width-100">
                                 <label>{{getEducationArr.controls[i].get(form_qualification_type).value == 'CA' ? 'Group' : 'Board/university'}}<span *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'SSLC' || getEducationArr.controls[i].get(form_qualification_type).value == 'HSC') || (getEducationArr.controls[i].get(form_qualification_type).value == 'CA')" class="redTxt">*</span>
                                 </label>
                                 <!-- For Non SSLC and HSC -->
@@ -217,7 +228,7 @@
                             </div>
                           </ng-container>
                           <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value == 'CA' || getEducationArr.controls[i].get(form_qualification_type).value == 'ICWA' || getEducationArr.controls[i].get(form_qualification_type).value == 'CS'">
-                            <div class="overall-input-wrapper width-45">
+                            <div class="overall-input-wrapper mb-3 width-100">
                                 <label>Ranks (If any)<span></span>
                                 </label>
                                 <ng-container>
@@ -243,10 +254,9 @@
                                 </div>
                             </div>
                           </ng-container>
-
-                           <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
-                               <div class="overall-input-wrapper width-45">
-                                <label>Start Date<span class="redTxt">*</span></label>
+                           <ng-container >
+                               <div class="overall-input-wrapper mb-3 width-100">
+                                <label>Year of Commencement <span class="redTxt">*</span></label>
                                 <div class="date-relative">
                                     <input matInput class="input" [min]="minDate" [max]="maxDate"
                                         [matDatepicker]="picker" placeholder="DD-MM-YYYY"
@@ -257,7 +267,7 @@
                                 <div class="form-error"
                                     *ngIf="getEducationArr.controls[i].get(form_startDate).invalid && getEducationArr.controls[i].get(form_startDate).touched">
                                     <div *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.required">
-                                        Start Date is Required</div>
+                                      Year of Commencement is Required</div>
                                     <div
                                         *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax">
                                         {{getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentFormMonth(getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax.max) : ''}}
@@ -272,12 +282,10 @@
                                     <div
                                     *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.notValid">
                                     {{'Start Date should be less than or equal to the Year of Passing, (Year of Passing - ' + getEducationArr.controls[i].get(form_startDate)?.errors?.notValid + ').'}}</div>
-
                                 </div>
                             </div>
-
-                            <div class="overall-input-wrapper width-32">
-                                <label>End Date<span class="redTxt">*</span></label>
+                            <div class="overall-input-wrapper mb-3 width-100">
+                                <label>Year of Completion <span class="redTxt">*</span></label>
                                 <div class="date-relative">
                                     <input matInput class="input" [min]="minDate" [max]="maxDate"
                                         [matDatepicker]="picker1" placeholder="DD-MM-YYYY"
@@ -288,7 +296,7 @@
                                 <div class="form-error"
                                     *ngIf="getEducationArr.controls[i].get(form_endDate).invalid && getEducationArr.controls[i].get(form_endDate).touched">
                                     <div *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.required">
-                                        End Date is Required</div>
+                                      Year of Completion is Required</div>
                                     <div
                                         *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax">
                                         {{getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax.max) : ''}}
@@ -307,8 +315,7 @@
                                 </div>
                             </div>
                           </ng-container>
-
-                            <div class="overall-input-wrapper" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-32' : 'width-45'">
+                            <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
                                 <label>Year of Passing<span class="redTxt">*</span></label>
                                 <div class="date-relative">
                                     <input matInput class="input" [ngClass]="getEducationArr.controls[i].get(form_startDate)?.errors?.notValid || getEducationArr.controls[i].get(form_endDate)?.errors?.notValid ? 'custom-input-error-border' : ''" [min]="minDate" [max]="maxDate"
@@ -346,7 +353,7 @@
                                 </div>
                             </div>
 
-                        <div class="overall-input-wrapper" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-24' : 'width-45'">
+                        <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
                             <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Backlogs' : 'No. of Attempts'}}<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
                                 [formControlName]="form_backlog">
@@ -361,7 +368,7 @@
                             </div>
                         </div>
                         <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
-                          <div class="overall-input-wrapper width-32">
+                          <div class="overall-input-wrapper mb-3 width-100">
                             <label>Mode<span class="redTxt">*</span></label>
                             <nz-select class="input select" [formControlName]="form_mode"
                                 nzAllowClear nzShowSearch nzPlaceHolder="Select">
@@ -376,10 +383,52 @@
                             </div>
                         </div>
                         </ng-container>
-                        <div class="overall-input-wrapper" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-32' : 'width-45'">
+                        <div>
+                          <h6>CGPA</h6>
+
+                        </div>
+                        <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
+                          <label>Grade Points (GP)<span class="redTxt">*</span></label>
+                          <input matInput placeholder="Enter here" class="input" type="text"
+                              [formControlName]="form_cgpa">
+                          <div class="form-error"
+                              *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
+                              <div *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
+                                  Percentage is Required</div>
+                              <div
+                                  *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.percentage">
+                                  Percentage should be in the range of 10 to 100</div>
+                                  <div
+                                  *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.maxlength">
+                                  Number with 2 Decimal points only allowed</div>
+
+                          </div>
+                      </div>
+                      <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
+                        <label>Total Grade Points (GP)<span class="redTxt">*</span></label>
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                            [formControlName]="form_cgpa">
+                        <div class="form-error"
+                            *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
+                            <div *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
+                                Percentage is Required</div>
+                            <div
+                                *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.percentage">
+                                Percentage should be in the range of 10 to 100</div>
+                                <div
+                                *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.maxlength">
+                                Number with 2 Decimal points only allowed</div>
+
+                        </div>
+                    </div>
+                        <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
                             <label>Percentage(%)<span class="redTxt">*</span></label>
-                            <input matInput placeholder="Enter here" class="input" type="text"
-                                [formControlName]="form_cgpa">
+                            <div class="width-100">
+                              <input matInput placeholder="Enter here" class="input" type="text"
+                              [formControlName]="form_cgpa">
+                              <div>Please convert your CGPA into percentage as per your College/University conversion and then enter the percentage above.</div>
+                            </div>
+
                             <div class="form-error"
                                 *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
                                 <div *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
@@ -395,7 +444,7 @@
                         </div>
 
                         <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && ((getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma') || (getEducationArr.controls[i].get(form_qualification_type).value == 'UG') || (getEducationArr.controls[i].get(form_qualification_type).value == 'PG'))">
-                            <div class="overall-input-wrapper width-24">
+                            <div class="overall-input-wrapper mb-3 width-100">
                             <label>Final Percentage(%)<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
                                 [formControlName]="form_Finalcgpa">
@@ -412,7 +461,20 @@
                             </div>
                         </div>
                         </ng-container>
-
+                        <div class="overall-input-wrapper width-100" style="padding: 10px 0px;">
+                          <label>Do you have any gap during the education?<span></span></label>
+                          <div style="width: 100% !important;">
+                            <mat-radio-group [(ngModel)]="selection" #radioGroup="matRadioGroup">
+                              <mat-radio-button style="width: 12% !important;" value="option 1">yes</mat-radio-button>
+                              <mat-radio-button style="width: 12% !important;" value="option 2">no</mat-radio-button>
+                              <!-- <mat-radio-button [value]="customOption">
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="customOption" />
+                        </mat-form-field>
+                      </mat-radio-button> -->
+                            </mat-radio-group>
+                          </div>
+                          </div>
                       </ng-container>
                       <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA' && i == checkLastIndexOfCA())" class="ca-checkbox mt-2 width-100">
                         <mat-checkbox [formControl]="ca_bothgroup_status" class="mr-2"></mat-checkbox>
@@ -420,20 +482,19 @@
                     </div>
 
                     </div>
-                    <div class="remove-wrapper">
-                        <div (click)="removeEducationArray(i)" *ngIf="(!candidateService.checkKycOrJoiningForm() && (getEducationArr.controls.length !== 1 && i !== 0) && ((i != 1 && getEducationArr.controls.length > 2) || (i == 1 && getEducationArr.controls.length == 2))) || (candidateService.checkKycOrJoiningForm() && i !==0 && (i > educationLength - 1))" matTooltip="Remove" class="remove">
-                            <i class="icon-remove_circle pointer ag-icon-font-size"></i>
-                        </div>
-                        </div>
+                    <div class="overall-input-wrapper mt-2  width-100">
+                      <div> <mat-checkbox
+                        class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
+                    </div>
                     </div>
                 </ng-container>
             </ng-container>
 
-            <div *ngIf="getEducationArr && getEducationArr.controls && getEducationArr.controls.length < 12" class="row-wrapper mt-3">
-                    <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button" (click)="addToEducationArray()">+ Add</button>
+            <div *ngIf="getEducationArr && getEducationArr.controls && getEducationArr.controls.length < 12" class="row-wrapper mt-0 pt-0 " style="align-items: flex-end;">
+                    <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button" (click)="addToEducationArray()">+ Add More Education</button>
             </div>
 
-            <div class="row-wrapper justify-content-between align-items-center mt-5 mb-3 footer" style="width: 80%;">
+            <div class="row-wrapper justify-content-between flex-row align-items-center mt-5 mb-3 footer" style="width: 100%;">
                 <div (click)="routeNext('dependent')"
                     class="d-flex align-content-center align-items-center position-relative" style="cursor: pointer;">
                     <div class="left-arrow position-absolute"></div>

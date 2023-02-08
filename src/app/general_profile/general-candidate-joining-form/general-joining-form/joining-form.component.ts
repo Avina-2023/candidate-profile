@@ -6,6 +6,13 @@ import { AppConfigService } from 'src/app/config/app-config.service';
 import { delay } from 'rxjs/operators';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { LoaderService } from 'src/app/service/loader-service.service';
+import { SkillexService } from 'src/app/service/skillex.service';
+import {MatIconModule} from '@angular/material/icon';
+import { ImageCroppedEvent,Dimensions,ImageTransform, base64ToFile } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-joining-form',
@@ -13,13 +20,31 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
   styleUrls: ['./joining-form.component.scss']
 })
 export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
-
+  panelOpenState = false;
+  expand =false;
+  currentlyOpenedItemIndex = -1;
+  imageChangedEvent: any = '';
+    croppedImage: any = '';
   @ViewChild('matDialog', {static: false}) matDialogRef: TemplateRef<any>;
+  @ViewChild('matDialog1', {static: false}) matDialogRef1: TemplateRef<any>;
+
   openJoiningRoutePopUpSubscribe: Subscription;
   joiningFormStepperStatusSubscribe: Subscription;
   joiningFormActiveSelectorSubscribe: Subscription;
   activeStep: any = 'personal';
   showJoiningForm: boolean;
+  profilePictureFormControl = new FormControl(null, [Validators.required]);
+  showSizeError = {
+    image: false,
+    size: false,
+    maxsize: '',
+    minsize: ''
+  };
+  showCropper = false;
+
+  profilePicture = {
+    file_path: null,
+  };
   role = this.appConfig.getLocalData('roles');
   valid = {
     personal: true,
@@ -117,14 +142,21 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   noSave: boolean;
   hideStepper: boolean = false;
   redirectToPreview: boolean;
+  toggoleShowHide: boolean;
+  validimage: boolean = true;
+  disableLoginButton:boolean = true;
   constructor(
+    private skillexService: SkillexService,
+    private loadingService: LoaderService,
     private appConfig: AppConfigService,
     public candidateService: CandidateMappersService,
     private sharedService: SharedServiceService,
     private dialog: MatDialog,
+    public matDialog: MatDialog
   ) {
     const subWrapperMenus = null;
     this.sharedService.subMenuSubject.next(subWrapperMenus);
+    this.toggoleShowHide = true;
   }
 
 
@@ -144,6 +176,114 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         this.routingSelection = data ? data : this.routingSelection;
     });
   }
+  itemClicked(){
+    this.toggoleShowHide = !this.toggoleShowHide;
+  }
+  expansion() {
+    this.expand = !this.expand;
+ }
+ //profile img
+ open(){
+  const dialogRef = this.matDialog.open(this.matDialogRef1, {
+    width: '400px',
+    height: '450px',
+    panelClass: 'matDialog',
+    autoFocus: false,
+    closeOnNavigation: true,
+    disableClose: true,
+  });
+
+
+}
+
+ fileChangeEvent(event: any): void {
+  console.log(event)
+  this.imageChangedEvent = event;
+  this.disableLoginButton = false;
+}
+imageCropped(event: ImageCroppedEvent) {
+  this.croppedImage = event.base64;
+}
+
+base64ToBinary(base64Data: string): Uint8Array {
+    const binaryData = new Uint8Array(atob(base64Data).split('').map(char => char.charCodeAt(0)));
+    return binaryData;
+  }
+
+imageLoaded() {
+  this.showCropper = true;
+  // show cropper
+}
+cropperReady(sourceImageDimensions: Dimensions) {
+  // cropper ready
+}
+loadImageFailed() {
+  // show message
+}
+
+  public delete() {
+    this.profilePicture = {
+      file_path: null,
+    };
+    this.profilePictureFormControl.setValue(null);
+    this.profilePictureFormControl.markAsTouched();
+  }
+
+  onSelectFile(event) {
+    console.log(event,'yyy');
+    // this.validimage = true;
+
+    const fd = new FormData();
+    this.profilePictureFormControl.markAsTouched();
+    if (this.imageChangedEvent.target.files && (this.imageChangedEvent.target.files[0].type.includes('image/png') || this.imageChangedEvent.target.files[0].type.includes('image/jp')) && !this.imageChangedEvent.target.files[0].type.includes('svg')) {
+      if (this.imageChangedEvent.target.files[0].size < 2000000) {
+        if (this.appConfig.minImageSizeValidation(this.imageChangedEvent.target.files[0].size)) {
+        // let image = this.croppedImage target.files[0].name;
+        // let image = Buffer.from(this.croppedImage, "base64");
+        fd.append('email', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
+        fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name));
+        fd.append('uploadType',"profileImage");
+        this.uploadImage(fd);
+      }
+     } else {
+      this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
+     }
+    } else {
+      return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PNG/JPEG files only');
+    }
+  }
+
+  async uploadImage(file) {
+
+    try {
+      this.profilePictureFormControl.markAsUntouched();
+      this.loadingService.setLoading(true);
+      this.skillexService.uploadfile(file).subscribe((data:any) => {
+        // if (data && !data.succes) {
+        //   this.loadingService.setLoading(false);
+        //   return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
+        // }
+        this.loadingService.setLoading(false);
+
+        if (data ) {
+          this.profilePicture = {
+
+            file_path: data.data.file_path,
+
+          };
+          this.profilePictureFormControl.setValue(this.profilePicture.file_path);
+        }
+        this.dialog.closeAll()
+        this.appConfig.nzNotification('success', 'Uploaded', 'Profile Picture uploaded successfully');
+        this.croppedImage
+      });
+    } catch (e) {
+      console.log("error while profile pic"+e)
+      this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
+      this.loadingService.setLoading(false);
+      this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
+    }
+  }
 
   stepperStatus() {
    this.joiningFormStepperStatusSubscribe = this.sharedService.joiningFormStepperStatus.subscribe((data: any)=> {
@@ -154,7 +294,15 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       }
     });
   }
+  setOpened(itemIndex) {
+    this.currentlyOpenedItemIndex = itemIndex;
+  }
 
+  setClosed(itemIndex) {
+    if(this.currentlyOpenedItemIndex === itemIndex) {
+      this.currentlyOpenedItemIndex = -1;
+    }
+  }
   checkFormSubmitted() {
     // this.hideStepper = this.appConfig.getLocalData('isEditAllowed') == 'true' ? false : true;
     if (this.appConfig.getLocalData('joiningFormAccess') == 'true') {

@@ -1,13 +1,24 @@
 @import "../../../themes/themes.scss";
+.joining-personal-wrapper::-webkit-scrollbar {
+  display: none;
+}
 .joining-personal-wrapper {
     width: 100%;
+    padding-top: 0px !important;
+    overflow-y: scroll;
+    height: 768px;
+    // padding: 20px;
+.h{
+  border-bottom: 1px solid #BBC2CB99;
+  padding-bottom: 10px;
+}
     .grids-wrapper {
         display: flex;
         width: 100%;
         .personalForm {
-            width: 80%;
-            padding-right: 3em;
-            font-size: 14px;
+          width: 100%;
+          /* padding-right: 3em; */
+          font-size: 14px;
             .sub-heading {
                 width: 100%;
                 margin: 1em 0 0 0;
@@ -15,12 +26,14 @@
                 font-weight: 400;
             }
             .row-wrapper {
-                margin-top: .5em;
+                // margin-top: .5em;
                 width: 100%;
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-between;
                 align-items: flex-start;
+                flex-direction: column;
+
                 .width-70 {
                     width: 70%;
                 }
@@ -47,14 +60,19 @@
                 }
                 .overall-input-wrapper {
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: row;
                     position: relative;
-                    margin-top: .5em;
+                    margin-top: 1.5em;
+                    width: 100%;
+                    align-items: center;
+                    margin-bottom: 1.5em;
+
                     label {
                         color: #565656;
                         padding: 0 0 2px 0;
                         margin: 0;
                         font-size: 13px;
+                        width: 50%;
                     }
                     .input {
                         position: relative;
@@ -68,13 +86,15 @@
                         line-height: 35px;
                         padding: 4px 8px;
                         background-color: $white;
-                        width: 100%;
+                        width: 98.7%;
                     }
                     .select {
                         display: flex;
                         align-items: center;
                         padding: 0px !important;
                         border: none !important;
+                        width: 100% !important;
+
                     }
                     .input:focus,
                     .input:hover {
@@ -200,11 +220,19 @@
             }
         }
     }
+    .addlanguage{
+      border: 0.5px solid #707070;
+      padding: 0.5em;
+      border-top: 0 !important;
+      width: 100% !important;
+    }
     .language-wrapper {
         display: flex;
         align-self: flex-start;
         justify-content: space-between;
         width: 100%;
+        border: 0.5px solid #707070;
+        padding: 0.5em;
         .language-name-wrapper {
             width: 45%;
         }
@@ -433,6 +461,8 @@
     position: relative;
     margin: 0 !important;
     padding: 0 !important;
+    width: 100%;
+
 }
 
 :host ::ng-deep .mat-input-element:disabled {
@@ -449,8 +479,8 @@
 
 .language-knowns {
      ::ng-deep .mat-checkbox-inner-container {
-        width: 28px !important;
-        height: 28px !important;
+        width: 18px !important;
+        height: 18px !important;
     }
 }
 
@@ -463,4 +493,27 @@
 }
 .redTxt{
   color: red !important;
+}
+
+::ng-deep.chip-list{
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+    display: none !important;
+  }
+  .mat-form-field-infix {
+    width: 800px !important;
+  }
+  input#mat-chip-list-input-1 {
+    padding: 8px !important;
+  }
+}
+.carddiv{
+background-color: #ffffff;
+margin-bottom: 30px;
+width: 100%;
+    padding: 20px;
+    box-shadow: 0.5px 0.87px 10px #00000012;
+}
+.headcard{
+  background-color: #ffffff;
+  padding: 20px;
 }

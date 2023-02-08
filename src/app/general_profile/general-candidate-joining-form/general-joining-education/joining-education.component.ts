@@ -17,6 +17,8 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 export const MY_FORMATS = {
   parse: {
@@ -65,7 +67,7 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   educationForm: FormGroup;
   minDate: Date;
   maxDate: Date;
-
+  public selection: string;
   boardsList = DropdownListForKYC['boards'];
   HSCDiscipline = DropdownListForKYC['HSCDiscipline'];
 
@@ -614,8 +616,8 @@ validSelectedPost() {
       [this.form_specialization]: [null, [Validators.required]],
       [this.form_collegeName]: [null, [Validators.required]],
       [this.form_boardUniversity]: [null, [Validators.required]],
-      [this.form_startDate]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required, this.startTrue(false)] : []],
-      [this.form_endDate]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required, this.startTrue(false)] : []],
+      [this.form_startDate]: [null,  [Validators.required, this.startTrue(true)] ],
+      [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
       [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
       [this.form_mode]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
@@ -633,8 +635,8 @@ validSelectedPost() {
         }
         let check;
         let yearofPassing = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_yearpassing]['value'] ? control['_parent']['controls'][this.form_yearpassing]['value'] : null;
-        let startDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_yearpassing]['value'] ? control['_parent']['controls'][this.form_startDate]['value'] : null;
-        let endDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_yearpassing]['value'] ? control['_parent']['controls'][this.form_endDate]['value'] : null;
+        let startDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_startDate]['value'] ? control['_parent']['controls'][this.form_startDate]['value'] : null;
+        let endDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_endDate]['value'] ? control['_parent']['controls'][this.form_endDate]['value'] : null;
         if (yearofPassing) {
           let start = moment(control.value).format('YYYY-MM-DD');
           let yearofPassing1 = moment(yearofPassing).format('YYYY-MM-DD');
