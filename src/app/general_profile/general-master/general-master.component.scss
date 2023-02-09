@@ -362,11 +362,13 @@ mat-drawer ul li span img {
   content: "Profile Completeness";
   color: #ffffff;
   background-color: #284B93;
-  position: relative;
+  position: absolute;
   bottom: 30px;
     float: right;
-    padding: 0.2% 2%;
+    padding: 0.2% 1.4%;
   text-align: center;
+  bottom: 0;
+  right: 0;
 }
 .white{
 
@@ -378,7 +380,7 @@ mat-drawer ul li span img {
 .sticky-subheaders {
   // position: sticky;
   position: relative;
-  height: 160px;
+  height: 170px;
   // top: -425px;
   z-index: 0;
   background-color: #565656;
@@ -389,19 +391,20 @@ mat-drawer ul li span img {
   .profilebanner{
     // width: 100%;
     // /* z-index: 99; */
-    position: absolute;
+    position: relative;
     // background-blend-mode: overlay;
     object-fit: cover;
     opacity: 0.4;
-    height: 310px;
+    height: 320px;
     width: 100vw;
     top: -150px;
   }
 .overlay{
-  height: 160px;
+  height: 170px;
   width: 100vw;
   background: black;
   overflow: hidden;
+  position: absolute;
 }
 }
 .footer {
@@ -542,13 +545,15 @@ mat-drawer ul li span img {
 
 .bar{
   background-color: #FFFFFF;
-  padding-right: 6% !important;
+  padding-right: 4% !important;
   border-radius: 100px 0px 0px 100px;
   padding: 6px;
   float: right;
-  bottom: 6px;
-  position: relative;
-
+  bottom: 40px;
+  position: absolute;
+  right:0;
+  right: 0;
+  z-index: 1;
   div[role="progressbar"] {
     --size: 5rem;
     --fg: #6AC259;
@@ -593,12 +598,38 @@ mat-drawer ul li span img {
 //     position: relative;
 //     top: 20%;
     .bttn{
-      position: relative;
+      position: absolute;
       left: 2%;
-      top: 60px;
+      top: 65px;
   .backbtn{
     background: linear-gradient(to right, #27bbee 0%, #88ba2f 100%);
     color: #FFFFFF;
   }
 }
+.white-overlay{
+  z-index: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 60px;
+    width: 70%;
+    opacity: 75%;
+}
+// .white-overlay{
+//   background-color: #ffffffa1;
+//   z-index: 1;
+//   position: absolute;
+//   bottom: 0;
+//   right: 0;
+//   height: 60px;
+//   width: 67%;
 
+// }
+// .white-overlay-tirangle{
+
+//   width: 10%;
+//   height: 60px;
+//   border-top: 10px solid transparent;
+//   border-bottom: 10px solid transparent;
+//   border-right:10px solid #ffffffa1;
+// }

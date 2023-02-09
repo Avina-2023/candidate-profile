@@ -14,6 +14,7 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
+import {MatExpansionModule} from '@angular/material/expansion';
 // import { AdminServiceService } from 'src/app/services/admin-service.service';
 
 
@@ -48,11 +49,14 @@ export const MY_FORMATS = {
   ]
 })
 export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  currentIndex=0;
+  // getSkillSelection='noviceselected';
+  panelOpenState = false;
   workDetailsForm: FormGroup;
   minDate: Date;
   maxDate: Date;
-
+  selected:String='noviceselected';
+  backgroundColor: string = 'white';
   diffAbledDropdownList = [
     {
       label: 'Yes',
@@ -113,7 +117,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   form_Employment_Array = "employment";
   form_Skills_Array = "skills";
   form_Skill = "skill";
-
+  form_skilllevel_selected = "skilllevel_selected"
   form_Relatives_Array = "relatives_in_company";
   form_relatives_name = "name";
   form_relatives_position = "position";
@@ -145,6 +149,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   joiningFormDataPassingSubscription: Subscription;
   newSaveProfileDataSubscription: Subscription;
   customerName: any;
+
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -304,6 +309,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
     if (this.workDetailsAllData && this.workDetailsAllData[this.form_Skills_Array] && this.workDetailsAllData[this.form_Skills_Array].length > 0) {
       this.getSkillsArr.clear();
       this.workDetailsAllData[this.form_Skills_Array].forEach(element => {
+        console.log(element,'element');
         element ? this.getSkillsArr.push(this.SkillsArrayPatch(element)) : '';
       });
     }
@@ -413,13 +419,17 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
 
   initSkillsArray() {
     return this.fb.group({
-      [this.form_Skill]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]]
+      [this.form_Skill]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+      [this.form_skilllevel_selected]: ['noviceselected', [RemoveWhitespace.whitespace()]]
     })
   }
 
   SkillsArrayPatch(data) {
+    console.log(data,'level');
+
     return this.fb.group({
-      [this.form_Skill]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]]
+      [this.form_Skill]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+      // [this.form_skilllevel_selected]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]]
     })
   }
 
@@ -489,6 +499,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
       [this.form_Relatives_Array]: this.fb.array([this.initRelativesArray()]),
       [this.form_training_Array]: this.fb.array([this.initTrainingArray()]),
       [this.form_is_training_status]: [null],
+
       // [this.form_training_is_articleship_status]: ['1'],
       // [this.form_ca_dateofcompletion]: [null],
       [this.form_ca_achivement]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]],
@@ -530,7 +541,8 @@ addToTrainingArray() {
     let i = this.getSkillsArr['controls'].length - 1;
     if (this.getSkillsArr.valid && this.getSkillsArr['controls'].length < 10) {
       if (this.getSkillsArr && this.getSkillsArr['controls'] && this.getSkillsArr['controls'][i] && this.getSkillsArr['controls'][i]['value'] && this.getSkillsArr['controls'][i]['value'][this.form_Skill]) {
-        return this.getSkillsArr.push(this.initSkillsArray());
+         this.getSkillsArr.push(this.initSkillsArray());
+        this.choosen('noviceselected', this.getSkillsArr.length -1)
       }
     } else {
       this.appConfig.nzNotification('error', 'Not Added', 'Please fix all the red highlighted fields in the Skill Section');
@@ -759,52 +771,54 @@ addToTrainingArray() {
   }
 
 
-  detectDateCalc(form, i) {
-      let yearCount = 0;
-      let monthCount = 0;
-      let element = form.value;
-      if (element[this.form_duration_from] && element[this.form_duration_to]) {
-        let eventStartTime = new Date(`${this.momentForm1(element[this.form_duration_from])}`);
-        let eventEndTime = new Date(`${this.momentForm1(element[this.form_duration_to])}`);
-        let m = moment(eventEndTime);
-        let years = m.diff(eventStartTime, 'years');
-        m.add(-years, 'years');
-        let months = m.diff(eventStartTime, 'months');
-        m.add(-months, 'months');
-        let days = m.diff(eventStartTime, 'days');
+  // detectDateCalc(form, i) {
+  //     let yearCount = 0;
+  //     let monthCount = 0;
+  //     let element = form.value;
+  //     if (element[this.form_duration_from] && element[this.form_duration_to]) {
+  //       let eventStartTime = new Date(`${this.momentForm1(element[this.form_duration_from])}`);
+  //       let eventEndTime = new Date(`${this.momentForm1(element[this.form_duration_to])}`);
+  //       let m = moment(eventEndTime);
+  //       let years = m.diff(eventStartTime, 'years');
+  //       m.add(-years, 'years');
+  //       let months = m.diff(eventStartTime, 'months');
+  //       m.add(-months, 'months');
+  //       let days = m.diff(eventStartTime, 'days');
 
-        this.getEmploymentArr.at(i).patchValue({
-            [this.form_duration_month]: months,
-            [this.form_duration_year]: years
-        });
+  //       this.getEmploymentArr.at(i).patchValue({
+  //           [this.form_duration_month]: months,
+  //           [this.form_duration_year]: years
+  //       });
 
-          this.getEmploymentArr.getRawValue().forEach(ele => {
-          monthCount += Number(ele[this.form_duration_month] ? ele[this.form_duration_month] : 0);
-          yearCount += Number(ele[this.form_duration_year] ? ele[this.form_duration_year] : 0);
-          if (monthCount > 12) {
-            let y; let m;
-            y = Math.floor(monthCount / 12);
-            m = monthCount % 12;
-            this.workDetailsForm.patchValue({
-              [this.form_total_exp_years]: yearCount + y,
-              [this.form_total_exp_months]: m
-            })
-          } else {
-            this.workDetailsForm.patchValue({
-              [this.form_total_exp_years]: yearCount,
-              [this.form_total_exp_months]: monthCount
-            })
-          }
-        });
+  //         this.getEmploymentArr.getRawValue().forEach(ele => {
+  //         monthCount += Number(ele[this.form_duration_month] ? ele[this.form_duration_month] : 0);
+  //         yearCount += Number(ele[this.form_duration_year] ? ele[this.form_duration_year] : 0);
+  //         if (monthCount > 12) {
+  //           let y; let m;
+  //           y = Math.floor(monthCount / 12);
+  //           m = monthCount % 12;
+  //           this.workDetailsForm.patchValue({
+  //             [this.form_total_exp_years]: yearCount + y,
+  //             [this.form_total_exp_months]: m
+  //           })
+  //         } else {
+  //           this.workDetailsForm.patchValue({
+  //             [this.form_total_exp_years]: yearCount,
+  //             [this.form_total_exp_months]: monthCount
+  //           })
+  //         }
+  //       });
 
-      }
-  }
+  //     }
+  // }
 
   // Form getters
   // convenience getters for easy access to form fields
   get getRelativesArr() { return this.workDetailsForm.get([this.form_Relatives_Array]) as FormArray; }
 
   get getSkillsArr() { return this.workDetailsForm.get([this.form_Skills_Array]) as FormArray; }
+
+   getSkillSelection(i) { return this.getSkillsArr.controls[i].value[this.form_skilllevel_selected]}
 
   get getEmploymentArr() { return this.workDetailsForm.get([this.form_Employment_Array]) as FormArray; }
 
@@ -901,5 +915,43 @@ addToTrainingArray() {
     this.joiningFormDataPassingSubscription ? this.joiningFormDataPassingSubscription.unsubscribe() : '';
     this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
     }
+    choosen(selecteddata:any,i){
+      this.getSkillsArr.controls[i].value[this.form_skilllevel_selected]=selecteddata;
+      this.currentIndex = i;
+      // console.log(this.getSkillsArr.controls[i].value,'kk');
 
+      // this.getSkillsArr;
+
+// this.selected = selecteddata;
+    }
+choosenBorder(i):String{
+  let choosenborder = 'noviceborder';
+  switch(this.getSkillSelection(i)) {
+    case "noviceselected":
+      choosenborder = 'noviceborder';
+      break;
+      case "beginnerselected":
+        choosenborder = 'beginnerborder';
+        break;
+        case "skillfullselected":
+          choosenborder = 'skillfullborder';
+          break;
+          case "experiencedselected":
+            choosenborder = 'experiencedborder';
+            break;
+            case "expertselected":
+      choosenborder = 'expertborder';
+      break;
+    default:
+     choosenborder = 'selectedborder';
+      break;
+  }
+  return choosenborder;
+}
+check(){
+  console.log(this.getSkillsArr,'kk');
+
+  this.getSkillsArr;
+
+}
 }

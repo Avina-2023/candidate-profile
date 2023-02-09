@@ -1,14 +1,20 @@
 @import "../../../themes/themes.scss";
 .joining-personal-wrapper {
     width: 100%;
+    .divcard{
+      background-color: #ffffff;
+      padding: 3% 3% 0% 3%;
+      border-bottom: solid 1px #BBC2CB99;
+    }
     .grids-wrapper {
-        display: flex;
+        // display: flex;
         width: 100%;
+
         .skills-wrapper {
-            display: flex;
+            // display: flex;
             flex-wrap: wrap;
             .skill-name-wrapper {
-                width: 250px;
+                width: 100%;
                 padding: .5em;
                 .input {
                     display: flex;
@@ -23,7 +29,7 @@
                     line-height: 35px;
                     padding: 4px 8px;
                     background-color: $white;
-                    width: 100%;
+                    // width: 100%;
                 }
                 .input-1 {
                     border: none !important;
@@ -33,7 +39,7 @@
                     padding: 2px 2px;
                     box-sizing: border-box;
                     background-color: $white;
-                    width: 100%;
+                    // width: 100%;
                 }
                 .input-error {
                     border: 1px solid $primary-error-color;
@@ -59,11 +65,12 @@
             }
             .skill-name-wrapper:first-child {
                 margin-left: 0em;
+                width: 100%;
             }
         }
         .workDetailsForm {
-            width: 99%;
-            padding-right: 1em;
+            width: 100%;
+            // padding-right: 1em;
             font-size: 14px;
             position: relative;
             .hanging {
@@ -73,7 +80,7 @@
             .row-wrapper {
                 margin-top: 0.5em;
                 width: 100%;
-                display: flex;
+                // display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
                 .width-70 {
@@ -120,13 +127,14 @@
                 }
                 .overall-input-wrapper {
                     display: flex;
-                    flex-direction: column;
+                    // flex-direction: column;
                     position: relative;
                     label {
                         color: #565656;
                         padding: 0 0 2px 0;
                         margin: 0;
                         font-size: 13px;
+                        width: 50% !important;
                     }
                     .input {
                         position: relative;
@@ -166,9 +174,9 @@
                         border: 1px solid $primary-hover-color;
                     }
                     .text-area {
-                        min-height: 80px !important;
-                        line-height: 1.3em !important;
-                        max-height: 80px !important;
+                        // min-height: 80px !important;
+                        // line-height: 1.3em !important;
+                        // max-height: 80px !important;
                     }
                     .sub-Box {
                         min-height: 30px !important;
@@ -227,13 +235,13 @@
                 }
             }
             .container-wrapper {
-                background-color: #f5f5f5;
+                background-color: #ffffff;
                 padding: 0em 0em 1em 1em;
                 border-radius: 5px;
                 margin-top: 1em;
             }
             .container-wrapper:first-child {
-                background-color: #f5f5f5;
+                background-color: #ffffff;
                 padding: 0em 0em 1em 1em;
                 border-radius: 5px;
                 margin-top: 0.5em;
@@ -292,13 +300,13 @@
 }
 
 .remove-wrapper {
-    width: 10%;
+    width: 7%;
     position: relative;
     .remove {
         position: absolute;
         cursor: pointer;
         left: 50%;
-        top: 20%;
+        top: 38%;
         height: 24px;
         transform: translate(-50%, -20%);
         i {
@@ -513,3 +521,125 @@
 h5 {
     font-size: 18px;
 }
+//accordian
+::ng-deep.skill-name-wrapper{
+  .mat-accordion .mat-expansion-panel:last-of-type {
+    border-radius: 0% !important;
+    box-shadow: none !important;
+    border: 1px solid #D0D0D0 !important;
+
+  }
+  .mat-expansion-panel-body {
+    height: 106px !important;
+}
+}
+.skill-level{
+width: 30%;
+}
+.skillinput{
+  width: 60% !important;
+  padding-top: 0 !important;
+}
+.beginnerselected{
+  background-color: #EF8F6C;
+  width: 20%;
+  height: 35px;
+  border-radius: 3px;
+  }
+
+  .skillfullselected{
+    background-color: #F7CE8C;
+    width: 20%;
+    height: 35px;
+    border-radius: 3px;
+    }
+.experiencedselected{
+  background-color: #96C771;
+  width: 20%;
+  height: 35px;
+  border-radius: 3px;
+}
+.expertselected{
+  background-color: #82CDEF;
+  width: 20%;
+  height: 35px;
+  border-radius: 3px;
+}
+.noviceselected{
+  background-color: #E37162;
+  width: 20%;
+  height: 35px;
+  border-radius: 3px;
+}
+.Novice{
+  background-color:  #E3716226 !important ;
+  display: flex;
+  height: 35px;
+}
+.beginner{
+  background-color:  #EF8F6C26 !important ;
+  display: flex;
+  height: 35px;
+}
+.skillfull{
+  background-color:  #F7CE8C26 !important ;
+  display: flex;
+  height: 35px;
+}
+.experience{
+  background-color:  #96C77126 !important ;
+  display: flex;
+  height: 35px;
+}
+.expert{
+  background-color:  #82CDEF26 !important ;
+  display: flex;
+  height: 35px;
+}
+.selected{
+  width: 20%;
+  height: 35px;
+  cursor: pointer;
+}
+  .selectedborder::after{
+
+  position: relative;
+  top: 9px;
+  left: -1.5px;
+  }
+  .noviceborder::after{
+    content: "|";
+    color:#E37162  ;
+    position: relative;
+    top: 9px;
+    left: -1.5px;
+    }
+
+  .beginnerborder::after{
+    content: "|";
+    color:#EF8F6C !important ;
+    position: relative;
+    top: 9px;
+    left: -1.5px;
+  }
+  .skillfullborder::after{
+    content: "|";
+    color:#F7CE8C !important ;
+    position: relative;
+    top: 9px;
+    left: -1.5px;
+  }
+  .experiencedborder::after{
+    content: "|";
+    color:#96C771 !important ;
+    position: relative;
+    top: 9px;
+    left: -1.5px;
+  }
+  .expertborder::after{
+    content: "|";
+    color:#82CDEF  ;
+    position: relative;
+    top: 9px;
+    left: -1.5px;
+  }
