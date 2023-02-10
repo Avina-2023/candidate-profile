@@ -50,6 +50,8 @@ export const MY_FORMATS = {
 })
 export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   currentIndex=0;
+  public selection: string;
+
   // getSkillSelection='noviceselected';
   panelOpenState = false;
   workDetailsForm: FormGroup;
@@ -142,13 +144,14 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
 
   isWorkExp = new FormControl(null);
   isRelatives = new FormControl(null);
-  showWorkExp: any = '0';
+  showWorkExp: boolean = false;
   workDetailsAllData: any;
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
   joiningFormDataPassingSubscription: Subscription;
   newSaveProfileDataSubscription: Subscription;
   customerName: any;
+  skillandLevel: string;
 
   constructor(
     private appConfig: AppConfigService,
@@ -173,12 +176,20 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
     this.joiningFormDataFromJoiningFormComponentRxjs();
   }
 
-  changeWorkExp(e) {
-    if (e.checked) {
-      this.showWorkExp = '1';
-    } else {
-      this.showWorkExp = '0';
-    }
+  changeWorkExp(event) {
+    console.log(event, 'event');
+if(event.value == 'true'){
+  this.showWorkExp = true;
+
+}else{
+  this.showWorkExp = false;
+
+}
+    // if (e.checked) {
+    //   this.showWorkExp = '1';
+    // } else {
+    //   this.showWorkExp = '0';
+    // }
   }
 
   changeInIsArticleship(e) {
@@ -308,9 +319,9 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
 
     if (this.workDetailsAllData && this.workDetailsAllData[this.form_Skills_Array] && this.workDetailsAllData[this.form_Skills_Array].length > 0) {
       this.getSkillsArr.clear();
-      this.workDetailsAllData[this.form_Skills_Array].forEach(element => {
+      this.workDetailsAllData[this.form_Skills_Array].forEach((element, i) => {
         console.log(element,'element');
-        element ? this.getSkillsArr.push(this.SkillsArrayPatch(element)) : '';
+        element ? this.getSkillsArr.push(this.SkillsArrayPatch(element,i)) : '';
       });
     }
 
@@ -424,12 +435,11 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
     })
   }
 
-  SkillsArrayPatch(data) {
+  SkillsArrayPatch(data,i) {
     console.log(data,'level');
 
     return this.fb.group({
       [this.form_Skill]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
-      // [this.form_skilllevel_selected]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]]
     })
   }
 
@@ -754,10 +764,10 @@ addToTrainingArray() {
           return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
         } else {
           if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().experience_details == '1') {
-            return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
+            return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
           } else {
             if (this.workDetailsForm.valid) {
-              return this.sharedService.openJoiningRoutePopUp.next(route == 'education' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
+              return this.sharedService.openJoiningRoutePopUp.next(route == 'education' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
             }
             this.glovbal_validators.validateAllFields(this.workDetailsForm);
             this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
@@ -766,7 +776,7 @@ addToTrainingArray() {
           }
         }
       } else {
-        return this.sharedService.openJoiningRoutePopUp.next(route == 'education' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
+        return this.sharedService.openJoiningRoutePopUp.next(route == 'education' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
       }
   }
 
@@ -832,39 +842,39 @@ addToTrainingArray() {
     return this.workDetailsForm.get(this.form_faculty_reference);
   }
 
-  get convicted_by_Court() {
-    return this.workDetailsForm.get(this.form_convicted_by_Court);
-  }
-  get arrested() {
-    return this.workDetailsForm.get(this.form_arrested);
-  }
-  get prosecuted() {
-    return this.workDetailsForm.get(this.form_prosecuted);
-  }
-  get detention() {
-    return this.workDetailsForm.get(this.form_detention);
-  }
-  get fined_by_court() {
-    return this.workDetailsForm.get(this.form_fined_by_court);
-  }
-  get debarred_exam_university() {
-    return this.workDetailsForm.get(this.form_debarred_exam_university);
-  }
-  get debarred_psc_company() {
-    return this.workDetailsForm.get(this.form_debarred_psc_company);
-  }
-  get court_case_pending() {
-    return this.workDetailsForm.get(this.form_court_case_pending);
-  }
-  get university_case_pending() {
-    return this.workDetailsForm.get(this.form_university_case_pending);
-  }
-  get disciplinary_proceedings() {
-    return this.workDetailsForm.get(this.form_disciplinary_proceedings);
-  }
-  get full_particulars() {
-    return this.workDetailsForm.get(this.form_full_particulars);
-  }
+  // get convicted_by_Court() {
+  //   return this.workDetailsForm.get(this.form_convicted_by_Court);
+  // }
+  // get arrested() {
+  //   return this.workDetailsForm.get(this.form_arrested);
+  // }
+  // get prosecuted() {
+  //   return this.workDetailsForm.get(this.form_prosecuted);
+  // }
+  // get detention() {
+  //   return this.workDetailsForm.get(this.form_detention);
+  // }
+  // get fined_by_court() {
+  //   return this.workDetailsForm.get(this.form_fined_by_court);
+  // }
+  // get debarred_exam_university() {
+  //   return this.workDetailsForm.get(this.form_debarred_exam_university);
+  // }
+  // get debarred_psc_company() {
+  //   return this.workDetailsForm.get(this.form_debarred_psc_company);
+  // }
+  // get court_case_pending() {
+  //   return this.workDetailsForm.get(this.form_court_case_pending);
+  // }
+  // get university_case_pending() {
+  //   return this.workDetailsForm.get(this.form_university_case_pending);
+  // }
+  // get disciplinary_proceedings() {
+  //   return this.workDetailsForm.get(this.form_disciplinary_proceedings);
+  // }
+  // get full_particulars() {
+  //   return this.workDetailsForm.get(this.form_full_particulars);
+  // }
   get total_exp_years() {
     return this.workDetailsForm.get(this.form_total_exp_years);
   }
@@ -916,9 +926,12 @@ addToTrainingArray() {
     this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
     }
     choosen(selecteddata:any,i){
+      console.log(this.skillandLevel,'KKK');
       this.getSkillsArr.controls[i].value[this.form_skilllevel_selected]=selecteddata;
       this.currentIndex = i;
-      // console.log(this.getSkillsArr.controls[i].value,'kk');
+     this.skillandLevel = this.form_Skill + this.getSkillSelection(i)
+
+
 
       // this.getSkillsArr;
 

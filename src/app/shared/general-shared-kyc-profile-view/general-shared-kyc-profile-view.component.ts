@@ -253,6 +253,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_ack_date = 'ack_date';
 
   // Work details
+
   //form Variables
   form_workDetails = "workDetails";
   form_total_exp_years = "total_exp_years";
@@ -277,6 +278,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_hr_name = 'hr_name';
   form_hr_contact_no = 'hr_contact_no';
   form_hr_email = 'hr_email';
+  //discip
+  form_disciplinaryDetails='disciplinaryDetails'
   form_bgvDetails = "bgvDetails";
   form_convicted_by_Court = "convicted_by_Court";
   form_arrested = "arrested";
@@ -352,6 +355,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   customerCode: any;
   lttsCustomerCode = '#LTTS';
   useremail: string = "";
+  disciplinaryDetails: any;
+  disciplinaryDetailsAlldata: any;
   // BASE_URL = environment.API_BASE_URL;
   constructor(
     private appConfig: AppConfigService,
@@ -484,7 +489,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     }
     // Work Experience
     this.getWorkApiDetails(data);
-
+this.patchDisciplinary();
     // Acknowledgements section show, When form is not submitted
     this.ifFormNotSubmitted(data);
     this.getStateAPI();
@@ -663,8 +668,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
 
   patchingCriminal() {
     let bgv;
-    if (this.workDetails.bgvDetails) {
-      let data = this.workDetails.bgvDetails;
+    if (this.disciplinaryDetails.bgvDetails) {
+      let data = this.disciplinaryDetails.bgvDetails;
       bgv = {
         [this.form_convicted_by_Court]: data[this.form_convicted_by_Court] && data[this.form_convicted_by_Court] == '1' ? true : false,
         [this.form_arrested]: data[this.form_arrested] && data[this.form_arrested] == '1' ? true : false,
@@ -709,7 +714,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     } else {
       bgv.show = false;
     }
-    this.workDetails.bgvDetails = bgv;
+    this.disciplinaryDetails.bgvDetails = bgv;
   }
   patchWorkDetails() {
     if (this.workDetails.Employment && this.workDetails.Employment.length > 0) {
@@ -746,7 +751,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       }
       this.workDetails = work;
       this.patchWorkDetails();
-      this.patchingCriminal();
+      // this.patchingCriminal();
       if ((work.workDetails && (work.workDetails.break_in_emp || work.workDetails.employed_us == '1' || work.workDetails.interviewed_by_us == '1' || work.workDetails.total_exp_months || work.workDetails.total_exp_years)) || (this.workDetails.bgvDetails && this.workDetails.bgvDetails.show) || (work.Employment && work.Employment.length > 0 && work.Employment[0] && work.Employment[0][this.form_employment_name_address] ) || this.workDetails.relatives || this.workDetails.skills || this.workDetails.faculty || (this.workDetailsAlldata && (this.workDetailsAlldata[this.form_training_is_articleship_status] || this.workDetailsAlldata[this.form_ca_achivement] || this.workDetailsAlldata[this.form_is_ca_resaon_suitable]))) {
         this.noShowWork = false;
       } else {
@@ -771,6 +776,15 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       return 'Postgraduate';
     }
     return label;
+  }
+
+  patchDisciplinary(){
+    // this.disciplinaryDetailsAlldata = data ? data : null;
+    if (this.disciplinaryDetails && this.disciplinaryDetails.bgvDetails) {
+            this.patchingCriminal();
+
+    }
+
   }
 
   patchEducation() {
@@ -1140,6 +1154,9 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     }
     if (route == 'upload') {
       return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
+    }
+    if (route == 'disciplinary') {
+      return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
     }
   }
 

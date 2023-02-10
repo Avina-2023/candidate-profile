@@ -8,10 +8,11 @@
         <h5 class="m-0">Add Skills</h5>
         <label class="w-100" style="border-bottom: 1px solid #BBC2CB99;">Choose your most important skills that increase
           your chances of landing a job interview.</label>
-
+</div>
 
         <div class="skills-wrapper" *ngIf="getSkillsArr && getSkillsArr.controls" [formArrayName]="form_Skills_Array">
-          <div class="skill-name-wrapper d-flex" *ngFor="let item of getSkillsArr.controls; let i = index;"
+          <div class="divcard">
+            <div class="skill-name-wrapper d-flex" *ngFor="let item of getSkillsArr.controls; let i = index;"
             [formGroupName]="i">
             <div class="w-100">
               <mat-accordion>
@@ -40,45 +41,7 @@
                             <div  (click)="choosen('expertselected', i)" class=" selected" [ngClass]="getSkillSelection(i) == 'expertselected' ? 'expertselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
                           </div>
 
-                        <!-- <div class="Novice">
-                          <div class="noviceselected"> </div>
-                          <div class="novice"> </div>
-                          <div class="noviceborder"> </div>
-                          <div class="noviceborder"> </div>
-                          <div class="noviceborder"> </div>
-                        </div> -->
 
-                        <!-- <div class="Beginner">
-                          <div class="beginnerselected"> </div>
-                          <div class="beginner"> </div>
-                          <div class="beginnerborder"> </div>
-                          <div class="beginnerborder"> </div>
-                          <div class="beginnerborder"> </div>
-                        </div>
-
-                        <div class="Skillful">
-                          <div class="skillfulselected"> </div>
-                          <div class="skillful"> </div>
-                          <div class="skillfulborder"> </div>
-                          <div class="skillfulborder"> </div>
-                          <div class="skillfulborder"> </div>
-                        </div>
-
-                        <div class="Novice">
-                          <div class="noviceselected"> </div>
-                          <div class="novice"> </div>
-                          <div class="noviceborder"> </div>
-                          <div class="noviceborder"> </div>
-                          <div class="noviceborder"> </div>
-                        </div>
-
-                        <div class="Novice">
-                          <div class="noviceselected"> </div>
-                          <div class="novice"> </div>
-                          <div class="noviceborder"> </div>
-                          <div class="noviceborder"> </div>
-                          <div class="noviceborder"> </div>
-                        </div> -->
                       </div>
                   </div>
 
@@ -100,43 +63,35 @@
               </div>
             </div>
           </div>
+          </div>
+
           <div class="skills-add" *ngIf="getSkillsArr && getSkillsArr.controls && getSkillsArr.controls.length < 10">
-            <div class="overall-input-wrapper">
+
               <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
                 (click)="addSkills()">+
                 Add</button>
-            </div>
+
           </div>
         </div>
-      </div>
 
       <h5 class="mt-3 divcard mb-0">Employment Details</h5>
-      <div class="row-wrappper pb-0 ml-0 hanging divcard">
-        <mat-checkbox [formControl]="isWorkExp" (change)="changeWorkExp($event)" class="mr-2"></mat-checkbox> Do you
-        have any Work Experience?
-      </div>
+      <div class="overall-input-wrapper d-flex width-100 mb-3" style="padding: 10px 30px; background-color: #ffffff;">
+        <label class="w-50"> Do you have any Work Experience?<span></span></label>
+        <div style="width: 100% !important;">
+                  <!-- <mat-checkbox  [formControl]="isWorkExp"   (change)="changeWorkExp($event)" class="mr-2"></mat-checkbox>  -->
 
-      <ng-container *ngIf="showWorkExp == '1'">
+          <mat-radio-group  [formControl]="isWorkExp" (change)="changeWorkExp($event)" #radioGroup="matRadioGroup">
+            <mat-radio-button style="width: 12% !important;" value="true">yes</mat-radio-button>
+            <mat-radio-button style="width: 12% !important;" value="false">no</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        </div>
+      <ng-container *ngIf="showWorkExp">
         <ng-container *ngIf="getEmploymentArr && getEmploymentArr.controls" [formArrayName]="form_Employment_Array">
           <ng-container *ngFor="let item of getEmploymentArr.controls; let i = index;" [formGroupName]="i">
-            <div class="container-wrapper mt-0 flex-container d-flex justify-content-between align-items-center">
-              <div class="form-grouping">
+            <div class="container-wrapper mb-3 mt-0 flex-container p-4 justify-content-between align-items-center">
+              <div class="form-grouping w-100">
                 <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-100">
-                    <label>Employer's Name & Address<span></span></label>
-                    <input matInput placeholder="Enter here" class="input text-area" type="text"
-                      [formControlName]="form_employment_name_address">
-                    <div class="form-error"
-                      *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).invalid && getEmploymentArr.controls[i].get(form_employment_name_address).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.required">
-                        Employer's Name and Address is Required</div>
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.address255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                    </div>
-                  </div>
-                </div>
-                  <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
                     <!-- <label>Duration From<span></span></label>
                     <div class="date-relative">
@@ -171,14 +126,13 @@
                     <div class="input sub-Box sub-1"><span class="mr-2">Months:</span>
                       <span>{{getEmploymentArr.controls[i].get(form_duration_month).value}}</span>
                     </div> -->
-
-                        <label>Total Experience</label>
-                        <div class="inpu-preview d-flexze-16 bold-700 color-black">
-                          <input class="in width-20 p-1 mr-2"  [formControlName]="form_duration_Year" type="number">Years
-                          <span class="ml-2 inpu-preview f_size_16 bold-700 color-black">
-                            <input class="in width-20 p-1 mr-2" [formControlName]="form_duration_Year" type="number" style="border: 0.5px solid #707070;border-radius: 3px;" >Months</span>
-                        </div>
-                      </div>
+                    <label style="width:33% !important;">Total Experience</label>
+                    <div class="inpu-preview d-flexze-16 bold-700 color-black">
+                      <input class="in width-20 p-1 mr-2"  [formControlName]="form_duration_Year" type="number">Years
+                      <span class="ml-2 inpu-preview f_size_16 bold-700 color-black">
+                        <input class="in width-20 p-1 mr-2" [formControlName]="form_duration_Year" type="number" style="border: 0.5px solid #707070;border-radius: 3px;" >Months</span>
+                    </div>
+                  </div>
                   <!-- <div class="overall-input-wrapper width-32">
                     <label>Duration To<span></span></label>
                     <div class="date-relative">
@@ -207,11 +161,24 @@
                       <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerParse">
                         Invalid Date Format</div>
                     </div> -->
-
-
                   <!-- </div> -->
-
                 </div>
+                <div class="row-wrapper">
+                  <div class="overall-input-wrapper width-100">
+                    <label>Employer's Name & Address<span></span></label>
+                    <input matInput placeholder="Enter here" class="input text-area" type="text"
+                      [formControlName]="form_employment_name_address">
+                    <div class="form-error"
+                      *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).invalid && getEmploymentArr.controls[i].get(form_employment_name_address).touched">
+                      <div *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.required">
+                        Employer's Name and Address is Required</div>
+                      <div *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.address255">
+                        Alpha numeric with maximum of 255 characters only
+                        allowed</div>
+                    </div>
+                  </div>
+                </div>
+
 
                 <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
@@ -373,7 +340,7 @@
           </div>
           </div> -->
 
-          <div class="row-wrapper">
+          <!-- <div class="row-wrapper">
           <div class="overall-input-wrapper width-100">
             <label>Break in Employment, If any, Should be indicated with reasons<span></span></label>
             <textarea matInput placeholder="Enter here" [formControlName]="form_break_in_emp" class="input text-area"
@@ -387,36 +354,36 @@
             </div>
           </div>
 
-        </div>
+        </div> -->
       </ng-container>
-
+<div class="divcard">
       <h5 class="mt-3">Articleship/Training Details</h5>
       <div class="row-wrappper mt-1 hanging">
         <mat-checkbox (change)="changeInIsArticleship($event)" [formControlName]="form_is_training_status"
           class="mr-2"></mat-checkbox> Do you have any Articleship or Industrial training Experience?
       </div>
-
+    </div>
       <ng-container *ngIf="workDetailsForm['value'][form_is_training_status]">
         <ng-container *ngIf="getTrainingArr && getTrainingArr.controls" [formArrayName]="form_training_Array">
           <ng-container *ngFor="let item of getTrainingArr.controls; let i = index;" [formGroupName]="i">
-            <div class="container-wrapper flex-container d-flex justify-content-between align-items-center">
-              <div class="form-grouping">
+            <div class="container-wrapper flex-container justify-content-between align-items-center" style="padding: 10px 30px;" >
+              <div class="form-grouping w-100">
                 <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-100">
+                  <div class="overall-input-wrapper mb-2 width-100">
                     <label>Name of Employer<span></span></label>
                     <textarea matInput placeholder="Enter here" class="input text-area" type="text"
                       [formControlName]="form_training_employer_name"></textarea>
                     <div class="form-error"
                       *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).invalid && getTrainingArr.controls[i].get(form_training_employer_name).touched">
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).errors?.required">
-                        Name of Employer is Required</div>
+                              Name of Employer is Required</div>
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).errors?.alphaNum255">
                         Alpha numeric with maximum of 255 characters only
                         allowed</div>
                     </div>
                   </div>
                   <div class="overall-input-wrapper width-100">
-                    <label>Duration From<span></span></label>
+                    <label>Period From<span></span></label>
                     <div class="date-relative">
                       <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTraining"
                         placeholder="DD-MM-YYYY" [formControlName]="form_training_from_date">
@@ -426,7 +393,7 @@
                     <div class="form-error"
                       *ngIf="getTrainingArr.controls[i].get(form_training_from_date).invalid && getTrainingArr.controls[i].get(form_training_from_date).touched">
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.required">
-                        Duration From is Required</div>
+                        Period From is Required</div>
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax">
                         {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax?.max ?
                         'Maximum date should be ' +
@@ -446,7 +413,7 @@
                   </div>
 
                   <div class="overall-input-wrapper width-100">
-                    <label>Duration To<span></span></label>
+                    <label>Period To<span></span></label>
                     <div class="date-relative">
                       <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker1Training"
                         placeholder="DD-MM-YYYY" [formControlName]="form_training_to_date">
@@ -456,7 +423,7 @@
                     <div class="form-error"
                       *ngIf="getTrainingArr.controls[i].get(form_training_to_date).invalid && getTrainingArr.controls[i].get(form_training_to_date).touched">
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.required">
-                        Duration To is Required</div>
+                        Period To is Required</div>
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax">
                         {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax?.max ?
                         'Maximum date should be ' +
@@ -478,13 +445,13 @@
 
                 <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
-                    <label>Details of Work Responsibility<span></span></label>
+                    <label>Achievements/Responsibility/Tasks<span></span></label>
                     <textarea matInput placeholder="Enter here" class="input text-area" type="text"
                       [formControlName]="form_training_work_responsiability"></textarea>
                     <div class="form-error"
                       *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).invalid && getTrainingArr.controls[i].get(form_training_work_responsiability).touched">
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability)?.errors?.required">
-                        Details of Work Responsibility is Required</div>
+                        Achievements/Responsibility/Tasks * is Required</div>
                       <div
                         *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).errors?.address255">
                         Alpha numeric with maximum of 255 characters only
@@ -843,7 +810,7 @@
 
                 </div> -->
 
-      <h5 class="mt-3">Disciplinary Details</h5>
+      <!-- <h5 class="mt-3">Disciplinary Details</h5>
       <div class="row-wrappper mt-2 hanging">
         <mat-checkbox class="mr-2" (change)="requiredDesc()" [formControlName]="form_convicted_by_Court"></mat-checkbox>
         Have you ever
@@ -922,7 +889,7 @@
               allowed</div>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div class="row-wrapper justify-content-between align-items-center mt-5 mb-3 footer" style="width: 100%;">
         <div (click)="routeNext('education')" class="d-flex align-content-center align-items-center position-relative"
@@ -935,7 +902,7 @@
         </div>
         <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
           Continue</button>
-        <div (click)="routeNext('upload')"
+        <div (click)="routeNext('project')"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"
           style="cursor: pointer;">
           <div class="right-arrow position-absolute"></div>
@@ -944,7 +911,7 @@
             <div class="value">Upload Documents</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
     <div class="photo-wrapper">
     </div>

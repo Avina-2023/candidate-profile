@@ -1,0 +1,110 @@
+
+  <form class="workDetailsForm" [formGroup]="discipilinaryForm" (ngSubmit)="formSubmit()">
+    <div class="divcard">
+    <h5 class=" h ">Disciplinary Details</h5>
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox class="mr-2" (change)="requiredDesc()" [formControlName]="form_convicted_by_Court"></mat-checkbox>
+      Have you ever
+      been convicted by a Court of Law?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_debarred_exam_university"
+        class="mr-2"></mat-checkbox> Have you
+      ever been debarred/disqualified from any examination or restricted by any University or any other
+      educational institute?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_arrested" class="mr-2"></mat-checkbox> Have you
+      ever been
+      arrested?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_debarred_psc_company"
+        class="mr-2"></mat-checkbox> Have you ever
+      been debarred/disqualified from any Public Service Commission or any other recruiting company for
+      appearing at its examination / selection?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_prosecuted" class="mr-2"></mat-checkbox> Have
+      you ever been
+      prosecuted?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_court_case_pending" class="mr-2"></mat-checkbox>
+      Is any case
+      pending against you in any Court of Law at the time of filling this form?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_detention" class="mr-2"></mat-checkbox> Have you
+      ever been kept
+      under detention?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_university_case_pending"
+        class="mr-2"></mat-checkbox> Is any case
+      pending against you in any University or Educational Institute at the time of filling this form?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_fined_by_court" class="mr-2"></mat-checkbox>
+      Have you ever been
+      fined by a Court of Law?
+    </div>
+
+    <div class="row-wrappper mt-2 hanging">
+      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_disciplinary_proceedings"
+        class="mr-2"></mat-checkbox> In the
+      previous employment, were any disciplinary proceedings framed against you or had you been called upon to
+      explain your conduct in any matter at the time you served notice for resignation?
+    </div>
+
+    <div class="row-wrapper mt-2">
+      <div class="overall-input-wrapper">
+        <label>Please give full particulars of the case/arrest/detention/conviction/punishment etc. and / or
+          nature of the case pending in the Court/University/Educational Authority at the time of filling
+          this form?<span></span></label>
+        <textarea matInput placeholder="Enter here" [formControlName]="form_full_particulars" class="input text-area"
+          style="width: 100% !important; height: 200px !important;" type="text"></textarea>
+        <div class="form-error" *ngIf="full_particulars?.invalid && full_particulars?.touched">
+          <div *ngIf="full_particulars?.errors?.required">
+            Particulars is Required</div>
+          <div *ngIf="full_particulars?.errors?.address255">
+            Alpha numeric with maximum of 255 characters only
+            allowed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" mt-3">
+    <div class="row-wrapper d-flex justify-content-between align-items-center mt-0 mb-3 footer" style="width: 100%;">
+      <div (click)="routeNext('upload')" class="d-flex align-content-center align-items-center position-relative"
+        style="cursor: pointer;">
+        <div class="left-arrow position-absolute"></div>
+        <div class="sections left-space">
+          <div class="label">Previous Section</div>
+          <div class="value">Education Details</div>
+        </div>
+      </div>
+      <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+        Continue</button>
+      <div (click)="routeNext('preview')"
+        class="d-flex align-content-center align-items-center text-right position-relative pointer"
+        style="cursor: pointer;">
+        <div class="right-arrow position-absolute"></div>
+        <div class="sections right-space">
+          <div class="label">Next Section</div>
+          <div class="value">Upload Documents</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+
+

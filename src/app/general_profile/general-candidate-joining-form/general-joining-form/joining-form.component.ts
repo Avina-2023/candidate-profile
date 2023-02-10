@@ -358,8 +358,23 @@ loadImageFailed() {
       }
       if (data && data.document_details == false) {
         this.valid.tillupload();
+        param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
+        return this.activeStep = 'project';
+      }
+      if (data && data.document_details == false) {
+        this.valid.tillupload();
+        param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
+        return this.activeStep = 'accomplishments';
+      }
+      if (data && data.document_details == false) {
+        this.valid.tillupload();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
         return this.activeStep = 'upload';
+      }
+      if (data && data.document_details == false) {
+        this.valid.tillupload();
+        param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
+        return this.activeStep = 'disciplinary';
       }
       else {
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PREVIEW);
@@ -415,9 +430,23 @@ loadImageFailed() {
       }
       // this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
     }
+    if (clickedStep == 'project') {
+      if (this.routingSelection != 'project') {
+        let data = {current: this.routingSelection, goto: CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT}
+        this.sharedService.StepperNavigationCheck.next(data);
+      }
+      // this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
+    }
     if (clickedStep == 'upload') {
       if (this.routingSelection != 'upload') {
         let data = {current: this.routingSelection, goto: CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD}
+        this.sharedService.StepperNavigationCheck.next(data);
+      }
+      // this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
+    }
+    if (clickedStep == 'disciplinary') {
+      if (this.routingSelection != 'disciplinary') {
+        let data = {current: this.routingSelection, goto: CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS}
         this.sharedService.StepperNavigationCheck.next(data);
       }
       // this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
