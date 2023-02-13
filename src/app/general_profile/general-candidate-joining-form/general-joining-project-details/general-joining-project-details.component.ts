@@ -20,8 +20,24 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 export class GeneralJoiningProjectDetailsComponent implements OnInit {
   projectForm: FormGroup;
   form_projectDetails = "projectDetails";
+  form_projectTitle = 'projectTitle';
+  projectTypeList = [
+    {
+      label: 'Academy',
+      value: 'Academy'
+    },
+    {
+      label: 'Academy',
+      value: 'Academy'
+    }
 
-
+  ]
+  form_typeList = 'typeList';
+  form_teamSize = 'teamSize';
+  form_projectOrganization = 'projectOrganization';
+  form_periodFrom = 'periodFrom';
+  form_periodTo = 'periodTo';
+  form_projectDescription = 'projectDescription';
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
   joiningFormDataPassingSubscription: Subscription;
@@ -43,8 +59,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerName = this.appConfig.getSelectedCustomerName();
-    // this.formInitialize();
-    // this.getWorkApiDetails();
+    this.formInitialize();
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
@@ -68,22 +83,121 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
 
   }
 
+  get projectTitle() {
+    return this.projectForm.get(this.form_projectTitle);
+  }
+
+  get typeList() {
+    return this.projectForm.get(this.form_typeList);
+  }
+
+  get teamSize() {
+    return this.projectForm.get(this.form_teamSize);
+  }
+
+  get projectOrganization() {
+    return this.projectForm.get(this.form_projectOrganization);
+  }
+
+  get periodFrom() {
+    return this.projectForm.get(this.form_periodFrom);
+  }
+
+  get periodTo() {
+    return this.projectForm.get(this.form_periodTo);
+  }
+
+  get projectDescription() {
+    return this.projectForm.get(this.form_projectDescription);
+  }
+
+  patchProjectForm() {
+    this.projectForm.patchValue({
+      [this.form_projectDetails]: this.projectDetails[this.form_projectDetails],
+      [this.form_projectTitle]: this.projectDetails[this.form_projectTitle],
+      [this.form_typeList]: this.projectDetails[this.form_typeList],
+      [this.form_teamSize]: this.projectDetails[this.form_teamSize],
+      [this.form_projectOrganization]: this.projectDetails[this.form_projectOrganization],
+      [this.form_periodFrom]: this.projectDetails[this.form_periodFrom],
+      [this.form_periodTo]: this.projectDetails[this.form_periodTo],
+      [this.form_projectDescription]: this.projectDetails[this.form_projectDescription],
+    });
+  }
+
+
   formInitialize() {
     this.projectForm = this.fb.group({
-
+      [this.form_projectDetails]: [null, [Validators.required]],
+      [this.form_projectTitle]: [null, [Validators.required]],
+      [this.form_typeList]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_teamSize]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectOrganization]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodFrom]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodTo]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectDescription]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
     })
   }
+
+  formSubmit(routeValue?:any) {
+    this.loadingService.setLoading(true)
+    if (this.projectForm.valid) {
+      let rawprojectFormValue = this.projectForm.getRawValue();
+      const apiData = {
+        "projectDetails":{
+
+          [this.form_projectDetails]: rawprojectFormValue[this.form_projectDetails],
+          [this.form_projectTitle]: rawprojectFormValue[this.form_projectTitle],
+          [this.form_typeList]: rawprojectFormValue[this.form_typeList],
+          [this.form_teamSize]: rawprojectFormValue[this.form_teamSize],
+          [this.form_projectOrganization]: rawprojectFormValue[this.form_projectOrganization],
+          [this.form_periodFrom]: rawprojectFormValue[this.form_periodFrom],
+          [this.form_periodTo]: rawprojectFormValue[this.form_periodTo],
+          [this.form_projectDescription]: rawprojectFormValue[this.form_projectDescription],
+
+        },
+
+      };
+      const ProjectApiRequestDetails = {
+        email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
+        section_name: "project_details",
+        saving_data: apiData
+      }
+    this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ProjectApiRequestDetails).subscribe((data: any)=> {
+      setTimeout(() => {
+        this.loadingService.setLoading(false)
+
+      }, 2000);
+      if(data && data.success)
+        {
+        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
+        this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Project details is updated');
+        this.sharedService.joiningFormStepperStatus.next();
+        return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
+      }else{
+        this.appConfig.nzNotification('error', 'Not Saved', data && data.message ? data.message : 'Project details not updated');
+        return false
+      }
+      });
+    } else {
+      this.ngAfterViewInit();
+      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+      this.loadingService.setLoading(false)
+      this.glovbal_validators.validateAllFields(this.projectForm);
+    }
+  }
+
    saveRequestRxJs() {
     this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
 
       if (result.result == 'save') {
-        // this.formSubmit(result.route);
+        this.formSubmit(result.route);
       }
     });
   }
 
   showStepper() {
-    this.sharedService.joiningFormActiveSelector.next('disciplinary');
+    this.sharedService.joiningFormActiveSelector.next('project');
   }
   ngAfterViewInit() {
     this.showStepper();
@@ -113,10 +227,10 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
       } else {
         if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().experience_details == '1') {
-          return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
+          return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
         } else {
           if (this.projectForm.valid) {
-            return this.sharedService.openJoiningRoutePopUp.next(route == 'work' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PREVIEW);
+            return this.sharedService.openJoiningRoutePopUp.next(route == 'work' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
           }
           this.glovbal_validators.validateAllFields(this.projectForm);
           this.ngAfterViewInit();
@@ -124,8 +238,15 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
         }
       }
     } else {
-      return this.sharedService.openJoiningRoutePopUp.next(route == 'upload' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PREVIEW);
+      return this.sharedService.openJoiningRoutePopUp.next(route == 'work' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
     }
+}
+
+ngOnDestroy() {
+  this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';
+  this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';
+  this.joiningFormDataPassingSubscription ? this.joiningFormDataPassingSubscription.unsubscribe() : '';
+  this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
 }
 
 }

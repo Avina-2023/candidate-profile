@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { GeneralJoiningDisciplinaryDetailsComponent } from './general-candidate-joining-form/general-joining-disciplinary-details/general-joining-disciplinary-details.component';
 import { GeneralJoiningProjectDetailsComponent } from './general-candidate-joining-form/general-joining-project-details/general-joining-project-details.component';
+import { GeneralJoiningAccomplishmentsComponent } from './general-candidate-joining-form/general-joining-accomplishments/general-joining-accomplishments.component';
 
 
 // import { MatDatepicker, MatDateRangePicker } from '@angular/material/datepicker';
@@ -35,6 +36,7 @@ const path = {
     GENERAL_JOINING_EDUCATION: 'education',
     GENERAL_JOINING_WORK: 'work',
     GENERAL_JOINING_PROJECT: 'project',
+    GENERAL_JOINING_ACCOMPLISHMENTS: 'accomplishments',
     GENERAL_JOINING_UPLOAD: 'upload',
     GENERAL_JOINING_DISCIPLINARY_DETAILS: 'disciplinary',
     GENERAL_JOINING_PREVIEW: 'preview',
@@ -97,6 +99,13 @@ const routes: Routes = [
             }
           },
           {
+            path: `${path.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS}`,
+            component: GeneralJoiningAccomplishmentsComponent,
+            data: {
+              breadcrumb: 'Accomplishments'
+            }
+          },
+          {
             path: `${path.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD}`,
             component: GeneralJoiningUploadComponent,
             data: {
@@ -138,7 +147,7 @@ const routes: Routes = [
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  declarations: [GeneralJoiningContactComponent,GeneralJoiningDependentComponent,GeneralJoiningEducationComponent,GeneralJoiningFormComponent,GeneralJoiningPersonalComponent,GeneralJoiningPreviewComponent,GeneralJoiningSubmitComponent,GeneralJoiningUploadComponent,GeneralJoiningWorkDetailsComponent,GeneralMasterComponent, GeneralJoiningDisciplinaryDetailsComponent, GeneralJoiningProjectDetailsComponent],
+  declarations: [GeneralJoiningContactComponent,GeneralJoiningDependentComponent,GeneralJoiningEducationComponent,GeneralJoiningFormComponent,GeneralJoiningPersonalComponent,GeneralJoiningPreviewComponent,GeneralJoiningSubmitComponent,GeneralJoiningUploadComponent,GeneralJoiningWorkDetailsComponent,GeneralMasterComponent, GeneralJoiningDisciplinaryDetailsComponent, GeneralJoiningProjectDetailsComponent, GeneralJoiningAccomplishmentsComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,

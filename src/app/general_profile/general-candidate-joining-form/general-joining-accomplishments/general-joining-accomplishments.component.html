@@ -1,0 +1,287 @@
+<div class="joining-personal-wrapper">
+  <div class="headcard pb-2">
+    <h5 class="">
+      Accomplishments
+    </h5>
+    <label class="h">
+      Accomplishments will help you stand out to employers and increase your chances of landing a job interview. You can
+      add your certifications, Research Publications and Awards
+    </label>
+  </div>
+  <div class="grids-wrapper">
+    <form class="dependentForm" [formGroup]="accomplishmentsForm" (ngSubmit)="formSubmit()">
+      <div class="actions mt-0 mb-3 divcard pl-4">
+        <div class="pr-3">
+          <div class="overall-input-wrapper">
+            <button [ngClass]="getCertificationsArr.controls.length == 0 ? 'onFocusButton' : ' onFocusButtondisabled' " class=" common-button-height-35 " mat-raised-button type="button"
+              (click)="addToCertifications()">+ Add Certifications</button>
+          </div>
+        </div>
+        <div class="pr-3">
+          <div class="overall-input-wrapper">
+            <button [ngClass]="getawardsArr.controls.length == 0 ? 'onFocusButton' : ' onFocusButtondisabled' " class=" common-button-height-35 " mat-raised-button type="button"
+              (click)="addToawards()">+ Add Awards</button>
+          </div>
+        </div>
+        <div class="pr-3">
+          <div class="overall-input-wrapper">
+            <button [ngClass]="getJournalEntryArr.controls.length == 0 ? 'onFocusButton' : ' onFocusButtondisabled' " class=" common-button-height-35 " mat-raised-button type="button"
+              (click)="addToJournalEntry()">+ Add Journal Entry</button>
+          </div>
+        </div>
+      </div>
+      <ng-container>
+        <ng-container *ngIf="getCertificationsArr && getCertificationsArr.controls"
+          [formArrayName]="form_certificationsArray">
+          <ng-container *ngFor="let item of getCertificationsArr.controls; let i = index;" [formGroupName]="i">
+            <div>
+              <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
+                <div class="form-grouping">
+                  <div class="row-wrapper">
+                    <div class="dependent-head">
+                      <h6>Certification{{i+1}}</h6>
+                      <div class="remove-wrapper">
+                        <div (click)="removeCertificationsArray(i)" *ngIf="i <= 0  " matTooltip="Remove" class="remove">
+                          <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="overall-input-wrapper width-32 mb-3">
+                      <label>Certification Name<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_certification_name">
+                      <div class="form-error"
+                        *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
+                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.required">
+                          Certification Name is Required</div>
+                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row-wrapper">
+                    <div class="overall-input-wrapper width-32 mb-3">
+                      <label>Issued From<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_certification_issuedFrom">
+                      <div class="form-error"
+                        *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
+                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
+                          Certification Name is Required</div>
+                        <div
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row-wrapper">
+                    <div class="overall-input-wrapper width-32 mb-3">
+                      <label>Description</label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_certification_description">
+                    </div>
+                  </div>
+
+                  <div class="row-wrapper">
+                    <div class="overall-input-wrapper width-32 mb-3">
+                      <label>Certification Validity From<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_certification_validityFrom">
+                      <div class="form-error"
+                        *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).invalid && getCertificationsArr.controls[i].get(form_certification_validityFrom).touched">
+                        <div
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).errors?.required">
+                          Certification Validity From is Required</div>
+                        <div
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="form-error"
+                *ngIf="getCertificationsArr.controls[i].get(form_isDependent).invalid && getCertificationsArr.controls[i].get(form_isDependent).touched">
+                <div *ngIf="getCertificationsArr.controls[i].get(form_isDependent)?.errors?.required">
+                  Certification Validity From * is Required</div>
+              </div> -->
+                  </div>
+                </div>
+              </div>
+              <div style="height: 68px !important ;"
+                *ngIf="getCertificationsArr && getCertificationsArr.controls && getCertificationsArr.controls.length < 5 "
+                class="pt-3  pb-3">
+                <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+                  (click)="addMoreCertifications()">+ Add More Certifications</button>
+              </div>
+            </div>
+
+          </ng-container>
+        </ng-container>
+        <!-- awards -->
+        <ng-container *ngIf="getawardsArr && getawardsArr.controls" [formArrayName]="form_awardsArray">
+          <ng-container *ngFor="let item of getawardsArr.controls; let i = index;" [formGroupName]="i">
+            <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
+              <div class="form-grouping">
+                <div class="row-wrapper">
+                  <h5 class="divcard m-0">
+                    Awards
+                  </h5>
+                  <div class="dependent-head">
+                    <h6>Awards{{i+1}}</h6>
+                    <div class="remove-wrapper">
+                      <div (click)="removeawardsArray(i)" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
+                        <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="overall-input-wrapper width-32 mb-3">
+                    <label>Award Title<span class="redTxt">*</span></label>
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_award_title">
+                    <div class="form-error"
+                      *ngIf="getawardsArr.controls[i].get(form_award_title).invalid && getawardsArr.controls[i].get(form_award_title).touched">
+                      <div *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.required">
+                        Awarded Title is Required</div>
+                      <div *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.alphaNum255">
+                        Alpha numeric with maximum of 255 characters only
+                        allowed</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row-wrapper">
+                  <div class="overall-input-wrapper width-32 mb-3">
+                    <label>Awarded Date<span class="redTxt">*</span></label>
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_award_date">
+                    <div class="form-error"
+                      *ngIf="getawardsArr.controls[i].get(form_award_date).invalid && getawardsArr.controls[i].get(form_award_date).touched">
+                      <div *ngIf="getawardsArr.controls[i].get(form_award_date).errors?.required">
+                        Awarded Date is Required</div>
+                      <div *ngIf="getawardsArr.controls[i].get(form_award_date).errors?.alphaNum255">
+                        Alpha numeric with maximum of 255 characters only
+                        allowed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="height: 68px !important ;" *ngIf="getawardsArr && getawardsArr.controls && getawardsArr.controls.length < 5 "
+              class=" pt-3 pb-3">
+              <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+                (click)="addMoreAwards()">+ Add More Certifications</button>
+            </div>
+          </ng-container>
+        </ng-container>
+        <!--journal entry-->
+
+        <ng-container *ngIf="getJournalEntryArr && getJournalEntryArr.controls"
+          [formArrayName]="form_journalEntryArray">
+          <ng-container *ngFor="let item of getJournalEntryArr.controls; let i = index;" [formGroupName]="i">
+            <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
+              <div class="form-grouping">
+                <div class="row-wrapper">
+                  <h5 class="divcard m-0">
+                    Research Publication/Journal Entry
+                  </h5>
+                  <div class="dependent-head">
+                    <h6>Research Publication{{i+1}}</h6>
+                    <div class="remove-wrapper">
+                      <div (click)="removeJournalArray(i)" *ngIf="i == 0  " matTooltip="Remove" class="remove">
+                        <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="overall-input-wrapper width-32 mb-3">
+                    <label>Title<span class="redTxt">*</span></label>
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_journalEntity_title">
+                    <div class="form-error"
+                      *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_title).touched">
+                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.required">
+                        Certification Name is Required</div>
+                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.alphaNum255">
+                        Alpha numeric with maximum of 255 characters only
+                        allowed</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-wrapper">
+                  <div class="overall-input-wrapper width-32 mb-3">
+                    <label>URL<span class="redTxt">*</span></label>
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_journalEntity_url">
+                    <div class="form-error"
+                      *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_url).touched">
+                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.required">
+                        Certification Name is Required</div>
+                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.alphaNum255">
+                        Alpha numeric with maximum of 255 characters only
+                        allowed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-wrapper">
+                  <div class="overall-input-wrapper width-32 mb-3">
+                    <label>Published On</label>
+                    <div class="date-relative">
+                      <input matInput class="input" style="width:100% !important" [min]="minDate"
+                        [max]="passportDateOfIssueMaxDate" [matDatepicker]="picker_dateofIssue" placeholder="DD-MM-YYYY"
+                        [formControlName]="form_journalEntity_publishedOn">
+                      <mat-datepicker-toggle matSuffix [for]="picker_dateofIssue"></mat-datepicker-toggle>
+                      <mat-datepicker #picker_dateofIssue></mat-datepicker>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-wrapper">
+                  <div class="overall-input-wrapper width-32 mb-3">
+                    <label>Description</label>
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_journalEntity_description">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="height: 68px !important ;" class="pt-3 pb-3 " *ngIf="getJournalEntryArr && getJournalEntryArr.controls && getJournalEntryArr.controls.length < 5 "
+              >
+              <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+                (click)="addMoreCertifications()">+ Add More Certifications</button>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <div class="row-wrapper justify-content-between d-flex flex-row align-items-center mt-5 mb-3 footer"
+        style="width: 100%;">
+        <div (click)="routeNext('contact')" class="d-flex align-content-center align-items-center position-relative"
+          style="cursor: pointer;">
+          <div class="left-arrow position-absolute"></div>
+          <div class="sections left-space">
+            <div class="label">Previous Section</div>
+            <div class="value">Contact Details</div>
+          </div>
+        </div>
+        <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+          Continue</button>
+        <div (click)="routeNext('education')"
+          class="d-flex align-content-center align-items-center text-right position-relative pointer"
+          style="cursor: pointer;">
+          <div class="right-arrow position-absolute"></div>
+          <div class="sections right-space">
+            <div class="label">Next Section</div>
+            <div class="value">Education Details</div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

@@ -250,7 +250,7 @@ constructor(
    }
 
   showStepper() {
-    this.sharedService.joiningFormActiveSelector.next('education');
+    this.sharedService.joiningFormActiveSelector.next('work');
   }
 
   chosenYearHandler(normalizedYear: Moment, i) {
