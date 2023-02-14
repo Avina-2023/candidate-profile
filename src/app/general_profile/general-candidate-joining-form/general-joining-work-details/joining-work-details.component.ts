@@ -723,7 +723,7 @@ addToTrainingArray() {
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Work Experience details is updated');
         this.sharedService.joiningFormStepperStatus.next();
-        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
+        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
       });
     } else {
       this.ngAfterViewInit();

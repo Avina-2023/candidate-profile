@@ -32,9 +32,13 @@ constructor(
     // this.datas is api body data
     return this.http.post(`${environment.SKILLEX_BASE_URL}/addUserDetail`, loginData);
   }
+  // uploadfile(profileform) {
+  //   // this.datas is api body data
+  //   return this.http.post(`${environment.SKILLEX_BASE_URL}/uploadCandidateFile`, profileform);
+  // }
   uploadfile(profileform) {
     // this.datas is api body data
-    return this.http.post(`${environment.SKILLEX_BASE_URL}/uploadCandidateFile`, profileform);
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/imageUpload`, profileform);
   }
   districtList(stateId) {
     // this.datas is api body data

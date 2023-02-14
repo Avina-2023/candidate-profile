@@ -173,7 +173,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Project details is updated');
         this.sharedService.joiningFormStepperStatus.next();
-        return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
+        return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
       }else{
         this.appConfig.nzNotification('error', 'Not Saved', data && data.message ? data.message : 'Project details not updated');
         return false

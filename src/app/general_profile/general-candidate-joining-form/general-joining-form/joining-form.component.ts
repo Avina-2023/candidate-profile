@@ -25,6 +25,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   currentlyOpenedItemIndex = -1;
   imageChangedEvent: any = '';
     croppedImage: any = '';
+    // candidateProfileimage= localStorage.profileData.personal_details.profileImage;
   @ViewChild('matDialog', {static: false}) matDialogRef: TemplateRef<any>;
   @ViewChild('matDialog1', {static: false}) matDialogRef1: TemplateRef<any>;
 
@@ -52,7 +53,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     dependent: false,
     education: false,
     work: false,
+    project: false,
+    accomplishments: false,
     upload: false,
+    disciplinary: false,
     preview: false,
     submit: false,
     tillPersonal() {
@@ -61,7 +65,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.dependent = false;
       this.education = false;
       this.work = false;
+      this.project = false;
+      this.accomplishments = false;
       this.upload = false;
+      this.disciplinary = false;
       this.preview = false;
       this.submit = false;
       },
@@ -71,7 +78,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         this.dependent = false;
         this.education = false;
         this.work = false;
+        this.project = false;
+      this.accomplishments = false;
         this.upload = false;
+        this.disciplinary = false;
         this.preview = false;
         this.submit = false;
         },
@@ -81,7 +91,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.dependent = true;
       this.education = false;
       this.work = false;
+      this.project = false;
+      this.accomplishments = false;
       this.upload = false;
+      this.disciplinary = false;
       this.preview = false;
       this.submit = false;
     },
@@ -91,7 +104,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.dependent = true;
       this.education = true;
       this.work = false;
+      this.project = false;
+      this.accomplishments = false;
       this.upload = false;
+      this.disciplinary = false;
       this.preview = false;
       this.submit = false;
     },
@@ -101,7 +117,36 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.dependent = true;
       this.education = true;
       this.work = true;
+      this.project = false;
+      this.accomplishments = false;
       this.upload = false;
+      this.disciplinary = false;
+      this.preview = false;
+      this.submit = false;
+    },
+    tillproject(){
+      this.personal = true;
+      this.contact = true;
+      this.dependent = true;
+      this.education = true;
+      this.work = true;
+      this.project = true;
+      this.accomplishments = false;
+      this.upload = false;
+      this.disciplinary = false;
+      this.preview = false;
+      this.submit = false;
+    },
+    tillaccomplishments(){
+      this.personal = true;
+      this.contact = true;
+      this.dependent = true;
+      this.education = true;
+      this.work = true;
+      this.project = true;
+      this.accomplishments = true;
+      this.upload = false;
+      this.disciplinary = false;
       this.preview = false;
       this.submit = false;
     },
@@ -111,7 +156,23 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.dependent = true;
       this.education = true;
       this.work = true;
+      this.project = true;
+      this.accomplishments = true;
       this.upload = true;
+      this.disciplinary = false;
+      this.preview = false;
+      this.submit = false;
+    },
+    tilldisciplinary() {
+      this.personal = true;
+      this.contact = true;
+      this.dependent = true;
+      this.education = true;
+      this.work = true;
+      this.project = true;
+      this.accomplishments = true;
+      this.upload = true;
+      this.disciplinary = true;
       this.preview = false;
       this.submit = false;
     },
@@ -121,7 +182,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.dependent = true;
       this.education = true;
       this.work = true;
+      this.project = true;
+      this.accomplishments = true;
       this.upload = true;
+      this.disciplinary = true;
       this.preview = true;
       this.submit = false;
     },
@@ -131,7 +195,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.dependent = true;
       this.education = true;
       this.work = true;
+      this.project = true;
+      this.accomplishments = true;
       this.upload = true;
+      this.disciplinary = true;
       this.preview = true;
       this.submit = true;
     }
@@ -145,6 +212,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   toggoleShowHide: boolean;
   validimage: boolean = true;
   disableLoginButton:boolean = true;
+  profileimage: any;
+  cadidatefinalimage: any;
   constructor(
     private skillexService: SkillexService,
     private loadingService: LoaderService,
@@ -197,11 +266,40 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 }
 
  fileChangeEvent(event: any): void {
-  console.log(event)
   this.imageChangedEvent = event;
-  this.disableLoginButton = false;
+
+
+
+  // this.profilePicture.file_path=null;
+
+console.log(this.imageChangedEvent.target.files[0],'ooo');
+
 }
+setprofileimageToLocal(){
+
+
+  let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
+  candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
+  console.log(candidateProfileimage.personal_details.profileImage,'dj');
+localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+console.log(JSON.stringify(candidateProfileimage),'--------');
+// localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+  // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
+let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
+// localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
+console.log(this.cadidatefinalimage,'hbsdjhBcj');
+}
+getprofileimageToLocal(){
+//   this.candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
+// return this.candidateProfileimage
+  // console.log(JSON.stringify(candidateProfileimage),'kkkk')
+
+}
+
 imageCropped(event: ImageCroppedEvent) {
+  // console.log(event,'crop');
+
   this.croppedImage = event.base64;
 }
 
@@ -230,20 +328,21 @@ loadImageFailed() {
   }
 
   onSelectFile(event) {
-    console.log(event,'yyy');
+    console.log(this.profilePicture.file_path,'yyy');
     // this.validimage = true;
 
     const fd = new FormData();
     this.profilePictureFormControl.markAsTouched();
-    if (this.imageChangedEvent.target.files && (this.imageChangedEvent.target.files[0].type.includes('image/png') || this.imageChangedEvent.target.files[0].type.includes('image/jp')) && !this.imageChangedEvent.target.files[0].type.includes('svg')) {
+    if (this.imageChangedEvent.target.files && (this.imageChangedEvent.target.files[0].type.includes('image/png') || this.imageChangedEvent.target.files[0].type.includes('image/jpeg')) && !this.imageChangedEvent.target.files[0].type.includes('svg')) {
       if (this.imageChangedEvent.target.files[0].size < 2000000) {
         if (this.appConfig.minImageSizeValidation(this.imageChangedEvent.target.files[0].size)) {
         // let image = this.croppedImage target.files[0].name;
         // let image = Buffer.from(this.croppedImage, "base64");
-        fd.append('email', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
-        fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name));
-        fd.append('uploadType',"profileImage");
+        // fd.append('email', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
+        fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0], { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
+        fd.append('type',"profile");
         this.uploadImage(fd);
+
       }
      } else {
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
@@ -254,6 +353,7 @@ loadImageFailed() {
   }
 
   async uploadImage(file) {
+console.log(file,'ooo');
 
     try {
       this.profilePictureFormControl.markAsUntouched();
@@ -264,14 +364,16 @@ loadImageFailed() {
         //   return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
         // }
         this.loadingService.setLoading(false);
-
+        console.log(data,'iii');
         if (data ) {
           this.profilePicture = {
 
-            file_path: data.data.file_path,
+            file_path: data.data,
 
           };
           this.profilePictureFormControl.setValue(this.profilePicture.file_path);
+          this.setprofileimageToLocal();
+
         }
         this.dialog.closeAll()
         this.appConfig.nzNotification('success', 'Uploaded', 'Profile Picture uploaded successfully');
@@ -357,12 +459,12 @@ loadImageFailed() {
           return this.activeStep = 'work';
       }
       if (data && data.document_details == false) {
-        this.valid.tillupload();
+        this.valid.tillproject();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
         return this.activeStep = 'project';
       }
       if (data && data.document_details == false) {
-        this.valid.tillupload();
+        this.valid.tillaccomplishments();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
         return this.activeStep = 'accomplishments';
       }
@@ -372,7 +474,7 @@ loadImageFailed() {
         return this.activeStep = 'upload';
       }
       if (data && data.document_details == false) {
-        this.valid.tillupload();
+        this.valid.tilldisciplinary();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
         return this.activeStep = 'disciplinary';
       }
@@ -533,11 +635,26 @@ loadImageFailed() {
       }
     }
     if (this.activeStep == 'work') {
+      if (route.includes('project')) {
+        return true;
+      }
+    }
+    if (this.activeStep == 'project') {
+      if (route.includes('accomplishment')) {
+        return true;
+      }
+    }
+    if (this.activeStep == 'accomplishment') {
       if (route.includes('upload')) {
         return true;
       }
     }
     if (this.activeStep == 'upload') {
+      if (route.includes('disciplinary')) {
+        return true;
+      }
+    }
+    if (this.activeStep == 'disciplinary') {
       if (route.includes('preview')) {
         return true;
       }

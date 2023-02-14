@@ -172,9 +172,9 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
       this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-        this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Work Experience details is updated');
+        this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Discipilinary details is updated');
         this.sharedService.joiningFormStepperStatus.next();
-        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
+        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PREVIEW);
       });
     } else {
       this.ngAfterViewInit();

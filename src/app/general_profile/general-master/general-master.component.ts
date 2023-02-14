@@ -12,12 +12,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./general-master.component.scss']
 })
 export class GeneralMasterComponent implements OnInit {
-  public profilepercentage: number =70;
+   profilepercentage: number =  0;
   profilePictureFormControl = new FormControl(null, [Validators.required]);
   profilePicture = {
     file_path: null,
   };
   isExternal: boolean = false;
+  percentage: number;
 
   constructor(private appConfig: AppConfigService,
     private loadingService: LoaderService,
@@ -27,10 +28,72 @@ export class GeneralMasterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profilepercentage = Math.ceil(this.profilepercentage);
+    // this.profilepercentage = Math.ceil(this.profilepercentage);
     this.isExternal = this.appConfig.getLocalData('externalLogin')
-
+    this.setprofileimageToLocal()
   }
+
+  setprofileimageToLocal(){
+    // this.profilepercentage = 30;
+    this.profilepercentage = Math.ceil(this.profilepercentage);
+
+
+    this.profilepercentage = JSON.parse(localStorage.getItem("profileData"))  ;
+    console.log(this.profilepercentage ,'hgvjhb');
+
+    if(this.profilepercentage){
+      let size = 9 ;
+ this.percentage =  size / 10 * 100;
+    }
+  //   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
+  //   console.log(candidateProfileimage.personal_details.profileImage,'dj');
+  // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+  // console.log(JSON.stringify(candidateProfileimage),'--------');
+  // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+  //   // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
+  // let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
+  // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+  // this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
+  // console.log(this.cadidatefinalimage,'hbsdjhBcj');
+  }
+
+//   saveData(data) {
+//     const form_size = 1024; // chunk size in bytes
+//     const progressbar = []; // array to hold data chunks
+
+//     for (let i = 0; i < this.data.length; i += form_size) {
+//       progressbar.push(this.data.slice(i, i + form_size));
+//     }
+
+//     // const progress = this.progressRef.ref(); // reference to the progress bar component
+//     // progress.start(); // start the progress bar animation
+
+//     for (let i = 0; i < progressbar.length; i++) {
+//       localStorage.setItem('data-' + i, progressbar[i]);
+//       const percent = (i + 1) / progressbar.length * 100; // calculate progress percentage
+//       // progress.set(percent); // update the progress bar value
+//     }
+
+//     // progress.complete(); // stop the progress bar animation
+//   }
+// }
+
+
+
+  // getprofileCompletionPercentage(){
+  //   window.addEventListener('storage', (event: StorageEvent) => {
+  //     if (event.key === 'profileData') {
+  //       // Update the progress value
+  //       profilepercentage = Math.round((event.newValue.length / 1024) * 100);
+  //       localStorage.setItem('profileData', myValue);
+  //     }
+  //   });
+
+
+  // }
+
+
+
   async uploadImage(file) {
     try {
       this.profilePictureFormControl.markAsUntouched();

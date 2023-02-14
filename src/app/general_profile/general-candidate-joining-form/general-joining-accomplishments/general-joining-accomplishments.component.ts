@@ -153,7 +153,7 @@ form_journalEntity_description = 'journalEntityDescription';
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Accomplishments is updated');
         this.sharedService.joiningFormStepperStatus.next();
-        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
+        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
       });
     } else {
       this.ngAfterViewInit();
