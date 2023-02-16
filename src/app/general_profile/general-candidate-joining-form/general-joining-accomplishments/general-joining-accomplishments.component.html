@@ -234,8 +234,8 @@
                   <div class="overall-input-wrapper width-32 mb-3">
                     <label>Published On</label>
                     <div class="date-relative">
-                      <input matInput class="input" style="width:100% !important" [min]="minDate"
-                        [max]="passportDateOfIssueMaxDate" [matDatepicker]="picker_dateofIssue" placeholder="DD-MM-YYYY"
+                      <input matInput class="input" style="width:100% !important"
+                         [matDatepicker]="picker_dateofIssue" placeholder="DD-MM-YYYY"
                         [formControlName]="form_journalEntity_publishedOn">
                       <mat-datepicker-toggle matSuffix [for]="picker_dateofIssue"></mat-datepicker-toggle>
                       <mat-datepicker #picker_dateofIssue></mat-datepicker>

@@ -19,6 +19,7 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 })
 export class GeneralJoiningProjectDetailsComponent implements OnInit {
   projectForm: FormGroup;
+  form_projectArray = 'projectArray';
   form_projectDetails = "projectDetails";
   form_projectTitle = 'projectTitle';
   projectTypeList = [
@@ -38,7 +39,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   form_periodFrom = 'periodFrom';
   form_periodTo = 'periodTo';
   form_projectDescription = 'projectDescription';
-  form_projectDetailsArray = 'projectDetailsArray';
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
   joiningFormDataPassingSubscription: Subscription;
@@ -84,61 +84,53 @@ this.patchProjectForm();
 
   }
 
-  get projectTitle() {
-    return this.projectForm.get(this.form_projectTitle);
-  }
 
-  get typeList() {
-    return this.projectForm.get(this.form_typeList);
-  }
-
-  get teamSize() {
-    return this.projectForm.get(this.form_teamSize);
-  }
-
-  get projectOrganization() {
-    return this.projectForm.get(this.form_projectOrganization);
-  }
-
-  get periodFrom() {
-    return this.projectForm.get(this.form_periodFrom);
-  }
-
-  get periodTo() {
-    return this.projectForm.get(this.form_periodTo);
-  }
-
-  get projectDescription() {
-    return this.projectForm.get(this.form_projectDescription);
-  }
 
   patchProjectForm() {
-    this.projectForm.patchValue({
-      [this.form_projectDetails]: this.projectDetails[this.form_projectDetails],
-      [this.form_projectTitle]: this.projectDetails[this.form_projectTitle],
-      [this.form_typeList]: this.projectDetails[this.form_typeList],
-      [this.form_teamSize]: this.projectDetails[this.form_teamSize],
-      [this.form_projectOrganization]: this.projectDetails[this.form_projectOrganization],
-      [this.form_periodFrom]: this.projectDetails[this.form_periodFrom],
-      [this.form_periodTo]: this.projectDetails[this.form_periodTo],
-      [this.form_projectDescription]: this.projectDetails[this.form_projectDescription],
+    this.projectDetails.forEach((element, i) => {
+      this.getprojectArr.push(this.patchingProjectdetails(element));
     });
   }
-
+  patchingProjectdetails(data){
+    return this.fb.group({
+      [this.form_typeList]: [data[this.form_typeList], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_teamSize]: [data[this.form_teamSize], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectTitle]: [data[this.form_projectTitle], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodFrom]: [data[this.form_periodFrom], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodTo]: [data[this.form_periodTo], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectDescription]: [data[this.form_projectDescription], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectOrganization]: [data[this.form_projectOrganization], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+    })
+     }
 
   formInitialize() {
     this.projectForm = this.fb.group({
-      [this.form_projectDetails]: [null, [Validators.required]],
-      [this.form_projectTitle]: [null, [Validators.required]],
-      [this.form_typeList]: [null, [Validators.required]],
-      [this.form_teamSize]: [null, [Validators.required]],
-      [this.form_projectOrganization]: [null, [Validators.required]],
-      [this.form_periodFrom]: [null, [Validators.required]],
-      [this.form_periodTo]:[null, [Validators.required]],
-      [this.form_projectDescription]: [null, [Validators.required]],
+      [this.form_projectArray]: this.fb.array([this.initProjectArray()]),
     })
   }
 
+  addMoreCertifications(){
+    if (this.getprojectArr.valid) {
+      return this.getprojectArr.push(this.initProjectArray());
+     }
+     this.glovbal_validators.validateAllFormArrays(this.projectForm.get([this.form_projectArray]) as FormArray);
+  }
+
+  get getprojectArr() { return this.projectForm.get([this.form_projectArray]) as FormArray; }
+
+
+  initProjectArray(){
+    return this.fb.group({
+      [this.form_typeList]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_teamSize]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectTitle]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodFrom]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodTo]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectDescription]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_projectOrganization]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+
+    })
+  }
 
 
   formSubmit(routeValue?:any) {
@@ -146,14 +138,8 @@ this.patchProjectForm();
     let rawprojectFormValue = this.projectForm.getRawValue();
     if (this.projectForm) {
       const projectobj = {
-          [this.form_projectDetails]: rawprojectFormValue[this.form_projectDetails],
-          [this.form_projectTitle]: rawprojectFormValue[this.form_projectTitle],
-          [this.form_typeList]: rawprojectFormValue[this.form_typeList],
-          [this.form_teamSize]: rawprojectFormValue[this.form_teamSize],
-          [this.form_projectOrganization]: rawprojectFormValue[this.form_projectOrganization],
-          [this.form_periodFrom]: rawprojectFormValue[this.form_periodFrom],
-          [this.form_periodTo]: rawprojectFormValue[this.form_periodTo],
-          [this.form_projectDescription]: rawprojectFormValue[this.form_projectDescription],
+        [this.form_projectArray]: rawprojectFormValue[this.form_projectArray],
+
       };
       const ProjectApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',

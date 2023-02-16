@@ -235,7 +235,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.activeSelectorRxJs();
     this.stepperStatus();
     this.checkJoiningComponentNeeded();
-    this.onSelectFile(event);
+
   }
 
   activeSelectorRxJs() {

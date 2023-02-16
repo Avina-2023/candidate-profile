@@ -19,6 +19,13 @@ export const MY_FORMATS = {
   parse: {
     dateInput: 'DD-MM-YYYY',
   },
+  display: {
+    // dateInput: 'DD MMM YYYY', // output ->  01 May 1995
+    dateInput: 'DD-MM-YYYY', // output ->  01-10-1995
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
 }
 
 @Component({
@@ -93,7 +100,7 @@ form_journalEntity_description = 'journalEntityDescription';
       this.formInitialize();
       this.accomplishmentsDetails = this.candidateService.getLocalexperience_details();
       this.accomplishmentsDetailsAllData = this.candidateService.getLocalexperience_details();
-      // this.disciplinaryDetails ? this.ifworkDetails() : this.ifNotworkDetails();
+this.patchaccomplishmentsForm();
     } else {
 
     }
@@ -127,21 +134,13 @@ form_journalEntity_description = 'journalEntityDescription';
 
   formSubmit(routeValue?: any) {
     this.loadingService.setLoading(true)
+    let rawaccomplishmentsFormValue = this.accomplishmentsForm.getRawValue();
     if(this.accomplishmentsForm.valid) {
-      let accomplishmentsobj:any = {};
-      let formArray1 = this.accomplishmentsForm.getRawValue()[this.form_certificationsArray];
-      let formArray2 = this.accomplishmentsForm.getRawValue()[this.form_awardsArray];
-      let formArray3 = this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
-
-      // formArray.forEach(element => {
-      //   if (element[this.form_dependent_dob]) {
-      //     element[this.form_dependent_dob] = element[this.form_dependent_dob];
-      //   }
-      // });
-      accomplishmentsobj.certification_details = formArray1;
-      accomplishmentsobj.awards_details = formArray2;
-      accomplishmentsobj.journalEntry_details = formArray3;
-
+      const accomplishmentsobj = {
+        [this.form_certificationsArray]: rawaccomplishmentsFormValue[this.form_certificationsArray],
+        [this.form_awardsArray]: rawaccomplishmentsFormValue[this.form_awardsArray],
+        [this.form_journalEntryArray]: rawaccomplishmentsFormValue[this.form_journalEntryArray],
+      };
       const AccomplishmentsApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "accomplishments_details",
@@ -171,12 +170,12 @@ form_journalEntity_description = 'journalEntityDescription';
     this.accomplishmentsDetails.forEach((element, i) => {
       this.getCertificationsArr.push(this.patchingCertifications(element));
     });
-    // this.accomplishmentsDetails.forEach((element, i) => {
-    //   this.getawardsArr.push(this.patchingAwards(element));
-    // });
-    // this.accomplishmentsDetails.forEach((element, i) => {
-    //   this.getJournalEntryArr.push(this.patchingjournalentry(element));
-    // });
+    this.accomplishmentsDetails.forEach((element, i) => {
+      this.getawardsArr.push(this.patchingAwards(element));
+    });
+    this.accomplishmentsDetails.forEach((element, i) => {
+      this.getJournalEntryArr.push(this.patchingjournalentry(element));
+    });
   }
 
   patchingCertifications(data){

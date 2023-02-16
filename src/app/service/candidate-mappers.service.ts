@@ -313,6 +313,10 @@ export class CandidateMappersService {
     let profile = this.getLocalProfileData();
     return profile ? profile.dependent_details : null;
     }
+    getLocaldisciplinary_details() {
+      let profile = this.getLocalProfileData();
+      return profile ? profile.dependent_details : null;
+      }
     getLocaleducation_details() {
     let profile = this.getLocalProfileData();
     return profile ? profile.education_details : null;

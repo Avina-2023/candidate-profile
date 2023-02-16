@@ -162,6 +162,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   form_dob = 'dob';
   form_gender = 'gender';
   form_hobbies_intrest = 'hobbies_intrest ';
+
   // form_place_of_birth = 'place_of_birth';
   // form_state_of_birth = 'state_of_birth';
   form_nationality = 'nationality';
@@ -247,6 +248,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   newGetProfileDataSubscription: Subscription;
   getBloodGroupsSubscription: Subscription;
   newSaveProfileDataSubscription: Subscription;
+  hobbiesAndIntrest: Hobbie[];
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -294,6 +296,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     if (input) {
       input.value = '';
     }
+    this.hobbiesAndIntrest = this.hobbies
   }
 
   remove(hobbie: Hobbie): void {
@@ -414,7 +417,6 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           [this.form_hobbies_intrest]: rawPersonalFormValue[this.form_hobbies_intrest],
           [this.form_mobile]: rawPersonalFormValue[this.form_mobile],
           [this.form_nationality]: rawPersonalFormValue[this.form_nationality],
-          [this.form_blood_group]: rawPersonalFormValue[this.form_blood_group],
           // [this.form_caste]: rawPersonalFormValue[this.form_caste],
           [this.form_category]: rawPersonalFormValue[this.form_category],
           // [this.form_emergency_contact]: rawPersonalFormValue[this.form_emergency_contact],
@@ -452,6 +454,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
        [this.form_right_eye_power_glass]: rawPersonalFormValue[this.form_right_eye_power_glass],
        [this.form_height]: rawPersonalFormValue[this.form_height],
        [this.form_weight]: rawPersonalFormValue[this.form_weight],
+       [this.form_blood_group]: rawPersonalFormValue[this.form_blood_group],
+
         }
 
       };
@@ -684,7 +688,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_name]: [{value: this.appConfig.getLocalData('username'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
       [this.form_gender]: [null, [Validators.required]],
-      [this.form_hobbies_intrest]: [[null], [Validators.required]],
+      hobbiesandintrest: new FormControl(this.hobbiesAndIntrest),
+      // [this.hobbiesAndIntrest]: [[null], [Validators.required]],
       // [this.form_place_of_birth]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_state_of_birth]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
       [this.form_nationality]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
@@ -822,8 +827,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   get gender() {
     return this.personalForm.get(this.form_gender);
   }
-  get hobbies_intrest() {
-    return this.personalForm.get(this.form_hobbies_intrest);
+
+  get chips() {
+    return this.personalForm.get('hobbiesandintrest');
   }
   // get place_of_birth() {
   //   return this.personalForm.get(this.form_place_of_birth);

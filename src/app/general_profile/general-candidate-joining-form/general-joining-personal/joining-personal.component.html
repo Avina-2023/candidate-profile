@@ -386,7 +386,7 @@
               <h6 class="sub-heading" style="border-bottom: 1px solid #BBC2CB99; padding-bottom: 0.5em;">
                 Hobbies/Interests
               </h6>
-              <div class="overall-input-wrapper width-45" style="margin-top: 0;">
+              <div class="overall-input-wrapper width-45 list" style="margin-top: 0;">
                 <mat-form-field style="width: 99.5% !important;padding: 0.6px !important;" >
                   <div class="d-flex chip-list">
                     <input [formControlName]="form_hobbies_intrest" class="chipinput" style="border: 1px solid #707070; padding: 10px;   width: 100% !important; margin: 0px !important;"
@@ -396,7 +396,7 @@
                   </div>
 
 
-                  <mat-chip-list #chipList style="width: 100% !important;">
+                  <mat-chip-list  #chipList style="width: 100% !important;">
                     <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
                       (removed)="remove(hobbie)">
                       {{hobbie.name}}

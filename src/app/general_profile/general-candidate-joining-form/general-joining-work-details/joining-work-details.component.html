@@ -5,25 +5,22 @@
   <div class="grids-wrapper">
     <form class="workDetailsForm" [formGroup]="workDetailsForm" (ngSubmit)="formSubmit()">
       <div class="divcard">
-        <h5 class="m-0">Add Skills</h5>
-        <label class="w-100" style="border-bottom: 1px solid #BBC2CB99;">Choose your most important skills that increase
+        <h5 class="m-0 mb-2">Add Skills</h5>
+        <label class="w-100 pb-2" style="border-bottom: 1px solid #BBC2CB99;">Choose your most important skills that increase
           your chances of landing a job interview.</label>
 </div>
 
         <div class="skills-wrapper" *ngIf="getSkillsArr && getSkillsArr.controls" [formArrayName]="form_Skills_Array">
-          <div class="divcard">
-            <div class="skill-name-wrapper d-flex" *ngFor="let item of getSkillsArr.controls; let i = index;"
+          <div class="divcard mb-3">
+            <div class="skill-name-wrapper d-flex " *ngFor="let item of getSkillsArr.controls; let i = index;"
             [formGroupName]="i">
             <div class="w-100">
               <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                   <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Self aware panel
+                    <mat-panel-title >
+                      {{form_Skill}}
                     </mat-panel-title>
-                    <mat-panel-description>
-                      Currently I am {{panelOpenState ? 'open' : 'closed'}}
-                    </mat-panel-description>
                   </mat-expansion-panel-header>
                   <h6 class=" pl-4 ">Key Skills</h6>
                   <div class="d-flex ">
@@ -321,7 +318,7 @@
 
         <div *ngIf="getEmploymentArr && getEmploymentArr.controls && getEmploymentArr.controls.length < 5 "
           class="row-wrapper mt-3">
-          <div class="overall-input-wrapper">
+          <div class="skills-add">
             <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
               (click)="addToEmploymentArray()">+
               Add</button>
@@ -382,7 +379,7 @@
                         allowed</div>
                     </div>
                   </div>
-                  <div class="overall-input-wrapper width-100">
+                  <div class="overall-input-wrapper mb-2 width-100">
                     <label>Period From<span></span></label>
                     <div class="date-relative">
                       <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTraining"
@@ -412,7 +409,7 @@
 
                   </div>
 
-                  <div class="overall-input-wrapper width-100">
+                  <div class="overall-input-wrapper mb-2 width-100">
                     <label>Period To<span></span></label>
                     <div class="date-relative">
                       <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker1Training"
@@ -473,7 +470,7 @@
 
         <div *ngIf="getTrainingArr && getTrainingArr.controls && getTrainingArr.controls.length < 4 "
           class="row-wrapper mt-3">
-          <div class="overall-input-wrapper">
+          <div class="skills-add">
             <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
               (click)="addToTrainingArray()">+
               Add</button>

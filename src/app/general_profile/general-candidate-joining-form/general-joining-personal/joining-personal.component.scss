@@ -542,3 +542,25 @@ width: 100%;
     margin: 0px !important;
   }
 }
+::ng-deep .list{
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+    height: 0px !important;
+    display: none !important;
+}
+.mat-form-field.mat-focused .mat-form-field-underline {
+  display: none !important;
+}
+.mat-chip-list-wrapper {
+  margin-top: 3px !important;
+}
+.mat-standard-chip {
+  border-radius: 0px !important;
+  background-color: #E9EDF2 !important;
+}
+.mat-standard-chip .mat-chip-remove.mat-icon {
+  background-color: #E9EDF2 !important;
+  background-color: #027198 !important;
+  border-radius: 0px !important;
+}
+
+}

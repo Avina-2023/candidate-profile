@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,AfterViewInit, OnDestroy } from '@angular/core';
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { LoaderService } from 'src/app/service/loader-service.service';
   templateUrl: './general-joining-disciplinary-details.component.html',
   styleUrls: ['./general-joining-disciplinary-details.component.scss']
 })
-export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
+export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   discipilinaryForm: FormGroup;
   joiningFormDataPassingSubscription: Subscription;
@@ -217,8 +217,8 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
 
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
-      this.disciplinaryDetails = this.candidateService.getLocalexperience_details();
-      this.disciplinaryDetailsAllData = this.candidateService.getLocalexperience_details();
+      this.disciplinaryDetails = this.candidateService.getLocaldisciplinary_details();
+      this.disciplinaryDetailsAllData = this.candidateService.getLocaldisciplinary_details();
       // this.disciplinaryDetails ? this.ifworkDetails() : this.ifNotworkDetails();
       this.patchWorkForm();
     } else {
@@ -273,7 +273,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
       if (route == 'upload') {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
       } else {
-        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().experience_details == '1') {
+        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().discipilinary_details == '1') {
           return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
         } else {
           if (this.discipilinaryForm.valid) {
