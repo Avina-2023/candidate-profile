@@ -18,7 +18,7 @@ import { SkillexService } from 'src/app/service/skillex.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
-export interface Fruit {
+export interface Hobbie {
   name: string;
 }
 
@@ -63,11 +63,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruits: Fruit[] = [
-    {name: 'Lemon'},
-    {name: 'Lime'},
-    {name: 'Apple'},
-  ];
+  hobbies: Hobbie[] = [ ];
 
   marital_list = [
 
@@ -165,6 +161,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   form_name = 'name';
   form_dob = 'dob';
   form_gender = 'gender';
+  form_hobbies_intrest = 'hobbies_intrest ';
   // form_place_of_birth = 'place_of_birth';
   // form_state_of_birth = 'state_of_birth';
   form_nationality = 'nationality';
@@ -288,9 +285,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
+    // Add our hobbie
     if ((value || '').trim()) {
-      this.fruits.push({name: value.trim()});
+      this.hobbies.push({name: value.trim()});
     }
 
     // Reset the input value
@@ -299,11 +296,11 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     }
   }
 
-  remove(fruit: Fruit): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(hobbie: Hobbie): void {
+    const index = this.hobbies.indexOf(hobbie);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.hobbies.splice(index, 1);
     }
   }
 
@@ -414,9 +411,10 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
           // [this.form_email]: rawPersonalFormValue[this.form_email],
           [this.form_gender]: rawPersonalFormValue[this.form_gender],
+          [this.form_hobbies_intrest]: rawPersonalFormValue[this.form_hobbies_intrest],
           [this.form_mobile]: rawPersonalFormValue[this.form_mobile],
           [this.form_nationality]: rawPersonalFormValue[this.form_nationality],
-          // [this.form_blood_group]: rawPersonalFormValue[this.form_blood_group],
+          [this.form_blood_group]: rawPersonalFormValue[this.form_blood_group],
           // [this.form_caste]: rawPersonalFormValue[this.form_caste],
           [this.form_category]: rawPersonalFormValue[this.form_category],
           // [this.form_emergency_contact]: rawPersonalFormValue[this.form_emergency_contact],
@@ -586,13 +584,21 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       }
     }
 
+    //  changeInphysicalDisability(e){
+    //   console.log(e,'ra')
+    //   if (e.checked) {
 
+    //   }else{
+    //     this.personalForm['controls'][this.form_physical_disability].setValue('1');
+    //   }
+    // }
   patchPersonalForm() {
     this.personalForm.patchValue({
       // [this.form_title]: this.personalDetails[this.form_title],
       [this.form_name]: this.personalDetails[this.form_name],
       [this.form_dob]: this.dateConvertion(this.personalDetails[this.form_dob]),
       [this.form_gender]: this.personalDetails[this.form_gender],
+      [this.form_hobbies_intrest]: this.personalDetails[this.form_hobbies_intrest],
       // [this.form_place_of_birth]: this.personalDetails[this.form_place_of_birth],
       // [this.form_state_of_birth]: this.personalDetails[this.form_state_of_birth] ? this.personalDetails[this.form_state_of_birth].toString() : null,
       [this.form_nationality]: this.personalDetails[this.form_nationality],
@@ -600,7 +606,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_religion]: this.personalDetails[this.form_religion],
       // [this.form_caste]: this.personalDetails[this.form_caste],
       [this.form_category]: this.personalDetails[this.form_category],
-      // [this.form_blood_group]: this.personalDetails[this.form_blood_group] ? this.personalDetails[this.form_blood_group].toString() : null,
+      [this.form_blood_group]: this.personalDetails[this.form_blood_group] ? this.personalDetails[this.form_blood_group].toString() : null,
       // [this.form_father_name]: this.personalDetails[this.form_father_name],
       // [this.form_emergency_contact]: this.personalDetails[this.form_emergency_contact],
       [this.form_mobile]: this.personalDetails[this.form_mobile],
@@ -629,7 +635,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_serious_illness]: this.personalDetails[this.form_serious_illness],
       [this.form_no_of_days]: this.personalDetails[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days].toString() : null,
       [this.form_nature_of_illness]: this.personalDetails[this.form_nature_of_illness],
-      [this.form_physical_disability]: this.personalDetails[this.form_physical_disability],
+       [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == true) ? 'true' : 'false',
+      // [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] == 0 ? '0' : '1',
       [this.form_left_eyepower_glass]: this.personalDetails[this.form_left_eyepower_glass],
       [this.form_right_eye_power_glass]: this.personalDetails[this.form_right_eye_power_glass]
     });
@@ -677,6 +684,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_name]: [{value: this.appConfig.getLocalData('username'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
       [this.form_gender]: [null, [Validators.required]],
+      [this.form_hobbies_intrest]: [[null], [Validators.required]],
       // [this.form_place_of_birth]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_state_of_birth]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
       [this.form_nationality]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
@@ -684,7 +692,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_religion]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_caste]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_category]: [null, [Validators.required]],
-      // [this.form_blood_group]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
+      [this.form_blood_group]: [null, [Validators.required]],
       // [this.form_father_name]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_emergency_contact]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.mobileRegex()]],
       [this.form_mobile]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.mobileRegex()]],
@@ -713,7 +721,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_serious_illness]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_no_of_days]: [null, [RemoveWhitespace.whitespace(), Validators.maxLength(5), this.glovbal_validators.numberOnly()]],
       [this.form_nature_of_illness]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-      [this.form_physical_disability]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
+      [this.form_physical_disability]: [null],
       [this.form_left_eyepower_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       [this.form_right_eye_power_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       [this.form_language_array]: this.fb.array([this.initLanguageArray()])
@@ -813,6 +821,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
   get gender() {
     return this.personalForm.get(this.form_gender);
+  }
+  get hobbies_intrest() {
+    return this.personalForm.get(this.form_hobbies_intrest);
   }
   // get place_of_birth() {
   //   return this.personalForm.get(this.form_place_of_birth);

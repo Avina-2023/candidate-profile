@@ -112,6 +112,8 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
   }
 
   requiredDesc() {
+
+
     let formValues = this.discipilinaryForm.getRawValue();
     const bgvDetails = {
       [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
@@ -132,6 +134,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
       this.discipilinaryForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]), { emitEvent: false };
     }
     this.discipilinaryForm.get(this.form_full_particulars).updateValueAndValidity(), { emitEvent: false };
+    console.log( bgvDetails,'fsef');
   }
   saveRequestRxJs() {
     this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
@@ -143,7 +146,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
   }
 
   formSubmit(routeValue?: any) {
-    // this.requiredDesc();
+    this.requiredDesc();
     let formValues = this.discipilinaryForm.getRawValue();
     if (this.discipilinaryForm.valid) {
       const bgv_details = {
@@ -159,18 +162,20 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
         [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
         [this.form_full_particulars]: formValues[this.form_full_particulars]
       }
-      let apiData = {
-        bgv_details
-      };
+      console.log( JSON.stringify(bgv_details),'bgv_details');
+      // let apiData = {
+      //   bgv_details
+      // };
       const disciplinaryApiRequestDetails = {
         email:  this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "discipilinary_details",
-        saving_data: apiData
+        saving_data:  bgv_details
       }
       this.loadingService.setLoading(true)
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(disciplinaryApiRequestDetails).subscribe((data: any) => {
       this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        console.log(data.data,'save');
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Discipilinary details is updated');
         this.sharedService.joiningFormStepperStatus.next();
@@ -185,6 +190,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
   }
 
   OtherConditionsPatch(data) {
+
     this.discipilinaryForm.patchValue({
       [this.form_convicted_by_Court]: data[this.form_convicted_by_Court] && data[this.form_convicted_by_Court] == '1' ? true : false,
       [this.form_arrested]: data[this.form_arrested] && data[this.form_arrested] == '1' ? true : false,
@@ -208,11 +214,13 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
    }
 
   getWorkApiDetails() {
+
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.disciplinaryDetails = this.candidateService.getLocalexperience_details();
       this.disciplinaryDetailsAllData = this.candidateService.getLocalexperience_details();
       // this.disciplinaryDetails ? this.ifworkDetails() : this.ifNotworkDetails();
+      this.patchWorkForm();
     } else {
 
     }
@@ -229,17 +237,18 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit {
     });
   }
 
-  ifworkDetails() {
-    let disciplinary = {
-      bgvDetails: this.disciplinaryDetails && this.disciplinaryDetails.bgv_details ? this.disciplinaryDetails.bgv_details : null,
+  // ifworkDetails() {
+  //   let disciplinary = {
+  //     bgvDetails: this.disciplinaryDetails && this.disciplinaryDetails.bgv_details ? this.disciplinaryDetails.bgv_details : null,
 
-    }
+  //   }
 
-    this.patchWorkForm();
-  }
+  //   this.patchWorkForm();
+  // }
 
   patchWorkForm() {
-    if (this.disciplinaryDetails && this.disciplinaryDetails.bgvDetails) {
+
+    if (this.disciplinaryDetails.bgvDetails) {
       this.OtherConditionsPatch(this.disciplinaryDetails.bgvDetails);
     }
 

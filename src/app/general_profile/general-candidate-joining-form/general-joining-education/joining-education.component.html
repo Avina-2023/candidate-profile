@@ -353,20 +353,7 @@
                                 </div>
                             </div>
 
-                        <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
-                            <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Backlogs' : 'No. of Attempts'}}<span class="redTxt">*</span></label>
-                            <input matInput placeholder="Enter here" class="input" type="text"
-                                [formControlName]="form_backlog">
-                            <div class="form-error"
-                                *ngIf="getEducationArr.controls[i].get(form_backlog).invalid && getEducationArr.controls[i].get(form_backlog).touched">
-                                <div
-                                    *ngIf="getEducationArr.controls[i].get(form_backlog)?.errors?.required">
-                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
-                                    <div
-                                        *ngIf="getEducationArr.controls[i].get(form_backlog).errors?.backlog">
-                                        Accept Numbers only and Maximum of 2 digits only Allowed</div>
-                            </div>
-                        </div>
+
                         <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
                           <div class="overall-input-wrapper mb-3 width-100">
                             <label>Mode<span class="redTxt">*</span></label>
@@ -461,20 +448,60 @@
                             </div>
                         </div>
                         </ng-container>
+
                         <div class="overall-input-wrapper width-100" style="padding: 10px 0px;">
                           <label>Do you have any gap during the education?<span></span></label>
                           <div style="width: 100% !important;">
-                            <mat-radio-group [(ngModel)]="selection" #radioGroup="matRadioGroup">
-                              <mat-radio-button style="width: 12% !important;" value="option 1">yes</mat-radio-button>
-                              <mat-radio-button style="width: 12% !important;" value="option 2">no</mat-radio-button>
-                              <!-- <mat-radio-button [value]="customOption">
-                        <mat-form-field>
-                          <input matInput [(ngModel)]="customOption" />
-                        </mat-form-field>
-                      </mat-radio-button> -->
+                            <mat-radio-group  (change)="radioChange($event)" [formControlName]="form_isGap">
+                              <mat-radio-button  style="width: 12% !important;" value="true">yes</mat-radio-button>
+                              <mat-radio-button  style="width: 12% !important;" value="false">no</mat-radio-button>
                             </mat-radio-group>
                           </div>
                           </div>
+                          <ng-container *ngIf="eduGap">
+                            <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
+                            <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Backlogs' : 'No. of Attempts'}}<span class="redTxt">*</span></label>
+                            <input matInput placeholder="Enter here" class="input" type="text"
+                                [formControlName]="form_backlog">
+                            <div class="form-error"
+                                *ngIf="getEducationArr.controls[i].get(form_backlog).invalid && getEducationArr.controls[i].get(form_backlog).touched">
+                                <div
+                                    *ngIf="getEducationArr.controls[i].get(form_backlog)?.errors?.required">
+                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
+                                    <div
+                                        *ngIf="getEducationArr.controls[i].get(form_backlog).errors?.backlog">
+                                        Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                            </div>
+                        </div>
+                        <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
+                          <label>No. of Active Backlogs (if any)<span class="redTxt">*</span></label>
+                          <input matInput placeholder="Enter here" class="input" type="text"
+                              [formControlName]="form_backlog">
+                          <div class="form-error"
+                              *ngIf="getEducationArr.controls[i].get(form_backlog).invalid && getEducationArr.controls[i].get(form_backlog).touched">
+                              <div
+                                  *ngIf="getEducationArr.controls[i].get(form_backlog)?.errors?.required">
+                                  {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
+                                  <div
+                                      *ngIf="getEducationArr.controls[i].get(form_backlog).errors?.backlog">
+                                      Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                          </div>
+                      </div>
+                      <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
+                        <label>Reason for the gap<span class="redTxt">*</span></label>
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                            [formControlName]="form_backlog">
+                        <div class="form-error"
+                            *ngIf="getEducationArr.controls[i].get(form_backlog).invalid && getEducationArr.controls[i].get(form_backlog).touched">
+                            <div
+                                *ngIf="getEducationArr.controls[i].get(form_backlog)?.errors?.required">
+                                {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
+                                <div
+                                    *ngIf="getEducationArr.controls[i].get(form_backlog).errors?.backlog">
+                                    Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                        </div>
+                    </div>
+                          </ng-container>
                       </ng-container>
                       <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA' && i == checkLastIndexOfCA())" class="ca-checkbox mt-2 width-100">
                         <mat-checkbox [formControl]="ca_bothgroup_status" class="mr-2"></mat-checkbox>

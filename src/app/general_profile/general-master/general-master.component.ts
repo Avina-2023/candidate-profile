@@ -36,11 +36,8 @@ export class GeneralMasterComponent implements OnInit {
   setprofileimageToLocal(){
     // this.profilepercentage = 30;
     this.profilepercentage = Math.ceil(this.profilepercentage);
-
-
     this.profilepercentage = JSON.parse(localStorage.getItem("profileData"))  ;
     console.log(this.profilepercentage ,'hgvjhb');
-
     if(this.profilepercentage){
       let size = 9 ;
  this.percentage =  size / 10 * 100;

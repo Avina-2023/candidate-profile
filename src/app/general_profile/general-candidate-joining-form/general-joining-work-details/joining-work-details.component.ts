@@ -103,7 +103,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   form_hr_name = 'hr_name';
   form_hr_contact_no = 'hr_contact_no';
   form_hr_email = 'hr_email';
-  form_bgvDetails = "bgvDetails";
+  // form_bgvDetails = "bgvDetails";
   form_convicted_by_Court = "convicted_by_Court";
   form_arrested = "arrested";
   form_prosecuted = "prosecuted";
@@ -255,7 +255,7 @@ if(event.value == 'true'){
     let work = {
       workDetails: this.workDetails && this.workDetails.work_details ? this.workDetails.work_details : null,
       employment: this.workDetails && this.workDetails.employments ? this.workDetails.employments : [],
-      bgvDetails: this.workDetails && this.workDetails.bgv_details ? this.workDetails.bgv_details : null,
+      // bgvDetails: this.workDetails && this.workDetails.bgv_details ? this.workDetails.bgv_details : null,
     }
     this.showWorkExp = this.workDetails && this.workDetails['is_anywork_exp'];
     this.isWorkExp.setValue(this.workDetails['is_anywork_exp']);
@@ -302,9 +302,9 @@ if(event.value == 'true'){
 
 
   patchWorkForm() {
-    if (this.workDetails && this.workDetails.bgvDetails) {
-      this.OtherConditionsPatch(this.workDetails.bgvDetails);
-    }
+    // if (this.workDetails && this.workDetails.bgvDetails) {
+    //   this.OtherConditionsPatch(this.workDetails.bgvDetails);
+    // }
     if (this.workDetails && this.workDetails.workDetails) {
       this.OtherDetailsPatch(this.workDetails.workDetails);
     }
@@ -321,7 +321,7 @@ if(event.value == 'true'){
       this.getSkillsArr.clear();
       this.workDetailsAllData[this.form_Skills_Array].forEach((element, i) => {
         console.log(element,'element');
-        element ? this.getSkillsArr.push(this.SkillsArrayPatch(element,i)) : '';
+        element ? this.getSkillsArr.push(this.SkillsArrayPatch(element,i,)) : '';
       });
     }
 
@@ -440,6 +440,7 @@ if(event.value == 'true'){
 
     return this.fb.group({
       [this.form_Skill]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+      [this.skillandLevel]:[this.skillandLevel]
     })
   }
 
@@ -517,20 +518,7 @@ if(event.value == 'true'){
     })
   }
 
-  addToEmploymentArray() {
-    let i = this.getEmploymentArr['controls'].length - 1;
-    if (this.getEmploymentArr.valid) {
-      if (this.getEmploymentArr && this.getEmploymentArr['controls'] && this.getEmploymentArr['controls'][i] && this.getEmploymentArr['controls'][i]['value'] && this.getEmploymentArr['controls'][i]['value'][this.form_employment_name_address]) {
-        return this.getEmploymentArr.push(this.initEmploymentArray());
-      } else {
-        this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the fields in the Employment Details');
-        this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
-      }
-    } else {
-      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the fields in the Employment Details');
-      this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
-    }
-}
+
 
 addToTrainingArray() {
   let i = this.getTrainingArr['controls'].length - 1;
@@ -622,25 +610,25 @@ addToTrainingArray() {
 
   requiredDesc() {
     let formValues = this.workDetailsForm.getRawValue();
-    const bgvDetails = {
-      [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
-      [this.form_arrested]: formValues[this.form_arrested] && (formValues[this.form_arrested] == '1' || formValues[this.form_arrested] == true) ? '1' : '0',
-      [this.form_prosecuted]: formValues[this.form_prosecuted] && (formValues[this.form_prosecuted] == '1' || formValues[this.form_prosecuted] == true) ? '1' : '0',
-      [this.form_detention]: formValues[this.form_detention] && (formValues[this.form_detention] == '1' || formValues[this.form_detention] == true) ? '1' : '0',
-      [this.form_fined_by_court]: formValues[this.form_fined_by_court] && (formValues[this.form_fined_by_court] == '1' || formValues[this.form_fined_by_court] == true) ? '1' : '0',
-      [this.form_debarred_exam_university]: formValues[this.form_debarred_exam_university] && (formValues[this.form_debarred_exam_university] == '1' || formValues[this.form_debarred_exam_university] == true) ? '1' : '0',
-      [this.form_debarred_psc_company]: formValues[this.form_debarred_psc_company] && (formValues[this.form_debarred_psc_company] == '1' || formValues[this.form_debarred_psc_company] == true) ? '1' : '0',
-      [this.form_court_case_pending]: formValues[this.form_court_case_pending] && (formValues[this.form_court_case_pending] == '1' || formValues[this.form_court_case_pending] == true) ? '1' : '0',
-      [this.form_university_case_pending]: formValues[this.form_university_case_pending] && (formValues[this.form_university_case_pending] == '1' || formValues[this.form_university_case_pending] == true) ? '1' : '0',
-      [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
-      [this.form_full_particulars]: formValues[this.form_full_particulars]
-    }
-    if (bgvDetails[this.form_convicted_by_Court] == '1' || bgvDetails[this.form_arrested] == '1' || bgvDetails[this.form_prosecuted] == '1' || bgvDetails[this.form_detention] == '1' || bgvDetails[this.form_fined_by_court] == '1' || bgvDetails[this.form_debarred_exam_university] == '1' || bgvDetails[this.form_debarred_psc_company] == '1' || bgvDetails[this.form_court_case_pending] == '1' || bgvDetails[this.form_university_case_pending] == '1' || bgvDetails[this.form_disciplinary_proceedings] == '1') {
-      this.workDetailsForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.address255()]), { emitEvent: false };
-    } else {
-      this.workDetailsForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]), { emitEvent: false };
-    }
-    this.workDetailsForm.get(this.form_full_particulars).updateValueAndValidity(), { emitEvent: false };
+    // const bgvDetails = {
+    //   [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
+    //   [this.form_arrested]: formValues[this.form_arrested] && (formValues[this.form_arrested] == '1' || formValues[this.form_arrested] == true) ? '1' : '0',
+    //   [this.form_prosecuted]: formValues[this.form_prosecuted] && (formValues[this.form_prosecuted] == '1' || formValues[this.form_prosecuted] == true) ? '1' : '0',
+    //   [this.form_detention]: formValues[this.form_detention] && (formValues[this.form_detention] == '1' || formValues[this.form_detention] == true) ? '1' : '0',
+    //   [this.form_fined_by_court]: formValues[this.form_fined_by_court] && (formValues[this.form_fined_by_court] == '1' || formValues[this.form_fined_by_court] == true) ? '1' : '0',
+    //   [this.form_debarred_exam_university]: formValues[this.form_debarred_exam_university] && (formValues[this.form_debarred_exam_university] == '1' || formValues[this.form_debarred_exam_university] == true) ? '1' : '0',
+    //   [this.form_debarred_psc_company]: formValues[this.form_debarred_psc_company] && (formValues[this.form_debarred_psc_company] == '1' || formValues[this.form_debarred_psc_company] == true) ? '1' : '0',
+    //   [this.form_court_case_pending]: formValues[this.form_court_case_pending] && (formValues[this.form_court_case_pending] == '1' || formValues[this.form_court_case_pending] == true) ? '1' : '0',
+    //   [this.form_university_case_pending]: formValues[this.form_university_case_pending] && (formValues[this.form_university_case_pending] == '1' || formValues[this.form_university_case_pending] == true) ? '1' : '0',
+    //   [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
+    //   [this.form_full_particulars]: formValues[this.form_full_particulars]
+    // }
+  //   if (bgvDetails[this.form_convicted_by_Court] == '1' || bgvDetails[this.form_arrested] == '1' || bgvDetails[this.form_prosecuted] == '1' || bgvDetails[this.form_detention] == '1' || bgvDetails[this.form_fined_by_court] == '1' || bgvDetails[this.form_debarred_exam_university] == '1' || bgvDetails[this.form_debarred_psc_company] == '1' || bgvDetails[this.form_court_case_pending] == '1' || bgvDetails[this.form_university_case_pending] == '1' || bgvDetails[this.form_disciplinary_proceedings] == '1') {
+  //     this.workDetailsForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.address255()]), { emitEvent: false };
+  //   } else {
+  //     this.workDetailsForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]), { emitEvent: false };
+  //   }
+  //   this.workDetailsForm.get(this.form_full_particulars).updateValueAndValidity(), { emitEvent: false };
   }
 
   formSubmit(routeValue?: any) {
@@ -672,7 +660,7 @@ addToTrainingArray() {
         [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
         [this.form_full_particulars]: formValues[this.form_full_particulars]
       }
-      const employments = this.showWorkExp? this.workDetailsForm.getRawValue()[this.form_Employment_Array] : [];
+      const employments = this.showWorkExp? this.workDetailsForm.getRawValue() : [];
 
       let skills = [];
       this.workDetailsForm.getRawValue()[this.form_Skills_Array].forEach(element => {

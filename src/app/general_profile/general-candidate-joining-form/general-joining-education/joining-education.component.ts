@@ -176,6 +176,9 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   form_cgpa = 'percentage';
   form_Finalcgpa = 'final_percentage';
   form_CARanks = 'rank';
+  form_isGap  = new FormControl(null);
+  eduGap: boolean = false;
+
   ca_bothgroup_status = new FormControl(null);
   educationLevels: any;
   pgSpecializationList: any;
@@ -252,6 +255,7 @@ constructor(
   showStepper() {
     this.sharedService.joiningFormActiveSelector.next('work');
   }
+
 
   chosenYearHandler(normalizedYear: Moment, i) {
     const ctrlValue = this.getEducationArr['value'][i][this.form_yearpassing];
@@ -371,6 +375,7 @@ constructor(
           [this.form_cgpa]: null,
           [this.form_Finalcgpa]: null,
           [this.form_CARanks]: null,
+          // [this.form_isGap]: [null],
           });
      return this.setValidations();
     }
@@ -605,7 +610,8 @@ validSelectedPost() {
       [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
       [this.form_Finalcgpa]: [(data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? data[this.form_cgpa] : data[this.form_Finalcgpa]), this.candidateService.checkKycOrJoiningForm() ? [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)] : []],
-      [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
+      [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
+      // [this.form_isGap]: this.educationForm[this.form_isGap] == 0 ? '0' : '1',
     })
   }
 
@@ -617,6 +623,7 @@ validSelectedPost() {
       [this.form_collegeName]: [null, [Validators.required]],
       [this.form_boardUniversity]: [null, [Validators.required]],
       [this.form_startDate]: [null,  [Validators.required, this.startTrue(true)] ],
+      // [this.form_isGap]:[null],
       [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
       [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
@@ -626,7 +633,15 @@ validSelectedPost() {
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }
+  radioChange(event) {
+    console.log(event, 'event');
+if(event.value == 'true'){
+  this.eduGap = true;
 
+}else{
+  this.eduGap = false;
+}
+}
     // Custom regex validator
     regexValidator(error: ValidationErrors, param): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {

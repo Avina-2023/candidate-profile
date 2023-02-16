@@ -27,8 +27,8 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       value: 'Academy'
     },
     {
-      label: 'Academy',
-      value: 'Academy'
+      label: 'Industry',
+      value: 'Industry'
     }
 
   ]
@@ -38,6 +38,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   form_periodFrom = 'periodFrom';
   form_periodTo = 'periodTo';
   form_projectDescription = 'projectDescription';
+  form_projectDetailsArray = 'projectDetailsArray';
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
   joiningFormDataPassingSubscription: Subscription;
@@ -76,7 +77,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       this.formInitialize();
       this.projectDetails = this.candidateService.getLocalexperience_details();
       this.projectDetailsAllData = this.candidateService.getLocalexperience_details();
-      // this.disciplinaryDetails ? this.ifworkDetails() : this.ifNotworkDetails();
+this.patchProjectForm();
     } else {
 
     }
@@ -129,22 +130,22 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     this.projectForm = this.fb.group({
       [this.form_projectDetails]: [null, [Validators.required]],
       [this.form_projectTitle]: [null, [Validators.required]],
-      [this.form_typeList]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_teamSize]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_projectOrganization]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodFrom]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodTo]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_projectDescription]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_typeList]: [null, [Validators.required]],
+      [this.form_teamSize]: [null, [Validators.required]],
+      [this.form_projectOrganization]: [null, [Validators.required]],
+      [this.form_periodFrom]: [null, [Validators.required]],
+      [this.form_periodTo]:[null, [Validators.required]],
+      [this.form_projectDescription]: [null, [Validators.required]],
     })
   }
 
+
+
   formSubmit(routeValue?:any) {
     this.loadingService.setLoading(true)
-    if (this.projectForm.valid) {
-      let rawprojectFormValue = this.projectForm.getRawValue();
-      const apiData = {
-        "projectDetails":{
-
+    let rawprojectFormValue = this.projectForm.getRawValue();
+    if (this.projectForm) {
+      const projectobj = {
           [this.form_projectDetails]: rawprojectFormValue[this.form_projectDetails],
           [this.form_projectTitle]: rawprojectFormValue[this.form_projectTitle],
           [this.form_typeList]: rawprojectFormValue[this.form_typeList],
@@ -153,33 +154,23 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
           [this.form_periodFrom]: rawprojectFormValue[this.form_periodFrom],
           [this.form_periodTo]: rawprojectFormValue[this.form_periodTo],
           [this.form_projectDescription]: rawprojectFormValue[this.form_projectDescription],
-
-        },
-
       };
       const ProjectApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "project_details",
-        saving_data: apiData
+        saving_data: projectobj
       }
+      this.loadingService.setLoading(true)
     this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ProjectApiRequestDetails).subscribe((data: any)=> {
-      setTimeout(() => {
-        this.loadingService.setLoading(false)
-
-      }, 2000);
-      if(data && data.success)
-        {
+      this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Project details is updated');
         this.sharedService.joiningFormStepperStatus.next();
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
-      }else{
-        this.appConfig.nzNotification('error', 'Not Saved', data && data.message ? data.message : 'Project details not updated');
-        return false
-      }
       });
-    } else {
+    }
+        else {
       this.ngAfterViewInit();
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.loadingService.setLoading(false)

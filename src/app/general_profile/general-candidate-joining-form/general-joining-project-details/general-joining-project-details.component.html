@@ -3,110 +3,136 @@
     <h5 class="h">
       Acadamic Project Details
     </h5>
-      <label>
-        It is important to highlight the academic projects that highlight transferable skills are relevant to the job you're applying for. Use bulleted points to note your achievements, if Possible -
-      </label>
+    <label>
+      It is important to highlight the academic projects that highlight transferable skills are relevant to the job
+      you're applying for. Use bulleted points to note your achievements, if Possible -
+    </label>
 
   </div>
+
+
   <div class="grids-wrapper">
-    <form class="personalForm" [formGroup]="projectForm">
-      <div class="row-wrapper">
+    <form class="personalForm" [formGroup]="projectForm" (ngSubmit)="formSubmit()">
+        <ng-container *ngIf="getProjectDetailsArr && getProjectDetailsArr.controls" [formArrayName]="form_projectDetailsArray">
+          <ng-container *ngFor="let item of getProjectDetailsArr.controls; let i = index;" [formGroupName]="i">
+            <div>
+              <div class="carddiv pt-0 pb-0">
+                <div class="dependent-head">
+                  <h6>Project{{i+1}}</h6>
+                  <div class="remove-wrapper">
+                    <div (click)="removeDependentArray(i)" *ngIf="i >=0  " matTooltip="Remove" class="remove">
+                        <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                    </div>
+                    </div>
+                </div>
+                <div class="overall-input-wrapper width-45">
+                  <label>Project Type<span class="redTxt">*</span></label>
+                  <nz-select class="input select" [formControlName]="form_typeList" nzAllowClear nzShowSearch
+                    nzPlaceHolder="Select">
+                    <nz-option *ngFor="let typeList of projectTypeList" [nzLabel]="typeList.label"
+                      [nzValue]="typeList.value"></nz-option>
+                  </nz-select>
+                  <div class="form-error" *ngIf="typeList?.invalid && typeList?.touched">
+                    <div *ngIf="typeList?.errors?.required">Gender is Required</div>
+                  </div>
+                </div>
 
-        <div class="carddiv pt-0 pb-0">
+                <div class="overall-input-wrapper width-45">
+                  <label>Team Size<span class="redTxt">*</span></label>
+                  <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_teamSize">
+                  <div class="form-error" *ngIf="teamSize?.invalid && teamSize?.touched">
+                    <div *ngIf="teamSize?.errors?.required">Mobile No. is Required</div>
+                    <div *ngIf="teamSize?.errors?.mobileRegex">Please enter a valid 10 digit mobile number</div>
+                  </div>
+                </div>
 
-          <div class="overall-input-wrapper width-45">
-            <label>Project Type<span class="redTxt">*</span></label>
-            <nz-select class="input select" [formControlName]="form_typeList" nzAllowClear nzShowSearch
-              nzPlaceHolder="Select">
-              <nz-option *ngFor="let typeList of projectTypeList" [nzLabel]="typeList.label"
-                [nzValue]="typeList.value"></nz-option>
-            </nz-select>
-            <div class="form-error" *ngIf="typeList?.invalid && typeList?.touched">
-              <div *ngIf="typeList?.errors?.required">Gender is Required</div>
-            </div>
-          </div>
+                <div class="overall-input-wrapper width-100">
+                  <label>Title of the Project<span class="redTxt">*</span></label>
+                  <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                    [formControlName]="form_projectTitle">
+                  <div class="form-error" *ngIf="projectTitle?.invalid && projectTitle?.touched">
+                    <div *ngIf="projectTitle?.errors?.required">Name (as per Aadhaar) is Required</div>
+                    <div *ngIf="projectTitle.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
+                      allowed
+                    </div>
+                  </div>
+                </div>
 
-          <div class="overall-input-wrapper width-45">
-            <label>Team Size<span class="redTxt">*</span></label>
-            <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_teamSize">
-            <div class="form-error" *ngIf="teamSize?.invalid && teamSize?.touched">
-              <div *ngIf="teamSize?.errors?.required">Mobile No. is Required</div>
-              <div *ngIf="teamSize?.errors?.mobileRegex">Please enter a valid 10 digit mobile number</div>
-            </div>
-          </div>
-
-
-          <div class="overall-input-wrapper width-100">
-            <label>Title of the Project<span class="redTxt">*</span></label>
-            <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text" [formControlName]="form_projectTitle">
-            <div class="form-error" *ngIf="projectTitle?.invalid && projectTitle?.touched">
-              <div *ngIf="projectTitle?.errors?.required">Name (as per Aadhaar) is Required</div>
-              <div *ngIf="projectTitle.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
+                <div class="overall-input-wrapper width-100">
+                  <label>Organization<span class="redTxt">*</span></label>
+                  <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                    [formControlName]="form_projectOrganization">
+                  <div class="form-error" *ngIf="projectOrganization?.invalid && projectOrganization?.touched">
+                    <div *ngIf="projectOrganization?.errors?.required">Name (as per Aadhaar) is Required</div>
+                    <div *ngIf="projectOrganization.errors?.alphaNum255">Alpha numeric with maximum of 255 characters
+                      only allowed
+                    </div>
+                  </div>
+                </div>
+                <div class="overall-input-wrapper width-100">
+                  <label>Period From<span class="redTxt">*</span></label>
+                  <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                    [formControlName]="form_periodFrom">
+                  <div class="form-error" *ngIf="periodFrom?.invalid && periodFrom?.touched">
+                    <div *ngIf="periodFrom?.errors?.required">Name (as per Aadhaar) is Required</div>
+                    <div *ngIf="periodFrom.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
+                      allowed
+                    </div>
+                  </div>
+                </div>
+                <div class="overall-input-wrapper width-100">
+                  <label>Period To<span class="redTxt">*</span></label>
+                  <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                    [formControlName]="form_periodTo">
+                  <div class="form-error" *ngIf="periodTo?.invalid && periodTo?.touched">
+                    <div *ngIf="periodTo?.errors?.required">Name (as per Aadhaar) is Required</div>
+                    <div *ngIf="periodTo.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
+                    </div>
+                  </div>
+                </div>
+                <div class="overall-input-wrapper width-100">
+                  <label>Description<span class="redTxt">*</span></label>
+                  <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                    [formControlName]="form_projectDescription">
+                  <div class="form-error" *ngIf="projectDescription?.invalid && projectDescription?.touched">
+                    <div *ngIf="projectDescription?.errors?.required">Name (as per Aadhaar) is Required</div>
+                    <div *ngIf="projectDescription.errors?.alphaNum255">Alpha numeric with maximum of 255 characters
+                      only allowed
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="height: 68px !important ;"
+                *ngIf="getProjectDetailsArr && getProjectDetailsArr.controls && getProjectDetailsArr.controls.length < 5 "
+                class="pt-3  pb-3">
+                <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+                  (click)="addMoreproject()">+ Add More Certifications</button>
               </div>
             </div>
-          </div>
-
-          <div class="overall-input-wrapper width-100">
-            <label>Organization<span class="redTxt">*</span></label>
-            <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text" [formControlName]="form_projectOrganization">
-            <div class="form-error" *ngIf="projectOrganization?.invalid && projectOrganization?.touched">
-              <div *ngIf="projectOrganization?.errors?.required">Name (as per Aadhaar) is Required</div>
-              <div *ngIf="projectOrganization.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
-              </div>
+          </ng-container>
+        </ng-container>
+        <div class="row-wrapper p-1 flex-row justify-content-between align-items-center mt-5 mb-3 footer">
+          <div (click)="routeNext('work')" class="d-flex align-content-center align-items-center position-relative"
+            style="cursor: pointer;">
+            <div class="left-arrow position-absolute"></div>
+            <div class="sections left-space">
+              <div class="label">Previous Section</div>
+              <div class="value">Work Experience Details</div>
             </div>
           </div>
-          <div class="overall-input-wrapper width-100">
-            <label>Period From<span class="redTxt">*</span></label>
-            <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text" [formControlName]="form_periodFrom">
-            <div class="form-error" *ngIf="periodFrom?.invalid && periodFrom?.touched">
-              <div *ngIf="periodFrom?.errors?.required">Name (as per Aadhaar) is Required</div>
-              <div *ngIf="periodFrom.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
-              </div>
-            </div>
-          </div>
-          <div class="overall-input-wrapper width-100">
-            <label>Period To<span class="redTxt">*</span></label>
-            <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text" [formControlName]="form_periodTo">
-            <div class="form-error" *ngIf="periodTo?.invalid && periodTo?.touched">
-              <div *ngIf="periodTo?.errors?.required">Name (as per Aadhaar) is Required</div>
-              <div *ngIf="periodTo.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
-              </div>
-            </div>
-          </div>
-          <div class="overall-input-wrapper width-100">
-            <label>Description<span class="redTxt">*</span></label>
-            <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text" [formControlName]="form_projectDescription">
-            <div class="form-error" *ngIf="projectDescription?.invalid && projectDescription?.touched">
-              <div *ngIf="projectDescription?.errors?.required">Name (as per Aadhaar) is Required</div>
-              <div *ngIf="projectDescription.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
-              </div>
+          <button (click)="formSubmit()" class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button
+            type="submit">Save &
+            Continue</button>
+          <div (click)="routeNext('accomplishments')"
+            class="d-flex align-content-center align-items-center text-right position-relative pointer"
+            style="cursor: pointer;">
+            <div class="right-arrow position-absolute"></div>
+            <div class="sections right-space">
+              <div class="label">Next Section</div>
+              <div class="value">Preview Details</div>
             </div>
           </div>
         </div>
-        <div class="row-wrapper p-1 flex-row justify-content-between align-items-center mt-5 mb-3 footer">
-          <div (click)="routeNext('work')"
-              class="d-flex align-content-center align-items-center position-relative"
-              style="cursor: pointer;">
-              <div class="left-arrow position-absolute"></div>
-              <div class="sections left-space">
-                  <div class="label">Previous Section</div>
-                  <div class="value">Work Experience Details</div>
-              </div>
-          </div>
-          <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button
-              type="submit">Save &
-              Continue</button>
-          <div (click)="routeNext('accomplishments')"
-              class="d-flex align-content-center align-items-center text-right position-relative pointer"
-              style="cursor: pointer;">
-              <div class="right-arrow position-absolute"></div>
-              <div class="sections right-space">
-                  <div class="label">Next Section</div>
-                  <div class="value">Preview Details</div>
-              </div>
-          </div>
-      </div>
-      </div>
     </form>
   </div>
 </div>

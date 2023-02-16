@@ -168,9 +168,9 @@ form_journalEntity_description = 'journalEntityDescription';
     // this.getCertificationsArr.clear();
     // this.getawardsArr.clear();
     // this.getJournalEntryArr.clear();
-    // this.accomplishmentsDetails.forEach((element, i) => {
-    //   this.getCertificationsArr.push(this.patchingCertifications(element));
-    // });
+    this.accomplishmentsDetails.forEach((element, i) => {
+      this.getCertificationsArr.push(this.patchingCertifications(element));
+    });
     // this.accomplishmentsDetails.forEach((element, i) => {
     //   this.getawardsArr.push(this.patchingAwards(element));
     // });

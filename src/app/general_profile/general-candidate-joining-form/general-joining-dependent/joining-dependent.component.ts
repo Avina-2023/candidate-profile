@@ -131,6 +131,8 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
   }
 
   getDependentApiDetails() {
+    console.log(this.dependedentDetails ,'dfas');
+
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.dependedentDetails = this.candidateService.getLocaldependent_details();
