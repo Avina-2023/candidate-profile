@@ -58,6 +58,9 @@
                 .width-100 {
                     width: 100%;
                 }
+                .hei{
+                  height: 35px;
+                }
                 .overall-input-wrapper {
                     display: flex;
                     flex-direction: row;
@@ -221,9 +224,8 @@
         }
     }
     .addlanguage{
-      border: 0.5px solid #707070;
+      border: 0.5px solid #BFBFBF;
       padding: 0.5em;
-      border-top: 0 !important;
       width: 100% !important;
     }
     .language-wrapper {
@@ -231,7 +233,8 @@
         align-self: flex-start;
         justify-content: space-between;
         width: 100%;
-        border: 0.5px solid #707070;
+        border: 0.5px solid #BFBFBF;
+        border-bottom: 0px !important;
         padding: 0.5em;
         .language-name-wrapper {
             width: 45%;
@@ -563,4 +566,7 @@ width: 100%;
   border-radius: 0px !important;
 }
 
+}
+.physicaldisability{
+  width: 55% !important;
 }

@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SkillexService {
+  encryptnew: any;
 
 constructor(
   private http: HttpClient,
@@ -38,7 +39,10 @@ constructor(
   // }
   uploadfile(profileform) {
     // this.datas is api body data
-    return this.http.post(`${environment.SKILLEX_BASE_URL}/imageUpload`, profileform);
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/imageUploadForProfile`, profileform);
+  }
+  candidateprogress(data){
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/getcandidatedetail`, data);
   }
   districtList(stateId) {
     // this.datas is api body data

@@ -26,7 +26,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   sendPopupResultSubscription: Subscription;
 
 
-  form_disciplinaryDetails = "disciplinaryDetails";
+  form_disciplinaryDetails = "bgv_details";
   form_convicted_by_Court = "convicted_by_Court";
   form_arrested = "arrested";
   form_prosecuted = "prosecuted";
@@ -162,6 +162,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
         [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
         [this.form_full_particulars]: formValues[this.form_full_particulars]
       }
+
       console.log( JSON.stringify(bgv_details),'bgv_details');
       // let apiData = {
       //   bgv_details

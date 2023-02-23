@@ -19,7 +19,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 export interface Hobbie {
-  name: string;
+  hobbiesAndInterests: string;
 }
 
 export const MY_FORMATS = {
@@ -161,7 +161,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   form_name = 'name';
   form_dob = 'dob';
   form_gender = 'gender';
-  form_hobbies_intrest = 'hobbies_intrest ';
+  form_hobbies_intrest = 'hobbies_intrest';
 
   // form_place_of_birth = 'place_of_birth';
   // form_state_of_birth = 'state_of_birth';
@@ -211,6 +211,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   form_no_of_days = 'no_of_days';
   form_nature_of_illness = 'nature_of_illness';
   form_physical_disability = 'physical_disability';
+  form_physical_disability_rsn = 'physical_disability_rsn'
   form_left_eyepower_glass = 'left_eyepower_glass';
   form_right_eye_power_glass = 'right_eye_power_glass';
 
@@ -289,16 +290,24 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
 
     // Add our hobbie
     if ((value || '').trim()) {
-      this.hobbies.push({name: value.trim()});
+      this.hobbies.push({hobbiesAndInterests: value.trim()});
     }
 
     // Reset the input value
     if (input) {
       input.value = '';
     }
-    this.hobbiesAndIntrest = this.hobbies
-  }
+    // this.form_hobbies_intrest = this.hobbies;
+    console.log();
 
+  }
+  physicalDisability(event){
+    // this.form_Employment_Array['controls'][this.isWorkExp].setValue('1');
+    if(event.value == 'true'){
+    }else{
+    }
+    this.checkPhysicalDisability();
+  }
   remove(hobbie: Hobbie): void {
     const index = this.hobbies.indexOf(hobbie);
 
@@ -414,7 +423,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
           // [this.form_email]: rawPersonalFormValue[this.form_email],
           [this.form_gender]: rawPersonalFormValue[this.form_gender],
-          [this.form_hobbies_intrest]: rawPersonalFormValue[this.form_hobbies_intrest],
+          [this.form_hobbies_intrest]:[this.hobbies],
           [this.form_mobile]: rawPersonalFormValue[this.form_mobile],
           [this.form_nationality]: rawPersonalFormValue[this.form_nationality],
           // [this.form_caste]: rawPersonalFormValue[this.form_caste],
@@ -450,6 +459,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
        [this.form_no_of_days]: rawPersonalFormValue[this.form_no_of_days],
        [this.form_nature_of_illness]: rawPersonalFormValue[this.form_nature_of_illness],
        [this.form_physical_disability]: rawPersonalFormValue[this.form_physical_disability],
+      [this.form_physical_disability_rsn]: rawPersonalFormValue[this.form_physical_disability_rsn],
        [this.form_left_eyepower_glass]: rawPersonalFormValue[this.form_left_eyepower_glass],
        [this.form_right_eye_power_glass]: rawPersonalFormValue[this.form_right_eye_power_glass],
        [this.form_height]: rawPersonalFormValue[this.form_height],
@@ -489,6 +499,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.personalForm);
     }
+    console.log(this.personalForm,'personalForm');
+
   }
 
 
@@ -639,6 +651,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_serious_illness]: this.personalDetails[this.form_serious_illness],
       [this.form_no_of_days]: this.personalDetails[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days].toString() : null,
       [this.form_nature_of_illness]: this.personalDetails[this.form_nature_of_illness],
+      [this.form_physical_disability_rsn]: this.personalDetails[this.form_physical_disability_rsn],
        [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == true) ? 'true' : 'false',
       // [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] == 0 ? '0' : '1',
       [this.form_left_eyepower_glass]: this.personalDetails[this.form_left_eyepower_glass],
@@ -650,6 +663,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     this.profilePictureFormControl.setValue(this.personalDetails.profileImage);
     this.patchLanguageForm();
     this.checkIsMarried();
+    this.checkPhysicalDisability();
+    console.log( this.personalForm,' this.checkPhysicalDisability();');
+
   }
 
   patchLanguageForm() {
@@ -682,13 +698,23 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       this.personalForm['controls'][this.form_no_of_children].updateValueAndValidity({ emitEvent: false });
     }
   }
+  checkPhysicalDisability() {
+    if (this.personalForm.value[this.form_physical_disability] && (this.personalForm.value[this.form_physical_disability] == 'true')) {
+      this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required]);
+      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity({ emitEvent: false });
+    } else {
+      this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
+      this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
+      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity({ emitEvent: false });
+    }
+  }
   formInitialize() {
     this.personalForm = this.fb.group({
       // [this.form_title]: [null, [Validators.required]],
       [this.form_name]: [{value: this.appConfig.getLocalData('username'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
       [this.form_gender]: [null, [Validators.required]],
-      hobbiesandintrest: new FormControl(this.hobbiesAndIntrest),
+      [this.form_hobbies_intrest]: [null],
       // [this.hobbiesAndIntrest]: [[null], [Validators.required]],
       // [this.form_place_of_birth]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_state_of_birth]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
@@ -726,7 +752,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_serious_illness]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_no_of_days]: [null, [RemoveWhitespace.whitespace(), Validators.maxLength(5), this.glovbal_validators.numberOnly()]],
       [this.form_nature_of_illness]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-      [this.form_physical_disability]: [null],
+      [this.form_physical_disability]: ['false'],
+      [this.form_physical_disability_rsn]: [null],
       [this.form_left_eyepower_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       [this.form_right_eye_power_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       [this.form_language_array]: this.fb.array([this.initLanguageArray()])
@@ -827,10 +854,12 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   get gender() {
     return this.personalForm.get(this.form_gender);
   }
-
-  get chips() {
-    return this.personalForm.get('hobbiesandintrest');
-  }
+get hobbies_intrest(){
+  return this.personalForm.get(this.form_hobbies_intrest);
+}
+  // get chips() {
+  //   return this.personalForm.get('hobbiesandintrest');
+  // }
   // get place_of_birth() {
   //   return this.personalForm.get(this.form_place_of_birth);
   // }
@@ -960,6 +989,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     return this.personalForm.get(this.form_physical_disability);
   }
 
+  get physical_disability_rsn() {
+    return this.personalForm.get(this.form_physical_disability_rsn);
+  }
   get left_eyepower_glass() {
     return this.personalForm.get(this.form_left_eyepower_glass);
   }

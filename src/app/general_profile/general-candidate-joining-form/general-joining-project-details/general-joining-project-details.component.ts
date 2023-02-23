@@ -19,7 +19,7 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 })
 export class GeneralJoiningProjectDetailsComponent implements OnInit {
   projectForm: FormGroup;
-  form_projectArray = 'projectArray';
+  form_projectArray = 'projects';
   form_projectDetails = "projectDetails";
   form_projectTitle = 'projectTitle';
   projectTypeList = [
@@ -85,7 +85,9 @@ this.patchProjectForm();
   }
 
 
-
+  removeProjectArray(i) {
+    this.getprojectArr.removeAt(i);
+  }
   patchProjectForm() {
     this.projectDetails.forEach((element, i) => {
       this.getprojectArr.push(this.patchingProjectdetails(element));

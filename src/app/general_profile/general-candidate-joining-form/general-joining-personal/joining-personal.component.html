@@ -214,7 +214,7 @@
             </div>
           </div>
           <div class="overall-input-wrapper width-45">
-            <label>Domicile State<span *ngIf="candidateService.checkKycOrJoiningForm()" class="redTxt">*</span></label>
+            <label>Domicile State<span  class="redTxt">*</span></label>
             <nz-select class="input select" [formControlName]="form_domicile_state" nzAllowClear nzShowSearch
               nzPlaceHolder="<--Select-->">
               <nz-option *ngFor="let state of getAllStates" [nzLabel]="state.name" [nzValue]="state.id"></nz-option>
@@ -331,7 +331,7 @@
             <ng-container *ngIf="getLanguageArr && getLanguageArr.controls" [formArrayName]="form_language_array">
               <!-- <label>Language Name<span></span></label> -->
               <ng-container *ngFor="let item of getLanguageArr.controls; let i = index;" [formGroupName]="i">
-                <div class="language-wrapper" [ngClass]="i != 0 ? 'mt-2' : ''">
+                <div class="language-wrapper" [ngClass]="i != 0 ? 'mt-0' : ''">
                   <div class="language-name-wrapper">
                     <input matInput placeholder="Enter Language name" class="input" type="text"
                       [ngClass]="getLanguageArr.controls[i].get(form_language_is_read).errors?.notSelected ? 'custom-border' : ''"
@@ -384,7 +384,7 @@
           <div style="width: 100% !important;">
             <ng-container>
               <h6 class="sub-heading" style="border-bottom: 1px solid #BBC2CB99; padding-bottom: 0.5em;">
-                Hobbies/Interests
+                Hobbies/Interests{{hobbies|json}}
               </h6>
               <div class="overall-input-wrapper width-45 list" style="margin-top: 0;">
                 <mat-form-field style="width: 99.5% !important;padding: 0.6px !important;" >
@@ -394,12 +394,10 @@
                     [matChipInputAddOnBlur]="addOnBlur" id="chip" (matChipInputTokenEnd)="add($event)">
                     <span class="chipadd" >  <label class="chipclass" for="chip" (click)="add($event)">Add</label></span>
                   </div>
-
-
                   <mat-chip-list  #chipList style="width: 100% !important;">
                     <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
                       (removed)="remove(hobbie)">
-                      {{hobbie.name}}
+                      {{hobbie.hobbiesAndInterests}}
                       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
 
@@ -548,19 +546,20 @@
     </div>
   </div> -->
 
-          <div class="overall-input-wrapper width-45" style="padding: 10px 0px;">
+          <div class="overall-input-wrapper width-45 hei" >
             <label>Physical Disability<span></span></label>
-            <div style="width: 100% !important;">
-              <mat-radio-group   [formControlName]="form_physical_disability" >
-                <mat-radio-button  style="width: 12% !important;"  value="true">yes</mat-radio-button>
-                <mat-radio-button  style="width: 12% !important;" value="false">no</mat-radio-button>
-                <!-- <mat-radio-button [value]="customOption">
-        <mat-form-field>
-          <input matInput [(ngModel)]="customOption" />
-        </mat-form-field>
-      </mat-radio-button> -->
-              </mat-radio-group>
+            <div class="d-flex w-100 align-items-center" >
+              <div class="width-45">
+                <mat-radio-group  (change)="physicalDisability($event)"  [formControlName]="form_physical_disability" >
+                  <mat-radio-button  style="width: 50% !important;"  value="true">yes</mat-radio-button>
+                  <mat-radio-button  style="width: 50% !important;" value="false">no</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="physicaldisability" *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
+                <input matInput placeholder="Enter Physical Disability" class="input" type="text" [formControlName]="form_physical_disability_rsn">
+              </div>
             </div>
+
             <!-- <input matInput placeholder="Enter here" class="input" type="text"
         [formControlName]="form_physical_disability">
     <div class="form-error" *ngIf="physical_disability?.invalid && physical_disability?.touched">

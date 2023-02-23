@@ -63,7 +63,7 @@ export const MY_FORMATS_Month = {
   ],
 })
 export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  showWorkExp: any = '0';
   educationForm: FormGroup;
   minDate: Date;
   maxDate: Date;
@@ -176,7 +176,9 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   form_cgpa = 'percentage';
   form_Finalcgpa = 'final_percentage';
   form_CARanks = 'rank';
-  form_isGap  = new FormControl(null);
+  form_gap_reason = 'gap_reason';
+  form_gap = 'gap';
+  isHighLevelEdu = new FormControl(null);
   eduGap: boolean = false;
 
   ca_bothgroup_status = new FormControl(null);
@@ -375,6 +377,7 @@ constructor(
           [this.form_cgpa]: null,
           [this.form_Finalcgpa]: null,
           [this.form_CARanks]: null,
+          [this.form_gap]:'false',
           // [this.form_isGap]: [null],
           });
      return this.setValidations();
@@ -540,7 +543,7 @@ validSelectedPost() {
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
         this.sharedService.joiningFormStepperStatus.next();
-        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
+        return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
       });
       // } else {
       //   this.appConfig.nzNotification('error', 'Not Submitted', entryValid?.value?.label == 'gct' ? '12th or Diploma and Undergraduate are mandatory' : entryValid?.value?.label == 'pgct' ? '12th or Diploma, Undergraduate and Postgraduate are mandatory' : entryValid?.value?.label == 'det' ? 'Diploma is mandatory' : 'CA or IGWA or CS is mandatory');
@@ -551,6 +554,7 @@ validSelectedPost() {
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
     }
+console.log(this.educationForm,'educationForm');
 
   }
 
@@ -603,15 +607,15 @@ validSelectedPost() {
       [this.form_specialization]: [{ value: data[this.form_specialization], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_collegeName]: [{ value: data[this.form_collegeName], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_boardUniversity]: [{ value: data[this.form_boardUniversity], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
-      [this.form_startDate]: [this.dateConvertion(data[this.form_startDate]), this.candidateService.checkKycOrJoiningForm() ? [Validators.required, this.startTrue(false)] : []],
-      [this.form_endDate]: [this.dateConvertion(data[this.form_endDate]), this.candidateService.checkKycOrJoiningForm() ? [Validators.required, this.startTrue(false)] : []],
+      [this.form_startDate]: [this.dateConvertion(data[this.form_startDate]), [Validators.required, this.startTrue(false)] ],
+      [this.form_endDate]: [this.dateConvertion(data[this.form_endDate]), [Validators.required, this.startTrue(false)] ],
       [this.form_yearpassing]: [{ value: this.dateConvertionMonth(data[this.form_yearpassing]), disabled: false }, [Validators.required, this.startTrue(true)]],
       [this.form_backlog]: [{ value: data[this.form_backlog], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? (data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? true : false) : false}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
       [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
       [this.form_Finalcgpa]: [(data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? data[this.form_cgpa] : data[this.form_Finalcgpa]), this.candidateService.checkKycOrJoiningForm() ? [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)] : []],
       [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-      // [this.form_isGap]: this.educationForm[this.form_isGap] == 0 ? '0' : '1',
+      [this.form_gap]:[ (data[this.form_gap] && data[this.form_gap] == 'true')  ? 'true' : 'false' ],
     })
   }
 
@@ -623,7 +627,7 @@ validSelectedPost() {
       [this.form_collegeName]: [null, [Validators.required]],
       [this.form_boardUniversity]: [null, [Validators.required]],
       [this.form_startDate]: [null,  [Validators.required, this.startTrue(true)] ],
-      // [this.form_isGap]:[null],
+      [this.form_gap]:['false'],
       [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
       [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
@@ -633,15 +637,29 @@ validSelectedPost() {
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }
-  radioChange(event) {
-    console.log(event, 'event');
-if(event.value == 'true'){
-  this.eduGap = true;
+ changeWorkExp(e) {
+    if (e.checked) {
+      this.showWorkExp = '1';
+    } else {
+      this.showWorkExp = '0';
+    }
+  }
+  anyGap(event,index){
+    if(event.value == 'true'){
 
-}else{
-  this.eduGap = false;
-}
-}
+    }else{
+
+    }
+  }
+//   radioChange(event) {
+//     console.log(event, 'event');
+// if(event.value == 'true'){
+//   this.eduGap = true;
+
+// }else{
+//   this.eduGap = false;
+// }
+// }
     // Custom regex validator
     regexValidator(error: ValidationErrors, param): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {

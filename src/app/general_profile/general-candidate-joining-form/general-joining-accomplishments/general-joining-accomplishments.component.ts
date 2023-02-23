@@ -55,9 +55,9 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   accomplishmentsForm: FormGroup;
 
 //form variable
-form_certificationsArray = 'certificationsArray';
-form_journalEntryArray = 'journalEntryArray';
-form_awardsArray = 'awardsArray';
+form_certificationsArray = 'certifications';
+form_journalEntryArray = 'journals';
+form_awardsArray = 'awards';
 form_certification_name = 'certificationName';
 form_certification_issuedFrom = 'certificationIssuedFrom';
 form_certification_description = 'certificationDescription';

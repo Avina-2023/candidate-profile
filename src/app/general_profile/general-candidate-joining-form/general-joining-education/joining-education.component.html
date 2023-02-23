@@ -1,6 +1,6 @@
 <div class="joining-personal-wrapper p-0">
   <div class="heading">
-    <h5>
+    <h5 class="mb-0">
       Education Details
   </h5>
     <ng-container *ngIf="!candidateService.checkKycOrJoiningForm()">
@@ -448,17 +448,16 @@
                             </div>
                         </div>
                         </ng-container>
-
                         <div class="overall-input-wrapper width-100" style="padding: 10px 0px;">
                           <label>Do you have any gap during the education?<span></span></label>
                           <div style="width: 100% !important;">
-                            <mat-radio-group  (change)="radioChange($event)" [formControlName]="form_isGap">
+                            <mat-radio-group  (change)="anyGap($event,i)" [formControlName]="form_gap">
                               <mat-radio-button  style="width: 12% !important;" value="true">yes</mat-radio-button>
                               <mat-radio-button  style="width: 12% !important;" value="false">no</mat-radio-button>
                             </mat-radio-group>
                           </div>
                           </div>
-                          <ng-container *ngIf="eduGap">
+                          <ng-container *ngIf="getEducationArr.controls[i].get(form_gap).value == 'true'">
                             <div class="overall-input-wrapper mb-3" [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
                             <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Backlogs' : 'No. of Attempts'}}<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
@@ -510,14 +509,13 @@
 
                     </div>
                     <div class="overall-input-wrapper mt-2  width-100">
-                      <div> <mat-checkbox
-                        class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
+                      <div> <mat-checkbox [formControl]="isHighLevelEdu" (change)="changeWorkExp($event)" class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
                     </div>
                     </div>
                 </ng-container>
             </ng-container>
 
-            <div *ngIf="getEducationArr && getEducationArr.controls && getEducationArr.controls.length < 12" class="row-wrapper mt-0 pt-0 " style="align-items: flex-end;">
+            <div *ngIf="showWorkExp == '0'" class="row-wrapper mt-0 pt-0 " style="align-items: flex-end;">
                     <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button" (click)="addToEducationArray()">+ Add More Education</button>
             </div>
 

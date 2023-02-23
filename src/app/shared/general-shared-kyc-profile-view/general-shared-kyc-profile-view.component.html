@@ -242,24 +242,26 @@
                   let i = index
                 ">
                   <div class="d-flex">
-                    <div class="inpu-preview size-16 bold-700 color-black width-66">
+                    <div class="inpu-preview size-16 bold-700 color-black w-50" style="width:30% !important">
                     <label>  {{ language[form_language_name] }}</label>
                     </div>
                     <div class="flex-box inpu-preview d-flex justify-content-between width-100">
-                      <div>
-                        <label class="language-label mr-1">Read</label>
+                      <div class="width-20">
                         <mat-checkbox [checked]="language[form_language_is_read]" [disabled]="true"
-                          class="mr-2"></mat-checkbox>
+                        class="mr-2"></mat-checkbox>
+                        <label class="language-label mr-1">Read</label>
+
                       </div>
-                      <div>
-                        <label class="language-label mr-1">Write</label>
+                      <div class="width-20">
                         <mat-checkbox [checked]="language[form_language_is_write]" [disabled]="true"
                           class="mr-2"></mat-checkbox>
+                        <label class="language-label mr-1">Write</label>
+
                       </div>
-                      <div>
-                        <label class="language-label mr-1">Speak</label>
+                      <div class="width-20">
                         <mat-checkbox [checked]="language[form_language_is_speak]" [disabled]="true"
-                          class="mr-2"></mat-checkbox>
+                        class="mr-2"></mat-checkbox>
+                        <label class="language-label mr-1">Speak</label>
                       </div>
                     </div>
                   </div>

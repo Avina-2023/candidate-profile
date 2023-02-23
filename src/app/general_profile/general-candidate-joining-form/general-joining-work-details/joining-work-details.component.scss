@@ -3,8 +3,21 @@
     width: 100%;
     .divcard{
       background-color: #ffffff;
-      padding: 2% 3% 2% 3%;
+      padding-left: 3%;
+      padding-right: 3%;
+      padding-top: 3%;
+    }
+    label {
+      color: #565656;
+      padding: 0 0 2px 0;
+      margin: 0;
+      font-size: 14px;
+      width: 50% !important;
+  }
+    .h{
       border-bottom: solid 1px #BBC2CB99;
+      // padding: 3% 3% 3% 3%;
+padding-bottom: 1%;
     }
     .grids-wrapper {
         // display: flex;
@@ -15,7 +28,7 @@
             flex-wrap: wrap;
             .skill-name-wrapper {
                 width: 100%;
-                padding: .5em;
+                padding-bottom: .5em;
                 .input {
                     display: flex;
                     position: relative;
@@ -240,13 +253,13 @@
             .container-wrapper {
                 background-color: #ffffff;
                 padding: 0em 0em 1em 1em;
-                border-radius: 5px;
+                // border-radius: 5px;
                 margin-top: 1em;
             }
             .container-wrapper:first-child {
                 background-color: #ffffff;
                 padding: 0em 0em 1em 1em;
-                border-radius: 5px;
+                // border-radius: 5px;
                 margin-top: 0.5em;
             }
             .form-grouping {
@@ -309,7 +322,7 @@
         position: absolute;
         cursor: pointer;
         left: 50%;
-        top: 38%;
+        top: 20%;
         height: 24px;
         transform: translate(-50%, -20%);
         i {
@@ -653,4 +666,7 @@ width: 30%;
     // height: max-content;
     display: flex;
     justify-content: end;
+}
+.redTxt{
+  color: red !important;
 }

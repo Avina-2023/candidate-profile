@@ -15,6 +15,14 @@
         <ng-container *ngIf="getprojectArr && getprojectArr.controls"  [formArrayName]="form_projectArray">
           <ng-container *ngFor="let item of getprojectArr.controls; let i = index;" [formGroupName]="i">
             <div class="carddiv pt-0 pb-0">
+              <div class="d-flex justify-content-between">
+                <h6>Project{{i+1}}</h6>
+                <div class="remove-wrapper">
+                  <div (click)="removeProjectArray(i)" *ngIf="i >= 0" matTooltip="Remove" class="remove">
+                    <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                  </div>
+                </div>
+              </div>
               <div class="overall-input-wrapper width-45">
                 <label>Project Type<span class="redTxt">*</span></label>
                 <nz-select class="input select" [formControlName]="form_typeList" nzAllowClear nzShowSearch
@@ -93,7 +101,7 @@
               </div>
             </div>
             <div style="height: 68px !important ;"
-                *ngIf="getprojectArr && getprojectArr.controls && getprojectArr.controls.length < 5 "
+                *ngIf="getprojectArr && getprojectArr.controls && getprojectArr.controls.length >= 0 "
                 class="pt-3  pb-3">
                 <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
                   (click)="addMoreCertifications()">+ Add More Certifications</button>

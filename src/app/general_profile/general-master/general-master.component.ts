@@ -4,6 +4,7 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { SkillexService } from 'src/app/service/skillex.service';
 import { environment } from 'src/environments/environment';
+import { ApiServiceService } from 'src/app/service/api-service.service';
 
 
 @Component({
@@ -12,47 +13,56 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./general-master.component.scss']
 })
 export class GeneralMasterComponent implements OnInit {
-   profilepercentage: number =  0;
+  //  profilepercentage: number =  0;
+  public email: any;
+
+   public objDetails: any;
+   public Details: any;
+   public profilepercentage: any;
   profilePictureFormControl = new FormControl(null, [Validators.required]);
   profilePicture = {
     file_path: null,
   };
   isExternal: boolean = false;
   percentage: number;
-
+  username:any;
+  profileCompletion:any;
   constructor(private appConfig: AppConfigService,
     private loadingService: LoaderService,
     private skillexService: SkillexService,
-
+    private apiService: ApiServiceService,
     ) {
   }
 
   ngOnInit() {
-    // this.profilepercentage = Math.ceil(this.profilepercentage);
+    this.profilepercentage = Math.ceil(this.Details.profilePercentage);
     this.isExternal = this.appConfig.getLocalData('externalLogin')
-    this.setprofileimageToLocal()
+    // this.setprofileimageToLocal()
+    this.username = localStorage.getItem('name');
+    this.email = localStorage.getItem('email');
+    this.CandidateDetails()
   }
 
-  setprofileimageToLocal(){
-    // this.profilepercentage = 30;
-    this.profilepercentage = Math.ceil(this.profilepercentage);
-    this.profilepercentage = JSON.parse(localStorage.getItem("profileData"))  ;
-    console.log(this.profilepercentage ,'hgvjhb');
-    if(this.profilepercentage){
-      let size = 9 ;
- this.percentage =  size / 10 * 100;
-    }
-  //   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
-  //   console.log(candidateProfileimage.personal_details.profileImage,'dj');
-  // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-  // console.log(JSON.stringify(candidateProfileimage),'--------');
-  // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-  //   // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
-  // let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
-  // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-  // this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
-  // console.log(this.cadidatefinalimage,'hbsdjhBcj');
-  }
+//   setprofileimageToLocal(){
+//     // this.profilepercentage = 30;
+//     this.profilepercentage = Math.ceil(this.profilepercentage);
+//     this.profilepercentage = JSON.parse(localStorage.getItem("profileData"))  ;
+//     console.log(this.profilepercentage ,'hgvjhb');
+//     if(this.profilepercentage){
+//       let size = 9 ;
+//  this.percentage =  size / 10 * 100;
+//     }
+//   //   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
+//   //   console.log(candidateProfileimage.personal_details.profileImage,'dj');
+//   // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+//   // console.log(JSON.stringify(candidateProfileimage),'--------');
+//   // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+//   //   // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
+//   // let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
+//   // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+//   // this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
+//   // console.log(this.cadidatefinalimage,'hbsdjhBcj');
+//   }
 
 //   saveData(data) {
 //     const form_size = 1024; // chunk size in bytes
@@ -89,8 +99,52 @@ export class GeneralMasterComponent implements OnInit {
 
   // }
 
+  // getEmployerDetails() {
+  //   var obj = {
+  //     userId: this.skillexService.encryptnew(
+  //       localStorage.getItem('email'),
+  //       environment.cryptoEncryptionKey
+  //     ),
+  //   };
+  //   this.skillexService.candidateprogress(obj).subscribe((result: any) => {
+  //     if (result.success) {
+  //       console.log(result)
+  //       this.username = result.data.firstName;
+  //       this.profileCompletion = result.data.profileCompletion;
+  //       localStorage.setItem('companyId', result.data.userId);
+  //     } else {
+  //       console.log("failed to load employer details")
+  //     }
+  //   })
+  // }
+  CandidateDetails() {
+    var obj = {};
+    obj = {
+      email: this.skillexService.encryptnew(
+        localStorage.getItem('email'),
+        environment.cryptoEncryptionKey
+      ),
+    };
+    this.skillexService.candidateprogress(obj).subscribe((res: any) => {
+      if (res.success) {
+        this.Details = res.data;
+        // this.profileImage = this.Details.personal_details.profileImage;
+        // this.msgData.sendMessage("profileImage",this.profileImage)
+        // if (this.profileImage && this.productionUrl == true) {
+        //   this.appConfig.setLocalStorage('profileImage',this.profileImage + environment.blobToken);
+        //   this.profileImage = this.profileImage + environment.blobToken
+        // } else if (this.profileImage && this.productionUrl == false) {
+        //   this.appConfig.setLocalStorage('profileImage',this.profileImage);
+        //   this.profileImage = this.profileImage
 
+        // }
+        this.appConfig.setLocalData('candidateProfile',JSON.stringify(this.Details));
+        this.profilepercentage = Math.ceil(this.Details.profilePercentage);
+        this.appConfig.setLocalData('profilePercentage', this.profilepercentage);
 
+      }
+    });
+  }
   async uploadImage(file) {
     try {
       this.profilePictureFormControl.markAsUntouched();
