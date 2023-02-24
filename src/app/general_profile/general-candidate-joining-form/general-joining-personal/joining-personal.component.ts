@@ -287,7 +287,6 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
     // Add our hobbie
     if ((value || '').trim()) {
       this.hobbies.push({hobbiesAndInterests: value.trim()});

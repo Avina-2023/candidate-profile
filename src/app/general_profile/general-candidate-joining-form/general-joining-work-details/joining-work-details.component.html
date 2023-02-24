@@ -11,17 +11,16 @@
         <label class="w-100 pb-2" style="border-bottom: 1px solid #BBC2CB99;">Choose your most important skills that increase
           your chances of landing a job interview.</label>
 </div>
-
         <div class="skills-wrapper" *ngIf="getSkillsArr && getSkillsArr.controls" [formArrayName]="form_Skills_Array">
           <div class="divcard pt-2 pb-4 mb-3">
-            <div class="skill-name-wrapper d-flex " *ngFor="let item of getSkillsArr.controls; let i = index;"
+            <div class="skill-name-wrapper d-flex " *ngFor="let item of getSkillsArr.controls[i]; let i = index;"
             [formGroupName]="i">
             <div class="w-100">
               <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                   <mat-expansion-panel-header>
                     <mat-panel-title >
-                      <!-- {{item}} -->
+                      <!-- {{item.value}} -->
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <h6  class=" pl-4 ">Key Skills</h6>
@@ -39,15 +38,11 @@
                             <div  (click)="choosen('experiencedselected', i)" class="selected selectedborder " [ngClass]="getSkillSelection(i) == 'experiencedselected' ? 'experiencedselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
                             <div  (click)="choosen('expertselected', i)" class=" selected" [ngClass]="getSkillSelection(i) == 'expertselected' ? 'expertselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
                           </div>
-
-
                       </div>
                   </div>
-
                 </mat-expansion-panel>
               </mat-accordion>
             </div>
-
             <div class="remove-wrapper">
               <div (click)="removeSkillsArray(i)" *ngIf="i !==0" matTooltip="Remove" class="remove">
                 <i class="icon-remove_circle pointer ag-icon-font-size"></i>
@@ -63,13 +58,10 @@
             </div>
           </div>
           </div>
-
           <div class="skills-add" *ngIf="getSkillsArr && getSkillsArr.controls && getSkillsArr.controls.length < 10">
-
               <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
                 (click)="addSkills()">+
                 Add</button>
-
           </div>
         </div>
         <div class="divcard">
@@ -80,14 +72,12 @@
         <!-- {{this.workDetailsForm['controls'][this.form_isWorkExp].value}} -->
         <div style="width: 100% !important;">
                   <!-- <mat-checkbox  [formControl]="isWorkExp"   (change)="changeWorkExp($event)" class="mr-2"></mat-checkbox>  -->
-
           <mat-radio-group  (change)="workExperience($event)" [formControlName]="form_isWorkExp" #radioGroup="matRadioGroup">
             <mat-radio-button style="width: 12% !important;"  value="true">yes</mat-radio-button>
             <mat-radio-button style="width: 12% !important;" value="false">no</mat-radio-button>
           </mat-radio-group>
         </div>
         </div>
-
         <ng-container  *ngIf="workDetailsForm['controls'][this.form_isWorkExp].value == 'true'">
           <div class="container-wrapper pb-0 d-flex  mt-0 flex-container pt-4 pl-4 pr-4 justify-content-between align-items-center">
           <label>Total Experience<span class="redTxt">*</span></label>
@@ -99,7 +89,6 @@
           </div>
         <ng-container *ngIf="getEmploymentArr && getEmploymentArr.controls" [formArrayName]="form_Employment_Array">
           <ng-container *ngFor="let item of getEmploymentArr.controls; let i = index;" [formGroupName]="i">
-
             <div class="container-wrapper mb-3 mt-0 flex-container pt-3  pl-4 pr-4  pb-4 justify-content-between align-items-center">
               <div class="form-grouping w-100">
                 <div class="d-flex justify-content-between">
@@ -127,7 +116,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
                     <label>Position Held<span class="redTxt">*</span></label>
@@ -286,8 +274,6 @@
                   *Make sure, you have entered all the fields value, If you enter any one of the value
                 </div>
               </div>
-
-
         <div *ngIf="getEmploymentArr && getEmploymentArr.controls && getEmploymentArr.controls.length < 10"
         class="row-wrapper mt-3">
         <div class="skills-add">
@@ -308,7 +294,6 @@
             </div>
           </div>
           </div> -->
-
           <!-- <div class="row-wrapper">
           <div class="overall-input-wrapper width-100">
             <label>Break in Employment, If any, Should be indicated with reasons<span></span></label>
@@ -322,7 +307,6 @@
                 allowed</div>
             </div>
           </div>
-
         </div> -->
       </ng-container>
 
@@ -344,12 +328,11 @@
     <ng-container *ngIf="getTrainingArr && getTrainingArr.controls" [formArrayName]="form_training_Array">
       <ng-container *ngFor="let item of getTrainingArr.controls; let i = index;" [formGroupName]="i">
             <ng-container *ngIf="workDetailsForm['controls'][this.form_is_training_status].value == 'true'" >
-
             <div class="container-wrapper flex-container justify-content-between align-items-center p-4"  >
               <div class="d-flex justify-content-between">
                 <h6>Training Details{{i+1}}</h6>
                 <div class="remove-wrapper">
-                  <div (click)="removeEmploymentArray(i)" *ngIf="i == getTrainingArr.controls.length - 1 && i != 0"  matTooltip="Remove" class="remove">
+                  <div (click)="removeTrainingArray(i)" *ngIf="i == getTrainingArr.controls.length >= 0"  matTooltip="Remove" class="remove">
                     <i class="icon-remove_circle pointer ag-icon-font-size"></i>
                   </div>
                 </div>
@@ -396,7 +379,6 @@
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerParse">
                         Invalid Date Format</div>
                     </div>
-
                   </div>
 
                   <div class="overall-input-wrapper mb-2 width-100">
@@ -427,9 +409,7 @@
                         Invalid Date Format</div>
                     </div>
                   </div>
-
                 </div>
-
                 <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
                     <label>Achievements/Responsibility/Tasks<span class="redTxt">*</span></label>
@@ -473,16 +453,13 @@
                     Whether Articleship completed as per the requirement of Institute?
                 </div>
             </div>
-
             <div class="overall-input-wrapper" style="width: 10%;">
                 <mat-radio-group class="radio-grp" (change)="changeInTrainingExp($event)" [formControlName]="form_training_is_articleship_status">
                     <mat-radio-button value="1">Yes
                     </mat-radio-button>
                     <mat-radio-button value="0">No</mat-radio-button>
                 </mat-radio-group>
-
             </div>
-
             <div [ngClass]="training_is_articleship_status && training_is_articleship_status['value'] == 0 ? '' : 'hide'" class="overall-input-wrapper" style="width: 35%;">
                 <label>If, no, Please give the details<span></span></label>
                 <div class="sub-grid">
@@ -508,10 +485,8 @@
                                 Invalid Date Format</div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div> -->
 
       </ng-container>
@@ -578,16 +553,13 @@
                         Apart from current drive, have you ever interviewed by {{customerName}}?
                     </div>
                 </div>
-
                 <div class="overall-input-wrapper width-20">
                     <mat-radio-group class="radio-grp" (change)="radioChange($event, 2)" [formControlName]="form_interviewed_by_us">
                         <mat-radio-button value="1">Yes
                         </mat-radio-button>
                         <mat-radio-button value="0">No</mat-radio-button>
                     </mat-radio-group>
-
                 </div>
-
                 <div [ngClass]="interviewed_by_us && interviewed_by_us.value == '1' ? '' : 'hide'" class="overall-input-wrapper width-30">
                     <label>If, yes, Please give details<span></span></label>
                     <div class="sub-grid">
@@ -602,9 +574,7 @@
                                     Alpha numeric with maximum of 255 characters only
                                     allowed</div>
                             </div>
-
                         </div>
-
                     </div>
                     <div class="sub-grid">
                         <label>When:<span></span></label>
@@ -629,10 +599,8 @@
                                     Invalid Date Format</div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div> -->
 
       <!-- Relatives and Aquantices -->
@@ -877,17 +845,17 @@
       </div>-->
 
       <div class="row-wrapper d-flex justify-content-between align-items-center mt-5 mb-3 footer" style="width: 100%;">
-        <div (click)="routeNext('education')" class="d-flex align-content-center align-items-center position-relative"
+        <!-- <div (click)="routeNext('education')" class="d-flex align-content-center align-items-center position-relative"
           style="cursor: pointer;">
           <div class="left-arrow position-absolute"></div>
           <div class="sections left-space">
             <div class="label">Previous Section</div>
             <div class="value">Education Details</div>
           </div>
-        </div>
+        </div> -->
         <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
           Continue</button>
-        <div (click)="routeNext('project')"
+        <!-- <div (click)="routeNext('project')"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"
           style="cursor: pointer;">
           <div class="right-arrow position-absolute"></div>
@@ -895,11 +863,10 @@
             <div class="label">Next Section</div>
             <div class="value">Upload Documents</div>
           </div>
-        </div>
-      </div> -->
+        </div> -->
+      </div>
     </form>
-    <div class="photo-wrapper">
-    </div>
+    <!-- <div class="photo-wrapper">
+    </div> -->
   </div>
-
 </div>

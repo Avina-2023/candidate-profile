@@ -394,7 +394,7 @@
                     [matChipInputAddOnBlur]="addOnBlur" id="chip" (matChipInputTokenEnd)="add($event)">
                     <span class="chipadd" >  <label class="chipclass" for="chip" (click)="add($event)">Add</label></span>
                   </div>
-                  <mat-chip-list  #chipList style="width: 100% !important;">
+                  <mat-chip-list  #chipList class=" width-100">
                     <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
                       (removed)="remove(hobbie)">
                       {{hobbie.hobbiesAndInterests}}
@@ -555,6 +555,7 @@
                   <mat-radio-button  style="width: 50% !important;" value="false">no</mat-radio-button>
                 </mat-radio-group>
               </div>
+
               <div class="physicaldisability" *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
                 <input matInput placeholder="Enter Physical Disability" class="input" type="text" [formControlName]="form_physical_disability_rsn">
               </div>
