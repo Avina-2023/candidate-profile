@@ -12,12 +12,13 @@
   }
   .stepper {
     margin-right: 0em;
-    width: 230px !important;
+    // width: 230px !important;
     min-width: 30% !important;
     position: sticky;
     // top: 6em;
-    height: 800px;
-    overflow-y: scroll;
+    padding-top: 2% !important;
+    // height: 800px;
+    // overflow-y: scroll;
 
     .stepper-wrapper {
       margin-top: 1em;
@@ -27,10 +28,10 @@
       display: block;
       counter-reset: step;
       background-color: #ffffff;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 20px;
+      padding-right: 20px;
       width: 100%;
-      border: solid #c8ced5;
+      border: solid 1px #c8ced5;
 
       .details {
         p {
@@ -129,13 +130,14 @@
 
 .router {
   margin-left: 0px;
-  width: 69%;
+  width: 70%;
   // background-color: #ffffff;
   // box-shadow: 0.5px 0.87px 10px #00000012;
 border-radius: 0px 0px 3px 3px;
-margin-left: 20px;
-margin-top: 2em;
-
+// margin-left: 20px;
+// margin-top: 2em;
+padding-left: 2%;
+padding-top: 2%;
 }
 
 .routerLeft {
@@ -233,9 +235,9 @@ margin-top: 2em;
 }
 
 .profileExpansion {
-  margin-top: 2em;
+  // margin-top: 2em;
   background-color: #ffffff;
-  border: solid #c8ced5;
+  border: solid 1px #c8ced5;
   .exheader {
     display: flex;
     justify-content: space-between;

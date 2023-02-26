@@ -21,7 +21,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   projectForm: FormGroup;
   form_projectArray = 'projects';
   form_projectDetails = "projectDetails";
-  form_projectTitle = 'projectTitle';
+
   projectTypeList = [
     {
       label: 'Academy',
@@ -33,6 +33,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     }
 
   ]
+  form_projectTitle = 'projectTitle';
   form_typeList = 'typeList';
   form_teamSize = 'teamSize';
   form_projectOrganization = 'projectOrganization';
@@ -59,9 +60,10 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.customerName = this.appConfig.getSelectedCustomerName();
+    // this.customerName = this.appConfig.getSelectedCustomerName();
     this.formInitialize();
     this.saveRequestRxJs();
+    this.getProjectApiDetails();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
   }
@@ -73,27 +75,45 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
    }
 
    getProjectApiDetails() {
+    console.log(this.candidateService.getLocalProfileData());
+
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
-      this.projectDetails = this.candidateService.getLocalexperience_details();
-      this.projectDetailsAllData = this.candidateService.getLocalexperience_details();
-this.patchProjectForm();
+      this.projectDetails = this.candidateService.getLocalproject_details().projects;
+      this.projectDetails && this.projectDetails.length >0 ? this.ifProjectDetails() : this.ifNotProjectDetails();
+      console.log(this.projectDetails,'projectDetails');
     } else {
-
     }
+  }
+  ifProjectDetails() {
+    this.patchProjectForm();
+    console.log('yes');
 
   }
-
+  ifNotProjectDetails() {
+    this.projectDetails = [];
+      this.getprojectArr.push(this.initProjectArray());
+      console.log('no');
+    }
 
   removeProjectArray(i) {
     this.getprojectArr.removeAt(i);
   }
   patchProjectForm() {
+      // this.getprojectArr.clear();
+      // this.projectDetails[this.form_projectArray].forEach((element, i) => {
+      //   this.getprojectArr.push(this.patchingProjectdetails(element, i));
+      // });
+
+
+    this.getprojectArr.clear();
     this.projectDetails.forEach((element, i) => {
-      this.getprojectArr.push(this.patchingProjectdetails(element));
+      this.getprojectArr.push(this.patchingProjectdetails(element, i));
     });
+    console.log(this.getprojectArr);
+
   }
-  patchingProjectdetails(data){
+  patchingProjectdetails(data, i){
     return this.fb.group({
       [this.form_typeList]: [data[this.form_typeList], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_teamSize]: [data[this.form_teamSize], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
@@ -107,7 +127,7 @@ this.patchProjectForm();
 
   formInitialize() {
     this.projectForm = this.fb.group({
-      [this.form_projectArray]: this.fb.array([this.initProjectArray()]),
+      [this.form_projectArray]: this.fb.array([]),
     })
   }
 
@@ -119,6 +139,22 @@ this.patchProjectForm();
   }
 
   get getprojectArr() { return this.projectForm.get([this.form_projectArray]) as FormArray; }
+  get typeList() {
+    return this.projectForm.get(this.form_typeList);
+    }
+    get teamSize() {
+      return this.projectForm.get(this.form_teamSize);
+      }get projectTitle() {
+        return this.projectForm.get(this.form_projectTitle);
+        }get periodFrom() {
+          return this.projectForm.get(this.form_periodFrom);
+          }get periodTo() {
+            return this.projectForm.get(this.form_periodTo);
+            }get projectDescription() {
+              return this.projectForm.get(this.form_projectDescription);
+              }get projectOrganization() {
+                return this.projectForm.get(this.form_projectOrganization);
+                }
 
 
   initProjectArray(){
@@ -136,13 +172,21 @@ this.patchProjectForm();
 
 
   formSubmit(routeValue?:any) {
+    // this.loadingService.setLoading(true)
+    // if(this.projectForm.valid) {
+    //   let projectobj:any = {};
+    //   let formArray = this.projectForm.getRawValue()[this.form_projectArray];
+    //   projectobj.project_details = formArray
+
     this.loadingService.setLoading(true)
     let rawprojectFormValue = this.projectForm.getRawValue();
-    if (this.projectForm) {
+    if (this.projectForm.valid) {
       const projectobj = {
         [this.form_projectArray]: rawprojectFormValue[this.form_projectArray],
 
       };
+      console.log(projectobj,'projectobj');
+
       const ProjectApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "project_details",
@@ -164,6 +208,8 @@ this.patchProjectForm();
       this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.projectForm);
     }
+    console.log(this.projectForm,'projectForm');
+
   }
 
    saveRequestRxJs() {

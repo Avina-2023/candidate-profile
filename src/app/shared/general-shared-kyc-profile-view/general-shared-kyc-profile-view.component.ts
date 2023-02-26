@@ -169,14 +169,32 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_place_of_issue = 'place_of_issue';
   form_country_valid_for = 'country_valid_for';
 
+  //accomplishment
+
+  form_certificationsArray = 'certifications';
+  form_certification_name = 'certificationName';
+form_certification_issuedFrom = 'certificationIssuedFrom';
+form_certification_description = 'certificationDescription';
+form_certification_validityFrom = 'certificationValidityFrom';
+
+form_awardsArray = 'awards';
+form_award_date = 'awardDate';
+form_award_title = 'awardTitle';
+
+form_journalEntryArray = 'journals';
+form_journalEntity_title = 'journalEntityTitle';
+form_journalEntity_url = 'journalEntityUrl';
+form_journalEntity_publishedOn = 'journalEntityPublishedOn';
+form_journalEntity_description = 'journalEntityDescription';
   // Health
+
   form_serious_illness = 'serious_illness';
   form_no_of_days = 'no_of_days';
   form_nature_of_illness = 'nature_of_illness';
   form_physical_disability = 'physical_disability';
   form_left_eyepower_glass = 'left_eyepower_glass';
   form_right_eye_power_glass = 'right_eye_power_glass';
-
+  form_physical_disability_rsn = 'physical_disability_rsn';
   // Form control name declaration end
 
   form_present_address_1 = 'present_line_street_addres';
@@ -202,7 +220,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_dependent_occupation = 'occupation';
   form_dependent_differently_abled = 'differently_abled';
   form_dependent_status = 'status';
-  form_isDependent = 'dependent'
+  form_isDependent = 'dependent';
+  form_dependent_other = 'dependent_other';
 
   // Education
   form_qualification_type = 'level';
@@ -216,9 +235,19 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_backlog = 'backlogs';
   form_mode = 'mode';
   form_cgpa = 'percentage';
+  // isHighLevelEdu
+  form_gap = 'gap'
   form_finalcgpa = 'final_percentage';
   form_CARanks = 'rank';
   ca_bothgroup_status = 'ca_bothgroup_status';
+// project
+form_projectTitle = 'projectTitle';
+form_typeList = 'typeList';
+form_teamSize = 'teamSize';
+form_projectOrganization = 'projectOrganization';
+form_periodFrom = 'periodFrom';
+form_periodTo = 'periodTo';
+form_projectDescription = 'projectDescription';
 
   // Upload
   form_file_id = 'file_id';
@@ -267,6 +296,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_when_interview = "when_interview"
   form_employment_name_address = "employment_name_address";
   form_duration_from = "duration_from";
+  form_achievement = "achievement";
   form_duration_to = "duration_to";
   form_duration_year = "duration_year";
   form_duration_month = "duration_month";
@@ -325,6 +355,10 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   contactDetailsMap: any;
   dependentDetails: any;
   dependentDetailsMap: any;
+  projectDetails: any;
+  projectDetailsMap: any;
+  accomplishmentDetails: any;
+  accomplishmentsMap: any;
   educationDetails: any;
   educationDetailsMap: any;
   workDetails: any;
@@ -349,6 +383,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   newSaveProfileDataSubscription: Subscription;
   workDetailsAlldata: any;
   educationDetailsAllData: any;
+  projectDetailsAllData: any;
   matDialogRefDocViewerPopUpRef: any;
   termsAndCondtionsPopRef: any;
   customerName: any;
@@ -398,9 +433,6 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     //  });;
    }
 
-
-
-
   joiningFormDataFromJoiningFormComponentRxjs() {
    this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any)=> {
       this.getPreviewData();
@@ -419,12 +451,17 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.patchPersonalForm();
     this.contactDetails = data && data.contact_details ? data.contact_details : null;
     this.patchContactForm();
+    this.accomplishmentDetails = data && data.accomplishments_details  ? data.accomplishments_details : null;
+    this.patchAccomplishments();
+    // console.log(data,'this.data.accomplishments_details ');
+
     this.dependentDetails = data && data.dependent_details && data.dependent_details.length > 0 ? data.dependent_details : [];
     if (this.dependentDetails.length > 0) {
       this.patchDependent();
     } else {
       this.dependentDetailsMap = [];
     }
+
     this.educationDetails = data && data.education_details && data.education_details.educations && data.education_details.educations.length > 0 ? data.education_details.educations : [];
     this.educationDetailsAllData = data.education_details ? data.education_details : null;
     this.selectedPost = data && data.education_details && data.education_details.selected_post ? data.education_details.selected_post : '';
@@ -432,6 +469,16 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       this.patchEducation();
     } else {
       this.educationDetailsMap = [];
+    }
+
+    this.projectDetails = data && data.project_details && data.project_details.projects && data.project_details.projects.length > 0 ? data.project_details.projects : [];
+    // this.projectDetailsAllData = data.project_details ? data.project_details : null;
+    // this.projectDetailsAllData = data.project_details && data.project_details.projects ? data.project_details.projects : null;
+    // console.log( this.projectDetails,'length');
+    if (this.projectDetails.length > 0) {
+      this.patchProject();
+    } else {
+      this.projectDetailsMap = [];
     }
     // Documents mapping
     this.documentDetails = data && data.document_details ? data.document_details : null;
@@ -487,6 +534,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         this.documentDetails = null;
       }
     }
+    // this.patchingCriminal();
+
     // Work Experience
     this.getWorkApiDetails(data);
 this.patchDisciplinary();
@@ -655,6 +704,7 @@ this.patchDisciplinary();
       // [this.form_caste_preview]: [null, [Validators.required ]],
       // [this.form_coc]: [null, [Validators.required ]],
       // [this.form_joining]: [null,[Validators.required ]],
+
       [this.form_terms_conditions]: [null, [Validators.requiredTrue, Validators.nullValidator]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
@@ -666,8 +716,205 @@ this.patchDisciplinary();
     this.acknowledgmentForm.patchValue(data);
   }
 
+
+  patchWorkDetails() {
+    if (this.workDetails.Employment && this.workDetails.Employment.length > 0) {
+      let experience = [];
+      this.workDetails.Employment.forEach(element => {
+        if (element && element[this.form_employment_name_address]) {
+          experience.push(element);
+        }
+      });
+      this.workDetails.Employment = experience;
+    }
+
+    if (this.workDetails && this.workDetails.intern && this.workDetails.intern.length > 0) {
+      let training = [];
+// console.log(this.workDetails.intern,'this.workDetails.intern');
+
+      this.workDetails.intern.forEach((element) => {
+        element[this.form_training_employer_name] = element?.[this.form_training_employer_name] ? element?.[this.form_training_employer_name] : 'NIL';
+        element[this.form_training_from_date] = element?.[this.form_training_from_date] ? element?.[this.form_training_from_date] : 'NIL';
+        element[this.form_training_to_date] = element?.[this.form_training_to_date] ? element?.[this.form_training_to_date] : 'NIL';
+        element[this.form_training_work_responsiability] = element?.[this.form_training_work_responsiability] ? element?.[this.form_training_work_responsiability] : 'NIL';
+      });
+      this.workDetails.intern = training;
+    }
+
+    if (this.workDetails.workDetails) {
+      let work = this.workDetails.workDetails;
+      work[this.form_break_in_emp] = work[this.form_break_in_emp] ? work[this.form_break_in_emp] : null;
+      work[this.form_employed_us] = work[this.form_employed_us] == '1' ? true : false;
+      work[this.form_interviewed_by_us] = work[this.form_interviewed_by_us] == '1' ? true : false;
+      work[this.form_total_exp_months] = work[this.form_total_exp_months] ? Number(work[this.form_total_exp_months]) : 0;
+      work[this.form_total_exp_years] = work[this.form_total_exp_years] ? Number(work[this.form_total_exp_years]) : 0;
+      this.workDetails.workDetails = work;
+    }
+  }
+
+  getWorkApiDetails(datas) {
+    if (datas && datas['experience_details']) {
+      let data = datas['experience_details'];
+      this.workDetailsAlldata = data ? data : null;
+      let work = {
+        workDetails: data && data.work_details ? data.work_details : null,
+        Employment: data && data.employments ? data.employments : [],
+        intern: data && data.intern ? data.intern : [],
+        // bgvDetails: data && data.bgv_details ? data.bgv_details : null,
+        relatives: data && data[this.form_Relatives_Array] && data[this.form_Relatives_Array].length > 0 ? data[this.form_Relatives_Array] : null,
+        skills: data && data[this.form_Skills_Array] && data[this.form_Skills_Array].length > 0 ? data[this.form_Skills_Array] : null,
+        faculty: data && data['faculty_references'] && data['faculty_references'].length > 0 ? data['faculty_references'] : null,
+      }
+      this.workDetails = work;
+      this.patchWorkDetails();
+      // this.patchingCriminal();
+      if ((work.workDetails && (work.workDetails.break_in_emp || work.workDetails.employed_us == '1' || work.workDetails.interviewed_by_us == '1' || work.workDetails.total_exp_months || work.workDetails.total_exp_years)) || (this.workDetails.bgvDetails && this.workDetails.bgvDetails.show) || (work.Employment && work.Employment.length > 0 && work.Employment[0] && work.Employment[0][this.form_employment_name_address] ) || this.workDetails.relatives || this.workDetails.skills || this.workDetails.faculty || (this.workDetailsAlldata && (this.workDetailsAlldata[this.form_training_is_articleship_status] || this.workDetailsAlldata[this.form_ca_achivement] || this.workDetailsAlldata[this.form_is_ca_resaon_suitable]))) {
+        this.noShowWork = false;
+      } else {
+        this.noShowWork = true;
+      }
+    } else {
+      this.workDetails = null;
+    }
+}
+
+  customEducationLabel(label) {
+    if (label == 'SSLC') {
+      return 'SSLC/10th';
+    }
+    if (label == 'HSC') {
+      return 'HSC/12th';
+    }
+    if (label == 'UG') {
+      return 'Undergraduate';
+    }
+    if (label == 'PG') {
+      return 'Postgraduate';
+    }
+    return label;
+  }
+
+  patchEducation() {
+    this.educationDetailsMap = [];
+    this.educationDetails.forEach(element => {
+      if (element) {
+        if (element[this.form_qualification_type] == 'SSLC') {
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'SSLC/10th' : 'NA';
+        }
+        if (element[this.form_qualification_type] == 'HSC') {
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'HSC/12th' : 'NA';
+        }
+        if (element[this.form_qualification_type] == 'UG') {
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Undergraduate' : 'NA';
+        }
+        if (element[this.form_qualification_type] == 'PG') {
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Postgraduate' : 'NA';
+        }
+        element[this.form_qualification_type] = element?.[this.form_qualification_type] ? element?.[this.form_qualification_type] : 'NA';
+        element[this.form_qualification] = element?.[this.form_qualification] ? element?.[this.form_qualification] : '';
+        element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : '';
+        element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : '';
+        element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
+        element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NA';
+        element[this.form_gap] = element?.[this.form_gap] ? element?.[this.form_gap] : 'NIL';
+        element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NA';
+        element[this.form_backlog] = element?.[this.form_backlog] ? element?.[this.form_backlog] : 0;
+        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : '';
+        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : '';
+        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : 'NA';
+        element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NA';
+        this.educationDetailsMap.push(element);
+      }
+    });
+  }
+
+  patchDependent() {
+    this.dependentDetailsMap = [];
+    this.dependentDetails.forEach(element => {
+      if (element) {
+        element[this.form_dependent_dob] = element?.[this.form_dependent_dob] ? this.dateConvertion(element[this.form_dependent_dob]) : 'NA';
+        element[this.form_dependent_differently_abled] = element?.[this.form_dependent_differently_abled] == '1' ? 'Yes' : element[this.form_dependent_differently_abled] == '0' ? 'No' : 'NA';
+        element[this.form_dependent_status] = element?.[this.form_dependent_status] == '1' ? 'Active' : element[this.form_dependent_status] == '0' ? 'Inactive' : 'NA';
+        element[this.form_isDependent] = element?.[this.form_isDependent] == '1' ? 'Yes' : element[this.form_isDependent] == '0' ? 'No' : 'NA';
+        element[this.form_dependent_occupation] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
+        element[this.form_dependent_relationship] = element?.[this.form_dependent_relationship] ? element[this.form_dependent_relationship] : 'NA';
+        element[this.form_dependent_other] = element?.[this.form_dependent_other] ? element[this.form_dependent_other] : 'NA';
+        this.dependentDetailsMap.push(element);
+      }
+    });
+  }
+
+  patchProject() {
+    this.projectDetailsMap = [];
+    // console.log(this.projectDetails,'this.projectDetailspatch');
+    this.projectDetails.forEach(element => {
+      if (element) {
+        element[this.form_typeList] = element?.[this.form_typeList] ? element[this.form_typeList] : 'NA';
+        element[this.form_teamSize] = element?.[this.form_teamSize] ? element[this.form_teamSize] : 'NA';
+        element[this.form_projectTitle] = element?.[this.form_projectTitle] ? element[this.form_projectTitle]  : 'NA';
+        element[this.form_periodFrom] = element?.[this.form_periodFrom] ? element[this.form_periodFrom]  : 'NA';
+        element[this.form_periodTo] = element?.[this.form_periodTo] ? element[this.form_periodTo]  : 'NA';
+        element[this.form_projectDescription] = element?.[this.form_projectDescription] ? element[this.form_projectDescription] : 'NA';
+        element[this.form_projectOrganization] = element?.[this.form_projectOrganization] ? element[this.form_projectOrganization] : 'NA';
+        // element[this.form_periodTo] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
+        this.projectDetailsMap.push(element);
+        // console.log(this.projectDetailsMap,'this.projectDetailsMap');
+      }
+    });
+
+  }
+
+  getAllPresentCities(id, cityId, callback) {
+    const ApiData = {
+      state_id: id
+    };
+    let city;
+   this.updatedCitySubscription = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
+      // this.hideCityDropDown = false;
+
+      this.allPresentCityList = datas.data;
+      this.allPresentCityList.forEach(element => {
+        if (element.id == cityId) {
+          city = element.name;
+        }
+      });
+      callback(city);
+    }, (err) => {
+      callback(null);
+    });
+  }
+
+  getAllPermanentCities(id, cityId, callback) {
+    const ApiData = {
+      state_id: id
+    };
+    let city;
+   this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
+      // this.hideCityDropDown = false;
+
+      this.allPermanentCityList = datas.data;
+      this.allPermanentCityList.forEach(element => {
+        if (element.id == cityId) {
+          city = element.name;
+        }
+      });
+      callback(city);
+    }, (err) => {
+      callback(null);
+    });
+  }
+
+  patchDisciplinary(){
+    // this.disciplinaryDetailsAlldata = data ? data : null;
+    // bgvDetails: data && data.bgv_details ? data.bgv_details : null,
+    // if (this.disciplinaryDetails && this.disciplinaryDetails.bgvDetails) {
+    //         this.patchingCriminal();
+    // }
+  }
   patchingCriminal() {
     let bgv;
+    console.log(this.disciplinaryDetails,'this.disciplinaryDetails.bgvDetails');
+
     if (this.disciplinaryDetails.bgvDetails) {
       let data = this.disciplinaryDetails.bgvDetails;
       bgv = {
@@ -715,173 +962,15 @@ this.patchDisciplinary();
       bgv.show = false;
     }
     this.disciplinaryDetails.bgvDetails = bgv;
-  }
-  patchWorkDetails() {
-    if (this.workDetails.Employment && this.workDetails.Employment.length > 0) {
-      let experience = [];
-      this.workDetails.Employment.forEach(element => {
-        if (element && element[this.form_employment_name_address]) {
-          experience.push(element);
-        }
-      });
-      this.workDetails.Employment = experience;
-    }
-    if (this.workDetails.workDetails) {
-      let work = this.workDetails.workDetails;
-      work[this.form_break_in_emp] = work[this.form_break_in_emp] ? work[this.form_break_in_emp] : null;
-      work[this.form_employed_us] = work[this.form_employed_us] == '1' ? true : false;
-      work[this.form_interviewed_by_us] = work[this.form_interviewed_by_us] == '1' ? true : false;
-      work[this.form_total_exp_months] = work[this.form_total_exp_months] ? Number(work[this.form_total_exp_months]) : 0;
-      work[this.form_total_exp_years] = work[this.form_total_exp_years] ? Number(work[this.form_total_exp_years]) : 0;
-      this.workDetails.workDetails = work;
-    }
-  }
-
-  getWorkApiDetails(datas) {
-    if (datas && datas['experience_details']) {
-      let data = datas['experience_details'];
-      this.workDetailsAlldata = data ? data : null;
-      let work = {
-        workDetails: data && data.work_details ? data.work_details : null,
-        Employment: data && data.employments ? data.employments : [],
-        bgvDetails: data && data.bgv_details ? data.bgv_details : null,
-        relatives: data && data[this.form_Relatives_Array] && data[this.form_Relatives_Array].length > 0 ? data[this.form_Relatives_Array] : null,
-        skills: data && data[this.form_Skills_Array] && data[this.form_Skills_Array].length > 0 ? data[this.form_Skills_Array] : null,
-        faculty: data && data['faculty_references'] && data['faculty_references'].length > 0 ? data['faculty_references'] : null,
-      }
-      this.workDetails = work;
-      this.patchWorkDetails();
-      // this.patchingCriminal();
-      if ((work.workDetails && (work.workDetails.break_in_emp || work.workDetails.employed_us == '1' || work.workDetails.interviewed_by_us == '1' || work.workDetails.total_exp_months || work.workDetails.total_exp_years)) || (this.workDetails.bgvDetails && this.workDetails.bgvDetails.show) || (work.Employment && work.Employment.length > 0 && work.Employment[0] && work.Employment[0][this.form_employment_name_address] ) || this.workDetails.relatives || this.workDetails.skills || this.workDetails.faculty || (this.workDetailsAlldata && (this.workDetailsAlldata[this.form_training_is_articleship_status] || this.workDetailsAlldata[this.form_ca_achivement] || this.workDetailsAlldata[this.form_is_ca_resaon_suitable]))) {
-        this.noShowWork = false;
-      } else {
-        this.noShowWork = true;
-      }
-    } else {
-      this.workDetails = null;
-    }
-}
-
-  customEducationLabel(label) {
-    if (label == 'SSLC') {
-      return 'SSLC/10th';
-    }
-    if (label == 'HSC') {
-      return 'HSC/12th';
-    }
-    if (label == 'UG') {
-      return 'Undergraduate';
-    }
-    if (label == 'PG') {
-      return 'Postgraduate';
-    }
-    return label;
-  }
-
-  patchDisciplinary(){
-    // this.disciplinaryDetailsAlldata = data ? data : null;
-    if (this.disciplinaryDetails && this.disciplinaryDetails.bgvDetails) {
-            this.patchingCriminal();
-
-    }
+    console.log(this.disciplinaryDetails.bgvDetails,'this.disciplinaryDetails.bgvDetails');
 
   }
-
-  patchEducation() {
-    this.educationDetailsMap = [];
-    this.educationDetails.forEach(element => {
-      if (element) {
-        if (element[this.form_qualification_type] == 'SSLC') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'SSLC/10th' : 'NA';
-        }
-        if (element[this.form_qualification_type] == 'HSC') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'HSC/12th' : 'NA';
-        }
-        if (element[this.form_qualification_type] == 'UG') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Undergraduate' : 'NA';
-        }
-        if (element[this.form_qualification_type] == 'PG') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Postgraduate' : 'NA';
-        }
-
-        element[this.form_qualification_type] = element?.[this.form_qualification_type] ? element?.[this.form_qualification_type] : 'NA';
-        element[this.form_qualification] = element?.[this.form_qualification] ? element?.[this.form_qualification] : '';
-        element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : '';
-        element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : '';
-        element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
-        element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NA';
-        element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NA';
-        element[this.form_backlog] = element?.[this.form_backlog] ? element?.[this.form_backlog] : 0;
-        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : '';
-        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : '';
-        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : 'NA';
-        element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NA';
-        this.educationDetailsMap.push(element);
-      }
-    });
-  }
-
-  patchDependent() {
-    this.dependentDetailsMap = [];
-    this.dependentDetails.forEach(element => {
-      if (element) {
-        element[this.form_dependent_dob] = element?.[this.form_dependent_dob] ? this.dateConvertion(element[this.form_dependent_dob]) : 'NA';
-        element[this.form_dependent_differently_abled] = element?.[this.form_dependent_differently_abled] == '1' ? 'Yes' : element[this.form_dependent_differently_abled] == '0' ? 'No' : 'NA';
-        element[this.form_dependent_status] = element?.[this.form_dependent_status] == '1' ? 'Active' : element[this.form_dependent_status] == '0' ? 'Inactive' : 'NA';
-        element[this.form_isDependent] = element?.[this.form_isDependent] == '1' ? 'Yes' : element[this.form_isDependent] == '0' ? 'No' : 'NA';
-        element[this.form_dependent_occupation] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
-        this.dependentDetailsMap.push(element);
-      }
-    });
-  }
-
-  getAllPresentCities(id, cityId, callback) {
-    const ApiData = {
-      state_id: id
-    };
-    let city;
-   this.updatedCitySubscription = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
-      // this.hideCityDropDown = false;
-
-      this.allPresentCityList = datas.data;
-      this.allPresentCityList.forEach(element => {
-        if (element.id == cityId) {
-          city = element.name;
-        }
-      });
-      callback(city);
-    }, (err) => {
-      callback(null);
-    });
-  }
-
-  getAllPermanentCities(id, cityId, callback) {
-    const ApiData = {
-      state_id: id
-    };
-    let city;
-   this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
-      // this.hideCityDropDown = false;
-
-      this.allPermanentCityList = datas.data;
-      this.allPermanentCityList.forEach(element => {
-        if (element.id == cityId) {
-          city = element.name;
-        }
-      });
-      callback(city);
-    }, (err) => {
-      callback(null);
-    });
-  }
-
-
   patchContactForm() {
     let presentState: any;
     let permanentState: any;
     let presentCity: any;
     let permanentCity: any;
-    console.log(this.contactDetails)
+    // console.log(this.contactDetails)
     const data = {
       [this.form_present_address_1]: this.contactDetails?.[this.form_present_address_1] ? this.contactDetails[this.form_present_address_1] : null,
       [this.form_present_address_2]: this.contactDetails?.[this.form_present_address_2] ? this.contactDetails[this.form_present_address_2] : null,
@@ -900,7 +989,7 @@ this.patchDisciplinary();
       [this.form_permanent_zip_code]: this.contactDetails?.[this.form_permanent_zip_code] ? this.contactDetails[this.form_permanent_zip_code] : 'NA'
     };
     this.contactDetailsMap = data;
-    console.log(this.contactDetailsMap)
+    // console.log(this.contactDetailsMap)
     this.contactDetailsMap.presentAddress =  this.getPresentAddress(this.contactDetails?.[this.form_present_address_1], this.contactDetails?.[this.form_present_address_2], this.contactDetails?.[this.form_present_address_3]);
     this.contactDetailsMap.permanentAddress = this.getPermanentAddress(this.contactDetails?.[this.form_permanent_address_1], this.contactDetails?.[this.form_permanent_address_2], this.contactDetails?.[this.form_permanent_address_3]);
   }
@@ -925,6 +1014,24 @@ this.patchDisciplinary();
       return `${present}`;
     }
     return 'NA';
+  }
+
+  patchAccomplishments(){
+    // this.accomplishmentsMap = [];
+    // this.accomplishmentDetails.forEach(element => {
+    //   if (element) {
+
+    //   }
+    // });
+    const data = {
+      [this.form_certificationsArray]: this.accomplishmentDetails?.[this.form_certificationsArray] && this.accomplishmentDetails?.[this.form_certificationsArray].length > 0 ? this.accomplishmentDetails[this.form_certificationsArray] : [],
+      [this.form_journalEntryArray]: this.accomplishmentDetails?.[this.form_journalEntryArray] && this.accomplishmentDetails?.[this.form_journalEntryArray].length > 0 ? this.accomplishmentDetails[this.form_journalEntryArray] : [],
+      [this.form_awardsArray]: this.accomplishmentDetails?.[this.form_awardsArray] && this.accomplishmentDetails?.[this.form_awardsArray].length > 0 ? this.accomplishmentDetails[this.form_awardsArray] : [],
+
+    };
+    this.accomplishmentsMap = data;
+    // console.log(this.accomplishmentsMap,'this.accomplishmentsMap');
+
   }
 
   patchPersonalForm() {
@@ -982,8 +1089,11 @@ this.patchDisciplinary();
       [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NA',
       [this.form_nature_of_illness]: this.personalDetails?.[this.form_nature_of_illness] ? this.personalDetails[this.form_nature_of_illness] : 'NA',
       [this.form_physical_disability]: this.personalDetails?.[this.form_physical_disability] ? this.personalDetails[this.form_physical_disability] : 'NA',
+      [this.form_physical_disability_rsn]: this.personalDetails?.[this.form_physical_disability_rsn] ? this.personalDetails[this.form_physical_disability_rsn] : 'NA',
       [this.form_left_eyepower_glass]: this.personalDetails?.[this.form_left_eyepower_glass] ? this.personalDetails[this.form_left_eyepower_glass] : 'NA',
       [this.form_right_eye_power_glass]: this.personalDetails?.[this.form_right_eye_power_glass] ? this.personalDetails[this.form_right_eye_power_glass] : 'NA'
+      // [this.form_employment_name_address]: this.personalDetails?.[this.form_employment_name_address] ? this.personalDetails[this.form_employment_name_address] : 'NA'
+
     };
     this.url = this.personalDetails?.profileImage;
     this.personalDetailsMap = data;
@@ -1018,11 +1128,15 @@ this.patchDisciplinary();
       formSections['document_details'] == '1' &&
       formSections['education_details'] == '1' &&
       formSections['experience_details'] == '1' &&
-      formSections['personal_details'] == '1'
-    ) {
+      formSections['personal_details'] == '1' &&
+      formSections['project_details'] == '1' &&
+      formSections['accomplishments_details'] == '1' &&
+      formSections['discipilinary_details'] == '1'
+      // formSections['project_details'] == '1' &&
+      ) {
       return true;
     } else {
-     formSections['personal_details'] != '1' ? this.appConfig.nzNotification('error', 'Personal Details', 'Go back and submit the personal details form again') : formSections['contact_details'] != '1' ? this.appConfig.nzNotification('error', 'Contact Details', 'Go back and submit the contact details form again') : formSections['dependent_details'] != '1' ? this.appConfig.nzNotification('error', 'Dependent Details', 'Go back and submit the dependent details form again') : formSections['document_details'] != '1' ? this.appConfig.nzNotification('error', 'Upload documents', 'Go back and submit the upload documents form again') : formSections['education_details'] != '1' ? this.appConfig.nzNotification('error', 'Education Details', 'Go back and submit the education details form again') : formSections['experience_details'] != '1' ? this.appConfig.nzNotification('error', 'Work Experience Details', 'Go back and submit the work experience details form again') : '';
+     formSections['personal_details'] != '1' ? this.appConfig.nzNotification('error', 'Personal Details', 'Go back and submit the personal details form again') : formSections['contact_details'] != '1' ? this.appConfig.nzNotification('error', 'Contact Details', 'Go back and submit the contact details form again') : formSections['dependent_details'] != '1' ? this.appConfig.nzNotification('error', 'Dependent Details', 'Go back and submit the dependent details form again') : formSections['document_details'] != '1' ? this.appConfig.nzNotification('error', 'Upload documents', 'Go back and submit the upload documents form again') : formSections['education_details'] != '1' ? this.appConfig.nzNotification('error', 'Education Details', 'Go back and submit the education details form again') : formSections['experience_details'] != '1' ? this.appConfig.nzNotification('error', 'Work Experience Details', 'Go back and submit the work experience details form again') : formSections['project_details'] != '1' ? this.appConfig.nzNotification('error', 'project Details', 'Go back and submit the project details form again') : formSections['accomplishments_details'] != '1' ? this.appConfig.nzNotification('error', 'accomplishments', 'Go back and submit the accomplishments form again') : formSections['discipilinary_details'] != '1' ? this.appConfig.nzNotification('error', 'discipilinary Details', 'Go back and submit the discipilinary details form again'): '';
      return false;
     }
   }

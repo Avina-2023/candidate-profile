@@ -2,7 +2,8 @@
 .joining-personal-wrapper {
     width: 100%;
     overflow-y: scroll;
-    height: 768px;
+    overflow-x: hidden;
+    height: 775px;
 .Personal{
   display: flex;
 }
@@ -17,9 +18,9 @@
             position: relative;
             .section {
                 background: #FFFFFF 0% 0% no-repeat padding-box;
-                // box-shadow: 2px 2px 5px #0000001A;
-                // border: 1px solid rgb(147, 147, 147, 0.5);
-                border-radius: 8px;
+                box-shadow: 0.5px 0.87px 10px #00000012;
+                                // border: 1px solid rgb(147, 147, 147, 0.5);
+                // border-radius: 8px;
                 position: relative;
                 width: 100%;
                 // margin-top: 1em;
@@ -62,12 +63,12 @@
                     flex-wrap: wrap;
                     margin-right: 8px;
                     width: 100%;
-
+                    align-items: center;
                     label {
                         color: #808080;
                         padding: 0 0 0px 0;
                         margin: 0;
-                        font-size: 13px;
+                        font-size: 14px;
                         width: 50%;
 
                     }
@@ -84,16 +85,17 @@
                         // padding: 4px 8px;
                         background-color: $white;
                         // width: 100%;
-                        line-height: 1.2;
+                        // line-height: 1.2;
+                        line-height: inherit;
                     }
                     .size-16 {
-                        font-size: 16px;
+                        font-size: 14px;
                     }
                     .bold-700 {
                         font-weight: 400;
                     }
                     .color-black {
-                        color: #353535;
+                        color: #000000;
                     }
                     .select {
                         display: flex;
@@ -187,7 +189,7 @@
         }
         .joining-form-submit {
             min-width: 150px !important;
-            border-radius: 18px !important;
+            border-radius: 3px !important;
             min-height: 34px !important;
             font-size: 14px !important;
             align-items: center !important;
@@ -199,9 +201,10 @@
   display: none;
 }
 .border-wrapper {
-    border-top: 1px dashed rgb(147, 147, 147, 0.5);
+    border-top: 1px solid #BBC2CB99;
     padding-top: 1em;
 }
+
 
 .border-wrapper:nth-of-type(1) {
     border: none !important;
@@ -653,11 +656,12 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        align-items: center;
         label {
             color: #565656;
             padding: 0 0 2px 0;
             margin: 0;
-            font-size: 13px;
+            font-size: 14px;
         }
         .input {
             position: relative;
@@ -931,7 +935,7 @@
 
 .Profile-Summary{
   font-size: 14px;
-  padding: 1em;
+  // padding: 1em;
 }
 .download-button{
   color: #294D96;
@@ -948,4 +952,58 @@
 }
 .declaration-sign{
   display: flex;
+}
+.overall-input-wrapperlang {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  flex-wrap: wrap;
+  margin-right: 8px;
+  width: 100%;
+  label {
+    color: #565656;
+    padding: 0 0 2px 0;
+    margin: 0;
+    font-size: 14px;
+}
+.input {
+    position: relative;
+    border: solid 0.8px #bebebe;
+    border-radius: 2px;
+    color: #6b6b6b;
+    outline: none;
+    box-sizing: border-box;
+    min-height: 35px !important;
+    max-height: 35px !important;
+    padding: 4px 8px;
+    background-color: $white;
+    width: 100%;
+}
+.select {
+    display: flex;
+    align-items: center;
+    padding: 0px !important;
+    border: none !important;
+}
+.input:focus,
+.input:hover {
+    border: 1px solid $primary-hover-color;
+}
+.form-error {
+    color: $primary-error-text;
+    font-size: 12px;
+}
+ ::placeholder {
+    color: #a5a5a5 !important;
+    opacity: 1;
+    font-size: 13px;
+}
+}
+.border-address{
+  border-bottom: 1px solid #BBC2CB99;
+  padding-top: 1em;
+}
+.bgupload{
+  background-color:#EAEAEA !important;
+  padding: 7px;
 }

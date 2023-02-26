@@ -104,7 +104,7 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
   form_dependent_occupation = 'occupation';
   form_dependent_differently_abled = 'differently_abled';
   form_dependent_status = 'status';
-  form_isDependent = 'dependent'
+  form_dependent_relationship = 'relationship'
 
   dependedentDetails: any;
   checkFormValidRequest: Subscription;
@@ -155,7 +155,6 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
   }
 
   getDependentApiDetails() {
-    console.log(this.dependedentDetails ,'dfas');
 
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
@@ -172,6 +171,8 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
       //   this.dependedentDetails && this.dependedentDetails.length > 0 ? this.ifDependentDetails() : this.ifNotDependentDetails();
       // });
     }
+    console.log(this.dependedentDetails ,'dfas');
+
   }
 
   ifDependentDetails() {
@@ -309,10 +310,9 @@ console.log(this.dependentForm,'dependentForm');
       [this.form_dependent_dob]: [this.dateConvertion(data[this.form_dependent_dob]), [Validators.required]],
       [this.form_dependent_occupation]: [data[this.form_dependent_occupation], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_dependent_other]: [data[this.form_dependent_other]],
-
          [this.form_dependent_differently_abled]: [data[this.form_dependent_differently_abled], this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_dependent_status]: [data[this.form_dependent_status], this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
-      [this.form_isDependent]: [data[this.form_isDependent], [Validators.required]],
+      [this.form_dependent_relationship]: [data[this.form_dependent_relationship], [Validators.required]],
     })
   }
 
@@ -321,7 +321,7 @@ console.log(this.dependentForm,'dependentForm');
       [this.form_dependent_name]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dependent_dob]: [null, [Validators.required]],
       [this.form_dependent_occupation]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-      [this.form_isDependent]: [null, [ Validators.required]],
+      [this.form_dependent_relationship]: [null, [ Validators.required]],
       [this.form_dependent_other]: [null],
       [this.form_dependent_differently_abled]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_dependent_status]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
@@ -336,7 +336,7 @@ console.log(this.dependentForm,'dependentForm');
   }
   setValidations() {
     this.getDependentArr.controls.forEach((data,index) => {
-    if (this.getDependentArr.controls[index]['controls'][this.form_isDependent].value == 'Others') {
+    if (this.getDependentArr.controls[index]['controls'][this.form_dependent_relationship].value == 'Others') {
       this.getDependentArr.controls[index]['controls'][this.form_dependent_other].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
     this.getDependentArr['controls'][index]['controls'][this.form_dependent_other].updateValueAndValidity();
     }else{
@@ -381,11 +381,11 @@ console.log(this.dependentForm,'dependentForm');
   get dependent_status() {
   return this.dependentForm.get(this.form_dependent_status);
   }
-  get isDependent() {
-    return this.dependentForm.get(this.form_isDependent);
+  get relationship() {
+    return this.dependentForm.get(this.form_dependent_relationship);
   }
 check(index){
-  console.log(this.getDependentArr.controls[index]['controls'][this.form_isDependent].value);
+  console.log(this.getDependentArr.controls[index]['controls'][this.form_dependent_relationship].value);
   this.getDependentArr
 
 }

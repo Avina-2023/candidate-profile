@@ -255,7 +255,7 @@ constructor(
    }
 
   showStepper() {
-    this.sharedService.joiningFormActiveSelector.next('work');
+    this.sharedService.joiningFormActiveSelector.next('education');
   }
 
 
@@ -308,7 +308,9 @@ constructor(
       this.formInitialize();
       this.educationDetails = this.candidateService.getLocaleducation_details().educations;
       // this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
-      this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
+      // this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
+      this.candidateService.getLocaleducation_details().isHighLevelEdu ? this.isHighLevelEdu.setValue(true) : this.isHighLevelEdu.setValue(false);
+
       this.getSelectedPost();
       this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
     } else {
@@ -534,6 +536,8 @@ validSelectedPost() {
           saving_data: {
             // selected_post: this.selectedPost,
             // ca_bothgroup_status: this.checkLastIndexOfCA() ? (this.ca_bothgroup_status.value ? 1 : 0) : null,
+          // isHighLevelEdu: this.educationLevel(e) ? (this.isHighLevelEdu.value ? 1 : 0) : null,
+
             educations: formArray
           }
         };
@@ -637,7 +641,7 @@ console.log(this.educationForm,'educationForm');
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }
- changeWorkExp(e) {
+  educationLevel(e) {
     if (e.checked) {
       this.showWorkExp = '1';
     } else {

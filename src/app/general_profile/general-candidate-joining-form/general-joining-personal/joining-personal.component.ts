@@ -651,7 +651,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_no_of_days]: this.personalDetails[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days].toString() : null,
       [this.form_nature_of_illness]: this.personalDetails[this.form_nature_of_illness],
       [this.form_physical_disability_rsn]: this.personalDetails[this.form_physical_disability_rsn],
-       [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == true) ? 'true' : 'false',
+       [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == true) ? 'Yes' : 'No',
       // [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] == 0 ? '0' : '1',
       [this.form_left_eyepower_glass]: this.personalDetails[this.form_left_eyepower_glass],
       [this.form_right_eye_power_glass]: this.personalDetails[this.form_right_eye_power_glass]

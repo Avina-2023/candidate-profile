@@ -7,6 +7,7 @@
   padding-top: 0px !important;
   overflow-y: scroll;
   height: 768px;
+  overflow-x: hidden;
   // padding: 20px;
   .h {
     border-bottom: 1px solid #bbc2cb99;
@@ -370,7 +371,7 @@ padding: 20px;
   }
   .joining-form-submit {
       min-width: 150px !important;
-      border-radius: 18px !important;
+      border-radius: 3px !important;
       min-height: 34px !important;
       font-size: 14px !important;
       align-items: center !important;

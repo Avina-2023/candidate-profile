@@ -402,7 +402,7 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   EmploymentArrayPatch(data) {
     return this.fb.group({
       [this.form_employment_name_address]: [data[this.form_employment_name_address],[Validators.required]],
-      [this.form_duration_from]: [data[this.form_duration_from],[Validators.required]],
+      [this.form_duration_from]: [this.dateConvertion(data[this.form_duration_from])],
       [this.form_achievement]: [data[this.form_achievement], [Validators.required]],
       [this.form_postion_field]: [data[this.form_postion_field], [Validators.required]],
       [this.form_hr_contact_no]: [data[this.form_hr_contact_no], [RemoveWhitespace.whitespace(), this.glovbal_validators.mobileRegex()]],

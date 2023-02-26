@@ -64,18 +64,23 @@
                 </div>
                 <div class="overall-input-wrapper width-32 mb-3">
                   <label>Relationship<span class="redTxt">*</span></label>
-                  <nz-select class="input select" [formControlName]="form_isDependent" nzAllowClear
+                  <div [ngClass]="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')? 'dynamicclass' : ' width-100' ">
+                    <nz-select  class="input select" [formControlName]="form_dependent_relationship" nzAllowClear
                     nzShowSearch nzPlaceHolder="Select">
                     <nz-option *ngFor="let relation of relationshipList" [nzLabel]="relation.label"
                       [nzValue]="relation.value"></nz-option>
                   </nz-select>
-<div *ngIf="(getDependentArr.controls[i].get(form_isDependent).value == 'Others')" > <input matInput placeholder="Enter here" class="input" type="text"
-  [formControlName]="form_dependent_other"></div>
+                  <div class="otherinp" *ngIf="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')" >
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                    [formControlName]="form_dependent_other"></div>
+                  </div>
+
+
                   <div class="form-error"
-                    *ngIf="getDependentArr.controls[i].get(form_isDependent).invalid && getDependentArr.controls[i].get(form_isDependent).touched">
-                    <div *ngIf="getDependentArr.controls[i].get(form_isDependent).errors?.required">
+                    *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).invalid && getDependentArr.controls[i].get(form_dependent_relationship).touched">
+                    <div *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).errors?.required">
                       Relationship is Required</div>
-                    <div *ngIf="getDependentArr.controls[i].get(form_isDependent).errors?.alphaNum255">
+                    <div *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).errors?.alphaNum255">
                       Alpha numeric with maximum of 255 characters only
                       allowed</div>
                   </div>
@@ -130,14 +135,14 @@
               <div *ngIf="candidateService.checkKycOrJoiningForm()" class="row-wrapper">
                 <div class="overall-input-wrapper width-32 mb-3">
                   <label>Is Dependent<span></span></label>
-                  <nz-select class="input select" [formControlName]="form_isDependent" nzAllowClear nzShowSearch
+                  <nz-select class="input select" [formControlName]="form_dependent_relationship" nzAllowClear nzShowSearch
                     nzPlaceHolder="Select">
                     <nz-option *ngFor="let dependent of diffAbledDropdownList" [nzLabel]="dependent.label"
                       [nzValue]="dependent.value"></nz-option>
                   </nz-select>
                   <div class="form-error"
-                    *ngIf="getDependentArr.controls[i].get(form_isDependent).invalid && getDependentArr.controls[i].get(form_isDependent).touched">
-                    <div *ngIf="getDependentArr.controls[i].get(form_isDependent)?.errors?.required">
+                    *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).invalid && getDependentArr.controls[i].get(form_dependent_relationship).touched">
+                    <div *ngIf="getDependentArr.controls[i].get(form_dependent_relationship)?.errors?.required">
                       Is Dependent is Required</div>
                   </div>
                 </div>
@@ -156,19 +161,18 @@
         </div>
       </div>
 
-      <div class="row-wrapper justify-content-between d-flex flex-row align-items-center mt-5 mb-3 footer"
-        style="width: 100%;">
-        <div (click)="routeNext('contact')" class="d-flex align-content-center align-items-center position-relative"
+      <div class="row-wrapper justify-content-between d-flex flex-column align-items-center mt-5 mb-3 footer">
+        <!-- <div (click)="routeNext('contact')" class="d-flex align-content-center align-items-center position-relative"
           style="cursor: pointer;">
           <div class="left-arrow position-absolute"></div>
           <div class="sections left-space">
             <div class="label">Previous Section</div>
             <div class="value">Contact Details</div>
           </div>
-        </div>
+        </div> -->
         <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
           Continue</button>
-        <div (click)="routeNext('education')"
+        <!-- <div (click)="routeNext('education')"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"
           style="cursor: pointer;">
           <div class="right-arrow position-absolute"></div>
@@ -176,7 +180,7 @@
             <div class="label">Next Section</div>
             <div class="value">Education Details</div>
           </div>
-        </div>
+        </div> -->
       </div>
     </form>
     <div class="photo-wrapper">

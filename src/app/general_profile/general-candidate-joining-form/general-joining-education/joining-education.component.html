@@ -430,7 +430,7 @@
                             </div>
                         </div>
 
-                        <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && ((getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma') || (getEducationArr.controls[i].get(form_qualification_type).value == 'UG') || (getEducationArr.controls[i].get(form_qualification_type).value == 'PG'))">
+                        <!-- <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && ((getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma') || (getEducationArr.controls[i].get(form_qualification_type).value == 'UG') || (getEducationArr.controls[i].get(form_qualification_type).value == 'PG'))">
                             <div class="overall-input-wrapper mb-3 width-100">
                             <label>Final Percentage(%)<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
@@ -447,7 +447,7 @@
                                     Number with 2 Decimal points only allowed</div>
                             </div>
                         </div>
-                        </ng-container>
+                        </ng-container> -->
                         <div class="overall-input-wrapper width-100" style="padding: 10px 0px;">
                           <label>Do you have any gap during the education?<span></span></label>
                           <div style="width: 100% !important;">
@@ -509,7 +509,7 @@
 
                     </div>
                     <div class="overall-input-wrapper mt-2  width-100">
-                      <div> <mat-checkbox [formControl]="isHighLevelEdu" (change)="changeWorkExp($event)" class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
+                      <div> <mat-checkbox [formControl]="isHighLevelEdu" (change)="educationLevel($event)" class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
                     </div>
                     </div>
                 </ng-container>
@@ -519,18 +519,18 @@
                     <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button" (click)="addToEducationArray()">+ Add More Education</button>
             </div>
 
-            <div class="row-wrapper justify-content-between flex-row align-items-center mt-5 mb-3 footer" style="width: 100%;">
-                <div (click)="routeNext('education')"
+            <div class="row-wrapper justify-content-between  align-items-center mt-5 mb-3 footer" style="width: 100%;">
+                <!-- <div (click)="routeNext('education')"
                     class="d-flex align-content-center align-items-center position-relative" style="cursor: pointer;">
                     <div class="left-arrow position-absolute"></div>
                     <div class="sections left-space">
                         <div class="label">Previous Section</div>
                         <div class="value">Dependent Details</div>
                     </div>
-                </div>
+                </div> -->
                 <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
                     Continue</button>
-                <div (click)="routeNext('project')"
+                <!-- <div (click)="routeNext('project')"
                     class="d-flex align-content-center align-items-center text-right position-relative pointer"
                     style="cursor: pointer;">
                     <div class="right-arrow position-absolute"></div>
@@ -538,7 +538,7 @@
                         <div class="label">Next Section</div>
                         <div class="value">Work Experience Details</div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </form>
         <div class="photo-wrapper">

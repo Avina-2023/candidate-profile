@@ -87,6 +87,7 @@ form_journalEntity_description = 'journalEntityDescription';
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
+    this.getAccomplishmentsApiDetails();
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
@@ -97,14 +98,63 @@ form_journalEntity_description = 'journalEntityDescription';
 
    getAccomplishmentsApiDetails() {
     if (this.candidateService.getLocalProfileData()) {
+      console.log(this.candidateService.getLocalProfileData(),'this.candidateService.getLocalProfileData()');
+      console.log(this.candidateService.getLocalaccomplishments_details(),'this.candidateService.this.candidateService.getLocalaccomplishments_details()()');
+
       this.formInitialize();
-      this.accomplishmentsDetails = this.candidateService.getLocalexperience_details();
-      this.accomplishmentsDetailsAllData = this.candidateService.getLocalexperience_details();
+      this.accomplishmentsDetails = this.candidateService.getLocalaccomplishments_details();
+      // this.accomplishmentsDetailsAllData = this.candidateService.getLocalAccomplishment_details();
+      console.log(this.accomplishmentsDetails,'accomplishmentsDetails');
+
 this.patchaccomplishmentsForm();
     } else {
-
     }
+
   }
+  patchaccomplishmentsForm(){
+    this.getCertificationsArr.clear();
+    console.log(this.accomplishmentsDetails,'patchthis.accomplishmentsDetails');
+
+    this.accomplishmentsDetails.forEach((element, i) => {
+      this.getCertificationsArr.push(this.patchingCertifications(element, i));
+    });
+    this.getawardsArr.clear();
+    this.accomplishmentsDetails.forEach((element, i) => {
+      this.getawardsArr.push(this.patchingAwards(element, i));
+    });
+    this.getJournalEntryArr.clear();
+    this.accomplishmentsDetails.forEach((element, i) => {
+      this.getJournalEntryArr.push(this.patchingjournalentry(element, i));
+    });
+  }
+//   ifCertifications(data){
+//     this.patchingCertifications(data);
+//     console.log('yes');
+//   }
+// ifNotCertifications(){
+//   this.accomplishmentsDetails = [];
+//   this.getCertificationsArr.push(this.initCertificationsArray());
+//   console.log('no');
+// }
+// ifAwards(data){
+//   this.patchingAwards(data);
+//   console.log('yes');
+// }
+// ifNotAwards(){
+//   this.accomplishmentsDetails = [];
+//   this.getCertificationsArr.push(this.initawardsArray());
+//   console.log('no');
+// }
+// ifjournalentry(data){
+//   this.patchingjournalentry(data);
+//   console.log('yes');
+// }
+// ifNotjournalentry(){
+//   this.accomplishmentsDetails = [];
+//   this.getCertificationsArr.push(this.initJournalEntryArray());
+//   console.log('no');
+// }
+
   momentForm(date) {
     if (date) {
       const split = moment(date).format('DD-MM-YYYY');
@@ -133,22 +183,35 @@ this.patchaccomplishmentsForm();
   }
 
   formSubmit(routeValue?: any) {
-    this.loadingService.setLoading(true)
-    let rawaccomplishmentsFormValue = this.accomplishmentsForm.getRawValue();
+    // let rawaccomplishmentsFormValue = this.accomplishmentsForm.getRawValue();
+    // console.log(rawaccomplishmentsFormValue,'rawaccomplishmentsFormValue');
     if(this.accomplishmentsForm.valid) {
-      const accomplishmentsobj = {
-        [this.form_certificationsArray]: rawaccomplishmentsFormValue[this.form_certificationsArray],
-        [this.form_awardsArray]: rawaccomplishmentsFormValue[this.form_awardsArray],
-        [this.form_journalEntryArray]: rawaccomplishmentsFormValue[this.form_journalEntryArray],
-      };
+      // const accomplishmentsobj = {
+      //   [this.form_certificationsArray]: rawaccomplishmentsFormValue[this.form_certificationsArray],
+      //   [this.form_awardsArray]: rawaccomplishmentsFormValue[this.form_awardsArray],
+      //   [this.form_journalEntryArray]: rawaccomplishmentsFormValue[this.form_journalEntryArray],
+      // };
+      const certifications =  this.accomplishmentsForm.getRawValue()[this.form_certificationsArray];
+      let awards =  this.accomplishmentsForm.getRawValue()[this.form_awardsArray];
+      let journals =  this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
+      let apiData = {
+        certifications,
+        awards,
+        journals
+      }
+      console.log(apiData,'apiData');
+
       const AccomplishmentsApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "accomplishments_details",
-        saving_data: accomplishmentsobj
+        saving_data: apiData
       }
+      this.loadingService.setLoading(true)
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(AccomplishmentsApiRequestDetails).subscribe((data: any)=> {
       this.loadingService.setLoading(false)
-        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data.accomplishments_details);
+        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+        console.log(data.data.saved_data  ,'data.data.saved_data');
+
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Accomplishments is updated');
         this.sharedService.joiningFormStepperStatus.next();
@@ -158,27 +221,15 @@ this.patchaccomplishmentsForm();
       this.ngAfterViewInit();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
-      this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
+      // this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
+      this.glovbal_validators.validateAllFields(this.accomplishmentsForm);
     }
-
+    console.log(this.accomplishmentsForm,'accomplishmentsForm');
   }
 
-  patchaccomplishmentsForm(){
-    // this.getCertificationsArr.clear();
-    // this.getawardsArr.clear();
-    // this.getJournalEntryArr.clear();
-    this.accomplishmentsDetails.forEach((element, i) => {
-      this.getCertificationsArr.push(this.patchingCertifications(element));
-    });
-    this.accomplishmentsDetails.forEach((element, i) => {
-      this.getawardsArr.push(this.patchingAwards(element));
-    });
-    this.accomplishmentsDetails.forEach((element, i) => {
-      this.getJournalEntryArr.push(this.patchingjournalentry(element));
-    });
-  }
 
-  patchingCertifications(data){
+
+  patchingCertifications(data, i){
  return this.fb.group({
   [this.form_certification_name]: [data[this.form_certification_name], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
   [this.form_certification_issuedFrom]: [data[this.form_certification_issuedFrom], [Validators.required]],
@@ -186,13 +237,13 @@ this.patchaccomplishmentsForm();
   [this.form_certification_validityFrom]: [data[this.form_certification_validityFrom], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
  })
   }
-  patchingAwards(data){
+  patchingAwards(data, i){
      return this.fb.group({
       [this.form_award_title]: [data[this.form_award_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_award_date]: [data[this.form_award_date], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
  })
   }
-  patchingjournalentry(data){
+  patchingjournalentry(data, i){
     return this.fb.group({
       [this.form_journalEntity_title]: [data[this.form_journalEntity_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_journalEntity_url]: [data[this.form_journalEntity_url], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
@@ -261,6 +312,36 @@ this.patchaccomplishmentsForm();
   get getawardsArr() { return this.accomplishmentsForm.get([this.form_awardsArray]) as FormArray; }
   get getJournalEntryArr() { return this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray; }
 
+  get certificationName() {
+    return this.accomplishmentsForm.get(this.form_certification_name);
+    }
+    get certificationIssuedFrom() {
+      return this.accomplishmentsForm.get(this.form_certification_issuedFrom);
+      }
+      get certificationDescription() {
+        return this.accomplishmentsForm.get(this.form_certification_description);
+        }
+        get certificationValidityFrom() {
+          return this.accomplishmentsForm.get(this.form_certification_validityFrom);
+          }
+          get awardTitle() {
+            return this.accomplishmentsForm.get(this.form_award_title);
+            }
+           get awardDate() {
+            return this.accomplishmentsForm.get(this.form_award_date);
+            }
+          get journalEntityTitle() {
+            return this.accomplishmentsForm.get(this.form_journalEntity_title);
+            }
+            get journalEntityUrl() {
+              return this.accomplishmentsForm.get(this.form_journalEntity_url);
+              }
+              get journalEntityPublishedOn() {
+                return this.accomplishmentsForm.get(this.form_journalEntity_publishedOn);
+                }
+                get journalEntityDescription() {
+                  return this.accomplishmentsForm.get(this.form_journalEntity_description);
+                  }
   initCertificationsArray(){
     return this.fb.group({
       [this.form_certification_name]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],

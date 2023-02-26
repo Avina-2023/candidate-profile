@@ -74,7 +74,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       },
       tillContact() {
         this.personal = true;
-        this.contact = false;
+        this.contact = true;
         this.dependent = false;
         this.education = false;
         this.work = false;
@@ -459,12 +459,12 @@ console.log(file,'ooo');
           param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
           return this.activeStep = 'work';
       }
-      if (data && data.document_details == false) {
+      if (data && data.project_details == false) {
         this.valid.tillproject();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
         return this.activeStep = 'project';
       }
-      if (data && data.document_details == false) {
+      if (data && data.accomplishment_details == false) {
         this.valid.tillaccomplishments();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
         return this.activeStep = 'accomplishments';
@@ -474,7 +474,7 @@ console.log(file,'ooo');
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
         return this.activeStep = 'upload';
       }
-      if (data && data.document_details == false) {
+      if (data && data.disciplinary_details == false) {
         this.valid.tilldisciplinary();
         param ? null : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
         return this.activeStep = 'disciplinary';

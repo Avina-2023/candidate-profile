@@ -365,7 +365,7 @@ mat-drawer ul li span img {
   position: absolute;
   bottom: 30px;
     float: right;
-    padding: 0.2% 1.4%;
+    padding: 0.2em 1em;
   text-align: center;
   bottom: 0;
   right: 0;
@@ -373,7 +373,7 @@ mat-drawer ul li span img {
 .white{
 
   height: 160px;
-  width: 100vw;
+  width: 100%;
   background: #ffffff;
   overflow: hidden;
 }
@@ -396,12 +396,12 @@ mat-drawer ul li span img {
     object-fit: cover;
     opacity: 0.4;
     height: 320px;
-    width: 100vw;
+    width: 100%;
     top: -150px;
   }
 .overlay{
   height: 170px;
-  width: 100vw;
+  width: 100%;
   background: black;
   overflow: hidden;
   position: absolute;
@@ -547,9 +547,9 @@ mat-drawer ul li span img {
   background-color: #FFFFFF;
   padding-right: 4% !important;
   border-radius: 100px 0px 0px 100px;
-  padding: 6px;
+  padding: 1em;
   float: right;
-  bottom: 40px;
+  bottom: 43px;
   position: absolute;
   right:0;
   right: 0;
@@ -611,25 +611,28 @@ mat-drawer ul li span img {
     position: absolute;
     bottom: 0;
     right: 0;
-    height: 60px;
-    width: 70%;
-    opacity: 75%;
+    height: 75px;
+    width: 75%;
+    opacity: 70%;
 }
-// .white-overlay{
-//   background-color: #ffffffa1;
-//   z-index: 1;
-//   position: absolute;
-//   bottom: 0;
-//   right: 0;
-//   height: 60px;
-//   width: 67%;
-
-// }
-// .white-overlay-tirangle{
-
-//   width: 10%;
-//   height: 60px;
-//   border-top: 10px solid transparent;
-//   border-bottom: 10px solid transparent;
-//   border-right:10px solid #ffffffa1;
-// }
+.profiletxt{
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-right: 17em;
+  padding-bottom: 0.8em;
+}
+.txt{
+  color: #FFFFFF;
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 1.6em;
+  font-size: 40px;
+  opacity: 0.81;
+  margin-right: 6.9em;
+  margin-right: 6.7em;
+  font-weight: lighter;
+}

@@ -313,9 +313,17 @@ export class CandidateMappersService {
     let profile = this.getLocalProfileData();
     return profile ? profile.dependent_details : null;
     }
+    getLocalproject_details() {
+      let profile = this.getLocalProfileData();
+      return profile ? profile.project_details : null;
+      }
     getLocaldisciplinary_details() {
       let profile = this.getLocalProfileData();
-      return profile ? profile.dependent_details : null;
+      return profile ? profile.discipilinary_details : null;
+      }
+      getLocalaccomplishments_details() {
+        let profile = this.getLocalProfileData();
+        return profile ? profile.accomplishments_details : null;
       }
     getLocaleducation_details() {
     let profile = this.getLocalProfileData();
@@ -381,6 +389,30 @@ export class CandidateMappersService {
          { headers: this.getAfterCustomHeaders(), withCredentials: true});
      }
 
+     joiningFormGetAccomplishmentsDetails() {
+      let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
+       return this.http.get(`${this.BASE_URL}/profile/accomplishment_pageload?user_id=${userId}`,
+         { headers: this.getAfterCustomHeaders(), withCredentials: true});
+     }
+
+     joiningFormGetAccomplishmentsDetailsSave(data) {
+      let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
+       return this.http.post(`${this.BASE_URL}/profile/accomplishment_page?user_id=${userId}`, data,
+         { headers: this.getAfterCustomHeaders(), withCredentials: true});
+     }
+
+     joiningFormGetProjectDetails() {
+      let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
+       return this.http.get(`${this.BASE_URL}/profile/project_pageload?user_id=${userId}`,
+         { headers: this.getAfterCustomHeaders(), withCredentials: true});
+     }
+
+     joiningFormGetProjectDetailsSave(data) {
+      let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
+       return this.http.post(`${this.BASE_URL}/profile/project_page?user_id=${userId}`, data,
+         { headers: this.getAfterCustomHeaders(), withCredentials: true});
+     }
+
      joiningFormGetWorkDetails() {
       let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
        return this.http.get(`${this.BASE_URL}/profile/employment_pageload?user_id=${userId}`,
@@ -402,6 +434,18 @@ export class CandidateMappersService {
      joiningFormGetEducationDetailsSave(data) {
       let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
        return this.http.post(`${this.BASE_URL}/profile/education_page?user_id=${userId}`, data,
+         { headers: this.getAfterCustomHeaders(), withCredentials: true});
+     }
+
+     joiningFormGetDiscipilinaryDetails() {
+      let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
+       return this.http.get(`${this.BASE_URL}/profile/discipilinary_pageload?user_id=${userId}`,
+         { headers: this.getAfterCustomHeaders(), withCredentials: true});
+     }
+
+     joiningFormGetDiscipilinaryDetailsSave(data) {
+      let userId = this.appConfig.getLocalData('userId') ? this.appConfig.getLocalData('userId') : '';
+       return this.http.post(`${this.BASE_URL}/profile/discipilinary_page?user_id=${userId}`, data,
          { headers: this.getAfterCustomHeaders(), withCredentials: true});
      }
 

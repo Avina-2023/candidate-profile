@@ -26,7 +26,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   sendPopupResultSubscription: Subscription;
 
 
-  form_disciplinaryDetails = "bgv_details";
+  // form_disciplinaryDetails = "bgv_details";
   form_convicted_by_Court = "convicted_by_Court";
   form_arrested = "arrested";
   form_prosecuted = "prosecuted";
@@ -56,7 +56,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   ngOnInit(): void {
     this.customerName = this.appConfig.getSelectedCustomerName();
     this.formInitialize();
-    this.getWorkApiDetails();
+    this.getDisciplinaryApiDetails();
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
@@ -77,43 +77,9 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       [this.form_full_particulars]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]],
     })
   }
-  get convicted_by_Court() {
-    return this.discipilinaryForm.get(this.form_convicted_by_Court);
-  }
-  get arrested() {
-    return this.discipilinaryForm.get(this.form_arrested);
-  }
-  get prosecuted() {
-    return this.discipilinaryForm.get(this.form_prosecuted);
-  }
-  get detention() {
-    return this.discipilinaryForm.get(this.form_detention);
-  }
-  get fined_by_court() {
-    return this.discipilinaryForm.get(this.form_fined_by_court);
-  }
-  get debarred_exam_university() {
-    return this.discipilinaryForm.get(this.form_debarred_exam_university);
-  }
-  get debarred_psc_company() {
-    return this.discipilinaryForm.get(this.form_debarred_psc_company);
-  }
-  get court_case_pending() {
-    return this.discipilinaryForm.get(this.form_court_case_pending);
-  }
-  get university_case_pending() {
-    return this.discipilinaryForm.get(this.form_university_case_pending);
-  }
-  get disciplinary_proceedings() {
-    return this.discipilinaryForm.get(this.form_disciplinary_proceedings);
-  }
-  get full_particulars() {
-    return this.discipilinaryForm.get(this.form_full_particulars);
-  }
+
 
   requiredDesc() {
-
-
     let formValues = this.discipilinaryForm.getRawValue();
     const bgvDetails = {
       [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
@@ -148,6 +114,8 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   formSubmit(routeValue?: any) {
     this.requiredDesc();
     let formValues = this.discipilinaryForm.getRawValue();
+    console.log(formValues,'formValues');
+
     if (this.discipilinaryForm.valid) {
       const bgv_details = {
         [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
@@ -162,15 +130,14 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
         [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
         [this.form_full_particulars]: formValues[this.form_full_particulars]
       }
+      let apiData = {
+        bgv_details
+      };
 
-      console.log( JSON.stringify(bgv_details),'bgv_details');
-      // let apiData = {
-      //   bgv_details
-      // };
       const disciplinaryApiRequestDetails = {
         email:  this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "discipilinary_details",
-        saving_data:  bgv_details
+        saving_data:  apiData
       }
       this.loadingService.setLoading(true)
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(disciplinaryApiRequestDetails).subscribe((data: any) => {
@@ -188,10 +155,10 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       // this.glovbal_validators.validateAllFields(this.discipilinaryForm);
     }
+    console.log( this.discipilinaryForm,'apiData');
   }
 
   OtherConditionsPatch(data) {
-
     this.discipilinaryForm.patchValue({
       [this.form_convicted_by_Court]: data[this.form_convicted_by_Court] && data[this.form_convicted_by_Court] == '1' ? true : false,
       [this.form_arrested]: data[this.form_arrested] && data[this.form_arrested] == '1' ? true : false,
@@ -207,18 +174,50 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     });
     this.requiredDesc();
   }
-
+  get convicted_by_Court() {
+    return this.discipilinaryForm.get(this.form_convicted_by_Court);
+  }
+  get arrested() {
+    return this.discipilinaryForm.get(this.form_arrested);
+  }
+  get prosecuted() {
+    return this.discipilinaryForm.get(this.form_prosecuted);
+  }
+  get detention() {
+    return this.discipilinaryForm.get(this.form_detention);
+  }
+  get fined_by_court() {
+    return this.discipilinaryForm.get(this.form_fined_by_court);
+  }
+  get debarred_exam_university() {
+    return this.discipilinaryForm.get(this.form_debarred_exam_university);
+  }
+  get debarred_psc_company() {
+    return this.discipilinaryForm.get(this.form_debarred_psc_company);
+  }
+  get court_case_pending() {
+    return this.discipilinaryForm.get(this.form_court_case_pending);
+  }
+  get university_case_pending() {
+    return this.discipilinaryForm.get(this.form_university_case_pending);
+  }
+  get disciplinary_proceedings() {
+    return this.discipilinaryForm.get(this.form_disciplinary_proceedings);
+  }
+  get full_particulars() {
+    return this.discipilinaryForm.get(this.form_full_particulars);
+  }
   joiningFormDataFromJoiningFormComponentRxjs() {
     this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any)=> {
-       this.getWorkApiDetails();
+       this.getDisciplinaryApiDetails();
      });
    }
 
-  getWorkApiDetails() {
-
+  getDisciplinaryApiDetails() {
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.disciplinaryDetails = this.candidateService.getLocaldisciplinary_details();
+      console.log(this.candidateService.getLocaldisciplinary_details() );
       this.disciplinaryDetailsAllData = this.candidateService.getLocaldisciplinary_details();
       // this.disciplinaryDetails ? this.ifworkDetails() : this.ifNotworkDetails();
       this.patchWorkForm();
@@ -226,9 +225,16 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
 
     }
   }
+  patchWorkForm() {
+    console.log(this.disciplinaryDetails,'patch');
+    if (this.disciplinaryDetails.bgvDetails) {
+      this.OtherConditionsPatch(this.disciplinaryDetails.bgvDetails);
+    }
+    // this.changeInTrainingExp({value: this.workDetailsForm.value[this.form_training_is_articleship_status]});
+  }
   checkFormValidRequestFromRxjs() {
     this.checkFormValidRequest = this.sharedService.StepperNavigationCheck.subscribe((data: any) => {
-      if (data.current == 'discipilinary') {
+      if (data.current == 'disciplinary') {
         if (!this.discipilinaryForm.dirty) {
           return this.appConfig.routeNavigation(data.goto);
         } else {
@@ -237,7 +243,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       }
     });
   }
-
   // ifworkDetails() {
   //   let disciplinary = {
   //     bgvDetails: this.disciplinaryDetails && this.disciplinaryDetails.bgv_details ? this.disciplinaryDetails.bgv_details : null,
@@ -247,14 +252,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   //   this.patchWorkForm();
   // }
 
-  patchWorkForm() {
 
-    if (this.disciplinaryDetails.bgvDetails) {
-      this.OtherConditionsPatch(this.disciplinaryDetails.bgvDetails);
-    }
-
-    // this.changeInTrainingExp({value: this.workDetailsForm.value[this.form_training_is_articleship_status]});
-  }
 
   showStepper() {
     this.sharedService.joiningFormActiveSelector.next('disciplinary');

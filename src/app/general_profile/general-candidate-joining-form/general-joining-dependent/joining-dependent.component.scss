@@ -352,3 +352,14 @@ padding: 0 2% 2% 0;
 .redTxt{
   color: red !important;
 }
+.dynamicclass{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  .select{
+width: 45% !important;
+  }
+  .otherinp{
+    width: 45% !important;
+  }
+}
