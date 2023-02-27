@@ -178,10 +178,12 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   form_CARanks = 'rank';
   form_gap_reason = 'gap_reason';
   form_gap = 'gap';
-  isHighLevelEdu = new FormControl(null);
   eduGap: boolean = false;
 
   ca_bothgroup_status = new FormControl(null);
+  isHighLevelEdu = 'is_highLevelEdu';
+  TopEducation = false;
+  // isHighLevelEdu = new FormControl(null);
   educationLevels: any;
   pgSpecializationList: any;
   ugSpecializationList: any;
@@ -207,6 +209,7 @@ joiningFormDataPassingSubscription: Subscription;
   getAllEducationFormDropdownListSubscription: Subscription;
   withoutCAeducationLevels: any;
   withCAeducationLevels: any;
+  check: any;
 constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -236,6 +239,10 @@ constructor(
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
+
+ this.check = this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu
+//  console.log(this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu,'j');
+
   }
 
   ngAfterViewInit() {
@@ -308,8 +315,8 @@ constructor(
       this.formInitialize();
       this.educationDetails = this.candidateService.getLocaleducation_details().educations;
       // this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
-      // this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
-      this.candidateService.getLocaleducation_details().isHighLevelEdu ? this.isHighLevelEdu.setValue(true) : this.isHighLevelEdu.setValue(false);
+      this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
+      // this.candidateService.getLocaleducation_details().isHighLevelEdu ? this.isHighLevelEdu.setValue(true) : this.isHighLevelEdu.setValue(false);
 
       this.getSelectedPost();
       this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
@@ -374,6 +381,7 @@ constructor(
           [this.form_startDate]: null,
           [this.form_endDate]: null,
           [this.form_yearpassing]: null,
+          [this.isHighLevelEdu]:'false',
           [this.form_backlog]: null,
           [this.form_mode]: null,
           [this.form_cgpa]: null,
@@ -526,29 +534,35 @@ validSelectedPost() {
     });
   // }
   // debugger
-    if (this.educationForm.valid ) {
+    if (this.educationForm ) {
       // let entryValid = this.validSelectedPost();
       // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
+        console.log(formArray,'formArray');
+        // formArray[formArray.length-1].isHighLevelEdu =  (this.showWorkExp == '1')? 'true' : 'false'
         const EducationApiRequestDetails = {
           email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "education_details",
           saving_data: {
             // selected_post: this.selectedPost,
             // ca_bothgroup_status: this.checkLastIndexOfCA() ? (this.ca_bothgroup_status.value ? 1 : 0) : null,
-          // isHighLevelEdu: this.educationLevel(e) ? (this.isHighLevelEdu.value ? 1 : 0) : null,
-
-            educations: formArray
+          // isHighLevelEdu: this.isHighLevelEdu,
+          educations: formArray
           }
         };
+        console.log(formArray,'educations');
+
        this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(EducationApiRequestDetails).subscribe((data: any)=> {
         this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
+        console.log(data.data.saved_data,'');
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
       });
+
+
       // } else {
       //   this.appConfig.nzNotification('error', 'Not Submitted', entryValid?.value?.label == 'gct' ? '12th or Diploma and Undergraduate are mandatory' : entryValid?.value?.label == 'pgct' ? '12th or Diploma, Undergraduate and Postgraduate are mandatory' : entryValid?.value?.label == 'det' ? 'Diploma is mandatory' : 'CA or IGWA or CS is mandatory');
       // }
@@ -558,7 +572,7 @@ validSelectedPost() {
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
     }
-console.log(this.educationForm,'educationForm');
+console.log(this.getEducationArr.controls.length-1,'educationForm');
 
   }
 
@@ -601,7 +615,11 @@ console.log(this.educationForm,'educationForm');
     this.educationDetails.forEach((element, i) => {
       this.getEducationArr.push(this.patching(element, i));
     });
-    this.setValidations();
+    this.setValidations( );
+    console.log(this.educationDetails,'educationDetails');
+
+    console.log(this.getEducationArr,' this.getEducationArr');
+
   }
 
   patching(data, i) {
@@ -620,6 +638,8 @@ console.log(this.educationForm,'educationForm');
       [this.form_Finalcgpa]: [(data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? data[this.form_cgpa] : data[this.form_Finalcgpa]), this.candidateService.checkKycOrJoiningForm() ? [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)] : []],
       [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_gap]:[ (data[this.form_gap] && data[this.form_gap] == 'true')  ? 'true' : 'false' ],
+      [this.isHighLevelEdu]:[  data[this.isHighLevelEdu] ],
+
     })
   }
 
@@ -632,6 +652,7 @@ console.log(this.educationForm,'educationForm');
       [this.form_boardUniversity]: [null, [Validators.required]],
       [this.form_startDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_gap]:['false'],
+      [this.isHighLevelEdu]:['false'],
       [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
       [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
@@ -641,11 +662,12 @@ console.log(this.educationForm,'educationForm');
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }
-  educationLevel(e) {
+  educationLevel(e, i) {
+    console.log(e.checked,'e.checked');
     if (e.checked) {
-      this.showWorkExp = '1';
+      this.check = true
     } else {
-      this.showWorkExp = '0';
+      this.check = false
     }
   }
   anyGap(event,index){
@@ -737,7 +759,9 @@ console.log(this.educationForm,'educationForm');
   // Form getters
   // convenience getters for easy access to form fields
   get getEducationArr() { return this.educationForm.get([this.form_educationArray]) as FormArray; }
-
+// get is_highLevelEdus(){
+//   return this.educationForm.get(this.isHighLevelEdu)
+// }
   setValidations() {
       this.getEducationArr.controls.forEach((element: any, j) => {
       if (element['controls'][this.form_qualification_type]['value'] == 'SSLC') {

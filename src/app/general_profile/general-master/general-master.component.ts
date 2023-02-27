@@ -15,7 +15,6 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 export class GeneralMasterComponent implements OnInit {
   //  profilepercentage: number =  0;
   public email: any;
-
    public objDetails: any;
    public Details: any;
    public profilepercentage: any;
@@ -35,12 +34,15 @@ export class GeneralMasterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profilepercentage = Math.ceil(this.Details.profilePercentage);
+    // this.profilepercentage = Math.ceil(this.Details.profilePercentage);
     this.isExternal = this.appConfig.getLocalData('externalLogin')
     // this.setprofileimageToLocal()
     this.username = localStorage.getItem('name');
     this.email = localStorage.getItem('email');
+    console.log(this.CandidateDetails(),'this.CandidateDetails()');
     this.CandidateDetails()
+    console.log(this.CandidateDetails(),'this.CandidateDetails()');
+
   }
 
 //   setprofileimageToLocal(){
@@ -64,70 +66,21 @@ export class GeneralMasterComponent implements OnInit {
 //   // console.log(this.cadidatefinalimage,'hbsdjhBcj');
 //   }
 
-//   saveData(data) {
-//     const form_size = 1024; // chunk size in bytes
-//     const progressbar = []; // array to hold data chunks
-
-//     for (let i = 0; i < this.data.length; i += form_size) {
-//       progressbar.push(this.data.slice(i, i + form_size));
-//     }
-
-//     // const progress = this.progressRef.ref(); // reference to the progress bar component
-//     // progress.start(); // start the progress bar animation
-
-//     for (let i = 0; i < progressbar.length; i++) {
-//       localStorage.setItem('data-' + i, progressbar[i]);
-//       const percent = (i + 1) / progressbar.length * 100; // calculate progress percentage
-//       // progress.set(percent); // update the progress bar value
-//     }
-
-//     // progress.complete(); // stop the progress bar animation
-//   }
-// }
 
 
-
-  // getprofileCompletionPercentage(){
-  //   window.addEventListener('storage', (event: StorageEvent) => {
-  //     if (event.key === 'profileData') {
-  //       // Update the progress value
-  //       profilepercentage = Math.round((event.newValue.length / 1024) * 100);
-  //       localStorage.setItem('profileData', myValue);
-  //     }
-  //   });
-
-
-  // }
-
-  // getEmployerDetails() {
-  //   var obj = {
-  //     userId: this.skillexService.encryptnew(
-  //       localStorage.getItem('email'),
-  //       environment.cryptoEncryptionKey
-  //     ),
-  //   };
-  //   this.skillexService.candidateprogress(obj).subscribe((result: any) => {
-  //     if (result.success) {
-  //       console.log(result)
-  //       this.username = result.data.firstName;
-  //       this.profileCompletion = result.data.profileCompletion;
-  //       localStorage.setItem('companyId', result.data.userId);
-  //     } else {
-  //       console.log("failed to load employer details")
-  //     }
-  //   })
-  // }
   CandidateDetails() {
     var obj = {};
     obj = {
       email: this.skillexService.encryptnew(
-        localStorage.getItem('email'),
+        this.email,
         environment.cryptoEncryptionKey
       ),
     };
-    this.skillexService.candidateprogress(obj).subscribe((res: any) => {
+    console.log(obj,'obj');
+    this.skillexService.candidateDetails(obj).subscribe((res: any) => {
       if (res.success) {
         this.Details = res.data;
+        console.log(res.data,'obj');
         // this.profileImage = this.Details.personal_details.profileImage;
         // this.msgData.sendMessage("profileImage",this.profileImage)
         // if (this.profileImage && this.productionUrl == true) {
@@ -138,13 +91,53 @@ export class GeneralMasterComponent implements OnInit {
         //   this.profileImage = this.profileImage
 
         // }
-        this.appConfig.setLocalData('candidateProfile',JSON.stringify(this.Details));
+        // this.appConfig.setLocalStorage('candidateProfile',JSON.stringify(this.Details));
         this.profilepercentage = Math.ceil(this.Details.profilePercentage);
-        this.appConfig.setLocalData('profilePercentage', this.profilepercentage);
-
+        localStorage.setItem("profilePercentage",(this.profilepercentage));
+        // this.appConfig.localStorage('profilePercentage', this.profilepercentage);
       }
     });
+    console.log();
+
   }
+  gotoProfile(){
+    let emailval = localStorage.getItem('email')
+    let enc_email = encodeURIComponent(this.skillexService.encryptnew(emailval,environment.cryptoEncryptionKey))
+    console.log(enc_email,'enc_email')
+    // window.open(environment.SKILL_PROFILE_URL+'/externallogin?extId='+enc_email, 'profile_redir');
+    window.location.assign(environment.SKILLEX_BASE_URL+'/externallogin?extId='+enc_email);
+  }
+
+  // CandidateDetails() {
+  //   var obj = {};
+  //   obj = {
+  //     email: this.skillexService.encryptnew(
+  //       localStorage.getItem('email'),
+  //       environment.cryptoEncryptionKey
+  //     ),
+  //   };
+  //   this.skillexService.candidateprogress(obj).subscribe((res: any) => {
+  //     if (res.success) {
+  //       this.Details = res.data;
+  //       console.log(this.Details,'this.Details');
+
+  //       // this.profileImage = this.Details.personal_details.profileImage;
+  //       // this.msgData.sendMessage("profileImage",this.profileImage)
+  //       // if (this.profileImage && this.productionUrl == true) {
+  //       //   this.appConfig.setLocalStorage('profileImage',this.profileImage + environment.blobToken);
+  //       //   this.profileImage = this.profileImage + environment.blobToken
+  //       // } else if (this.profileImage && this.productionUrl == false) {
+  //       //   this.appConfig.setLocalStorage('profileImage',this.profileImage);
+  //       //   this.profileImage = this.profileImage
+
+  //       // }
+  //       this.appConfig.setLocalData('candidateProfile',JSON.stringify(this.Details));
+  //       this.profilepercentage = Math.ceil(this.Details.profilePercentage);
+  //       this.appConfig.setLocalData('profilePercentage', this.profilepercentage);
+
+  //     }
+  //   });
+  // }
   async uploadImage(file) {
     try {
       this.profilePictureFormControl.markAsUntouched();

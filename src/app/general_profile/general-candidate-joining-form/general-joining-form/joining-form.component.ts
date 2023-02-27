@@ -203,7 +203,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       this.submit = true;
     }
   }
-
+  public email: any;
   routingSelection: any;
   requestnavigationRoute: any;
   noSave: boolean;
@@ -235,6 +235,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.activeSelectorRxJs();
     this.stepperStatus();
     this.checkJoiningComponentNeeded();
+    this.email = localStorage.getItem('email');
 
   }
 
@@ -277,8 +278,6 @@ console.log(this.imageChangedEvent.target.files[0],'ooo');
 
 }
 setprofileimageToLocal(){
-
-
   let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
   console.log(candidateProfileimage.personal_details.profileImage,'dj');
@@ -339,7 +338,7 @@ loadImageFailed() {
         if (this.appConfig.minImageSizeValidation(this.imageChangedEvent.target.files[0].size)) {
         // let image = this.croppedImage target.files[0].name;
         // let image = Buffer.from(this.croppedImage, "base64");
-        // fd.append('email', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
+        fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
         fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0], { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
         fd.append('type',"profile");
         this.uploadImage(fd);
@@ -374,6 +373,8 @@ console.log(file,'ooo');
           };
           this.profilePictureFormControl.setValue(this.profilePicture.file_path);
           this.setprofileimageToLocal();
+          console.log(this.setprofileimageToLocal(),'lo');
+
 
         }
         this.dialog.closeAll()

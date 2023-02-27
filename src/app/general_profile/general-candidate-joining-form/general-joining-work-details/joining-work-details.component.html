@@ -347,7 +347,7 @@
             <ng-container *ngIf="workDetailsForm['controls'][this.form_is_training_status].value == 'true'" >
             <div class="container-wrapper flex-container justify-content-between align-items-center p-4"  >
               <div class="d-flex justify-content-between">
-                <h6>Training Details{{i+1}}</h6>
+                <h6>Training Details {{i+1}}</h6>
                 <div class="remove-wrapper">
                   <div (click)="removeTrainingArray(i)" *ngIf="i == getTrainingArr.controls.length >= 0"  matTooltip="Remove" class="remove">
                     <i class="icon-remove_circle pointer ag-icon-font-size"></i>
@@ -358,8 +358,8 @@
                 <div class="row-wrapper">
                   <div class="overall-input-wrapper mb-2 width-100">
                     <label>Employer Name<span class="redTxt">*</span></label>
-                    <textarea matInput placeholder="Enter here" class="input text-area" type="text"
-                      [formControlName]="form_training_employer_name"></textarea>
+                    <input matInput placeholder="Enter here" class="input text-area" type="text"
+                      [formControlName]="form_training_employer_name">
                     <div class="form-error"
                       *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).invalid && getTrainingArr.controls[i].get(form_training_employer_name).touched">
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).errors?.required">
@@ -430,8 +430,8 @@
                 <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
                     <label>Achievements/Responsibility/Tasks<span class="redTxt">*</span></label>
-                    <textarea matInput placeholder="Enter here" class="input text-area" type="text"
-                      [formControlName]="form_training_work_responsiability"></textarea>
+                    <input matInput placeholder="Enter here" class="input text-area" type="text"
+                      [formControlName]="form_training_work_responsiability">
                     <div class="form-error"
                       *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).invalid && getTrainingArr.controls[i].get(form_training_work_responsiability).touched">
                       <div *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability)?.errors?.required">

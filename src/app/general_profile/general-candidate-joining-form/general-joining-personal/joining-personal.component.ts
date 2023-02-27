@@ -422,7 +422,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
           // [this.form_email]: rawPersonalFormValue[this.form_email],
           [this.form_gender]: rawPersonalFormValue[this.form_gender],
-          [this.form_hobbies_intrest]:[this.hobbies],
+          [this.form_hobbies_intrest]:this.hobbies,
           [this.form_mobile]: rawPersonalFormValue[this.form_mobile],
           [this.form_nationality]: rawPersonalFormValue[this.form_nationality],
           // [this.form_caste]: rawPersonalFormValue[this.form_caste],
@@ -608,12 +608,15 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     //   }
     // }
   patchPersonalForm() {
+    if(this.personalDetails[this.form_hobbies_intrest].length) {
+      this.hobbies = this.personalDetails[this.form_hobbies_intrest];
+    }
     this.personalForm.patchValue({
       // [this.form_title]: this.personalDetails[this.form_title],
       [this.form_name]: this.personalDetails[this.form_name],
       [this.form_dob]: this.dateConvertion(this.personalDetails[this.form_dob]),
       [this.form_gender]: this.personalDetails[this.form_gender],
-      [this.form_hobbies_intrest]: this.personalDetails[this.form_hobbies_intrest],
+      // [this.form_hobbies_intrest]: this.personalDetails[this.form_hobbies_intrest],
       // [this.form_place_of_birth]: this.personalDetails[this.form_place_of_birth],
       // [this.form_state_of_birth]: this.personalDetails[this.form_state_of_birth] ? this.personalDetails[this.form_state_of_birth].toString() : null,
       [this.form_nationality]: this.personalDetails[this.form_nationality],

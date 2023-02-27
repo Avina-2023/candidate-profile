@@ -154,7 +154,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_marital_status = 'marital_status';
   form_domicile_state = 'domicile_state';
   form_no_of_children = 'no_of_children';
-
+  form_hobbies_intrest = 'hobbies_intrest';
   form_language_array = 'languages_known';
   form_language_name = 'language';
   form_language_is_read = 'is_read';
@@ -236,6 +236,7 @@ form_journalEntity_description = 'journalEntityDescription';
   form_mode = 'mode';
   form_cgpa = 'percentage';
   // isHighLevelEdu
+
   form_gap = 'gap'
   form_finalcgpa = 'final_percentage';
   form_CARanks = 'rank';
@@ -1047,6 +1048,9 @@ this.patchDisciplinary();
       });
     }
     const data = {
+      // if(this.personalDetails[this.form_hobbies_intrest].length) {
+      //   this.hobbies = this.personalDetails[this.form_hobbies_intrest];
+      // }
       // [this.form_title]: this.personalDetails[this.form_title],
       [this.form_name]: this.personalDetails?.[this.form_name] ? this.personalDetails[this.form_name] : 'NA',
       [this.form_dob]: this.personalDetails?.[this.form_dob] ? this.dateConvertion(this.personalDetails[this.form_dob]) : 'NA',
@@ -1077,6 +1081,7 @@ this.patchDisciplinary();
       // [this.form_domicile_state]: domicile ? domicile : 'NA',
       [this.form_identification_mark1]: this.personalDetails?.[this.form_identification_mark1] ? this.personalDetails[this.form_identification_mark1] : 'NA',
       [this.form_identification_mark2]: this.personalDetails?.[this.form_identification_mark2] ? this.personalDetails[this.form_identification_mark2] : 'NA',
+      [this.form_hobbies_intrest]: this.personalDetails?.[this.form_hobbies_intrest] && this.personalDetails?.[this.form_hobbies_intrest].length > 0 ? this.personalDetails?.[this.form_hobbies_intrest] : [],
       [this.form_language_array]: this.personalDetails?.[this.form_language_array] && this.personalDetails?.[this.form_language_array].length > 0 ? this.personalDetails[this.form_language_array] : [],
       [this.form_passport_number]: this.personalDetails?.[this.form_passport_number] ? this.personalDetails[this.form_passport_number] : 'NA',
       [this.form_name_as_in_passport]: this.personalDetails?.[this.form_name_as_in_passport] ? this.personalDetails[this.form_name_as_in_passport] : 'NA',
@@ -1097,6 +1102,8 @@ this.patchDisciplinary();
     };
     this.url = this.personalDetails?.profileImage;
     this.personalDetailsMap = data;
+    console.log(this.personalDetailsMap,'this.personalDetailsMap');
+
   }
 
 

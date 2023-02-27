@@ -272,12 +272,16 @@
                 </div>
               </ng-template>
             </div>
-            <ng-container *ngIf="workDetails.skills && workDetails.skills.length > 0">
+            <ng-container >
               <h6 class="h6-sub-heading mt-4">Hobbies/Interests</h6>
+              <ng-container *ngIf="
+              personalDetailsMap[form_hobbies_intrest] &&
+                personalDetailsMap[form_hobbies_intrest].length > 0; else noHobbies">
                 <div class="d-flex skills-wrapper " style="padding-top: 20px !important;padding-left: 0;">
-                <div class="mr-2 mt-2 hobbie-name" *ngFor="let skills of workDetails.skills; let i = index">{{skills}}
+                <div class="mr-2 mt-2 hobbie-name" *ngFor="let hobbie of personalDetailsMap[form_hobbies_intrest];let i = index">{{hobbie.hobbiesAndInterests}}
                 </div>
               </div>
+            </ng-container>
             </ng-container>
             <h6 class="h6-sub-heading mb-2 mt-5">Passport Details</h6>
             <div class="overall-input-wrapper mt-3 width-32">
@@ -711,8 +715,8 @@
 
           </div>
           <div class="overall-input-wrapper mt-3  width-100">
-            <div> <mat-checkbox [formControl]="isHighLevelEdu" [disabled]="true"
-              class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
+            <!-- <div> <mat-checkbox [formControl]="isHighLevelEdu" [disabled]="true"
+              class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div> -->
           </div>
         </ng-container>
       </div>
