@@ -4,7 +4,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from "@angular/material/dialog";
 import { MatAccordion } from "@angular/material/expansion"
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import * as  moment from 'moment';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
@@ -19,16 +19,16 @@ import { SkillexService } from 'src/app/service/skillex.service';
 
 
 export const MY_FORMATS = {
-  parse: {
-    dateInput: 'DD-MM-YYYY',
-  },
-  display: {
-    // dateInput: 'DD MMM YYYY', // output ->  01 May 1995
-    dateInput: 'DD-MM-YYYY', // output ->  01-10-1995
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
+
+
+  onFileSelecteded(event) {
+
+    this.file = event.target.files[0];
+    if (this.file) {
+      this.fileName = this.file.name;
+      this.IsToFeildEnable = false;
+    }
+  }
 };
 
 @Component({
@@ -50,10 +50,76 @@ export const MY_FORMATS = {
 })
 export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
+
   @ViewChild('matDialog', {static: false}) matDialogRef: TemplateRef<any>;
   @ViewChild('noDocs', {static: false}) matNoDocs: TemplateRef<any>;
   @ViewChild(MatAccordion, {static: false}) accordion: MatAccordion;
+  @ViewChild('inputField', { static: false }) inputField: ElementRef;
   step = 0;
+  showDialog : any;
+
+  files: any = [];
+  IsToFeildEnable: boolean;
+  fileName: any;
+  file: any;
+  elementRef: any;
+
+
+  contents = [
+   'content 1',
+   'content 2',
+   'content 3',
+   'content 4',
+  ];
+// DRAG AND DROP //
+   onDrop(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.files = event.dataTransfer.files;
+  }
+
+  appendPara(event) {
+    let targetText = document.getElementById('phrasebox') as HTMLTextAreaElement;
+    console.log(event.target.innerHTML);
+    let textToAppend = event.target.textContent;
+    this.inputField.nativeElement.value += textToAppend;
+//     let textToAppend = event.target.innerHTML;
+// textToAppend = textToAppend.replace(/<span[^>]*>(.*?)<\/span>/gi, '$1');
+// this.inputField.nativeElement.value += textToAppend; 
+// console.log("hello.world")
+ 
+ }
+
+//  appendToTextArea(event) {
+//       this.inputField.nativeElement.value += event.target.innerHTML + '\n';
+//     }
+
+
+
+
+//   appenddiv(event) {
+//     let targetText = document.getElementsByClassName('targetcontent')[0];
+//     console.log(targetText.innerHTML);
+//     let textToAppend = targetText.innerHTML;
+//     this.inputField.nativeElement.value += textToAppend; 
+//  }
+
+
+  onFileSelected(event) {
+    this.files = event.target.files;
+    // if (this.file) {
+    //   this.fileName = this.file.name;
+    //   this.IsToFeildEnable = false;
+    // }
+  }
+
+  onDragOver(event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+//  //
+
+
   getEducationDocuments: any[];
   educationNotUploadedDocs: any[];
   getResumeDocuments: any[];
@@ -162,12 +228,18 @@ export class GeneralJoiningUploadComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngOnInit() {
+
+    this.showDialog = false;
     this.formInitialize();
     this.getDocuments();
     this.getDownloadableDocs();
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
+  }
+
+  appendText(){
+    alert('click works');
   }
 
   ngAfterViewInit() {

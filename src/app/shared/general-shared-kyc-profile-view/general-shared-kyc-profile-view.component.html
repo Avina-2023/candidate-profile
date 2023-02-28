@@ -504,10 +504,7 @@
                       <span (click)="editRoute('education')" class="icon-Edit ag-icon-font-size edit-icon"></span>
                   </div>
               </div>
-              <ng-container *ngIf="
-          educationDetailsMap && educationDetailsMap.length > 0;
-          else noEducation
-        ">
+              <ng-container *ngIf="educationDetailsMap && educationDetailsMap.length > 0;else noEducation">
                   <div class="row-wrapper mt-0" [ngClass]="i == 0 ? 'padding-1' : 'border-wrapper'" *ngFor="let education of educationDetailsMap; let i = index">
                       <div class="row-wrapper mt-0">
                           <div class="overall-input-wrapper mt-2 width-32">

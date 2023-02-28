@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?g9xo1d');
-  src:  url('fonts/icomoon.eot?g9xo1d#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?g9xo1d') format('truetype'),
-    url('fonts/icomoon.woff?g9xo1d') format('woff'),
-    url('fonts/icomoon.svg?g9xo1d#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?5d1ovq');
+  src:  url('fonts/icomoon.eot?5d1ovq#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?5d1ovq') format('truetype'),
+    url('fonts/icomoon.woff?5d1ovq') format('woff'),
+    url('fonts/icomoon.svg?5d1ovq#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,17 +25,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-checkbox:before {
-  content: "\e9a4";
+.icon-arrow_circle_right_FILL0_wght400_GRAD0_opsz48:before {
+  content: "\e9a7";
 }
-.icon-person_remove:before {
-  content: "\e98b";
+
+.icon-close-rounded-filled:before {
+  content: "\e9a5";
+}
+.icon-add-rounded-filled:before {
+  content: "\e9a6";
 }
 .icon-thumsreview:before {
   content: "\e9a3";
 }
 .icon-filter:before {
   content: "\e9a2";
+  color: #757575;
 }
 .icon-review:before {
   content: "\e9a1";
@@ -528,4 +533,10 @@
 }
 .icon-Youtube:before {
   content: "\e96b";
+}
+.icon-checkbox:before {
+  content: "\e9a4";
+}
+.icon-person_remove:before {
+  content: "\e98b";
 }

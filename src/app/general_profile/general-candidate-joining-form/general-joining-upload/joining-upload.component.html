@@ -1,16 +1,74 @@
-<div class="joining-personal-wrapper">
-    <h5>
-        Upload Documents
-    </h5>
+<div>
+  <form>
+    <div class="backgroundwall">
+      <div class="backgroundwhite">
+        <div class="joining-personal-wrapper">
+          <h5 class="header_profile">
+            Profile Summary
+          </h5>
+          <P class="content_para">Write 2-4 short & energetic sentences to interest the reader! Mention your role,
+            experience & most importantly - your biggest achievements, best qualities and skills</P>
+          <div class="hr_line">
+            <hr>
+          </div>
+          <!-- <div style="display:flex;align-items:center;"> -->
+          <!-- <div>icon</div> -->
+          <!-- <div></div> -->
+          <!-- </div> -->
+          <div>
 
-    <div class="grids-wrapper">
+            <button class="pre_button" (click)="showDialog = !showDialog">
+              <!-- <em class="icon-thumsreview"></em> -->
+              <em class="icon-camera "></em>
+              Pre-written Phrases
+            </button>
+            <div *ngIf="showDialog">
+              <div class="dlog_box">
+                <!-- <div class="">
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="searchData" placeholder="Filter phrases by keyword and job title"
+              (keyup)="applyFilter($event.target.value)"/>
+            <button mat-button matPrefix mat-icon-button>
+              <mat-icon class="searchIcon" (click)="searchList()" type="submit">search</mat-icon>
+            </button>
+            </mat-form-field>
+        </div> -->
+
+                <mat-form-field>
+                  <div style="display: flex;justify-content: space-between;">
+                    <div><span class="icon-Search"></span></div>
+                    <div><input matInput type="search" placeholder="Filter"></div>
+                  </div>
+                  <!-- <mat-icon (click)="searchList()" type="submit"></mat-icon> -->
+
+                </mat-form-field>
+                <label class="most_popular">Most Popular</label>
+
+                <div *ngFor="let content of contents" (click)="appendPara($event)">
+                  <p class="phrase_1 targetcontent">{{content}} <span class="icon-RightArrow"></span></p>
+                </div>
+                <!-- <div (click)="appendPara($event)">
+                  <p class="phrase_2 targetcontent">Dynamic Executive with six years of experience helping
+                    organizations reach their full potential. Adept in making key decisions and working with other
+                    professionals to achieve goals and solve problems. Experienced in managing employee and community
+                    programs, and dedicated to successfully directing business operations.<span
+                      class="icon-RightArrow"></span></p>
+
+                </div> -->
+
+              </div>
+              <!-- <button (click)="showDialog = false">Close</button> -->
+            </div>
+          </div>
+
+
+          <!-- <div class="grids-wrapper">
         <div class="uploadForm">
 
           <form class="uploadF" [formGroup]="uploadForm" (ngSubmit)="formSubmit()">
 
                 <mat-accordion class="example-headers-align" multi>
 
-                    <!-- Resume Uploads -->
                     <mat-expansion-panel [expanded]="true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
@@ -128,10 +186,70 @@
         </div>
         <div class="photo-wrapper">
         </div>
-    </div>
+    </div>-->
+          <div class="written_phrase_border">
+            <textarea #inputField id="phrasebox" class="Eg_phrase"
+              placeholder="E.g. Engineering Graduate with 2+ years of experience..."></textarea>
+          </div>
+        </div>
+      </div>
 
+      <div class="backgroundwhite_uploadresume">
+        <label class="head_upload">Upload Resume <span>*</span></label>
+        <div class="hr_line">
+          <hr>
+        </div>
+        <div class="upload_resume_border">
+          <div class="upload_stud_resume">
+            <div class="cloud_img">
+              <!-- <img src="/assets/images/Group 2.svg"> -->
+              <!-- <div (drop)="onDrop($event)" (dragover)="onDragOver($event)"> -->
+              <!-- <input type="file" (change)="onFileSelected($event)" #fileInput> -->
+              <!-- <div class="drag_drop_text"> -->
+              <!-- <label>Drag and drop files here</label> -->
+              <!-- </div> -->
+              <!-- </div> -->
+              <div class="dropzone" (change)="($event)" (click)="$event.target.value=null" type="file" alt="upload">
+                <!-- <input multiple (change)="($event.target.files)"/> -->
+                <div>
+
+                  <img src="/assets/images/Group 2.svg" alt="">
+                </div>
+                <h3> Drag and Drop file here</h3>
+                <h3>or</h3>
+                <label for="fileDropRef">Browse for file</label>
+              </div>
+            </div>
+
+            <div class="or">
+              <label>or</label>
+            </div>
+            <div class="upload_student_resume">
+              <input class="file-input" type="file" id="upload" name="image" accept="applicaion/pdf" (change)="($event)"
+                (click)="$event.target.value=null" type="file" alt="upload" />
+            </div>
+            <!-- cancel button -->
+            <!-- <div class="closeupload">
+  <div class="close_btn"> <span [matTooltip]="fileName" class="blackLable subInstruction"></span></div>
+  <div *ngIf="fileName" class="close" (click)="cancleUpload()">
+    <span class="pointer-close"><mat-icon class="close-icon">close</mat-icon></span>
+  </div>
+</div> -->
+            <!--  -->
+            <div class="note_upload">
+              <span class="note_clr">Note:</span>
+              <span class="note_text"> .PDF format only supported. Maximum upload size is 2MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Save_nd_cntnu">
+        <button type="submit">Save & Continue</button>
+      </div>
+    </div>
+  </form>
 </div>
-<ng-template #matDialog>
+<!-- <ng-template #matDialog>
     <div class="main-wrappers">
       <div class="pdf-viewer-close">
         <i matTooltip="Download" style="font-size: 26px; position: absolute; right: 30px;" (click)="downloadFile(pdfsrc)"
@@ -257,4 +375,4 @@
 
     </div>
 
-</ng-template>
+</ng-template>-->
