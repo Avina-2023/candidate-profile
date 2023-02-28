@@ -136,7 +136,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
 
       const disciplinaryApiRequestDetails = {
         email:  this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
-        section_name: "discipilinary_details",
+        section_name: "disciplinary_details",
         saving_data:  apiData
       }
       this.loadingService.setLoading(true)
@@ -226,11 +226,10 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     }
   }
   patchWorkForm() {
-    console.log(this.disciplinaryDetails,'patch');
-    if (this.disciplinaryDetails.bgvDetails) {
-      this.OtherConditionsPatch(this.disciplinaryDetails.bgvDetails);
+    console.log(this.disciplinaryDetails.bgv_details,'patch');
+    if (this.disciplinaryDetails.bgv_details) {
+      this.OtherConditionsPatch(this.disciplinaryDetails.bgv_details);
     }
-    // this.changeInTrainingExp({value: this.workDetailsForm.value[this.form_training_is_articleship_status]});
   }
   checkFormValidRequestFromRxjs() {
     this.checkFormValidRequest = this.sharedService.StepperNavigationCheck.subscribe((data: any) => {

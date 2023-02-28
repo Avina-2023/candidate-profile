@@ -714,9 +714,9 @@
             </div>
 
           </div>
-          <div class="overall-input-wrapper mt-3  width-100">
-            <!-- <div> <mat-checkbox [formControl]="isHighLevelEdu" [disabled]="true"
-              class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div> -->
+          <div *ngIf="educationDetailsMap[educationDetailsMap.length-1]?.is_highLevelEdu == true" class="overall-input-wrapper mt-3  width-100">
+            <div> <mat-checkbox [checked]="educationDetailsMap[isHighLevelEdu]" [disabled]="true"
+              class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
           </div>
         </ng-container>
       </div>
@@ -830,12 +830,17 @@
                     {{ dateConvertion(work[form_duration_from]) }}
                   </div>
                 </div>
-                <!-- <div class="overall-input-wrapper mt-3 width-20">
+                <div class="overall-input-wrapper mt-3 width-20">
                   <label>Duration To</label>
                   <div class="inpu-preview f_size_16 bold-700 color-black">
                     {{ dateConvertion(work[form_duration_to]) }}
                   </div>
-                </div> -->
+                </div>
+                <div *ngIf="work[work.length-1]?.form_isWorkingHere == true" class="overall-input-wrapper mt-3  width-100">
+                  <div> <mat-checkbox [checked]="work[form_isWorkingHere]" [disabled]="true"
+                    class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
+                </div>
+
               </div>
 
               <!-- <div class="row-wrapper mt-0">
@@ -1150,34 +1155,36 @@
 <ng-container *ngIf="accomplishmentsMap[form_certificationsArray] && accomplishmentsMap[form_certificationsArray].length > 0;else noCertification">
  <ng-container *ngFor="let certification of accomplishmentsMap[form_certificationsArray];let i = index">
 <h6 class="mt-4">Certifications  1</h6>
+<div class="row-wrapper mt-0">
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Certification Name</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-<!-- {{ certification[form_certification_name]}} -->
+{{ certification[form_certification_name]}}
   </div>
 </div>
 
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Issued From</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    <!-- {{ certification[form_certification_issuedFrom]}}   -->
+    {{ certification[form_certification_issuedFrom]}}
   </div>
 </div>
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Description</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    <!-- {{ certification[form_certification_description]}}  -->
+    {{ certification[form_certification_description]}}
    </div>
 </div>
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Certification Validity from</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    <!-- {{ certification[form_certification_validityFrom]}}   -->
+    {{ certification[form_certification_validityFrom]}}
   </div>
 </div>
 <div class="overall-input-wrapper mt-3  width-100" >
   <div> <mat-checkbox  [disabled]="true"
     class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
+</div>
 </div>
 </ng-container>
 </ng-container>
@@ -1188,10 +1195,10 @@
   </div>
   <h6 class="mt-3">Awards {{i+1}}</h6>
 <div class="overall-input-wrapper mt-3 width-32">
-  <label>Symposium - Technical Paper Design</label>
-  <label>April 2013</label>
-  <!-- <label>{{awards[form_award_title]}}</label>
-  <label>{{awards[awardDate]}}</label> -->
+  <!-- <label>Symposium - Technical Paper Design</label>
+  <label>April 2013</label> -->
+  <label>{{awards[form_award_title]}}</label><br>
+  <label>{{awards[form_award_date]}}</label>
 </div>
 </ng-container>
 </ng-container>
@@ -1201,29 +1208,31 @@
       <h6>Research Publication/Journal Entry</h6>
   </div>
   <h6>Journal 1</h6>
+  <div class="row-wrapper mt-0">
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Title</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    <!-- {{ journalEntry[form_journalEntity_title] }} -->
+    {{ journalEntry[form_journalEntity_title] }}
   </div>
 </div>
 <div class="overall-input-wrapper mt-3 width-32">
   <label>URL</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    <!-- {{ journalEntry[form_journalEntity_url] }} -->
+    {{ journalEntry[form_journalEntity_url] }}
   </div>
 </div>
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Published On</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    <!-- {{ journalEntry[form_journalEntity_publishedOn] }} -->
+    {{ journalEntry[form_journalEntity_publishedOn] }}
   </div>
 </div>
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Description</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    <!-- {{ journalEntry[form_journalEntity_description] }} -->
+    {{ journalEntry[form_journalEntity_description] }}
   </div>
+</div>
 </div>
 </ng-container>
 </ng-container>
@@ -1713,22 +1722,18 @@
       <span (click)="editRoute('upload')" class="icon-Edit ag-icon-font-size edit-icon"> Edit</span>
     </div>
   </div>
-<ng-container *ngIf="workDetails.bgvDetails && workDetails.bgvDetails.show">
+
+
+<ng-container *ngIf="disciplinarydetails">
   <div class="row-wrappper b-0 mt-0 ">
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_convicted_by_Court]
-    " class="row-wrappper f_size_14 mt-2 ">
+    <div *ngIf="disciplinarydetails[this.form_convicted_by_Court]" class="row-wrappper f_size_14 mt-2 ">
       <div class="disciplinary" style="width: 95%">
         Have you ever been convicted by a Court of Law?
         <span style="font-weight: 600" class="ml-2 f_size_14 bold-700 color-black">Yes</span>
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_debarred_exam_university]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_debarred_exam_university]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         Have you ever been debarred/disqualified from any examination
         or restricted by any University or any other educational
@@ -1737,20 +1742,14 @@
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_arrested]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_arrested]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         Have you ever been arrested?
         <span style="font-weight: 600" class="ml-2 f_size_14 bold-700 color-black">Yes</span>
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_debarred_psc_company]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_debarred_psc_company]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary"  style="width: 95%">
         Have you ever been debarred/disqualified from any Public
         Service Commission or any other recruiting company for
@@ -1759,20 +1758,14 @@
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_prosecuted]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_prosecuted]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         Have you ever been prosecuted?
         <span style="font-weight: 600" class="ml-2 f_size_14 bold-700 color-black">Yes</span>
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_court_case_pending]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_court_case_pending]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         Is any case pending against you in any Court of Law at the
         time of filling this form?
@@ -1780,20 +1773,14 @@
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_detention]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_detention]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         Have you ever been kept under detention?
         <span style="font-weight: 600" class="ml-2 f_size_14 bold-700 color-black">Yes</span>
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_university_case_pending]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_university_case_pending]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         Is any case pending against you in any University or
         Educational Institute at the time of filling this form?
@@ -1801,20 +1788,14 @@
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_fined_by_court]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_fined_by_court]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         Have you ever been fined by a Court of Law?
         <span style="font-weight: 600" class="ml-2 f_size_14 bold-700 color-black">Yes</span>
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_disciplinary_proceedings]
-    " class="row-wrappper f_size_14 mt-2">
+    <div *ngIf="disciplinarydetails[this.form_disciplinary_proceedings]" class="row-wrappper f_size_14 mt-2">
       <div class="disciplinary" style="width: 95%">
         In the previous employment, were any disciplinary proceedings
         framed against you or had you been called upon to explain your
@@ -1824,17 +1805,14 @@
       </div>
     </div>
 
-    <div *ngIf="
-      workDetails.bgvDetails &&
-      workDetails.bgvDetails[this.form_full_particulars]
-    " class="row-wrapper mt-2">
+    <div *ngIf="disciplinarydetails[this.form_full_particulars]" class="row-wrapper mt-2">
       <div class="overall-input-wrapper mt-2 flex-column width-100">
         <label style="width: 100%;">Full particulars of the
           case/arrest/detention/conviction/punishment etc. and / or
           nature of the case pending in the
           Court/University/Educational Authority</label>
         <div class="inpu-preview f_size_14 bold-700 p-2 w-100 color-black dis-input box-border">
-          {{ workDetails.bgvDetails[this.form_full_particulars] }}
+          {{ disciplinarydetails[this.form_full_particulars] }}
         </div>
       </div>
     </div>

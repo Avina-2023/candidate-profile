@@ -183,7 +183,6 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   ca_bothgroup_status = new FormControl(null);
   isHighLevelEdu = 'is_highLevelEdu';
   TopEducation = false;
-  // isHighLevelEdu = new FormControl(null);
   educationLevels: any;
   pgSpecializationList: any;
   ugSpecializationList: any;
@@ -316,8 +315,6 @@ constructor(
       this.educationDetails = this.candidateService.getLocaleducation_details().educations;
       // this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
       this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
-      // this.candidateService.getLocaleducation_details().isHighLevelEdu ? this.isHighLevelEdu.setValue(true) : this.isHighLevelEdu.setValue(false);
-
       this.getSelectedPost();
       this.educationDetails && this.educationDetails.length > 0 ? this.ifEducationDetails() : this.ifNotEducationDetails();
     } else {
@@ -539,15 +536,13 @@ validSelectedPost() {
       // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
         console.log(formArray,'formArray');
-        // formArray[formArray.length-1].isHighLevelEdu =  (this.showWorkExp == '1')? 'true' : 'false'
         const EducationApiRequestDetails = {
           email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "education_details",
           saving_data: {
             // selected_post: this.selectedPost,
             // ca_bothgroup_status: this.checkLastIndexOfCA() ? (this.ca_bothgroup_status.value ? 1 : 0) : null,
-          // isHighLevelEdu: this.isHighLevelEdu,
-          educations: formArray
+                      educations: formArray
           }
         };
         console.log(formArray,'educations');
@@ -662,7 +657,7 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }
-  educationLevel(e, i) {
+  eduLevel(e, i) {
     console.log(e.checked,'e.checked');
     if (e.checked) {
       this.check = true
@@ -759,9 +754,7 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
   // Form getters
   // convenience getters for easy access to form fields
   get getEducationArr() { return this.educationForm.get([this.form_educationArray]) as FormArray; }
-// get is_highLevelEdus(){
-//   return this.educationForm.get(this.isHighLevelEdu)
-// }
+
   setValidations() {
       this.getEducationArr.controls.forEach((element: any, j) => {
       if (element['controls'][this.form_qualification_type]['value'] == 'SSLC') {

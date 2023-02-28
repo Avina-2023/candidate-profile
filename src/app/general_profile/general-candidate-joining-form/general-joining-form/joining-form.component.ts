@@ -235,8 +235,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.activeSelectorRxJs();
     this.stepperStatus();
     this.checkJoiningComponentNeeded();
-    this.email = localStorage.getItem('email');
-
+    this.email = localStorage.getItem('userEmail');
+    this.setprofileimageToLocal()
   }
 
   activeSelectorRxJs() {
@@ -274,26 +274,22 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 
   // this.profilePicture.file_path=null;
 
-console.log(this.imageChangedEvent.target.files[0],'ooo');
+// console.log(this.imageChangedEvent.target.files[0],'ooo');
 
 }
 setprofileimageToLocal(){
   let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
-  console.log(candidateProfileimage.personal_details.profileImage,'dj');
-localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-console.log(JSON.stringify(candidateProfileimage),'--------');
 // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
   // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
 let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
+console.log(candyprofileimage,'candyprofileimage');
 // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
 this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
 console.log(this.cadidatefinalimage,'hbsdjhBcj');
 }
 getprofileimageToLocal(){
-//   this.candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
-// return this.candidateProfileimage
-  // console.log(JSON.stringify(candidateProfileimage),'kkkk')
+
 
 }
 
@@ -319,16 +315,24 @@ loadImageFailed() {
   // show message
 }
 
-  public delete() {
-    this.profilePicture = {
-      file_path: null,
-    };
-    this.profilePictureFormControl.setValue(null);
-    this.profilePictureFormControl.markAsTouched();
+  public delete(file) {
+    const fd = new FormData();
+
+    this.loadingService.setLoading(true);
+    this.skillexService.uploadfile(file).subscribe((data:any) => {
+      fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
+      fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name, { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
+      fd.append('type',"profileDelete");
+      this.loadingService.setLoading(false);
+        // let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
+        // candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
+        // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+        console.log(data,'iii');
+})
   }
 
   onSelectFile(event) {
-    console.log(this.profilePicture.file_path,'yyy');
+    // console.log(this.profilePicture.file_path,'yyy');
     // this.validimage = true;
 
     const fd = new FormData();
@@ -339,9 +343,10 @@ loadImageFailed() {
         // let image = this.croppedImage target.files[0].name;
         // let image = Buffer.from(this.croppedImage, "base64");
         fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
-        fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0], { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
+        fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name, { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
         fd.append('type',"profile");
         this.uploadImage(fd);
+console.log(this.imageChangedEvent.target.files[0].name,'this.imageChangedEvent.target.files');
 
       }
      } else {

@@ -319,11 +319,11 @@ export class CandidateMappersService {
       }
     getLocaldisciplinary_details() {
       let profile = this.getLocalProfileData();
-      return profile ? profile.discipilinary_details : null;
+      return profile ? profile.disciplinary_details : null;
       }
       getLocalaccomplishments_details() {
         let profile = this.getLocalProfileData();
-        return profile ? profile.accomplishments_details : null;
+        return profile ? profile.accomplishment_details : null;
       }
     getLocaleducation_details() {
     let profile = this.getLocalProfileData();

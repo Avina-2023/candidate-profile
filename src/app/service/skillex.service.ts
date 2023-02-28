@@ -8,8 +8,8 @@ import * as CryptoJS from 'crypto-js';
 })
 export class SkillexService {
   // encryptnew: any;
-  EncryptKEY = environment.cryptoEncryptionKey;
-
+  EncryptKEY = environment.encryptionKey;
+  cryptoEncryptionKey = environment.cryptoEncryptionKey;
 constructor(
   private http: HttpClient,
 ) {}

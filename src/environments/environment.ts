@@ -10,7 +10,7 @@ export const environment = {
   MASTER_BASE_URL:"https://campus-dev.lntedutech.com/dcampus",
   supportEmail:"assess.support@lntedutech.com",
   register_Redirect:"https://skillexchange-dev.lntedutech.com/register",
-
+  encryptionKey: 'unifiedReports',
 
 };
 

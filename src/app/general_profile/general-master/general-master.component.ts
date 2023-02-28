@@ -13,7 +13,6 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
   styleUrls: ['./general-master.component.scss']
 })
 export class GeneralMasterComponent implements OnInit {
-  //  profilepercentage: number =  0;
   public email: any;
    public objDetails: any;
    public Details: any;
@@ -37,34 +36,13 @@ export class GeneralMasterComponent implements OnInit {
     // this.profilepercentage = Math.ceil(this.Details.profilePercentage);
     this.isExternal = this.appConfig.getLocalData('externalLogin')
     // this.setprofileimageToLocal()
-    this.username = localStorage.getItem('name');
-    this.email = localStorage.getItem('email');
+    this.username = localStorage.getItem('username');
+    this.email = localStorage.getItem('userEmail');
     console.log(this.CandidateDetails(),'this.CandidateDetails()');
     this.CandidateDetails()
     console.log(this.CandidateDetails(),'this.CandidateDetails()');
 
   }
-
-//   setprofileimageToLocal(){
-//     // this.profilepercentage = 30;
-//     this.profilepercentage = Math.ceil(this.profilepercentage);
-//     this.profilepercentage = JSON.parse(localStorage.getItem("profileData"))  ;
-//     console.log(this.profilepercentage ,'hgvjhb');
-//     if(this.profilepercentage){
-//       let size = 9 ;
-//  this.percentage =  size / 10 * 100;
-//     }
-//   //   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
-//   //   console.log(candidateProfileimage.personal_details.profileImage,'dj');
-//   // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-//   // console.log(JSON.stringify(candidateProfileimage),'--------');
-//   // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-//   //   // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
-//   // let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
-//   // // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-//   // this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
-//   // console.log(this.cadidatefinalimage,'hbsdjhBcj');
-//   }
 
 
 

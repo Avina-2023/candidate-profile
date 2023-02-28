@@ -92,7 +92,7 @@
             <div class="container-wrapper mb-3 mt-0 flex-container pt-3  pl-4 pr-4  pb-4 justify-content-between align-items-center">
               <div class="form-grouping w-100">
                 <div class="d-flex justify-content-between">
-                  <h6 (click)="check(i)">Employment{{i+1}}</h6>
+                  <h6>Employment{{i+1}}</h6>
                   <div class="remove-wrapper">
                     <div (click)="removeEmploymentArray(i)" *ngIf="i !==0" matTooltip="Remove" class="remove">
                       <i class="icon-remove_circle pointer ag-icon-font-size"></i>
@@ -226,10 +226,12 @@
                   </div>
                 </div>
                 <div class="row-wrapper">
+
                   <div class="overall-input-wrapper width-100">
                     <label>Duration From<span class="redTxt">*</span></label>
                       <div class="date-relative">
-                          <input matInput class="input" (dateChange)="detectDateCalc(getEmploymentArr.controls[i], i)" [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from">
+                          <!-- <input matInput class="input" (dateChange)="detectDateCalc(getEmploymentArr.controls[i], i)" [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from"> -->
+                          <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from">
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                       </div>
@@ -254,6 +256,35 @@
                     </div> -->
                   </div>
                   </div>
+                  <div  class="row-wrapper">
+                    <div class="overall-input-wrapper width-100">
+                      <label>Duration To<span class="redTxt">*</span></label>
+                        <div class="date-relative">
+                            <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_duration_to">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </div>
+                        <div class="form-error"
+                        *ngIf="getEmploymentArr.controls[i].get(form_duration_to).invalid && getEmploymentArr.controls[i].get(form_duration_to).touched">
+                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.required">
+                          Period From is Required</div>
+                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax">
+                          {{getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax?.max ?
+                          'Maximum date should be ' +
+                          momentForm(getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax.max)
+                          : ''}}
+                        </div>
+                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin">
+                          {{getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin?.min ?
+                          'Minimum date should be ' +
+                          momentForm(getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin.min)
+                          : ''}}
+                        </div>
+                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerParse">
+                          Invalid Date Format</div>
+                      </div>
+                    </div>
+                    </div>
                                   <!-- <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
                     <label>Nature of Work Done<span></span></label>
@@ -286,6 +317,9 @@
                     </div>
                   </div>
                 </div> -->
+                <div  *ngIf="getEmploymentArr.controls.length-1 == i " class="overall-input-wrapper mt-2  width-100">
+                  <div > <mat-checkbox (change)="currentWrk($event)" [formControlName]="form_isWorkingHere" class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
+                </div>
                 <div class="form-error mt-2 custom-error-border"
                   *ngIf="getEmploymentArr.controls[i].invalid && getEmploymentArr.controls[i]?.errors ">
                   *Make sure, you have entered all the fields value, If you enter any one of the value
@@ -293,7 +327,7 @@
               </div>
         <div *ngIf="getEmploymentArr && getEmploymentArr.controls && getEmploymentArr.controls.length < 10"
         class="row-wrapper mt-3">
-        <div class="skills-add">
+        <div *ngIf="!this.check" class="skills-add">
           <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
             (click)="addToEmploymentArray()">+
             Add</button>

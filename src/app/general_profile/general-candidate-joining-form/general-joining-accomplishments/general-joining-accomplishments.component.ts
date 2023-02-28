@@ -50,8 +50,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   sendPopupResultSubscription: Subscription;
   joiningFormDataPassingSubscription: Subscription;
   newSaveProfileDataSubscription: Subscription;
-  accomplishmentsDetailsAllData: any;
-  accomplishmentsDetails: any;
+  accomplishmentDetailsAllData: any;
+  accomplishmentDetails: any;
   accomplishmentsForm: FormGroup;
 
 //form variable
@@ -102,9 +102,9 @@ form_journalEntity_description = 'journalEntityDescription';
       console.log(this.candidateService.getLocalaccomplishments_details(),'this.candidateService.this.candidateService.getLocalaccomplishments_details()()');
 
       this.formInitialize();
-      this.accomplishmentsDetails = this.candidateService.getLocalaccomplishments_details();
+      this.accomplishmentDetails = this.candidateService.getLocalaccomplishments_details();
       // this.accomplishmentsDetailsAllData = this.candidateService.getLocalAccomplishment_details();
-      console.log(this.accomplishmentsDetails,'accomplishmentsDetails');
+      console.log(this.accomplishmentDetails,'accomplishmentsDetails');
 
 this.patchaccomplishmentsForm();
     } else {
@@ -112,20 +112,27 @@ this.patchaccomplishmentsForm();
 
   }
   patchaccomplishmentsForm(){
-    this.getCertificationsArr.clear();
-    console.log(this.accomplishmentsDetails,'patchthis.accomplishmentsDetails');
 
-    this.accomplishmentsDetails.forEach((element, i) => {
-      this.getCertificationsArr.push(this.patchingCertifications(element, i));
-    });
-    this.getawardsArr.clear();
-    this.accomplishmentsDetails.forEach((element, i) => {
-      this.getawardsArr.push(this.patchingAwards(element, i));
-    });
-    this.getJournalEntryArr.clear();
-    this.accomplishmentsDetails.forEach((element, i) => {
-      this.getJournalEntryArr.push(this.patchingjournalentry(element, i));
-    });
+    console.log(this.accomplishmentDetails,'patchthis.accomplishmentsDetails');
+if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_certificationsArray] && this.accomplishmentDetails[this.form_certificationsArray].length > 0 ){
+  this.getCertificationsArr.clear();
+  this.accomplishmentDetails[this.form_certificationsArray].forEach((element, i) => {
+    this.getCertificationsArr.push(this.patchingCertifications(element, i));
+  });
+}
+if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_awardsArray] && this.accomplishmentDetails[this.form_awardsArray].length > 0 ){
+  this.getawardsArr.clear();
+  this.accomplishmentDetails[this.form_awardsArray].forEach((element, i) => {
+    this.getawardsArr.push(this.patchingAwards(element, i));
+  });
+}
+if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_journalEntryArray] && this.accomplishmentDetails[this.form_journalEntryArray].length > 0 ){
+  this.getJournalEntryArr.clear();
+  this.accomplishmentDetails[this.form_journalEntryArray].forEach((element, i) => {
+    this.getJournalEntryArr.push(this.patchingjournalentry(element, i));
+  });
+}
+
   }
 //   ifCertifications(data){
 //     this.patchingCertifications(data);
@@ -203,7 +210,7 @@ this.patchaccomplishmentsForm();
 
       const AccomplishmentsApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
-        section_name: "accomplishments_details",
+        section_name: "accomplishment_details",
         saving_data: apiData
       }
       this.loadingService.setLoading(true)
