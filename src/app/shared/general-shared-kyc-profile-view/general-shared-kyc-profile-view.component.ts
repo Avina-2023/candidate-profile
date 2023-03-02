@@ -176,6 +176,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
 form_certification_issuedFrom = 'certificationIssuedFrom';
 form_certification_description = 'certificationDescription';
 form_certification_validityFrom = 'certificationValidityFrom';
+form_certification_validityUpto = 'certificationValidityUpto';
+form_isexpire = 'isexpire'
 
 form_awardsArray = 'awards';
 form_award_date = 'awardDate';
@@ -236,7 +238,9 @@ form_journalEntity_description = 'journalEntityDescription';
   form_mode = 'mode';
   form_cgpa = 'percentage';
   isHighLevelEdu = 'is_highLevelEdu';
-
+  form_historyOfbacklog = 'historyOfbacklog';
+  form_reasonForbacklog = 'reasonForbacklog';
+  form_noActivebacklog = 'noActivebacklog';s
   form_gap = 'gap'
   form_finalcgpa = 'final_percentage';
   form_CARanks = 'rank';
@@ -825,7 +829,7 @@ form_projectDescription = 'projectDescription';
         element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
         element[this.isHighLevelEdu] = element?.[this.isHighLevelEdu] && element[this.isHighLevelEdu]  == 'true' ? true : false;
         element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NA';
-        element[this.form_gap] = element?.[this.form_gap] ? element?.[this.form_gap] : 'NIL';
+        element[this.form_gap] = element?.[this.form_gap] && (element[this.form_gap] == 'true')? 'Yes' : 'No';
         element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NA';
         element[this.form_backlog] = element?.[this.form_backlog] ? element?.[this.form_backlog] : 0;
         element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : '';
@@ -1101,7 +1105,7 @@ form_projectDescription = 'projectDescription';
       [this.form_serious_illness]: this.personalDetails?.[this.form_serious_illness] ? this.personalDetails[this.form_serious_illness] : 'NA',
       [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NA',
       [this.form_nature_of_illness]: this.personalDetails?.[this.form_nature_of_illness] ? this.personalDetails[this.form_nature_of_illness] : 'NA',
-      [this.form_physical_disability]: this.personalDetails?.[this.form_physical_disability] ? this.personalDetails[this.form_physical_disability] : 'NA',
+      [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == 'true') ? 'Yes': 'No',
       [this.form_physical_disability_rsn]: this.personalDetails?.[this.form_physical_disability_rsn] ? this.personalDetails[this.form_physical_disability_rsn] : 'NA',
       [this.form_left_eyepower_glass]: this.personalDetails?.[this.form_left_eyepower_glass] ? this.personalDetails[this.form_left_eyepower_glass] : 'NA',
       [this.form_right_eye_power_glass]: this.personalDetails?.[this.form_right_eye_power_glass] ? this.personalDetails[this.form_right_eye_power_glass] : 'NA',

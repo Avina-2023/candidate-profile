@@ -7,20 +7,23 @@
   <div class="grids-wrapper">
     <form class="workDetailsForm" [formGroup]="workDetailsForm" (ngSubmit)="formSubmit()">
       <div class="divcard">
-        <h5 class="m-0 mb-2">Add Skills</h5>
+        <h5 class="m-0 mb-2" >Add Skills</h5>
         <label class="w-100 pb-2" style="border-bottom: 1px solid #BBC2CB99;">Choose your most important skills that increase
           your chances of landing a job interview.</label>
-</div>
+
         <div class="skills-wrapper" *ngIf="getSkillsArr && getSkillsArr.controls" [formArrayName]="form_Skills_Array">
-          <div class="divcard pt-2 pb-4 mb-3">
-            <div class="skill-name-wrapper d-flex " *ngFor="let item of getSkillsArr.controls[i]; let i = index;"
+          <div class="divcard pt-2 pb-4 mb-3"></div>
+
+            <div class="skill-name-wrapper d-flex " *ngFor="let item of getSkillsArr.controls; let i = index;"
             [formGroupName]="i">
-            <div class="w-100">
+
+            <div class="w-100" >
               <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                   <mat-expansion-panel-header>
                     <mat-panel-title >
-                      <!-- {{item.value}} -->
+                      {{getSkillsArr.controls[i].get(form_Skill).value}}<br>
+                      {{getSkillSelection(i)}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <h6  class=" pl-4 ">Key Skills</h6>
@@ -30,13 +33,13 @@
                       <input [formControlName]="form_Skill" class="input w-100" matInput placeholder="Enter here..."
                         type="text" id="">
                     </div>
-                    <div class="skill-level w-40"  let i = index; >{{getSkillSelection(i)}}
-                          <div class="Novice" [ngClass]="{'Novice':getSkillSelection(i) == 'noviceselected','beginner':getSkillSelection(i) == 'beginnerselected','skillfull':getSkillSelection(i) == 'skillfullselected','experience':getSkillSelection(i) == 'experiencedselected','expert':getSkillSelection(i) == 'expertselected'}" >
-                            <div  (click)="choosen('noviceselected', i)" class="  selected " [ngClass]="getSkillSelection(i) == 'noviceselected' ? 'noviceselected' :''" > </div>
-                            <div   (click)="choosen('beginnerselected',i)" class=" selected selectedborder" [ngClass]="getSkillSelection(i) == 'beginnerselected' ? 'beginnerselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
-                            <div  (click)="choosen('skillfullselected', i)" class="selected selectedborder " [ngClass]="getSkillSelection(i) == 'skillfullselected' ? ' skillfullselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
-                            <div  (click)="choosen('experiencedselected', i)" class="selected selectedborder " [ngClass]="getSkillSelection(i) == 'experiencedselected' ? 'experiencedselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
-                            <div  (click)="choosen('expertselected', i)" class=" selected" [ngClass]="getSkillSelection(i) == 'expertselected' ? 'expertselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
+                    <div class="skill-level w-40"  let i = index; >
+                          <div class="Novice" [ngClass]="{'Novice':getSkillSelection(i) == 'Novice','beginner':getSkillSelection(i) == 'Beginner','skillfull':getSkillSelection(i) == 'Skillfull','experience':getSkillSelection(i) == 'Experienced','expert':getSkillSelection(i) == 'Expert'}" >
+                            <div  (click)="choosen('Novice', i)" class="  selected " [ngClass]="getSkillSelection(i) == 'Novice' ? 'noviceselected' :''" > </div>
+                            <div   (click)="choosen('Beginner',i)" class=" selected selectedborder" [ngClass]="getSkillSelection(i) == 'Beginner' ? 'beginnerselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
+                            <div  (click)="choosen('Skillfull', i)" class="selected selectedborder " [ngClass]="getSkillSelection(i) == 'Skillfull' ? ' skillfullselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
+                            <div  (click)="choosen('Experienced', i)" class="selected selectedborder " [ngClass]="getSkillSelection(i) == 'Experienced' ? 'experiencedselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
+                            <div  (click)="choosen('Expert', i)" class=" selected" [ngClass]="getSkillSelection(i) == 'Expert' ? 'expertselected '+ choosenBorder(i) :choosenBorder(i)"> </div>
                           </div>
                       </div>
                   </div>
@@ -45,7 +48,7 @@
             </div>
             <div class="remove-wrapper">
               <div (click)="removeSkillsArray(i)" *ngIf="i !==0" matTooltip="Remove" class="remove">
-                <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                <i class="icon-BinDelete pointer ag-icon-font-size"></i>
               </div>
             </div>
             <div class="form-error"
@@ -95,7 +98,7 @@
                   <h6>Employment{{i+1}}</h6>
                   <div class="remove-wrapper">
                     <div (click)="removeEmploymentArray(i)" *ngIf="i !==0" matTooltip="Remove" class="remove">
-                      <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                      <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                     </div>
                   </div>
                 </div>
@@ -256,7 +259,7 @@
                     </div> -->
                   </div>
                   </div>
-                  <div  class="row-wrapper">
+                  <div  class="row-wrapper" *ngIf="!getEmploymentArr.controls[i].value.is_working_here">
                     <div class="overall-input-wrapper width-100">
                       <label>Duration To<span class="redTxt">*</span></label>
                         <div class="date-relative">
@@ -265,7 +268,7 @@
                             <mat-datepicker #picker1></mat-datepicker>
                         </div>
                         <div class="form-error"
-                        *ngIf="getEmploymentArr.controls[i].get(form_duration_to).invalid && getEmploymentArr.controls[i].get(form_duration_to).touched">
+                        *ngIf="getEmploymentArr.controls[i].get(form_duration_to).invalid && getEmploymentArr.controls[i]?.get(form_duration_to).touched">
                         <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.required">
                           Period From is Required</div>
                         <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax">
@@ -318,22 +321,22 @@
                   </div>
                 </div> -->
                 <div  *ngIf="getEmploymentArr.controls.length-1 == i " class="overall-input-wrapper mt-2  width-100">
-                  <div > <mat-checkbox (change)="currentWrk($event)" [formControlName]="form_isWorkingHere" class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
+                  <div > <mat-checkbox (change)="currentWrk($event, i)" [formControlName]="form_isWorkingHere" class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
                 </div>
                 <div class="form-error mt-2 custom-error-border"
                   *ngIf="getEmploymentArr.controls[i].invalid && getEmploymentArr.controls[i]?.errors ">
                   *Make sure, you have entered all the fields value, If you enter any one of the value
                 </div>
               </div>
-        <div *ngIf="getEmploymentArr && getEmploymentArr.controls && getEmploymentArr.controls.length < 10"
-        class="row-wrapper mt-3">
-        <div *ngIf="!this.check" class="skills-add">
-          <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
-            (click)="addToEmploymentArray()">+
-            Add</button>
-        </div>
-      </div>
+
           </ng-container>
+          <div class="row-wrapper mt-3">
+            <div *ngIf="!this.check" class="skills-add">
+              <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
+                (click)="addToEmploymentArray(i)">+
+                Add</button>
+            </div>
+          </div>
         </ng-container>
 
         <!-- <div class="row-wrapper mt-3">
@@ -384,7 +387,7 @@
                 <h6>Training Details {{i+1}}</h6>
                 <div class="remove-wrapper">
                   <div (click)="removeTrainingArray(i)" *ngIf="i == getTrainingArr.controls.length >= 0"  matTooltip="Remove" class="remove">
-                    <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                    <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                   </div>
                 </div>
               </div>
@@ -482,7 +485,7 @@
               <!-- <div class="remove-wrapper">
                 <div (click)="removeTrainingArray(i)" *ngIf="i == getTrainingArr.controls.length - 1 && i != 0"
                   matTooltip="Remove" class="remove">
-                  <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                  <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                 </div>
               </div> -->
             </div>
@@ -735,7 +738,7 @@
                               </div>
                               <div class="remove-wrapper">
                                   <div (click)="removeRelatives(i)" *ngIf="i !==0" matTooltip="Remove" class="remove">
-                                      <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                                      <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                                   </div>
                               </div>
                           </div>

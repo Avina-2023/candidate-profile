@@ -65,10 +65,10 @@
                     display: flex;
                     flex-direction: row;
                     position: relative;
-                    margin-top: 1.5em;
+                    margin-top: 2em;
                     width: 100%;
                     align-items: center;
-                    margin-bottom: 1.5em;
+                    // margin-bottom: 1.5em;
 
                     label {
                         color: #565656;
@@ -113,6 +113,14 @@
                         font-size: 13px;
                     }
                 }
+                .form-error {
+                  color: $primary-error-text;
+                  font-size: 12px;
+                  .err{
+                    position: relative;
+                    float: right;
+                  }
+              }
             }
         }
         .photo-wrapper {

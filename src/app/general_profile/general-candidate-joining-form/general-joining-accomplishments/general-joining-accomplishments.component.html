@@ -41,8 +41,8 @@
                     <div class="dependent-head">
                       <h6>Certification{{i+1}}</h6>
                       <div class="remove-wrapper">
-                        <div (click)="removeCertificationsArray(i)" *ngIf="i <= 0  " matTooltip="Remove" class="remove">
-                          <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                        <div (click)="removeCertificationsArray(i)" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
+                          <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                         </div>
                       </div>
                     </div>
@@ -105,23 +105,52 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="form-error"
-                *ngIf="getCertificationsArr.controls[i].get(form_isDependent).invalid && getCertificationsArr.controls[i].get(form_isDependent).touched">
-                <div *ngIf="getCertificationsArr.controls[i].get(form_isDependent)?.errors?.required">
-                  Certification Validity From * is Required</div>
-              </div> -->
+
                   </div>
+                  <div  class="row-wrapper" *ngIf="!getCertificationsArr.controls[i].value.isexpire">
+                    <div class="overall-input-wrapper width-32 mb-3">
+                      <label>Certification Validity Upto<span class="redTxt">*</span></label>
+                        <div class="date-relative">
+                            <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </div>
+                        <div class="form-error"
+                        *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto).invalid && getCertificationsArr.controls[i]?.get(form_certification_validityUpto).touched">
+                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.required">
+                          Period From is Required</div>
+                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax">
+                          {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax?.max ?
+                          'Maximum date should be ' +
+                          momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax.max)
+                          : ''}}
+                        </div>
+                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin">
+                          {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin?.min ?
+                          'Minimum date should be ' +
+                          momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin.min)
+                          : ''}}
+                        </div>
+                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerParse">
+                          Invalid Date Format</div>
+                      </div>
+                    </div>
+                    </div>
+                <div  *ngIf="getCertificationsArr.controls.length-1 == i " class="overall-input-wrapper mt-2  width-100">
+                  <div > <mat-checkbox (change)="isCertificateExpire($event, i)" [formControlName]="form_isexpire" class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
+                </div>
                 </div>
               </div>
-              <div style="height: 68px !important ;"
-                *ngIf="getCertificationsArr && getCertificationsArr.controls && getCertificationsArr.controls.length < 5 "
-                class="pt-3  pb-3">
-                <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
-                  (click)="addMoreCertifications()">+ Add More Certifications</button>
-              </div>
+
             </div>
 
           </ng-container>
+          <div style="height: 68px !important ;"
+          *ngIf="getCertificationsArr && getCertificationsArr.controls && getCertificationsArr.controls.length > 0  "
+          class="pt-3  pb-3">
+          <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+            (click)="addMoreCertifications()">+ Add More Certifications</button>
+        </div>
         </ng-container>
         <!-- awards -->
         <ng-container *ngIf="getawardsArr && getawardsArr.controls" [formArrayName]="form_awardsArray">
@@ -136,7 +165,7 @@
                     <h6>Awards{{i+1}}</h6>
                     <div class="remove-wrapper">
                       <div (click)="removeawardsArray(i)" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
-                        <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                        <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                       </div>
                     </div>
                   </div>
@@ -177,7 +206,7 @@
             <div style="height: 68px !important ;" *ngIf="getawardsArr && getawardsArr.controls && getawardsArr.controls.length < 5 "
               class=" pt-3 pb-3">
               <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
-                (click)="addMoreAwards()">+ Add More Certifications</button>
+                (click)="addMoreAwards()">+ Add More Awards</button>
             </div>
           </ng-container>
         </ng-container>
@@ -196,7 +225,7 @@
                     <h6>Research Publication{{i+1}}</h6>
                     <div class="remove-wrapper">
                       <div (click)="removeJournalArray(i)" *ngIf="i == 0  " matTooltip="Remove" class="remove">
-                        <i class="icon-remove_circle pointer ag-icon-font-size"></i>
+                        <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                       </div>
                     </div>
                   </div>
@@ -254,7 +283,7 @@
             <div style="height: 68px !important ;" class="pt-3 pb-3 " *ngIf="getJournalEntryArr && getJournalEntryArr.controls && getJournalEntryArr.controls.length < 5 "
               >
               <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
-                (click)="addMoreCertifications()">+ Add More Certifications</button>
+                (click)="addMoreJournalEntry()">+ Add More Journal Entry</button>
             </div>
           </ng-container>
         </ng-container>

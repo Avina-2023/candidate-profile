@@ -13,6 +13,7 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 import {MatIconModule} from '@angular/material/icon';
 import { ImageCroppedEvent,Dimensions,ImageTransform, base64ToFile } from 'ngx-image-cropper';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-joining-form',
@@ -221,7 +222,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     public candidateService: CandidateMappersService,
     private sharedService: SharedServiceService,
     private dialog: MatDialog,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private toastr: ToastrService
   ) {
     const subWrapperMenus = null;
     this.sharedService.subMenuSubject.next(subWrapperMenus);
@@ -237,7 +239,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.checkJoiningComponentNeeded();
     this.email = localStorage.getItem('userEmail');
     this.setprofileimageToLocal()
+
   }
+
+
 
   activeSelectorRxJs() {
     this.joiningFormActiveSelectorSubscribe = this.sharedService.joiningFormActiveSelector.pipe(delay(0)).subscribe((data: any)=> {
@@ -263,33 +268,35 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     closeOnNavigation: true,
     disableClose: true,
   });
-
-
 }
 
  fileChangeEvent(event: any): void {
+  // console.log(this.profilePicture.file_path,'ooo');
+
   this.imageChangedEvent = event;
-
-
 
   // this.profilePicture.file_path=null;
 
-// console.log(this.imageChangedEvent.target.files[0],'ooo');
 
 }
 setprofileimageToLocal(){
   let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
+localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+
 // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
   // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
 let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
 console.log(candyprofileimage,'candyprofileimage');
 // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
 this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
-console.log(this.cadidatefinalimage,'hbsdjhBcj');
-}
-getprofileimageToLocal(){
+console.log(this.cadidatefinalimage,'this.cadidatefinalimage')
+// console.log(this.cadidatefinalimage,'cadidatefinalimage');
+// console.log(this.profilePicture.file_path,'profilePicture.file_path');
 
+}
+
+getprofileimageFromLocal(){
 
 }
 
@@ -315,20 +322,18 @@ loadImageFailed() {
   // show message
 }
 
-  public delete(file) {
+  public delete(event) {
     const fd = new FormData();
-
-    this.loadingService.setLoading(true);
-    this.skillexService.uploadfile(file).subscribe((data:any) => {
+    // this.loadingService.setLoading(true);
       fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
-      fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name, { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
       fd.append('type',"profileDelete");
-      this.loadingService.setLoading(false);
-        // let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
-        // candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
-        // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-        console.log(data,'iii');
-})
+      this.uploadImage(fd);
+      this.profilePictureFormControl.setValue(null);
+      this.profilePictureFormControl.markAsTouched();
+      this.setprofileimageToLocal();
+      // let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
+      // candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
+      //  localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
   }
 
   onSelectFile(event) {
@@ -359,7 +364,6 @@ console.log(this.imageChangedEvent.target.files[0].name,'this.imageChangedEvent.
 
   async uploadImage(file) {
 console.log(file,'ooo');
-
     try {
       this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(true);
@@ -377,17 +381,15 @@ console.log(file,'ooo');
 
           };
           this.profilePictureFormControl.setValue(this.profilePicture.file_path);
-          this.setprofileimageToLocal();
-          console.log(this.setprofileimageToLocal(),'lo');
-
-
         }
         this.dialog.closeAll()
-        this.appConfig.nzNotification('success', 'Uploaded', 'Profile Picture uploaded successfully');
+        this.toastr.success(data.message);
+        this.setprofileimageToLocal();
         this.croppedImage
+
       });
     } catch (e) {
-      console.log("error while profile pic"+e)
+      // console.log("error while profile pic"+e)
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -647,11 +649,11 @@ console.log(file,'ooo');
       }
     }
     if (this.activeStep == 'project') {
-      if (route.includes('accomplishment')) {
+      if (route.includes('accomplishments')) {
         return true;
       }
     }
-    if (this.activeStep == 'accomplishment') {
+    if (this.activeStep == 'accomplishments') {
       if (route.includes('upload')) {
         return true;
       }
@@ -677,6 +679,7 @@ console.log(file,'ooo');
   checkJoiningComponentNeeded() {
   if (this.appConfig.getLocalData('joiningFormAccess') && this.appConfig.getLocalData('joiningFormAccess') === 'true') {
     this.showJoiningForm = true;
+
   }
   }
 

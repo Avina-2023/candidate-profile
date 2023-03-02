@@ -339,9 +339,12 @@
             <div class="overall-input-wrapper mt-3 width-32">
               <label>Physical Disability<span></span></label>
               <div class="inpu-preview size-16 bold-700 color-black">
-                {{ personalDetailsMap[form_physical_disability] }}
+                  {{ personalDetailsMap[form_physical_disability] }}
+
               </div>
-              <div>{{personalDetailsMap[form_physical_disability_rsn]?personalDetailsMap[form_physical_disability_rsn] : 'na' }}
+            </div>
+            <div *ngIf="personalDetailsMap[form_physical_disability] == 'Yes'" class="overall-input-wrapper flexend mt-3 width-32">
+                <div  class="inpu-preview size-16 bold-700 color-black">{{personalDetailsMap[form_physical_disability_rsn]}}
               </div>
             </div>
             <div class="overall-input-wrapper mt-3 width-32">
@@ -409,8 +412,8 @@
         </div>
         <ng-container *ngIf="contactDetailsMap; else noContact" >
           <div class="row-wrapper mt-0 pb-4 border-address" >
-            <label  style="font-size: 16px;font-weight: 500;">Present Address</label>
-            <div class="overall-input-wrapper  mt-3 width-100 ">
+            <label  class="contactAdd">Present Address</label>
+            <div class="overall-input-wrapper flexstart mt-3 width-100 ">
               <label >Present Address</label>
               <div class="inpu-preview  mt-0 size-16 bold-700 color-black">
                 {{ contactDetailsMap["presentAddress"] }},
@@ -674,14 +677,14 @@
                   {{ education[form_gap] }}
                 </div>
               </div>
-              <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm">
+              <!-- <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm">
                 <div class="overall-input-wrapper mt-3 width-32">
                   <label>Mode</label>
                   <div class="inpu-preview size-16 bold-700 color-black">
                     {{ education[form_mode] }}
                   </div>
                 </div>
-              </ng-container>
+              </ng-container> -->
               <!-- <div class="overall-input-wrapper mt-3 width-32">
                 <label>{{ education[form_qualification_type] && (education[form_qualification_type] == 'CA' ||
                   education[form_qualification_type] == 'ICWA' || education[form_qualification_type] == 'CS') ? 'No. of Attempts' : 'Backlogs' }}</label>
@@ -689,6 +692,24 @@
                   {{ education[form_backlog] }}
                 </div>
               </div> -->
+              <ng-container *ngIf="education[form_gap] == 'Yes'" >
+                <div class="overall-input-wrapper mt-3 width-32">
+                  <label>History of Backlogs</label>
+                  <div class="inpu-preview size-16 bold-700 color-black">
+                    {{ education[form_historyOfbacklog] }}
+                  </div>
+                </div><div class="overall-input-wrapper mt-3 width-32">
+                  <label>No. of Active Backlogs (if any)</label>
+                  <div class="inpu-preview size-16 bold-700 color-black">
+                    {{ education[form_noActivebacklog] }}
+                  </div>
+                </div><div class="overall-input-wrapper mt-3 width-32">
+                  <label>Reason for the gap</label>
+                  <div class="inpu-preview size-16 bold-700 color-black">
+                    {{ education[form_reasonForbacklog] }}
+                  </div>
+                </div>
+              </ng-container>
 
               <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm">
                 <ng-container *ngIf="
@@ -830,13 +851,13 @@
                     {{ dateConvertion(work[form_duration_from]) }}
                   </div>
                 </div>
-                <div class="overall-input-wrapper mt-3 width-20">
+                <div *ngIf="work[form_isWorkingHere] != true" class="overall-input-wrapper mt-3 width-20">
                   <label>Duration To</label>
-                  <div class="inpu-preview f_size_16 bold-700 color-black">
+                  <div class="inpu-preview size_16 bold-700 color-black">
                     {{ dateConvertion(work[form_duration_to]) }}
                   </div>
                 </div>
-                <div *ngIf="work[work.length-1]?.form_isWorkingHere == true" class="overall-input-wrapper mt-3  width-100">
+                <div *ngIf="work[form_isWorkingHere] == true" class="overall-input-wrapper mt-3  width-100">
                   <div> <mat-checkbox [checked]="work[form_isWorkingHere]" [disabled]="true"
                     class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
                 </div>
@@ -1181,9 +1202,15 @@
     {{ certification[form_certification_validityFrom]}}
   </div>
 </div>
-<div class="overall-input-wrapper mt-3  width-100" >
-  <div> <mat-checkbox  [disabled]="true"
-    class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span></div>
+<div *ngIf="certification[form_isexpire] != true" class="overall-input-wrapper mt-3 width-32">
+  <label>Certification Validity upto</label>
+  <div class="inpu-preview size-16 bold-700 color-black">
+    {{ dateConvertion(certification[form_certification_validityUpto])}}
+  </div>
+</div>
+<div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100" >
+  <div> <mat-checkbox  [disabled]="true" [checked]="certification[form_isexpire]"
+    class="checkqualify mr-2 "></mat-checkbox><span>This Certification does not expire</span></div>
 </div>
 </div>
 </ng-container>

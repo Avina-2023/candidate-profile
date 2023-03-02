@@ -171,7 +171,10 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   form_startDate = 'start_date';
   form_endDate = 'end_date';
   form_yearpassing = 'year_of_passing';
-  form_backlog = 'backlogs';
+  // form_backlog = 'backlogs';
+  form_historyOfbacklog = 'historyOfbacklog';
+  form_reasonForbacklog = 'reasonForbacklog';
+  form_noActivebacklog = 'noActivebacklog';
   form_mode = 'mode';
   form_cgpa = 'percentage';
   form_Finalcgpa = 'final_percentage';
@@ -379,7 +382,10 @@ constructor(
           [this.form_endDate]: null,
           [this.form_yearpassing]: null,
           [this.isHighLevelEdu]:'false',
-          [this.form_backlog]: null,
+          // [this.form_backlog]: null,
+          [this.form_historyOfbacklog]:null,
+          [this.form_reasonForbacklog]: null,
+          [this.form_noActivebacklog]: null,
           [this.form_mode]: null,
           [this.form_cgpa]: null,
           [this.form_Finalcgpa]: null,
@@ -627,7 +633,11 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       [this.form_startDate]: [this.dateConvertion(data[this.form_startDate]), [Validators.required, this.startTrue(false)] ],
       [this.form_endDate]: [this.dateConvertion(data[this.form_endDate]), [Validators.required, this.startTrue(false)] ],
       [this.form_yearpassing]: [{ value: this.dateConvertionMonth(data[this.form_yearpassing]), disabled: false }, [Validators.required, this.startTrue(true)]],
-      [this.form_backlog]: [{ value: data[this.form_backlog], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? (data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? true : false) : false}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
+      //  [this.form_backlog]: [{ value: data[this.form_backlog], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? (data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? true : false) : false}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
+      [this.form_reasonForbacklog]: [{ value: data[this.form_reasonForbacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+      [this.form_historyOfbacklog]: [{ value: data[this.form_historyOfbacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+
+      [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
       [this.form_Finalcgpa]: [(data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? data[this.form_cgpa] : data[this.form_Finalcgpa]), this.candidateService.checkKycOrJoiningForm() ? [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)] : []],
@@ -650,7 +660,11 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       [this.isHighLevelEdu]:['false'],
       [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
-      [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
+      //  [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
+      [this.form_historyOfbacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
+
+      [this.form_reasonForbacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
+      [this.form_noActivebacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
       [this.form_mode]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
       [this.form_Finalcgpa]: [null, this.candidateService.checkKycOrJoiningForm() ? [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)] : []],
