@@ -62,10 +62,10 @@
           display: flex;
           flex-direction: row;
           position: relative;
-          margin-top: 1.5em;
+          margin-top: 2em;
           width: 100%;
           align-items: center;
-          margin-bottom: 1.5em;
+          // margin-bottom: 1.5em;
 
           label {
             color: #565656;
@@ -102,7 +102,11 @@
           .form-error {
             color: $primary-error-text;
             font-size: 12px;
-          }
+            .err{
+              position: relative;
+              float: right;
+            }
+        }
           ::placeholder {
             color: #a5a5a5 !important;
             opacity: 1;
@@ -111,6 +115,14 @@
         }
       }
     }
+  }
+}
+.form-error {
+  color: $primary-error-text;
+  font-size: 12px;
+  .err{
+    position: relative;
+    float: right;
   }
 }
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
@@ -270,6 +282,20 @@
   margin: 0 !important;
   padding: 0 !important;
   width: 100%;
+  .input {
+    position: relative;
+    border: solid 0.8px #bebebe;
+    border-radius: 2px;
+    color: #6b6b6b;
+    outline: none;
+    box-sizing: border-box;
+    min-height: 35px !important;
+    max-height: 35px !important;
+    line-height: 35px;
+    padding: 4px 8px;
+    background-color: $white;
+    width: 100% !important;
+  }
 
 }
 
@@ -314,12 +340,22 @@ input#mat-chip-list-input-1 {
   padding: 8px !important;
 }
 }
-.carddiv{
-background-color: #ffffff;
+.carddiv:first-child{
+  background-color: #ffffff;
 margin-bottom: 30px;
 width: 100%;
   padding: 20px;
   box-shadow: 0.5px 0.87px 10px #00000012;
+}
+
+.carddiv{
+background-color: #ffffff;
+margin-bottom: 30px;
+width: 100%;
+padding: 20px;
+
+padding-top: 3% !important;
+box-shadow: 0.5px 0.87px 10px #00000012;
 }
 .headcard{
 background-color: #ffffff;

@@ -46,104 +46,97 @@
                         </div>
                       </div>
                     </div>
-
-                    <div class="overall-input-wrapper width-32 mb-3">
-                      <label>Certification Name<span class="redTxt">*</span></label>
-                      <input matInput placeholder="Enter here" class="input" type="text"
-                        [formControlName]="form_certification_name">
-                      <div class="form-error"
-                        *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
-                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.required">
-                          Certification Name is Required</div>
-                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.alphaNum255">
-                          Alpha numeric with maximum of 255 characters only
-                          allowed</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row-wrapper">
-                    <div class="overall-input-wrapper width-32 mb-3">
-                      <label>Issued From<span class="redTxt">*</span></label>
-                      <input matInput placeholder="Enter here" class="input" type="text"
-                        [formControlName]="form_certification_issuedFrom">
-                      <div class="form-error"
-                        *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
-                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
-                          Certification Name is Required</div>
-                        <div
-                          *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
-                          Alpha numeric with maximum of 255 characters only
-                          allowed
+                    <ng-container >
+                      <div class="overall-input-wrapper width-32 0">
+                        <label>Certification Name<span class="redTxt">*</span></label>
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_certification_name">
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row-wrapper">
-                    <div class="overall-input-wrapper width-32 mb-3">
+                        <div class="form-error"
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
+                          <div class="err" *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.required">
+                            Certification Name is Required</div>
+                          <div class="err" *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.alphaNum255">
+                            Alpha numeric with maximum of 255 characters only
+                            allowed</div>
+                        </div>
+                    </ng-container>
+                    <ng-container >
+                      <div class="overall-input-wrapper width-32 mb-0">
+                        <label>Issued From<span class="redTxt">*</span></label>
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_certification_issuedFrom">
+                        </div>
+                        <div class="form-error"
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
+                          <div class="err" *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
+                            Certification Name is Required</div>
+                          <div class="err"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
+                            Alpha numeric with maximum of 255 characters only
+                            allowed
+                          </div>
+                        </div>
+                    </ng-container>
+                    <div class="overall-input-wrapper width-32 mb-0">
                       <label>Description</label>
                       <input matInput placeholder="Enter here" class="input" type="text"
                         [formControlName]="form_certification_description">
                     </div>
-                  </div>
-
-                  <div class="row-wrapper">
-                    <div class="overall-input-wrapper width-32 mb-3">
-                      <label>Certification Validity From<span class="redTxt">*</span></label>
-                      <input matInput placeholder="Enter here" class="input" type="text"
-                        [formControlName]="form_certification_validityFrom">
-                      <div class="form-error"
-                        *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).invalid && getCertificationsArr.controls[i].get(form_certification_validityFrom).touched">
-                        <div
-                          *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).errors?.required">
-                          Certification Validity From is Required</div>
-                        <div
-                          *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).errors?.alphaNum255">
-                          Alpha numeric with maximum of 255 characters only
-                          allowed
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <div  class="row-wrapper" *ngIf="!getCertificationsArr.controls[i].value.isexpire">
-                    <div class="overall-input-wrapper width-32 mb-3">
-                      <label>Certification Validity Upto<span class="redTxt">*</span></label>
-                        <div class="date-relative">
-                            <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto">
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
+                    <ng-container >
+                      <div class="overall-input-wrapper width-32 mb-0">
+                        <label>Certification Validity From<span class="redTxt">*</span></label>
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_certification_validityFrom">
                         </div>
                         <div class="form-error"
-                        *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto).invalid && getCertificationsArr.controls[i]?.get(form_certification_validityUpto).touched">
-                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.required">
-                          Period From is Required</div>
-                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax">
-                          {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax?.max ?
-                          'Maximum date should be ' +
-                          momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax.max)
-                          : ''}}
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).invalid && getCertificationsArr.controls[i].get(form_certification_validityFrom).touched">
+                          <div class="err"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).errors?.required">
+                            Certification Validity From is Required</div>
+                          <div class="err"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom).errors?.alphaNum255">
+                            Alpha numeric with maximum of 255 characters only
+                            allowed
+                          </div>
                         </div>
-                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin">
-                          {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin?.min ?
-                          'Minimum date should be ' +
-                          momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin.min)
-                          : ''}}
+                    </ng-container>
+                    <ng-container *ngIf="!getCertificationsArr.controls[i].value.isexpire">
+                      <div class="overall-input-wrapper width-32 mb-0">
+                        <label>Certification Validity Upto<span class="redTxt">*</span></label>
+                          <div class="date-relative">
+                              <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto">
+                              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                              <mat-datepicker #picker1></mat-datepicker>
+                          </div>
                         </div>
-                        <div *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerParse">
-                          Invalid Date Format</div>
-                      </div>
-                    </div>
+                        <div class="form-error"
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto).invalid && getCertificationsArr.controls[i]?.get(form_certification_validityUpto).touched">
+                          <div class="err" *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.required">
+                            Period From is Required</div>
+                          <div class="err" *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax">
+                            {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax?.max ?
+                            'Maximum date should be ' +
+                            momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMax.max)
+                            : ''}}
+                          </div>
+                          <div class="err" *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin">
+                            {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin?.min ?
+                            'Minimum date should be ' +
+                            momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin.min)
+                            : ''}}
+                          </div>
+                          <div class="err" *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerParse">
+                            Invalid Date Format</div>
+                        </div>
+                    </ng-container>
                     </div>
                 <div  *ngIf="getCertificationsArr.controls.length-1 == i " class="overall-input-wrapper mt-2  width-100">
                   <div > <mat-checkbox (change)="isCertificateExpire($event, i)" [formControlName]="form_isexpire" class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
                 </div>
                 </div>
               </div>
-
             </div>
-
           </ng-container>
           <div style="height: 68px !important ;"
           *ngIf="getCertificationsArr && getCertificationsArr.controls && getCertificationsArr.controls.length > 0  "
@@ -169,37 +162,37 @@
                       </div>
                     </div>
                   </div>
-
-                  <div class="overall-input-wrapper width-32 mb-3">
-                    <label>Award Title<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_award_title">
-                    <div class="form-error"
-                      *ngIf="getawardsArr.controls[i].get(form_award_title).invalid && getawardsArr.controls[i].get(form_award_title).touched">
-                      <div *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.required">
-                        Awarded Title is Required</div>
-                      <div *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-32 mb-3">
-                    <label>Awarded Date<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_award_date">
-                    <div class="form-error"
-                      *ngIf="getawardsArr.controls[i].get(form_award_date).invalid && getawardsArr.controls[i].get(form_award_date).touched">
-                      <div *ngIf="getawardsArr.controls[i].get(form_award_date).errors?.required">
-                        Awarded Date is Required</div>
-                      <div *ngIf="getawardsArr.controls[i].get(form_award_date).errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed
+                  <ng-container >
+                    <div class="overall-input-wrapper width-32 mb-0">
+                      <label>Award Title<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_award_title">
                       </div>
-                    </div>
-                  </div>
+                      <div class="form-error"
+                        *ngIf="getawardsArr.controls[i].get(form_award_title).invalid && getawardsArr.controls[i].get(form_award_title).touched">
+                        <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.required">
+                          Awarded Title is Required</div>
+                        <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+                  </ng-container>
+                  <ng-container >
+                    <div class="overall-input-wrapper width-32 mb-0">
+                      <label>Awarded Date<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_award_date">
+                      </div>
+                      <div class="form-error"
+                        *ngIf="getawardsArr.controls[i].get(form_award_date).invalid && getawardsArr.controls[i].get(form_award_date).touched">
+                        <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_date).errors?.required">
+                          Awarded Date is Required</div>
+                        <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_date).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed
+                        </div>
+                      </div>
+                  </ng-container>
                 </div>
               </div>
             </div>
@@ -229,38 +222,38 @@
                       </div>
                     </div>
                   </div>
-                  <div class="overall-input-wrapper width-32 mb-3">
-                    <label>Title<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_journalEntity_title">
-                    <div class="form-error"
-                      *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_title).touched">
-                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.required">
-                        Certification Name is Required</div>
-                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-32 mb-3">
-                    <label>URL<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_journalEntity_url">
-                    <div class="form-error"
-                      *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_url).touched">
-                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.required">
-                        Certification Name is Required</div>
-                      <div *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed
+                  <ng-container >
+                    <div class="overall-input-wrapper width-32 mb-0">
+                      <label>Title<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_journalEntity_title">
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-32 mb-3">
+                      <div class="form-error"
+                        *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_title).touched">
+                        <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.required">
+                          Certification Name is Required</div>
+                        <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+                  </ng-container>
+                  <ng-container >
+                    <div class="overall-input-wrapper width-32 mb-0">
+                      <label>URL<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_journalEntity_url">
+                      </div>
+                      <div class="form-error"
+                        *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_url).touched">
+                        <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.required">
+                          Certification Name is Required</div>
+                        <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed
+                        </div>
+                      </div>
+                  </ng-container>
+                  <div class="overall-input-wrapper width-32 mb-0">
                     <label>Published On</label>
                     <div class="date-relative">
                       <input matInput class="input" style="width:100% !important"
@@ -270,9 +263,7 @@
                       <mat-datepicker #picker_dateofIssue></mat-datepicker>
                     </div>
                   </div>
-                </div>
-                <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-32 mb-3">
+                  <div class="overall-input-wrapper width-32 mb-0">
                     <label>Description</label>
                     <input matInput placeholder="Enter here" class="input" type="text"
                       [formControlName]="form_journalEntity_description">

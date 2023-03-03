@@ -408,8 +408,8 @@ check: any;
   EmploymentArrayPatch(data) {
     return this.fb.group({
       [this.form_employment_name_address]: [data[this.form_employment_name_address],[Validators.required]],
-      [this.form_duration_from]: [this.dateConvertion(data[this.form_duration_from])],
-      [this.form_duration_to]: [this.dateConvertion(data[this.form_duration_to])],
+      [this.form_duration_from]: [this.dateConvertion(data[this.form_duration_from]) , [Validators.required]],
+      [this.form_duration_to]: [this.dateConvertion(data[this.form_duration_to]) , [Validators.required]],
       [this.form_achievement]: [data[this.form_achievement], [Validators.required]],
       [this.form_isWorkingHere]: [data[this.form_isWorkingHere]],
       [this.form_postion_field]: [data[this.form_postion_field], [Validators.required]],
@@ -505,8 +505,8 @@ console.log(this.form_skilllevel_selected,'getSkillSelection(i)');
       this.getEmploymentArr.controls[index]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[index]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[index]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getEmploymentArr.controls[index]['controls'][this.form_duration_from].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getEmploymentArr.controls[index]['controls'][this.form_duration_to].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getEmploymentArr.controls[index]['controls'][this.form_duration_from].setValidators([Validators.required],{ emitEvent: false });
+      this.getEmploymentArr.controls[index]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
 
 
       // this.workDetailsForm.controls[this.form_total_exp_years].updateValueAndValidity();
@@ -645,8 +645,8 @@ changeInIsArticleship(event){
         this.getEmploymentArr.controls[0]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-        this.getEmploymentArr.controls[0]['controls'][this.form_duration_from].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-        this.getEmploymentArr.controls[0]['controls'][this.form_duration_to].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getEmploymentArr.controls[0]['controls'][this.form_duration_from].setValidators([Validators.required],{ emitEvent: false });
+        this.getEmploymentArr.controls[0]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
 
         // this.getEmploymentArr.clear();
         // this.getEmploymentArr.push(this.initEmploymentArray());

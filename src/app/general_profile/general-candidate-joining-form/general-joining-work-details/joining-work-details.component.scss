@@ -1,6 +1,13 @@
 @import "../../../themes/themes.scss";
+.joining-personal-wrapper::-webkit-scrollbar {
+  display: none;
+}
 .joining-personal-wrapper {
     width: 100%;
+    padding-top: 0px !important;
+    overflow-y: scroll;
+    height: 775px;
+    // padding: 20px;
     .divcard{
       background-color: #ffffff;
       padding-left: 3%;
@@ -64,6 +71,10 @@ padding-bottom: 1%;
                 .form-error {
                     color: $primary-error-text;
                     font-size: 12px;
+                    .err{
+                      position: relative;
+                      float: right;
+                    }
                 }
                  ::placeholder {
                     color: #a5a5a5 !important;
@@ -71,6 +82,14 @@ padding-bottom: 1%;
                     font-size: 13px;
                 }
             }
+            .form-error {
+              color: $primary-error-text;
+              font-size: 12px;
+              .err{
+                position: relative;
+                float: right;
+              }
+          }
             .skills-add {
                 padding: 6px;
                 // width: max-content;
@@ -145,6 +164,7 @@ padding-bottom: 1%;
                     // flex-direction: column;
                     align-items: center;
                     position: relative;
+                    margin-top: 2em;
                     label {
                         color: #565656;
                         padding: 0 0 2px 0;
@@ -249,6 +269,14 @@ padding-bottom: 1%;
                         font-size: 13px;
                     }
                 }
+                .form-error {
+                  color: $primary-error-text;
+                  font-size: 12px;
+                  .err{
+                    position: relative;
+                    float: right;
+                  }
+              }
             }
             .container-wrapper {
                 background-color: #ffffff;
@@ -496,6 +524,7 @@ padding-bottom: 1%;
     margin: 0 !important;
     padding: 0 !important;
     width: 100%;
+
 }
 
 :host ::ng-deep .mat-input-element:disabled {
@@ -557,6 +586,25 @@ width: 30%;
   width: 60% !important;
   padding-top: 0 !important;
 }
+.Nov{
+  color: #E37162;
+
+}
+.beg{
+  color: #EF8F6C;
+
+}
+.ske{
+  color: #F7CE8C;
+
+}
+.expNC{
+  color: #96C771;
+
+}
+.exprt{
+  color: #82CDEF;
+}
 .beginnerselected{
   background-color: #EF8F6C;
   width: 20%;
@@ -592,26 +640,31 @@ width: 30%;
   background-color:  #E3716226 !important ;
   display: flex;
   height: 35px;
+  border-radius: 5px;
 }
 .beginner{
   background-color:  #EF8F6C26 !important ;
   display: flex;
   height: 35px;
+  border-radius: 5px;
 }
 .skillfull{
   background-color:  #F7CE8C26 !important ;
   display: flex;
   height: 35px;
+  border-radius: 5px;
 }
 .experience{
   background-color:  #96C77126 !important ;
   display: flex;
   height: 35px;
+  border-radius: 5px;
 }
 .expert{
   background-color:  #82CDEF26 !important ;
   display: flex;
   height: 35px;
+  border-radius: 5px;
 }
 .selected{
   width: 20%;
@@ -669,4 +722,21 @@ width: 30%;
 }
 .redTxt{
   color: red !important;
+}
+.skillLable{
+ border-bottom: 1px solid #BBC2CB99;
+ width: 100% !important;
+ color: #565656;
+ padding: 0 0 2px 0;
+ margin: 0;
+ font-size: 14px;
+}
+.heigh{
+  height: 80px !important;
+}
+.keyHead{
+width: 60%;
+}
+.skilLvl{
+width: 40%;
 }

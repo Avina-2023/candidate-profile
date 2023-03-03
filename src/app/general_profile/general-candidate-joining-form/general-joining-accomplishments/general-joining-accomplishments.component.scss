@@ -6,7 +6,7 @@
   width: 100%;
   padding-top: 0px !important;
   overflow-y: scroll;
-  height: 768px;
+  height: 775px;
   overflow-x: hidden;
   // padding: 20px;
   .h {
@@ -107,6 +107,14 @@
             color: $primary-error-text;
             font-size: 12px;
           }
+          .form-error {
+            color: $primary-error-text;
+            font-size: 12px;
+            .err{
+              position: relative;
+              float: right;
+            }
+          }
           ::placeholder {
             color: #a5a5a5 !important;
             opacity: 1;
@@ -115,6 +123,14 @@
         }
       }
     }
+  }
+}
+.form-error {
+  color: $primary-error-text;
+  font-size: 12px;
+  .err{
+    position: relative;
+    float: right;
   }
 }
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
@@ -434,6 +450,7 @@ padding: 0 2% 2% 0;
               // flex-direction: column;
               position: relative;
               width: 100%;
+              margin-top: 2em;
               label {
                   color: #565656;
                   padding: 0 0 2px 0;

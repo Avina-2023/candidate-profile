@@ -38,8 +38,8 @@
                     <img src="assets/images/cancel-black-36dp.svg" alt="" srcset="">
                   </div>
                   <div  matTooltip="Change profile image"
-                matTooltipPostion="after" (click)="open()" id="upload" class="changeprofile">
-                <img [src]="" alt="">
+                matTooltipPostion="after" (click)="open()"  class="changeprofile">
+                <img src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
               </div>
                   <div class="urlExist">
                     <img [src]="cadidatefinalimage" alt="">
@@ -69,7 +69,7 @@
                         class="upload p-1 mb-0"> Upload New Image </label>
                       <input class="file-input"
                         [matTooltip]="profilePicture && profilePicture.file_path ? 'Click to Change Photo' : 'No File Chosen'"
-                        (click)="files.value = null;" matTooltipPostion="left" title="" id="upload" #files type='file'
+                         matTooltipPostion="left" title="" id="upload" #files type='file'
                         name="profile" accept="image/*" (change)="fileChangeEvent($event)" /></span>
                   </div>
                   <div class="action" mat-dialog-actions>

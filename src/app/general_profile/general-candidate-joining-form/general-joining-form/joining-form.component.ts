@@ -238,8 +238,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.stepperStatus();
     this.checkJoiningComponentNeeded();
     this.email = localStorage.getItem('userEmail');
-    this.setprofileimageToLocal()
-
+    this.getprofileimageFromLocal();
+console.log(this.profilePicture.file_path)
   }
 
 
@@ -268,36 +268,34 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     closeOnNavigation: true,
     disableClose: true,
   });
+  // this.fileChangeEvent(this.imageChangedEvent)
+    this.profilePicture.file_path=null;
+// console.log(this.profilePicture.file_path);
+
 }
 
  fileChangeEvent(event: any): void {
-  // console.log(this.profilePicture.file_path,'ooo');
+  console.log(this.profilePicture.file_path,'event');
 
   this.imageChangedEvent = event;
-
+  // this.imageChangedEvent = this.profilePicture.file_path;
   // this.profilePicture.file_path=null;
 
 
 }
+
 setprofileimageToLocal(){
   let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
   candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
 localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-
-// localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-  // this.appConfig.setLocalData("profileData",JSON.stringify(candidateProfileimage));
-let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
-console.log(candyprofileimage,'candyprofileimage');
-// localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
-console.log(this.cadidatefinalimage,'this.cadidatefinalimage')
-// console.log(this.cadidatefinalimage,'cadidatefinalimage');
-// console.log(this.profilePicture.file_path,'profilePicture.file_path');
-
 }
 
 getprofileimageFromLocal(){
-
+  let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
+  console.log(candyprofileimage,'candyprofileimage');
+  // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+  this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
+  console.log(this.cadidatefinalimage,'this.cadidatefinalimage')
 }
 
 imageCropped(event: ImageCroppedEvent) {
@@ -330,7 +328,7 @@ loadImageFailed() {
       this.uploadImage(fd);
       this.profilePictureFormControl.setValue(null);
       this.profilePictureFormControl.markAsTouched();
-      this.setprofileimageToLocal();
+      // this.setprofileimageToLocal();
       // let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
       // candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
       //  localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
@@ -351,7 +349,7 @@ loadImageFailed() {
         fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name, { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
         fd.append('type',"profile");
         this.uploadImage(fd);
-console.log(this.imageChangedEvent.target.files[0].name,'this.imageChangedEvent.target.files');
+console.log(this.profilePicture.file_path,'onsave.files');
 
       }
      } else {
@@ -374,17 +372,25 @@ console.log(file,'ooo');
         // }
         this.loadingService.setLoading(false);
         console.log(data,'iii');
-        if (data ) {
-          this.profilePicture = {
+        this.profilePicture = {
 
-            file_path: data.data,
+          file_path: data?.data.length? data.data : null,
 
-          };
-          this.profilePictureFormControl.setValue(this.profilePicture.file_path);
-        }
+        };
+        // if (data && data.data && data.data.length) {
+
+        // }else{
+        //   this.profilePicture = {
+
+        //     file_path: null,
+
+        //   };
+        // }
+        this.profilePictureFormControl.setValue(this.profilePicture.file_path);
         this.dialog.closeAll()
         this.toastr.success(data.message);
         this.setprofileimageToLocal();
+        this.getprofileimageFromLocal();
         this.croppedImage
 
       });

@@ -468,6 +468,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         }
 
       };
+
       const PersonalApiRequestDetails = {
         email:rawPersonalFormValue[this.form_email],
         profileImage:this.profilePicture.file_path,

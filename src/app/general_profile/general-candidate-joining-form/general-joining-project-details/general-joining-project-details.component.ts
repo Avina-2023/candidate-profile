@@ -10,12 +10,39 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+import * as  moment from 'moment';
 import { LoaderService } from 'src/app/service/loader-service.service';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD-MM-YYYY',
+  },
+  display: {
+    // dateInput: 'DD MMM YYYY', // output ->  01 May 1995
+    dateInput: 'DD-MM-YYYY', // output ->  01-10-1995
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @Component({
   selector: 'app-general-joining-project-details',
   templateUrl: './general-joining-project-details.component.html',
-  styleUrls: ['./general-joining-project-details.component.scss']
+  styleUrls: ['./general-joining-project-details.component.scss'],
+  providers: [
+    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+    // application's root module. We provide it at the component level here, due to limitations of
+    // our example generation script.
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ]
 })
 export class GeneralJoiningProjectDetailsComponent implements OnInit {
   projectForm: FormGroup;
@@ -33,6 +60,8 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     }
 
   ]
+  minDate: Date;
+  maxDate: Date;
   form_projectTitle = 'projectTitle';
   form_typeList = 'typeList';
   form_teamSize = 'teamSize';
@@ -99,6 +128,39 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   removeProjectArray(i) {
     this.getprojectArr.removeAt(i);
   }
+  dateValidation() {
+    // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 50, 0, 1);
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 1);
+  }
+
+  momentForm(date) {
+    if (date) {
+      const split = moment(date).format('YYYY-MM-DD');
+      return split;
+    }
+  }
+
+  momentForm1(date) {
+    if (date) {
+      const split = moment(date).format();
+      return split;
+    }
+  }
+
+
+  dateConvertion(date) {
+    if (date) {
+      const split = moment(date).format();
+      if (split == 'Invalid date') {
+        const ddFormat = moment(date, 'DD-MM-YYYY').format();
+        return ddFormat == 'Invalid date' ? null : ddFormat;
+      }
+      return split == 'Invalid date' ? null : split;
+    }
+  }
   patchProjectForm() {
       // this.getprojectArr.clear();
       // this.projectDetails[this.form_projectArray].forEach((element, i) => {
@@ -118,8 +180,8 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       [this.form_typeList]: [data[this.form_typeList], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_teamSize]: [data[this.form_teamSize], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_projectTitle]: [data[this.form_projectTitle], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodFrom]: [data[this.form_periodFrom], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodTo]: [data[this.form_periodTo], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodFrom]:[this.dateConvertion(data[this.form_periodFrom]) , [Validators.required]],
+      [this.form_periodTo]:[this.dateConvertion(data[this.form_periodTo]) , [Validators.required]],
       [this.form_projectDescription]: [data[this.form_projectDescription], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_projectOrganization]: [data[this.form_projectOrganization], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
     })
@@ -162,8 +224,8 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       [this.form_typeList]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_teamSize]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_projectTitle]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodFrom]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodTo]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_periodFrom]: [null, [Validators.required]],
+      [this.form_periodTo]: [null, [Validators.required]],
       [this.form_projectDescription]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_projectOrganization]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
 

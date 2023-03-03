@@ -6,27 +6,33 @@
   </div>
   <div class="grids-wrapper">
     <form class="workDetailsForm" [formGroup]="workDetailsForm" (ngSubmit)="formSubmit()">
-      <div class="divcard">
+      <div class="divcard pb-3">
         <h5 class="m-0 mb-2" >Add Skills</h5>
-        <label class="w-100 pb-2" style="border-bottom: 1px solid #BBC2CB99;">Choose your most important skills that increase
-          your chances of landing a job interview.</label>
+        <div class="skillLable pb-2" >Choose your most important skills that increase
+          your chances of landing a job interview.</div>
 
-        <div class="skills-wrapper" *ngIf="getSkillsArr && getSkillsArr.controls" [formArrayName]="form_Skills_Array">
+        <div class="skills-wrapper " *ngIf="getSkillsArr && getSkillsArr.controls" [formArrayName]="form_Skills_Array">
           <div class="divcard pt-2 pb-4 mb-3"></div>
 
             <div class="skill-name-wrapper d-flex " *ngFor="let item of getSkillsArr.controls; let i = index;"
             [formGroupName]="i">
 
-            <div class="w-100" >
+            <div class="w-100 pb-3" >
               <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                  <mat-expansion-panel-header>
+                  <mat-expansion-panel-header class="pt-3 heigh pb-3">
                     <mat-panel-title >
                       {{getSkillsArr.controls[i].get(form_Skill).value}}<br>
                       {{getSkillSelection(i)}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <h6  class=" pl-4 ">Key Skills</h6>
+                  <div class="d-flex" >
+                    <h6  class=" pl-4 keyHead">Key Skills</h6>
+                    <div class="d-flex skilLvl">
+                      <h6  class=" levelHead">Level - &nbsp;</h6>
+                    <span [ngClass]="{'Nov':getSkillSelection(i) == 'Novice','beg':getSkillSelection(i) == 'Beginner','ske':getSkillSelection(i) == 'Skillfull','expNC':getSkillSelection(i) == 'Experienced','exprt':getSkillSelection(i) == 'Expert'}" >{{getSkillSelection(i)}}</span>
+                  </div>
+                  </div>
                   <div class="d-flex ">
                     <div class="skillinput  pt-0 pl-4 pr-4 p-4" style="border: 0 !important ;"
                       [ngClass]="getSkillsArr.controls[i].get(form_Skill).invalid ? 'input-error' : ''">
@@ -61,12 +67,12 @@
             </div>
           </div>
           </div>
-          <div class="skills-add" *ngIf="getSkillsArr && getSkillsArr.controls && getSkillsArr.controls.length < 10">
-              <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
-                (click)="addSkills()">+
-                Add</button>
-          </div>
         </div>
+        <div class="skills-add mt-3 mb-3" *ngIf="getSkillsArr && getSkillsArr.controls && getSkillsArr.controls.length < 10">
+          <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
+            (click)="addSkills()">+
+            Add More Skills</button>
+      </div>
         <div class="divcard">
           <h5 class="h mb-0" >Employment Details</h5>
           </div>
@@ -103,38 +109,41 @@
                   </div>
                 </div>
                 <div class="row-wrapper">
+                  <ng-container >
+                    <div class="overall-input-wrapper width-100">
+                      <label>Employer Name<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input text-area" type="text"
+                        [formControlName]="form_employment_name_address">
+                      </div>
+                      <div class="form-error"
+                        *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).invalid && getEmploymentArr.controls[i].get(form_employment_name_address).touched">
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.required">
+                          Employer's Name and Address is Required</div>
+                          <div class="err"
+                          *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+                  </ng-container>
 
-                  <div class="overall-input-wrapper width-100">
-                    <label>Employer Name<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input text-area" type="text"
-                      [formControlName]="form_employment_name_address">
-                    <div class="form-error"
-                      *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).invalid && getEmploymentArr.controls[i].get(form_employment_name_address).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.required">
-                        Employer's Name and Address is Required</div>
-                        <div
-                        *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-100">
-                    <label>Position Held<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_postion_field">
-                    <div class="form-error"
-                      *ngIf="getEmploymentArr.controls[i].get(form_postion_field).invalid && getEmploymentArr.controls[i].get(form_postion_field).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_postion_field).errors?.required">
-                        Position Held is Required</div>
-                        <div
-                        *ngIf="getEmploymentArr.controls[i].get(form_postion_field).errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                    </div>
-                  </div>
-                  </div>
+                  <ng-container >
+                    <div class="overall-input-wrapper width-100">
+                      <label>Position Held<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_postion_field">
+                      </div>
+                      <div class="form-error"
+                        *ngIf="getEmploymentArr.controls[i].get(form_postion_field).invalid && getEmploymentArr.controls[i].get(form_postion_field).touched">
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_postion_field).errors?.required">
+                          Position Held is Required</div>
+                          <div class="err"
+                          *ngIf="getEmploymentArr.controls[i].get(form_postion_field).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+                  </ng-container>
+
+
                   <!-- <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
                     <label>Name & Designation of Immediate Superior<span></span></label>
@@ -169,97 +178,95 @@
                   </div>
                 </div> -->
 
-                <div class="row-wrapper">
+                <ng-container >
                   <div class="overall-input-wrapper width-100">
                     <label>HR Name<span></span></label>
                     <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_hr_name">
-                    <div class="form-error"
+                  </div>
+                    <!-- <div class="form-error"
                       *ngIf="getEmploymentArr.controls[i].get(form_hr_name).invalid && getEmploymentArr.controls[i].get(form_hr_name).touched">
                       <div *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.required">
                         HR Name is Required</div>
                       <div *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.alphaNum255">
                         Alpha numeric with maximum of 255 characters only
                         allowed</div>
-                    </div>
-                  </div>
-                  </div>
-                  <div class="row-wrapper">
+                    </div> -->
+                </ng-container>
+                  <ng-container >
                     <div class="overall-input-wrapper width-100">
                       <label>HR Email<span></span></label>
                       <input matInput placeholder="Enter here" class="input" type="text"
                         [formControlName]="form_hr_email">
-                      <div class="form-error"
+                      </div>
+                        <!-- <div class="form-error"
                         *ngIf="getEmploymentArr.controls[i].get(form_hr_email).invalid && getEmploymentArr.controls[i].get(form_hr_email).touched">
-                        <div *ngIf="getEmploymentArr.controls[i].get(form_hr_email)?.errors?.required">
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_email)?.errors?.required">
                           HR Email ID is Required</div>
-                        <div *ngIf="getEmploymentArr.controls[i].get(form_hr_email).errors?.email">
+                        <div class="err"  *ngIf="getEmploymentArr.controls[i].get(form_hr_email).errors?.email">
                           Not an Valid Email ID</div>
+                      </div> -->
+                  </ng-container>
+                    <ng-container >
+                      <div class="overall-input-wrapper width-100">
+                        <label>HR Contact<span></span></label>
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_hr_contact_no">
+                        </div>
+                        <!-- <div class="form-error"
+                          *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no).invalid && getEmploymentArr.controls[i].get(form_hr_contact_no).touched">
+                          <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no)?.errors?.required">
+                            HR Contact Number is Required</div>
+                          <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no).errors?.mobileRegex">
+                            Please enter a valid 10 digit mobile number</div>
+                        </div> -->
+                    </ng-container>
+                  <ng-container >
+                    <div class="overall-input-wrapper width-100">
+                      <label>Achievements/Responsibility/Tasks<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_achievement">
                       </div>
-                    </div>
-                  </div>
-                  <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-100">
-                    <label>HR Contact<span></span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_hr_contact_no">
-                    <div class="form-error"
-                      *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no).invalid && getEmploymentArr.controls[i].get(form_hr_contact_no).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no)?.errors?.required">
-                        HR Contact Number is Required</div>
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no).errors?.mobileRegex">
-                        Please enter a valid 10 digit mobile number</div>
+                        <div class="form-error"
+                        *ngIf="getEmploymentArr.controls[i].get(form_achievement).invalid && getEmploymentArr.controls[i].get(form_achievement).touched">
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.required">
+                          Achievements/Responsibility/Task is Required</div>
+                        <div class="err"  *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.address255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+                  </ng-container>
+                          <ng-container >
+                            <div class="overall-input-wrapper width-100">
+                              <label>Duration From<span class="redTxt">*</span></label>
+                                <div class="date-relative">
+                                    <!-- <input matInput class="input" (dateChange)="detectDateCalc(getEmploymentArr.controls[i], i)" [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from"> -->
+                                    <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </div>
+                              </div>
+                              <div class="form-error" *ngIf="getEmploymentArr.controls[i].get(form_duration_from).invalid && getEmploymentArr.controls[i].get(form_duration_from).touched">
+                                <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.required">
+                                  Duration  From is Required</div>
+                                <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax">
+                                    {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax.max) : ''}}
+                                </div>
+                                <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin">
+                                    {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' + momentForm(getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin.min) : ''}}
+                                </div>
+                                <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerParse">
+                                    Invalid Date Format</div>
+                            </div>
+                              <!-- <input matInput placeholder="Enter here" class="input" type="text"
+                                [formControlName]="form_duration_from">
+                              <div class="form-error"
+                                *ngIf="getEmploymentArr.controls[i].get(form_duration_from).invalid && getEmploymentArr.controls[i].get(form_duration_from).touched">
+                                <div *ngIf="getEmploymentArr.controls[i].get(form_duration_from).errors?.required">
+                                  Position Held is Required</div>
+                              </div> -->
+                           </ng-container>
 
-                    </div>
-                  </div>
-                </div>
-                <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-100">
-                    <label>Achievements/Responsibility/Tasks<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_achievement">
-                    <div class="form-error"
-                      *ngIf="getEmploymentArr.controls[i].get(form_achievement).invalid && getEmploymentArr.controls[i].get(form_achievement).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.required">
-                        Position Held is Required</div>
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.address255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-                <div class="row-wrapper">
-
-                  <div class="overall-input-wrapper width-100">
-                    <label>Duration From<span class="redTxt">*</span></label>
-                      <div class="date-relative">
-                          <!-- <input matInput class="input" (dateChange)="detectDateCalc(getEmploymentArr.controls[i], i)" [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from"> -->
-                          <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from">
-                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
-                      </div>
-                  <div class="form-error" *ngIf="getEmploymentArr.controls[i].get(form_duration_from).invalid && getEmploymentArr.controls[i].get(form_duration_from).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.required">
-                          From is Required</div>
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax">
-                          {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax.max) : ''}}
-                      </div>
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin">
-                          {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' + momentForm(getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin.min) : ''}}
-                      </div>
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerParse">
-                          Invalid Date Format</div>
-                  </div>
-                    <!-- <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_duration_from">
-                    <div class="form-error"
-                      *ngIf="getEmploymentArr.controls[i].get(form_duration_from).invalid && getEmploymentArr.controls[i].get(form_duration_from).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_duration_from).errors?.required">
-                        Position Held is Required</div>
-                    </div> -->
-                  </div>
-                  </div>
-                  <div  class="row-wrapper" *ngIf="!getEmploymentArr.controls[i].value.is_working_here">
+                  <ng-container *ngIf="!getEmploymentArr.controls[i].value.is_working_here" >
                     <div class="overall-input-wrapper width-100">
                       <label>Duration To<span class="redTxt">*</span></label>
                         <div class="date-relative">
@@ -267,26 +274,27 @@
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                         </div>
+                      </div>
                         <div class="form-error"
                         *ngIf="getEmploymentArr.controls[i].get(form_duration_to).invalid && getEmploymentArr.controls[i]?.get(form_duration_to).touched">
-                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.required">
-                          Period From is Required</div>
-                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax">
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.required">
+                          Duration To is Required</div>
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax">
                           {{getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax?.max ?
                           'Maximum date should be ' +
                           momentForm(getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax.max)
                           : ''}}
                         </div>
-                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin">
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin">
                           {{getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin?.min ?
                           'Minimum date should be ' +
                           momentForm(getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin.min)
                           : ''}}
                         </div>
-                        <div *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerParse">
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerParse">
                           Invalid Date Format</div>
                       </div>
-                    </div>
+                  </ng-container>
                     </div>
                                   <!-- <div class="row-wrapper">
                   <div class="overall-input-wrapper width-100">
@@ -328,7 +336,7 @@
                   *Make sure, you have entered all the fields value, If you enter any one of the value
                 </div>
               </div>
-
+</div>
           </ng-container>
           <div class="row-wrapper mt-3">
             <div *ngIf="!this.check" class="skills-add">
@@ -393,93 +401,97 @@
               </div>
               <div class="form-grouping w-100">
                 <div class="row-wrapper">
-                  <div class="overall-input-wrapper mb-2 width-100">
-                    <label>Employer Name<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input text-area" type="text"
-                      [formControlName]="form_training_employer_name">
-                    <div class="form-error"
-                      *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).invalid && getTrainingArr.controls[i].get(form_training_employer_name).touched">
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).errors?.required">
-                              Name of Employer is Required</div>
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                    </div>
-                  </div>
-                  <div class="overall-input-wrapper mb-2 width-100">
-                    <label>Period From<span class="redTxt">*</span></label>
-                    <div class="date-relative">
-                      <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTraining"
-                        placeholder="DD-MM-YYYY" [formControlName]="form_training_from_date">
-                      <mat-datepicker-toggle matSuffix [for]="pickerTraining"></mat-datepicker-toggle>
-                      <mat-datepicker #pickerTraining></mat-datepicker>
-                    </div>
-                    <div class="form-error"
-                      *ngIf="getTrainingArr.controls[i].get(form_training_from_date).invalid && getTrainingArr.controls[i].get(form_training_from_date).touched">
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.required">
-                        Period From is Required</div>
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax">
-                        {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax?.max ?
-                        'Maximum date should be ' +
-                        momentForm(getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax.max)
-                        : ''}}
+                  <ng-container >
+                    <div class="overall-input-wrapper mb-0 width-100">
+                      <label>Employer Name<span class="redTxt">*</span></label>
+                      <input matInput placeholder="Enter here" class="input text-area" type="text"
+                        [formControlName]="form_training_employer_name">
                       </div>
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin">
-                        {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin?.min ?
-                        'Minimum date should be ' +
-                        momentForm(getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin.min)
-                        : ''}}
+                      <div class="form-error"
+                        *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).invalid && getTrainingArr.controls[i].get(form_training_employer_name).touched">
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).errors?.required">
+                                Name of Employer is Required</div>
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_employer_name).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
                       </div>
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerParse">
-                        Invalid Date Format</div>
-                    </div>
-                  </div>
-
-                  <div class="overall-input-wrapper mb-2 width-100">
-                    <label>Period To<span class="redTxt">*</span></label>
-                    <div class="date-relative">
-                      <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker1Training"
-                        placeholder="DD-MM-YYYY" [formControlName]="form_training_to_date">
-                      <mat-datepicker-toggle matSuffix [for]="picker1Training"></mat-datepicker-toggle>
-                      <mat-datepicker #picker1Training></mat-datepicker>
+                  </ng-container>
+                  <ng-container >
+                    <div class="overall-input-wrapper mb-0 width-100">
+                      <label>Period From<span class="redTxt">*</span></label>
+                      <div class="date-relative">
+                        <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTraining"
+                          placeholder="DD-MM-YYYY" [formControlName]="form_training_from_date">
+                        <mat-datepicker-toggle matSuffix [for]="pickerTraining"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerTraining></mat-datepicker>
+                      </div>
                     </div>
                     <div class="form-error"
-                      *ngIf="getTrainingArr.controls[i].get(form_training_to_date).invalid && getTrainingArr.controls[i].get(form_training_to_date).touched">
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.required">
-                        Period To is Required</div>
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax">
-                        {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax?.max ?
-                        'Maximum date should be ' +
-                        momentForm(getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax.max)
-                        : ''}}
+                        *ngIf="getTrainingArr.controls[i].get(form_training_from_date).invalid && getTrainingArr.controls[i].get(form_training_from_date).touched">
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.required">
+                          Period From is Required</div>
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax">
+                          {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax?.max ?
+                          'Maximum date should be ' +
+                          momentForm(getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax.max)
+                          : ''}}
+                        </div>
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin">
+                          {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin?.min ?
+                          'Minimum date should be ' +
+                          momentForm(getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin.min)
+                          : ''}}
+                        </div>
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerParse">
+                          Invalid Date Format</div>
                       </div>
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin">
-                        {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin?.min ?
-                        'Minimum date should be ' +
-                        momentForm(getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin.min)
-                        : ''}}
+                  </ng-container>
+                    <ng-container >
+                      <div class="overall-input-wrapper mb-0 width-100">
+                        <label>Period To<span class="redTxt">*</span></label>
+                        <div class="date-relative">
+                          <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker1Training"
+                            placeholder="DD-MM-YYYY" [formControlName]="form_training_to_date">
+                          <mat-datepicker-toggle matSuffix [for]="picker1Training"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1Training></mat-datepicker>
+                        </div>
                       </div>
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerParse">
-                        Invalid Date Format</div>
-                    </div>
+                      <div class="form-error"
+                          *ngIf="getTrainingArr.controls[i].get(form_training_to_date).invalid && getTrainingArr.controls[i].get(form_training_to_date).touched">
+                          <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.required">
+                            Period To is Required</div>
+                          <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax">
+                            {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax?.max ?
+                            'Maximum date should be ' +
+                            momentForm(getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax.max)
+                            : ''}}
+                          </div>
+                          <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin">
+                            {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin?.min ?
+                            'Minimum date should be ' +
+                            momentForm(getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin.min)
+                            : ''}}
+                          </div>
+                          <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerParse">
+                            Invalid Date Format</div>
+                        </div>
+                    </ng-container>
+               <ng-container >
+                <div class="overall-input-wrapper width-100">
+                  <label>Achievements/Responsibility/Tasks<span class="redTxt">*</span></label>
+                  <input matInput placeholder="Enter here" class="input text-area" type="text"
+                    [formControlName]="form_training_work_responsiability">
                   </div>
-                </div>
-                <div class="row-wrapper">
-                  <div class="overall-input-wrapper width-100">
-                    <label>Achievements/Responsibility/Tasks<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input text-area" type="text"
-                      [formControlName]="form_training_work_responsiability">
-                    <div class="form-error"
-                      *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).invalid && getTrainingArr.controls[i].get(form_training_work_responsiability).touched">
-                      <div *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability)?.errors?.required">
-                        Achievements/Responsibility/Tasks * is Required</div>
-                      <div
-                        *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).errors?.address255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-
-                    </div>
+                  <div class="form-error"
+                    *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).invalid && getTrainingArr.controls[i].get(form_training_work_responsiability).touched">
+                    <div class="err" *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability)?.errors?.required">
+                      Achievements/Responsibility/Tasks * is Required</div>
+                    <div class="err"
+                      *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).errors?.address255">
+                      Alpha numeric with maximum of 255 characters only
+                      allowed</div>
                   </div>
+               </ng-container>
                 </div>
               </div>
               <!-- <div class="remove-wrapper">

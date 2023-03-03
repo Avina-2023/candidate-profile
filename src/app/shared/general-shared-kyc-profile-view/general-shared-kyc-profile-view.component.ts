@@ -1114,8 +1114,10 @@ form_projectDescription = 'projectDescription';
 
     };
     this.url = this.personalDetails?.profileImage;
+    console.log(this.url,'this.url');
+
     this.personalDetailsMap = data;
-    // console.log(this.personalDetailsMap,'this.personalDetailsMap');
+    console.log(this.personalDetailsMap,'this.personalDetailsMap');
 
   }
 

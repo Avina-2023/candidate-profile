@@ -47,15 +47,18 @@
               <div *ngIf="email?.errors?.email">Not an Valid Email ID</div>
             </div>
           </div>
+<ng-container >
+  <div class="overall-input-wrapper width-45">
+    <label>Mobile No.<span class="redTxt">*</span></label>
+    <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_mobile">
+  </div>
+    <div class="form-error" *ngIf="mobile?.invalid && mobile?.touched">
+      <div class="err" *ngIf="mobile?.errors?.required">Mobile No. is Required</div>
+      <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digit mobile number</div>
+    </div>
+</ng-container>
 
-          <div class="overall-input-wrapper width-45">
-            <label>Mobile No.<span class="redTxt">*</span></label>
-            <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_mobile">
-            <div class="form-error" *ngIf="mobile?.invalid && mobile?.touched">
-              <div *ngIf="mobile?.errors?.required">Mobile No. is Required</div>
-              <div *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digit mobile number</div>
-            </div>
-          </div>
+
 
 
 
@@ -69,52 +72,57 @@
               </div>
             </div>
           </ng-container>
+<ng-container >
+  <div class="overall-input-wrapper width-45">
+    <label>Date of Birth (as per Std X certificate)<span class="redTxt">*</span></label>
+    <div class="date-relative">
+      <input matInput class="input " style="width:100% !important" [min]="minDateDOB"
+        [max]="passportDateOfIssueMaxDate" [matDatepicker]="picker" placeholder="DD-MM-YYYY"
+        [formControlName]="form_dob">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+  </div>
+  <div class="form-error" *ngIf="dob?.invalid && dob?.touched">
+    <div class="err" *ngIf="dob?.errors?.required">Date of Birth is Required</div>
+    <div class="err" *ngIf="dob?.errors?.matDatepickerMax">
+      {{dob?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' +
+      momentForm(dob?.errors?.matDatepickerMax.max) : ''}}
+    </div>
+    <div *ngIf="dob?.errors?.matDatepickerMin">
+      {{dob?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' +
+      momentForm(dob?.errors?.matDatepickerMin.min) : ''}}
+    </div>
+    <div class="err" *ngIf="dob?.errors?.matDatepickerParse">Invalid Date Format</div>
+  </div>
+</ng-container>
+<ng-container >
+  <div class="overall-input-wrapper width-45">
+    <label>Gender<span class="redTxt">*</span></label>
+    <nz-select class="input select" [formControlName]="form_gender" nzAllowClear nzShowSearch
+      nzPlaceHolder="Select">
+      <nz-option *ngFor="let gender of genderDropdownList" [nzLabel]="gender.label"
+        [nzValue]="gender.value"></nz-option>
+    </nz-select>
+  </div>
+  <div class="form-error" *ngIf="gender?.invalid && gender?.touched">
+    <div class="err" *ngIf="gender?.errors?.required">Gender is Required</div>
+  </div>
+</ng-container>
 
-          <div class="overall-input-wrapper width-45">
-            <label>Date of Birth (as per Std X certificate)<span class="redTxt">*</span></label>
-            <div class="date-relative">
-              <input matInput class="input " style="width:100% !important" [min]="minDateDOB"
-                [max]="passportDateOfIssueMaxDate" [matDatepicker]="picker" placeholder="DD-MM-YYYY"
-                [formControlName]="form_dob">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </div>
-            <div class="form-error" *ngIf="dob?.invalid && dob?.touched">
-              <div *ngIf="dob?.errors?.required">Date of Birth is Required</div>
-              <div *ngIf="dob?.errors?.matDatepickerMax">
-                {{dob?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' +
-                momentForm(dob?.errors?.matDatepickerMax.max) : ''}}
-              </div>
-              <div *ngIf="dob?.errors?.matDatepickerMin">
-                {{dob?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' +
-                momentForm(dob?.errors?.matDatepickerMin.min) : ''}}
-              </div>
-              <div *ngIf="dob?.errors?.matDatepickerParse">Invalid Date Format</div>
-            </div>
-          </div>
-          <div class="overall-input-wrapper width-45">
-            <label>Gender<span class="redTxt">*</span></label>
-            <nz-select class="input select" [formControlName]="form_gender" nzAllowClear nzShowSearch
-              nzPlaceHolder="Select">
-              <nz-option *ngFor="let gender of genderDropdownList" [nzLabel]="gender.label"
-                [nzValue]="gender.value"></nz-option>
-            </nz-select>
-            <div class="form-error" *ngIf="gender?.invalid && gender?.touched">
-              <div *ngIf="gender?.errors?.required">Gender is Required</div>
-            </div>
-          </div>
-
-          <div class="overall-input-wrapper width-45">
-            <label>Aadhaar No.<span class="redTxt">*</span></label>
-            <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_aadhar">
-            <div class="form-error" *ngIf="aadhar?.invalid && aadhar?.touched">
-              <div *ngIf="aadhar?.errors?.required">Aadhaar No. is Required</div>
-              <div *ngIf="aadhar?.errors?.aadhaar">Aadhaar No. should be exact 12
-                digits and should match spacing as per Aadhaar card</div>
-            </div>
-          </div>
-
-          <div class="overall-input-wrapper"
+            <ng-container >
+<div class="overall-input-wrapper width-45">
+  <label>Aadhaar No.<span class="redTxt">*</span></label>
+  <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_aadhar">
+</div>
+  <div class="form-error" *ngIf="aadhar?.invalid && aadhar?.touched">
+    <div class="err" *ngIf="aadhar?.errors?.required">Aadhaar No. is Required</div>
+    <div class="err" *ngIf="aadhar?.errors?.aadhaar">Aadhaar No. should be exact 12
+      digits and should match spacing as per Aadhaar card</div>
+  </div>
+            </ng-container>
+          <ng-container >
+            <div class="overall-input-wrapper"
             [ngClass]="(personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Married') || (personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Widow') ? 'width-22' : 'width-45'">
             <label>Marital Status<span class="redTxt">*</span></label>
             <nz-select class="input select" (ngModelChange)="maritalStatusChange()"
@@ -122,12 +130,14 @@
               <nz-option *ngFor="let marital of marital_list" [nzLabel]="marital.name"
                 [nzValue]="marital.value"></nz-option>
             </nz-select>
-            <div class="form-error" *ngIf="marital_status?.invalid && marital_status?.touched">
-              <div *ngIf="marital_status?.errors?.required">Marital Status is Required</div>
-            </div>
           </div>
+            <div class="form-error" *ngIf="marital_status?.invalid && marital_status?.touched">
+              <div class="err" *ngIf="marital_status?.errors?.required">Marital Status is Required</div>
+            </div>
+          </ng-container>
 
-          <div
+          <ng-container>
+            <div
             *ngIf="(personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Married' || personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Widow')"
             class="overall-input-wrapper width-22">
             <label>No. of Children<span *ngIf="candidateService.checkKycOrJoiningForm()" class="redTxt">*</span></label>
@@ -136,14 +146,20 @@
               <nz-option *ngFor="let children of no_children_list" [nzLabel]="children"
                 [nzValue]="children"></nz-option>
             </nz-select>
+          </div>
             <div class="form-error" *ngIf="no_of_children?.invalid && no_of_children?.touched">
-              <div style="white-space: nowrap;" *ngIf="no_of_children?.errors?.required">No. of Children is Required
+              <div class="err" style="white-space: nowrap;" *ngIf="no_of_children?.errors?.required">No. of Children is Required
               </div>
             </div>
-          </div>
+          </ng-container>
+
+
+
+
+
+
+
           <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
-
-
             <div class="overall-input-wrapper width-45">
               <label>Place of Birth<span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
@@ -195,12 +211,13 @@
             <div class="overall-input-wrapper width-45">
               <label>Religion<span *ngIf="candidateService.checkKycOrJoiningForm()" class="redTxt">*</span></label>
               <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_religion">
+            </div>
               <div class="form-error" *ngIf="religion?.invalid && religion?.touched">
-                <div *ngIf="religion?.errors?.required">Religion is Required</div>
-                <div *ngIf="religion?.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
+                <div class="err" *ngIf="religion?.errors?.required">Religion is Required</div>
+                <div class="err" *ngIf="religion?.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
                   allowed</div>
               </div>
-            </div>
+
 
           </ng-container>
 
@@ -331,7 +348,7 @@
             </div>
           </div>
         </ng-container>
-        <div class="carddiv pt-0 pb-0">
+        <div class="carddiv pt-0 pb-4">
           <h6 class="sub-heading " style="border-bottom: 1px solid #BBC2CB99;padding-bottom: 0.5em;">Languages Known
           </h6>
           <div class="overall-input-wrapper width-100" style="flex-direction: column; ">
@@ -413,7 +430,7 @@
             </ng-container>
           </div>
         </div>
-        <div class="carddiv pt-0 pb-0">
+        <div class="carddiv pt-0 pb-4">
           <h6 class="sub-heading" style="border-bottom: 1px solid #BBC2CB99; padding-bottom: 0.5em;">Passport Details
           </h6>
           <div class="overall-input-wrapper width-45">
@@ -516,7 +533,7 @@
             </div>
           </div>
         </div>
-        <div class="carddiv pt-0 pb-0">
+        <div class="carddiv pt-0 pb-4">
           <h6 class="sub-heading" style="border-bottom: 1px solid #BBC2CB99; padding-bottom: 0.5em;">Health Related
             Details</h6>
 
