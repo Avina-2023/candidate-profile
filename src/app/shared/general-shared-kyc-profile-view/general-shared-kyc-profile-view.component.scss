@@ -63,7 +63,7 @@
                     flex-wrap: wrap;
                     margin-right: 8px;
                     width: 100%;
-                    align-items: center;
+                    // align-items: center;
                     label {
                         color: #808080;
                         padding: 0 0 0px 0;
@@ -910,6 +910,9 @@
     background: #eee;
     padding: 6px;
     border-radius: 50%;
+    padding-bottom: 8px;
+    padding-left: 9px;
+    padding-right: 11px
 }
 
 .pdf-viewer-close {
@@ -1016,4 +1019,8 @@
 .contactAdd{
   font-size: 16px;
   font-weight: 500;
+}
+.flexCstart{
+  align-content: flex-start !important;
+
 }

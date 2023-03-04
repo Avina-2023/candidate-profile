@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./joining-form.component.scss']
 })
 export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
+
   panelOpenState = false;
   expand =false;
   currentlyOpenedItemIndex = -1;
@@ -29,6 +30,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     // candidateProfileimage= localStorage.profileData.personal_details.profileImage;
   @ViewChild('matDialog', {static: false}) matDialogRef: TemplateRef<any>;
   @ViewChild('matDialog1', {static: false}) matDialogRef1: TemplateRef<any>;
+  allPresentCityList: any;
+  allPermanentCityList: any;
+  getAllStates: any;
+  updatedCitySubscription1: Subscription;
 
   openJoiningRoutePopUpSubscribe: Subscription;
   joiningFormStepperStatusSubscribe: Subscription;
@@ -205,6 +210,14 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     }
   }
   public email: any;
+  public name: any;
+  public gender: any ;
+  public addressCity: any ;
+  public addressState: any ;
+  public addressCountry: any ;
+  public updatedOn: any;
+  form_permanent_city = 'permanent_city';
+  form_permanent_state = 'permanent_state';
   routingSelection: any;
   requestnavigationRoute: any;
   noSave: boolean;
@@ -215,6 +228,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   disableLoginButton:boolean = true;
   profileimage: any;
   cadidatefinalimage: any;
+  contactDetails: any;
+  contactDetailsMap: any;
   constructor(
     private skillexService: SkillexService,
     private loadingService: LoaderService,
@@ -238,8 +253,11 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.stepperStatus();
     this.checkJoiningComponentNeeded();
     this.email = localStorage.getItem('userEmail');
+    this.name = localStorage.getItem('username');
+// this.getAllPermanentCities(id, cityId, callback);
     this.getprofileimageFromLocal();
-console.log(this.profilePicture.file_path)
+// console.log(this.profilePicture.file_path)
+this.getStateAPI()
   }
 
 
@@ -275,13 +293,65 @@ console.log(this.profilePicture.file_path)
 }
 
  fileChangeEvent(event: any): void {
-  console.log(this.profilePicture.file_path,'event');
 
   this.imageChangedEvent = event;
   // this.imageChangedEvent = this.profilePicture.file_path;
-  // this.profilePicture.file_path=null;
 
+  // console.log(this.imageChangedEvent,'event');
 
+}
+getAllPermanentCities(id, cityId, callback) {
+  const ApiData = {
+    state_id: id
+  };
+  let city;
+ this.updatedCitySubscription1 = this.skillexService.districtList(ApiData).subscribe((datas: any) => {
+    // this.hideCityDropDown = false;
+
+    this.allPermanentCityList = datas.data;
+    // console.log(this.allPermanentCityList,'this.allPermanentCityList');
+
+    this.allPermanentCityList.forEach(element => {
+      if (element.id == cityId) {
+        city = element.name;
+      }
+    });
+    callback(city);
+  }, (err) => {
+    callback(null);
+  });
+}
+
+getStateAPI() {
+
+  const datas = {
+    country_id: '101'
+  };
+  let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
+  // console.log(candidateProfileimage,'this.candidateProfileimage');
+
+//   candidateProfileimage.contactDetails.permanent_state = this.addressState ;
+//   candidateProfileimage.contactDetails.permanent_city = this.addressCountry ;
+//   candidateProfileimage.contactDetails.permanent_country = this.addressCity ;
+// console.log(this.addressCity,'this.addressCity');
+
+  this.candidateService.updatedState(datas).subscribe((data: any) => {
+    console.log(data,'datas');
+
+    this.getAllStates = data[0];
+    this.getAllStates.forEach(element => {
+      if (element.id == this.addressState) {
+        this.addressState = element.name;
+        console.log(this.addressState);
+
+        this.getAllPermanentCities(element.id, this.addressCity, (callback) => {
+          this.addressCity = callback ? callback : 'NA';
+        });
+      }
+    });
+  }, (err) => {
+
+  });
 }
 
 setprofileimageToLocal(){
@@ -295,6 +365,11 @@ getprofileimageFromLocal(){
   console.log(candyprofileimage,'candyprofileimage');
   // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
   this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
+  this.gender = candyprofileimage.personal_details.gender;
+  this.addressCity = candyprofileimage.contact_details.permanent_city;
+  this.addressState = candyprofileimage.contact_details.present_state;
+  this.addressCountry = candyprofileimage.contact_details.present_country;
+ this.updatedOn = candyprofileimage.updatedAt;
   console.log(this.cadidatefinalimage,'this.cadidatefinalimage')
 }
 
@@ -349,7 +424,7 @@ loadImageFailed() {
         fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name, { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
         fd.append('type',"profile");
         this.uploadImage(fd);
-console.log(this.profilePicture.file_path,'onsave.files');
+// console.log(this.profilePicture.file_path,'onsave.files');
 
       }
      } else {
@@ -361,7 +436,7 @@ console.log(this.profilePicture.file_path,'onsave.files');
   }
 
   async uploadImage(file) {
-console.log(file,'ooo');
+// console.log(file,'ooo');
     try {
       this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(true);
@@ -371,7 +446,7 @@ console.log(file,'ooo');
         //   return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
         // }
         this.loadingService.setLoading(false);
-        console.log(data,'iii');
+        // console.log(data,'iii');
         this.profilePicture = {
 
           file_path: data?.data.length? data.data : null,

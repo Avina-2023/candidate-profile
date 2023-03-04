@@ -12,16 +12,28 @@
     min-width: 500px;
     max-width: 600px;
     .heading-wrapper {
-        padding: 8px 22px;
-        border-bottom: solid 1px lightgray;
+        padding: 8px 8px;
+        // border-bottom: solid 1px lightgray;
         .heading {
             color: $black;
             font-size: 22px;
             font-weight: 500;
         }
+        .closeIcon{
+          position: relative;
+          float: right;
+        }
     }
     .body-wrapper {
         padding: 24px 24px;
+        padding-top: 0px !important;
+    }
+    .warning-icon{
+      display: flex;
+    justify-content: space-around;
+    .iconfont{
+      font-size: 100px
+    }
     }
     .confirmation-text {
         color: $black;

@@ -228,11 +228,18 @@ height: 800px;
     left: -10px;
   }
 }
+
 .profileStatus {
   width: 93px;
   height: 27px;
   background: #49ae31 0% 0% no-repeat padding-box;
   border-radius: 0px 0px 24px 0px;
+  color: #ffffff;
+  font-size: 14px;
+  p{
+    padding: 3px;
+    padding-left: 22px;
+  }
 }
 
 .profileExpansion {
@@ -269,6 +276,10 @@ height: 800px;
       color: #222222;
       font-size: 14px;
       margin-bottom: 0.2em;
+      .countryimg{
+        position: relative;
+        top: -1px;
+      }
     }
   }
 }
@@ -451,7 +462,17 @@ height: 800px;
 }
 .crop-popup {
   .content {
-    min-height: 38vh;
+    min-height: 33.3vh;
+  }
+  .noprfl{
+    height: 230px;
+    background-color: #0000003b;
+    display: flex;
+    justify-content: space-around;
+    .noPrflImg{
+      height: 230px;
+
+    }
   }
   .popUpHead {
     align-items: center !important;
@@ -544,8 +565,8 @@ height: 800px;
     display: grid;
     justify-content: center;
     position: relative;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 25px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #d4d4d4;
     // top: 50px;
     // left: 20px;
@@ -570,6 +591,7 @@ height: 800px;
   .action {
     display: flex !important;
     justify-content: space-evenly !important;
+    padding-top: 20px !important;
     button:disabled {
       cursor: not-allowed;
       color: #fff;
@@ -580,14 +602,14 @@ height: 800px;
       background: #294d96;
       color: #fff;
       padding: 0;
-      height: 30px;
+      height: 35px;
     }
     .cancel {
       border: 1px solid #294d96;
       border-radius: 4px;
       margin-left: 0;
       padding: 0;
-      height: 30px;
+      height: 35px;
       color: #294d96;
     }
   }
@@ -597,3 +619,15 @@ height: 800px;
 //   position: absolute !important;
 //   z-index: -1;
 // }
+
+//rotate icon
+.rotate {
+  -moz-transition: all .3s linear;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+}
+.rotate.down {
+  -moz-transform:rotate(180deg);
+  -webkit-transform:rotate(180deg);
+  transform:rotate(180deg);
+}

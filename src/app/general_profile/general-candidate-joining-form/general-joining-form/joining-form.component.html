@@ -6,8 +6,8 @@
   <div *ngIf="!hideStepper" class="stepper">
     <div class="profileExpansion">
       <div class="exheader">
-        <div class="profileStatus"> </div>
-        <button mat-icon-button (click)="expand = !expand"><mat-icon>keyboard_arrow_down</mat-icon></button>
+        <div class="profileStatus"> <p>Active</p> </div>
+        <button [ngClass]="!expand? 'rotate' : 'rotate.down '" [disableRipple]="true"  mat-icon-button (click)="expand = !expand"><mat-icon  [ngClass]="!expand? 'rotate' : 'rotate down '" >keyboard_arrow_down</mat-icon></button>
       </div>
       <div class="notexpand" *ngIf="!expand">
         <div class="photo-wrapper">
@@ -55,11 +55,16 @@
                   </div>
                   <mat-dialog-content class="md-content m-0 p-0">
                     <div class="content">
-
-                      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                      <div class="noprfl" *ngIf="!imageChangedEvent">
+                        <img class="noPrflImg" src="assets/images/candidateprofile/noProfile.png" alt="">
+                      </div>
+                      <div *ngIf="imageChangedEvent">
+                        <image-cropper class="backgim" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
                         [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
                         (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
                         (loadImageFailed)="loadImageFailed()"></image-cropper>
+                      </div>
+
                     </div>
                   </mat-dialog-content>
 
@@ -93,9 +98,9 @@
           </div>
         </div>
         <div class="notexpanddetails">
-          <div class="name">John Doe</div>
-          <div class="email">johndoe@xyzmail.com</div>
-          <div class="loc">Chennai, Tamil Nadu, India</div>
+          <div class="name">{{this.name}}</div>
+          <div class="email">{{this.email}}</div>
+          <div class="loc">Chennai, Tamil Nadu, India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
         </div>
       </div>
       <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
@@ -109,21 +114,21 @@
       <div class="expand" *ngIf="expand">
         <div class="photo-wrapper">
           <div class="avatar">
-            <div class="photo">
-              <img src="">
+            <div class="photo urlExist">
+                <img class="photo" [src]="cadidatefinalimage" alt="">
             </div>
           </div>
         </div>
         <div class="notexpanddetails">
-          <div class="name mt-1">John Doe</div>
-          <div class="email mt-1">johndoe@xyzmail.com</div>
-          <div class="loc mt-1">Chennai, Tamil Nadu, India</div>
+          <div class="name mt-1">{{this.name}}</div>
+          <div class="email mt-1">{{this.email}}</div>
+          <div class="loc mt-1">{{this.addressCity}}, {{this.addressState}}, India</div>
           <div>
-            <div class="gender mt-1 mb-1 ">Male</div>
+            <div class="gender mt-1 mb-1 ">{{this.gender}}</div>
           </div>
           <div class="email mt-1">Member Since Jul 19, 2020 </div>
           <div class="email mt-1">Profile Last Updated on</div>
-          <div class="date">Aug 19, 2022</div>
+          <div class="date">{{this.updatedOn | date: "mm/yy" }}</div>
         </div>
       </div>
     </div>

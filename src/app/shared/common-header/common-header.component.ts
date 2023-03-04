@@ -116,10 +116,14 @@ export class CommonHeaderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result,'result');
+
           this.appConfig.clearLocalData();
           this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
 
       }
+      console.log(result,'result');
+
     });
   }
 

@@ -33,7 +33,7 @@
                 </nz-select>
                 </div>
                 <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_typeList).invalid && getprojectArr.controls[i].get(form_typeList).touched">
-                  <div class="err"  *ngIf="getprojectArr.controls[i].get(form_typeList).errors?.required">Mobile No. is Required</div>
+                  <div class="err"  *ngIf="getprojectArr.controls[i].get(form_typeList).errors?.required">Project Type is Required</div>
                   <!-- <div *ngIf="getprojectArr.controls[i].get(form_typeList).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div> -->
                 </div>
             </ng-container>
@@ -43,7 +43,7 @@
                   <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_teamSize">
                 </div>
                 <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_teamSize).invalid && getprojectArr.controls[i].get(form_teamSize).touched">
-                    <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.required">Mobile No. is Required</div>
+                    <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.required">Team Size is Required</div>
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div>
                   </div>
               </ng-container>
@@ -54,7 +54,7 @@
                       [formControlName]="form_projectTitle">
                     </div>
                   <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectTitle).invalid && getprojectArr.controls[i].get(form_projectTitle).touched">
-                    <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.required">Mobile No. is Required</div>
+                    <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectTitle).errors?.required">Title of the Project is Required</div>
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectTitle).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div>
                   </div>
                 </ng-container>
@@ -64,9 +64,9 @@
                     <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
                       [formControlName]="form_projectOrganization">
                     </div>
-                    <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectTitle).invalid && getprojectArr.controls[i].get(form_projectTitle).touched">
-                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.required">Mobile No. is Required</div>
-                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectTitle).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div>
+                    <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectOrganization).invalid && getprojectArr.controls[i].get(form_projectOrganization).touched">
+                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectOrganization).errors?.required">Organization is Required</div>
+                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectOrganization).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div>
                     </div>
                 </ng-container>
               <ng-container >
@@ -135,9 +135,9 @@
                   <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
                     [formControlName]="form_projectDescription">
                   </div>
-                  <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectTitle).invalid && getprojectArr.controls[i].get(form_projectTitle).touched">
-                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.required">Mobile No. is Required</div>
-                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectTitle).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div>
+                  <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectDescription).invalid && getprojectArr.controls[i].get(form_projectDescription).touched">
+                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectDescription).errors?.required">Description is Required</div>
+                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectDescription).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div>
                     </div>
               </ng-container>
 
@@ -146,13 +146,13 @@
           </ng-container>
           <div
           *ngIf="getprojectArr && getprojectArr.controls && getprojectArr.controls.length >= 0 "
-          class="pt-3 d pb-3">
+          class="pt-3 row-wrapper flexEnd  justify-content-between  pb-3">
           <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
             (click)="addMoreCertifications()">+ Add More Certifications</button>
         </div>
         </ng-container>
 
-        <div class="row-wrapper p-1  justify-content-between align-items-center mt-5 mb-3 footer">
+        <div class="row-wrapper p-1  justify-content-between align-items-center mt-3 mb-3 footer">
           <!-- <div (click)="routeNext('work')" class="d-flex align-content-center align-items-center position-relative"
             style="cursor: pointer;">
             <div class="left-arrow position-absolute"></div>

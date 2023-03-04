@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { GlobalValidatorService } from 'src/app/custom-form-validators/globalvalidators/global-validator.service';
@@ -15,6 +15,8 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -47,6 +49,7 @@ export const MY_FORMATS = {
   ],
 })
 export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
 
   dependentForm: FormGroup;
   minDate: Date;
@@ -105,7 +108,7 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
   form_dependent_differently_abled = 'differently_abled';
   form_dependent_status = 'status';
   form_dependent_relationship = 'relationship'
-
+ currentDeleteIndex:number  ;
   dependedentDetails: any;
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
@@ -121,7 +124,10 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
     private fb: FormBuilder,
-    private glovbal_validators: GlobalValidatorService
+    private glovbal_validators: GlobalValidatorService,
+    private matDialog: MatDialog,
+    public dialog: MatDialog,
+
   ) {
     this.dateValidation();
   }
@@ -142,6 +148,50 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
       top.scrollIntoView();
       top = null;
     }
+  }
+   // Open dailog
+   openDialog(component, data) {
+    let dialogDetails: any;
+
+    dialogDetails = {
+      iconName: data.iconName,
+      showCancel: data.showCancel,
+      showConfirm: data.showConfirm,
+      showOk: data.showOk,
+      dataToBeShared: data.sharedData,
+    };
+
+    /**
+     * Dialog modal window
+     */
+    // tslint:disable-next-line: one-variable-per-declaration
+    const dialogRef = this.matDialog.open(component, {
+      width: 'auto',
+      height: 'auto',
+      autoFocus: false,
+      data: dialogDetails
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getDependentArr.removeAt(this.currentDeleteIndex );
+      }
+    });
+  }
+  removeData(i) {
+    const data = {
+      iconName: '',
+      sharedData: {
+        confirmText: 'Are you sure you want to delete?',
+        componentData: '',
+        type: 'delete',
+        identity: 'logout'
+      },
+      showConfirm: 'Ok',
+      showCancel: 'Cancel',
+      showOk: ''
+    };
+    this.openDialog(ModalBoxComponent, data);
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {

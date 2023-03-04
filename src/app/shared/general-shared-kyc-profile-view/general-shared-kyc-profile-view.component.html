@@ -6,7 +6,7 @@
           <h6>Personal Details</h6>
           <!-- <button *ngIf="personalDetailsMap && role != 'candidate'" mat-raised-button class="common-button common-button-height-32" (click)="downloadAsPDF()">Download</button> -->
           <div *ngIf="!formSubmitted" class="icon">
-            <span (click)="editRoute('personal')" class="icon-Edit ag-icon-font-size edit-icon"> Edit</span>
+            <span (click)="editRoute('personal')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
           </div>
         </div>
         <ng-container *ngIf="personalDetailsMap; else noPersonal">
@@ -407,7 +407,7 @@
         <div class="header d-flex justify-content-between mb-1 align-items-center">
           <h6>Contact Details</h6>
           <div *ngIf="!formSubmitted" class="icon">
-            <span (click)="editRoute('contact')" class="icon-Edit ag-icon-font-size edit-icon"> Edit</span>
+            <span (click)="editRoute('contact')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
           </div>
         </div>
         <ng-container *ngIf="contactDetailsMap; else noContact" >
@@ -455,7 +455,7 @@
           <ng-container>
             <div class="row-wrapper mt-4">
               <label style="font-size: 16px;font-weight: 500;">Permanent Address</label>
-              <div class="overall-input-wrapper mt-3 width-100">
+              <div class=" flexCstart overall-input-wrapper  mt-3 width-100">
                 <label>Permanent Address</label>
                 <div class="inpu-preview size-16 bold-700 color-black">
                   {{ contactDetailsMap["permanentAddress"] }},<br>
@@ -502,7 +502,7 @@
         <div class="header p-0 d-flex justify-content-between mb-1 align-items-center custom-header-padding">
           <h6>Dependent Details</h6>
           <div *ngIf="!formSubmitted" class="icon">
-            <span (click)="editRoute('dependent')" class="icon-Edit ag-icon-font-size edit-icon"> Edit</span>
+            <span (click)="editRoute('dependent')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
           </div>
         </div>
         <ng-container *ngIf="
@@ -585,7 +585,7 @@
             *ngFor="let education of educationDetailsMap; let i = index">
             <div class="row-wrapper pt-2 mt-0">
               <h6>Qualification {{i+1}}</h6>
-              <div class="overall-input-wrapper mt-3 width-32">
+              <div class="overall-input-wrapper flexCstart mt-3 width-32">
                 <label>Qualification</label>
                 <div class="inpu-preview size-16 bold-700 color-black">
                   {{ education[form_qualification_type] }}
@@ -1746,7 +1746,7 @@
   <div class="header p-0 d-flex justify-content-between mb-1 align-items-center custom-header-padding">
     <h6>Disciplinary Details</h6>
     <div *ngIf="!formSubmitted" class="icon">
-      <span (click)="editRoute('upload')" class="icon-Edit ag-icon-font-size edit-icon"> Edit</span>
+      <span (click)="editRoute('upload')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
     </div>
   </div>
 

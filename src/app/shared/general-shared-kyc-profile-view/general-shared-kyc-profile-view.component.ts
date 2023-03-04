@@ -1131,12 +1131,21 @@ form_projectDescription = 'projectDescription';
   }
 
   formSubmitFinal() {
+    console.log(this.acknowledgmentForm,'this.acknowledgmentForm');
+
     if (this.acknowledgmentForm.valid) {
+      // console.log(this.signature,'');
       if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
+        console.log(this.signature,'');
+
         return this.matDialogOpen();
       }
       this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
+      console.log(this.signature,'faild');
+
     } else {
+      console.log(this.acknowledgmentForm,'faild');
+
       this.glovbal_validators.validateAllFields(this.acknowledgmentForm);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields in Acknowledgements and Declarations');
     }
@@ -1152,8 +1161,8 @@ form_projectDescription = 'projectDescription';
       formSections['experience_details'] == '1' &&
       formSections['personal_details'] == '1' &&
       formSections['project_details'] == '1' &&
-      formSections['accomplishments_details'] == '1' &&
-      formSections['discipilinary_details'] == '1'
+      formSections['accomplishment_details'] == '1' &&
+      formSections['disciplinary_details'] == '1'
       // formSections['project_details'] == '1' &&
       ) {
       return true;

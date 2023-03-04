@@ -267,7 +267,7 @@
                            </ng-container>
 
                   <ng-container *ngIf="!getEmploymentArr.controls[i].value.is_working_here" >
-                    <div class="overall-input-wrapper width-100">
+                    <div (click)="checkConsole()" class="overall-input-wrapper width-100">
                       <label>Duration To<span class="redTxt">*</span></label>
                         <div class="date-relative">
                             <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_duration_to">

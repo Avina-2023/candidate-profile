@@ -177,6 +177,7 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   form_noActivebacklog = 'noActivebacklog';
   form_mode = 'mode';
   form_cgpa = 'percentage';
+  form_cgpercentage = 'cg_percentage'
   form_Finalcgpa = 'final_percentage';
   form_CARanks = 'rank';
   form_gap_reason = 'gap_reason';
@@ -386,9 +387,10 @@ constructor(
           [this.form_historyOfbacklog]:null,
           [this.form_reasonForbacklog]: null,
           [this.form_noActivebacklog]: null,
-          [this.form_mode]: null,
+          // [this.form_mode]: null,
           [this.form_cgpa]: null,
           [this.form_Finalcgpa]: null,
+          [this.form_cgpercentage]: null,
           [this.form_CARanks]: null,
           [this.form_gap]:'false',
           // [this.form_isGap]: [null],
@@ -521,17 +523,26 @@ validSelectedPost() {
     this.getEducationArr.controls.forEach((element: any, j) => {
       if (element['controls'][this.form_qualification_type]['value'] == 'CA' || element['controls'][this.form_qualification_type]['value'] == 'ICWA' || element['controls'][this.form_qualification_type]['value'] == 'CS') {
         this.getEducationArr.at(j).patchValue({
-          [this.form_Finalcgpa]: element['controls'][this.form_cgpa]['value']
+          [this.form_Finalcgpa]: element['controls'][this.form_Finalcgpa]['value'],
+          [this.form_cgpa]: element['controls'][this.form_cgpa]['value'],
+          [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value']
+
         })
       }
       if (element['controls'][this.form_qualification_type]['value'] == 'SSLC') {
         this.getEducationArr.at(j).patchValue({
-          [this.form_Finalcgpa]: element['controls'][this.form_cgpa]['value']
+          [this.form_Finalcgpa]: element['controls'][this.form_Finalcgpa]['value'],
+          [this.form_cgpa]: element['controls'][this.form_cgpa]['value'],
+          [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value']
+
         })
       }
       if (element['controls'][this.form_qualification_type]['value'] == 'HSC') {
         this.getEducationArr.at(j).patchValue({
-          [this.form_Finalcgpa]: element['controls'][this.form_cgpa]['value']
+          [this.form_Finalcgpa]: element['controls'][this.form_Finalcgpa]['value'],
+          [this.form_cgpa]: element['controls'][this.form_cgpa]['value'],
+          [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value'],
+
         })
       }
     });
@@ -638,9 +649,10 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       [this.form_historyOfbacklog]: [{ value: data[this.form_historyOfbacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
 
       [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
-      [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+      // [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
-      [this.form_Finalcgpa]: [(data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? data[this.form_cgpa] : data[this.form_Finalcgpa]), this.candidateService.checkKycOrJoiningForm() ? [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)] : []],
+      [this.form_Finalcgpa]: [{ value: data[this.form_Finalcgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
+      [this.form_cgpercentage]: [{ value: data[this.form_cgpercentage], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
       [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_gap]:[ (data[this.form_gap] && data[this.form_gap] == 'true')  ? 'true' : 'false' ],
       [this.isHighLevelEdu]:[  data[this.isHighLevelEdu] ],
@@ -665,9 +677,11 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
 
       [this.form_reasonForbacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
       [this.form_noActivebacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
-      [this.form_mode]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+      // [this.form_mode]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
-      [this.form_Finalcgpa]: [null, this.candidateService.checkKycOrJoiningForm() ? [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)] : []],
+      [this.form_Finalcgpa]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
+      [this.form_cgpercentage]: [null,  [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
+
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }

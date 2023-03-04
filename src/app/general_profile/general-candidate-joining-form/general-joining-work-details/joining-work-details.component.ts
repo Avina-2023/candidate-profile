@@ -178,8 +178,6 @@ check: any;
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.check = this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1].value.is_working_here
-    console.log(this.getSkillsArr.controls ,'this.check ');
-
 
   }
 
@@ -311,6 +309,8 @@ check: any;
     if (this.workDetails && this.workDetails.employment && this.workDetails.employment.length > 0) {
       this.getEmploymentArr.clear();
       this.workDetails.employment.forEach((element) => {
+        console.log(element,'element');
+
         this.getEmploymentArr.push(this.EmploymentArrayPatch(element));
       });
     } else {
@@ -331,7 +331,7 @@ check: any;
     if (this.workDetailsAllData && this.workDetailsAllData[this.form_Skills_Array] && this.workDetailsAllData[this.form_Skills_Array].length > 0) {
       this.getSkillsArr.clear();
       this.workDetailsAllData[this.form_Skills_Array].forEach((element, i) => {
-        console.log(this.getSkillsArr,'element');
+        // console.log(this.getSkillsArr,'element');
         element ? this.getSkillsArr.push(this.SkillsArrayPatch(element,i,)) : '';
       });
     }
@@ -378,7 +378,6 @@ check: any;
 
   OtherDetailsPatch(data) {
     this.workDetailsForm.patchValue({
-      // [this.form_duration_to]:  data[this.form_duration_to],
       [this.form_total_exp_years]: data[this.form_total_exp_years],
       [this.form_total_exp_months]: data[this.form_total_exp_months],
       // [this.form_name_designation_supervisor]:  data[this.form_name_designation_supervisor],
@@ -406,10 +405,14 @@ check: any;
       })
     }
   EmploymentArrayPatch(data) {
+    console.log(data,'data');
+
     return this.fb.group({
       [this.form_employment_name_address]: [data[this.form_employment_name_address],[Validators.required]],
       [this.form_duration_from]: [this.dateConvertion(data[this.form_duration_from]) , [Validators.required]],
-      [this.form_duration_to]: [this.dateConvertion(data[this.form_duration_to]) , [Validators.required]],
+      [this.form_duration_to]: [data[this.form_duration_to],(data[this.form_duration_to] && (data[this.form_isWorkingHere] == false))  ? [Validators.required] : data[this.form_duration_to],(data[this.form_duration_to] && (data[this.form_isWorkingHere] == true))  ? [] : []],
+
+      // [this.form_duration_to]: [this.dateConvertion(data[this.form_duration_to]) , [Validators.required]],setValue(null)
       [this.form_achievement]: [data[this.form_achievement], [Validators.required]],
       [this.form_isWorkingHere]: [data[this.form_isWorkingHere]],
       [this.form_postion_field]: [data[this.form_postion_field], [Validators.required]],
@@ -464,9 +467,8 @@ check: any;
   initSkillsArray() {
     return this.fb.group({
       [this.form_Skill]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
-      [this.form_skilllevel_selected]: ['noviceselected', [RemoveWhitespace.whitespace()]]
+      [this.form_skilllevel_selected]: ['Novice', [RemoveWhitespace.whitespace()]]
     })
-console.log(this.form_skilllevel_selected,'getSkillSelection(i)');
   }
 
 
@@ -585,22 +587,24 @@ console.log(this.form_skilllevel_selected,'getSkillSelection(i)');
             this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1]['controls'][this.form_duration_to].clearValidators();
             this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1]['controls'][this.form_duration_to].updateValueAndValidity();
           }  else {
-          this.check = false
-          this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
-          this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1]['controls'][this.form_duration_to].updateValueAndValidity();
-          console.log(this.getEmploymentArr.controls[i]['controls'][this.form_duration_to]);
+
+              this.check = false
+              this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
+              this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1]['controls'][this.form_duration_to].updateValueAndValidity();
+              // console.log(this.getEmploymentArr.controls[i]['controls'][this.form_duration_to]);
+            }
+          // this.check = false
+
 
         }
-      }
+
     addToEmploymentArray(i) {
-      console.log(this.getEmploymentArr);
       if (this.getEmploymentArr.valid) {
        return this.getEmploymentArr.push(this.initEmploymentArray());
       }
       // this.setEmploymentArrValidation()
       this.appConfig.nzNotification('error', 'Not added', 'Please fill all the red highlighted fields to proceed further');
       // this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
-      console.log(this.getEmploymentArr);
     }
 
     addToTrainingArray() {
@@ -613,7 +617,7 @@ console.log(this.form_skilllevel_selected,'getSkillSelection(i)');
     }
 
 changeInIsArticleship(event){
-  console.log(this.getTrainingArr.controls[this.form_training_employer_name]);
+  // console.log(this.getTrainingArr.controls[this.form_training_employer_name]);
   if(event.value == 'true'){
     this.getTrainingArr.controls[0]['controls'][this.form_training_employer_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
     this.getTrainingArr.controls[0]['controls'][this.form_training_from_date].setValidators([Validators.required],{ emitEvent: false });
@@ -709,7 +713,6 @@ changeInIsArticleship(event){
       // [this.form_ca_achivement]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]],
       // [this.form_is_ca_resaon_suitable]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]]
     })
-    console.log(this.form_Employment_Array.length);
 
   }
 
@@ -719,7 +722,6 @@ changeInIsArticleship(event){
 //   addToEmploymentArray() {
 
 //     let i = this.getEmploymentArr['controls'].length - 1;
-//     console.log(i,'ff');
 
 //     if (this.getEmploymentArr.valid) {
 //       if (this.getEmploymentArr && this.getEmploymentArr['controls'] && this.getEmploymentArr['controls'][i] && this.getEmploymentArr['controls'][i]['value'] &&
@@ -753,7 +755,7 @@ changeInIsArticleship(event){
     if (this.getSkillsArr.valid && this.getSkillsArr['controls'].length < 10) {
       if (this.getSkillsArr && this.getSkillsArr['controls'] && this.getSkillsArr['controls'][i] && this.getSkillsArr['controls'][i]['value'] && this.getSkillsArr['controls'][i]['value'][this.form_Skill]) {
          this.getSkillsArr.push(this.initSkillsArray());
-        this.choosen('noviceselected', this.getSkillsArr.length -1)
+        this.choosen('Novice', this.getSkillsArr.length -1)
       }
     } else {
       this.appConfig.nzNotification('error', 'Not Added', 'Please fix all the red highlighted fields in the Skill Section');
@@ -885,7 +887,6 @@ changeInIsArticleship(event){
       const employments =  this.workDetailsForm.getRawValue()[this.form_Employment_Array];
       let intern =  this.workDetailsForm.getRawValue()[this.form_training_Array];
       let skills = this.workDetailsForm.value.skills;
-      console.log(skills[0].skill,'skills');
       // this.workDetailsForm.getRawValue()[this.form_Skills_Array].forEach(element => {
       //   if (element && element[this.form_Skill]) {
       //     skills.push(element[this.form_Skill]);
@@ -1206,10 +1207,10 @@ choosenBorder(i):String{
   }
   return choosenborder;
 }
-// check(){
-//   console.log(this.getSkillsArr.controls,'kk');
+checkConsole(){
+  console.log(this.getEmploymentArr.controls,'kk');
 
-//   this.getSkillsArr;
+  this.getEmploymentArr;
 
-// }
+}
 }
