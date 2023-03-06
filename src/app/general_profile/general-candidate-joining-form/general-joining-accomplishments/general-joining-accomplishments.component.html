@@ -41,7 +41,7 @@
                     <div class="dependent-head">
                       <h6>Certification{{i+1}}</h6>
                       <div class="remove-wrapper">
-                        <div (click)="removeCertificationsArray(i)" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
+                        <div (click)="removeData(i,'certification')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
                           <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                         </div>
                       </div>
@@ -157,7 +157,7 @@
                   <div class="dependent-head">
                     <h6>Awards{{i+1}}</h6>
                     <div class="remove-wrapper">
-                      <div (click)="removeawardsArray(i)" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
+                      <div (click)="removeData(i,'awards')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
                         <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                       </div>
                     </div>
@@ -217,7 +217,7 @@
                   <div class="dependent-head">
                     <h6>Research Publication{{i+1}}</h6>
                     <div class="remove-wrapper">
-                      <div (click)="removeJournalArray(i)" *ngIf="i == 0  " matTooltip="Remove" class="remove">
+                      <div (click)="removeData(i,'journalEntry')" *ngIf="i == 0  " matTooltip="Remove" class="remove">
                         <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                       </div>
                     </div>
@@ -233,8 +233,7 @@
                         <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.required">
                           Certification Name is Required</div>
                         <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.alphaNum255">
-                          Alpha numeric with maximum of 255 characters only
-                          allowed</div>
+                          Alpha numeric with maximum of 255 characters only allowed</div>
                       </div>
                   </ng-container>
                   <ng-container >
@@ -246,10 +245,9 @@
                       <div class="form-error"
                         *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_url).touched">
                         <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.required">
-                          Certification Name is Required</div>
-                        <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.alphaNum255">
-                          Alpha numeric with maximum of 255 characters only
-                          allowed
+                          URL is Required</div>
+                        <div class="err" *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_url).errors?.urlRegex">
+                          Please enter valid URL
                         </div>
                       </div>
                   </ng-container>

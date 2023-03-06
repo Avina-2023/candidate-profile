@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, TemplateRef  } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -17,7 +17,8 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 export interface Hobbie {
   hobbiesAndInterests: string;
 }
@@ -55,6 +56,8 @@ export const MY_FORMATS = {
 
 
 export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+
    public selection: string;
 
   public customOption: string = 'customOption';
@@ -242,6 +245,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   };
 
   isKYCNotExempted = this.appConfig.getLocalData('isKYCNotExempted') == 'false' ? false : true;
+  currentDeleteIndex:number  ;
 
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
@@ -259,7 +263,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     public candidateService: CandidateMappersService,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService,
-    private loadingService: LoaderService
+    private loadingService: LoaderService,
+    private matDialog: MatDialog,
+    public dialog: MatDialog,
   ) {
     this.dateValidation();
   }
@@ -303,9 +309,13 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   physicalDisability(event){
     // this.form_Employment_Array['controls'][this.isWorkExp].setValue('1');
     if(event.value == 'true'){
-    }else{
+      this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
+    }if(event.value == 'false'){
+      this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
+      this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
+      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
     }
-    this.checkPhysicalDisability();
   }
   remove(hobbie: Hobbie): void {
     const index = this.hobbies.indexOf(hobbie);
@@ -323,6 +333,50 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
 
   showStepper() {
     this.sharedService.joiningFormActiveSelector.next('personal');
+  }
+
+  openDialog(component, data) {
+    let dialogDetails: any;
+
+    dialogDetails = {
+      iconName: data.iconName,
+      showCancel: data.showCancel,
+      showConfirm: data.showConfirm,
+      showOk: data.showOk,
+      dataToBeShared: data.sharedData,
+    };
+
+    /**
+     * Dialog modal window
+     */
+    // tslint:disable-next-line: one-variable-per-declaration
+    const dialogRef = this.matDialog.open(component, {
+      width: 'auto',
+      height: 'auto',
+      autoFocus: false,
+      data: dialogDetails
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getLanguageArr.removeAt(this.currentDeleteIndex);
+      }
+    });
+  }
+  removeData(i) {
+    const data = {
+      iconName: '',
+      sharedData: {
+        confirmText: 'Are you sure you want to delete?',
+        componentData: '',
+        type: 'delete',
+        identity: 'logout'
+      },
+      showConfirm: 'Ok',
+      showCancel: 'Cancel',
+      showOk: ''
+    };
+    this.openDialog(ModalBoxComponent, data);
   }
 
   getPersonalData() {
@@ -611,6 +665,14 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   patchPersonalForm() {
     if(this.personalDetails[this.form_hobbies_intrest].length) {
       this.hobbies = this.personalDetails[this.form_hobbies_intrest];
+      if(this.personalDetails[this.form_hobbies_intrest].length > 0){
+        console.log(this.personalForm.controls[this.form_hobbies_intrest],'this.personalDetails.controls[this.form_hobbies_intrest]');
+        this.personalForm.controls[this.form_hobbies_intrest].clearValidators();
+      }
+      if(this.personalDetails[this.form_hobbies_intrest].length == 0){
+        console.log(this.personalForm.controls[this.form_hobbies_intrest],'this.personalDetails.controls[this.form_hobbies_intrest]');
+        this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+      }
     }
     this.personalForm.patchValue({
       // [this.form_title]: this.personalDetails[this.form_title],
@@ -655,6 +717,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_no_of_days]: this.personalDetails[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days].toString() : null,
       [this.form_nature_of_illness]: this.personalDetails[this.form_nature_of_illness],
       [this.form_physical_disability_rsn]: this.personalDetails[this.form_physical_disability_rsn],
+  // [this.form_physical_disability_rsn]: (this.personalDetails[this.form_physical_disability_rsn],(this.personalDetails[this.form_physical_disability_rsn] && (this.personalDetails[this.form_physical_disability] == 'true'))  ? [Validators.required] : this.personalDetails[this.form_physical_disability_rsn],(this.personalDetails[this.form_physical_disability_rsn] && (this.personalDetails[this.form_physical_disability] == 'false'))  ? [] : []) ,
+
        [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == 'true') ? 'true' : 'false',
       // [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] == 0 ? '0' : '1',
       [this.form_left_eyepower_glass]: this.personalDetails[this.form_left_eyepower_glass],
@@ -666,7 +730,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     this.profilePictureFormControl.setValue(this.personalDetails.profileImage);
     this.patchLanguageForm();
     this.checkIsMarried();
-    this.checkPhysicalDisability();
+    // this.checkPhysicalDisability();
     console.log( this.personalForm,' this.checkPhysicalDisability();');
 
   }
@@ -701,23 +765,26 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       this.personalForm['controls'][this.form_no_of_children].updateValueAndValidity({ emitEvent: false });
     }
   }
-  checkPhysicalDisability() {
-    if (this.personalForm.value[this.form_physical_disability] && (this.personalForm.value[this.form_physical_disability] == 'true')) {
-      this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required]);
-      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity({ emitEvent: false });
-    } else {
-      this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
-      this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
-      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity({ emitEvent: false });
-    }
-  }
+  // checkPhysicalDisability() {
+  //   console.log(this.personalForm.controls[this.form_physical_disability].value,'this.personalForm');
+
+  //   if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true')) {
+  //     this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+  //     this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
+  //   }
+  //   if(this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'false')) {
+  //     this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
+  //     this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
+  //     this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
+  //   }
+  // }
   formInitialize() {
     this.personalForm = this.fb.group({
       // [this.form_title]: [null, [Validators.required]],
       [this.form_name]: [{value: this.appConfig.getLocalData('username'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
       [this.form_gender]: [null, [Validators.required]],
-      [this.form_hobbies_intrest]: [null],
+      [this.form_hobbies_intrest]: [null,[Validators.required]],
       // [this.hobbiesAndIntrest]: [[null], [Validators.required]],
       // [this.form_place_of_birth]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_state_of_birth]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
@@ -789,9 +856,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     }
   }
 
-  removeLanguage(i) {
-    this.getLanguageArr.removeAt(i);
-  }
+  // removeLanguage(i) {
+  //   this.getLanguageArr.removeAt(i);
+  // }
 
   // setJoiningAndKYCValidators(isJoining) {
   //   this.personalForm.controls[this.form_name].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);

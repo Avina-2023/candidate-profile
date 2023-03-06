@@ -108,7 +108,7 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
   form_dependent_differently_abled = 'differently_abled';
   form_dependent_status = 'status';
   form_dependent_relationship = 'relationship'
- currentDeleteIndex:number  ;
+ currentDeleteIndex: number ;
   dependedentDetails: any;
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;

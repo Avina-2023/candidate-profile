@@ -1,7 +1,7 @@
 import { DropdownListForKYC } from 'src/app/constants/kyc-dropdownlist-details';
 import { Subscription } from 'rxjs';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy,ViewChild, TemplateRef  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, AbstractControl, ValidationErrors, ValidatorFn, FormControl } from '@angular/forms';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { GlobalValidatorService } from 'src/app/custom-form-validators/globalvalidators/global-validator.service';
@@ -19,6 +19,8 @@ import { SkillexService } from 'src/app/service/skillex.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -63,9 +65,12 @@ export const MY_FORMATS_Month = {
   ],
 })
 export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+
   showWorkExp: any = '0';
   educationForm: FormGroup;
   minDate: Date;
+  currentDeleteIndex:number  ;
   maxDate: Date;
   public selection: string;
   boardsList = DropdownListForKYC['boards'];
@@ -222,7 +227,9 @@ constructor(
     private skillexService:SkillexService,
     private fb: FormBuilder,
     private loadingService:LoaderService,
-    private glovbal_validators: GlobalValidatorService
+    private glovbal_validators: GlobalValidatorService,
+    private matDialog: MatDialog,
+    public dialog: MatDialog,
   ) {
     this.dateValidation();
     let mastersList = this.appConfig.getLocalData('masters') ? JSON.parse(this.appConfig.getLocalData('masters')) : [];
@@ -313,6 +320,51 @@ constructor(
     }
   }
 
+   // Open dailog
+   openDialog(component, data) {
+    let dialogDetails: any;
+
+    dialogDetails = {
+      iconName: data.iconName,
+      showCancel: data.showCancel,
+      showConfirm: data.showConfirm,
+      showOk: data.showOk,
+      dataToBeShared: data.sharedData,
+    };
+
+    /**
+     * Dialog modal window
+     */
+    // tslint:disable-next-line: one-variable-per-declaration
+    const dialogRef = this.matDialog.open(component, {
+      width: 'auto',
+      height: 'auto',
+      autoFocus: false,
+      data: dialogDetails
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getEducationArr.removeAt(this.currentDeleteIndex );
+      }
+    });
+  }
+  removeData(i) {
+    const data = {
+      iconName: '',
+      sharedData: {
+        confirmText: 'Are you sure you want to delete?',
+        componentData: '',
+        type: 'delete',
+        identity: 'logout'
+      },
+      showConfirm: 'Ok',
+      showCancel: 'Cancel',
+      showOk: ''
+    };
+    this.openDialog(ModalBoxComponent, data);
+  }
+
   getEducationApiDetails() {
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
@@ -368,6 +420,7 @@ constructor(
         });
       }
       this.setValidations();
+      this.edugapValidation();
     }
   }
 }
@@ -548,7 +601,7 @@ validSelectedPost() {
     });
   // }
   // debugger
-    if (this.educationForm ) {
+    if (this.educationForm.valid ) {
       // let entryValid = this.validSelectedPost();
       // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
@@ -628,6 +681,7 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       this.getEducationArr.push(this.patching(element, i));
     });
     this.setValidations( );
+    this.edugapValidation();
     console.log(this.educationDetails,'educationDetails');
 
     console.log(this.getEducationArr,' this.getEducationArr');
@@ -635,6 +689,8 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
   }
 
   patching(data, i) {
+    console.log(data,'patching');
+
     return this.fb.group({
       [this.form_qualification_type]: [{ value: data[this.form_qualification_type], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_qualification]: [{ value: data[this.form_qualification], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
@@ -645,10 +701,12 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       [this.form_endDate]: [this.dateConvertion(data[this.form_endDate]), [Validators.required, this.startTrue(false)] ],
       [this.form_yearpassing]: [{ value: this.dateConvertionMonth(data[this.form_yearpassing]), disabled: false }, [Validators.required, this.startTrue(true)]],
       //  [this.form_backlog]: [{ value: data[this.form_backlog], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? (data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? true : false) : false}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
-      [this.form_reasonForbacklog]: [{ value: data[this.form_reasonForbacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
-      [this.form_historyOfbacklog]: [{ value: data[this.form_historyOfbacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+      // [this.form_reasonForbacklog]: [data[this.form_reasonForbacklog],( data[this.form_reasonForbacklog] && (data[this.form_gap] == 'true'))  ? [Validators.required] : data[this.form_reasonForbacklog],(data[this.form_reasonForbacklog] && (data[this.form_gap] == 'false'))  ? [] : [] ],
 
-      [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+      [this.form_reasonForbacklog]: [{ value: data[this.form_reasonForbacklog], disabled: false },[Validators.required] ],
+      [this.form_historyOfbacklog]: [ data[this.form_historyOfbacklog], [Validators.required]],
+
+      [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false },[Validators.required]],
       // [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
       [this.form_Finalcgpa]: [{ value: data[this.form_Finalcgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
@@ -673,10 +731,10 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
       //  [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
-      [this.form_historyOfbacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
+      [this.form_historyOfbacklog]: [null ],
 
-      [this.form_reasonForbacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
-      [this.form_noActivebacklog]: [null,[RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()] ],
+      [this.form_reasonForbacklog]: [null],
+      [this.form_noActivebacklog]: [null],
       // [this.form_mode]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
       [this.form_Finalcgpa]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
@@ -693,13 +751,31 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
       this.check = false
     }
   }
-  anyGap(event,index){
+  anyGap(event,i){
     if(event.value == 'true'){
+  this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
+  this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
+  this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].setValidators([Validators.required,this.glovbal_validators.alphaNum255() ],{ emitEvent: false });
+    }if(event.value == 'false'){
+        console.log(this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog]);
+        console.log(this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog]);
+        console.log(this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog]);
 
-    }else{
+        this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValue(null);
+        this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValue(null);
+        this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].setValue(null);
 
-    }
+        this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].clearValidators();
+        this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].clearValidators();
+        this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].clearValidators();
+
+        this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].updateValueAndValidity();
+        this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].updateValueAndValidity();
+        this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].updateValueAndValidity();
+      }
   }
+
+
 //   radioChange(event) {
 //     console.log(event, 'event');
 // if(event.value == 'true'){
@@ -782,7 +858,37 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
   // Form getters
   // convenience getters for easy access to form fields
   get getEducationArr() { return this.educationForm.get([this.form_educationArray]) as FormArray; }
+  edugapValidation(){
+    this.getEducationArr.controls.forEach((element: any, j) => {
 
+    if(element['controls'][this.form_gap]['value'] == 'true'){
+      element['controls'][this.form_historyOfbacklog].clearValidators({ emitEvent: false });
+      element['controls'][this.form_noActivebacklog].clearValidators({ emitEvent: false });
+      element['controls'][this.form_reasonForbacklog].clearValidators({ emitEvent: false });
+
+      element['controls'][this.form_historyOfbacklog].setValidators([RemoveWhitespace.whitespace(), Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
+      element['controls'][this.form_noActivebacklog].setValidators([RemoveWhitespace.whitespace(), Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
+      element['controls'][this.form_reasonForbacklog].setValidators([RemoveWhitespace.whitespace(), Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+
+    }
+    if(element['controls'][this.form_gap]['value'] == 'false'){
+      console.log(element['controls'][this.form_historyOfbacklog]);
+
+      element['controls'][this.form_historyOfbacklog].setValue(null);
+      element['controls'][this.form_noActivebacklog].setValue(null);
+      element['controls'][this.form_reasonForbacklog].setValue(null);
+
+      element['controls'][this.form_historyOfbacklog].clearValidators({ emitEvent: false });
+      element['controls'][this.form_noActivebacklog].clearValidators({ emitEvent: false });
+      element['controls'][this.form_reasonForbacklog].clearValidators({ emitEvent: false });
+
+      element['controls'][this.form_historyOfbacklog].updateValueAndValidity({ emitEvent: false });
+      element['controls'][this.form_noActivebacklog].updateValueAndValidity({ emitEvent: false });
+      element['controls'][this.form_reasonForbacklog].updateValueAndValidity({ emitEvent: false });
+
+    }
+  });
+}
   setValidations() {
       this.getEducationArr.controls.forEach((element: any, j) => {
       if (element['controls'][this.form_qualification_type]['value'] == 'SSLC') {

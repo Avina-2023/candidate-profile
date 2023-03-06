@@ -22,8 +22,8 @@
             .sub-heading {
                 width: 100%;
                 margin: 1em 0 0 0;
-                font-size: 16px;
-                font-weight: 400;
+                font-size: 20px;
+                font-weight: 500;
             }
             .row-wrapper {
                 // margin-top: .5em;
@@ -562,15 +562,15 @@ width: 100%;
   display: none !important;
 }
 .mat-chip-list-wrapper {
-  margin-top: 3px !important;
+  margin-top: 5px !important;
 }
 .mat-standard-chip {
   border-radius: 0px !important;
   background-color: #E9EDF2 !important;
 }
 .mat-standard-chip .mat-chip-remove.mat-icon {
-  background-color: #E9EDF2 !important;
-  background-color: #027198 !important;
+  // background-color: #E9EDF2 !important;
+  // background-color: #027198 !important;
   border-radius: 0px !important;
 }
 

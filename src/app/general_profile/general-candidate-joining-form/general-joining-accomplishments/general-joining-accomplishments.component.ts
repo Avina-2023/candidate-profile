@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild, TemplateRef } from '@angular/core';
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,9 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 import * as moment from 'moment'; //in your component
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export const MY_FORMATS = {
   parse: {
@@ -46,6 +49,11 @@ export const MY_FORMATS = {
   ],
 })
 export class GeneralJoiningAccomplishmentsComponent implements OnInit {
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+  removeArr1: boolean = false;
+  removeArr2: boolean = false;
+  removeArr3: boolean = false;
+  currentDeleteIndex: number ;
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
   joiningFormDataPassingSubscription: Subscription;
@@ -81,7 +89,9 @@ check: any;
     private loadingService:LoaderService,
     private skillexService:SkillexService,
     private fb: FormBuilder,
-    private glovbal_validators: GlobalValidatorService
+    private glovbal_validators: GlobalValidatorService,
+    private matDialog: MatDialog,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -137,35 +147,10 @@ if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_journalEnt
     this.getJournalEntryArr.push(this.patchingjournalentry(element, i));
   });
 }
-
+this.setCertificationArrValidation();
+this.setjournalArrValidation();
+this.setAwardArrValidation();
   }
-//   ifCertifications(data){
-//     this.patchingCertifications(data);
-//     console.log('yes');
-//   }
-// ifNotCertifications(){
-//   this.accomplishmentsDetails = [];
-//   this.getCertificationsArr.push(this.initCertificationsArray());
-//   console.log('no');
-// }
-// ifAwards(data){
-//   this.patchingAwards(data);
-//   console.log('yes');
-// }
-// ifNotAwards(){
-//   this.accomplishmentsDetails = [];
-//   this.getCertificationsArr.push(this.initawardsArray());
-//   console.log('no');
-// }
-// ifjournalentry(data){
-//   this.patchingjournalentry(data);
-//   console.log('yes');
-// }
-// ifNotjournalentry(){
-//   this.accomplishmentsDetails = [];
-//   this.getCertificationsArr.push(this.initJournalEntryArray());
-//   console.log('no');
-// }
 
   momentForm(date) {
     if (date) {
@@ -364,14 +349,49 @@ if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_journalEnt
                   }
   initCertificationsArray(){
     return this.fb.group({
-      [this.form_certification_name]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_certification_issuedFrom]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_certification_description]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_certification_validityFrom]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_certification_validityUpto]: [null, [ Validators.required]],
-[this.form_isexpire]:[false]
+      [this.form_certification_name]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+      [this.form_certification_issuedFrom]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+      [this.form_certification_description]:[null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+      [this.form_certification_validityFrom]: [null,[Validators.required]],
+      [this.form_certification_validityUpto]: [null,[Validators.required]],
+      [this.form_isexpire]:[false]
     })
   }
+  setCertificationArrValidation(){
+    this.getCertificationsArr.controls.forEach((data, index) => {
+    if(this.getCertificationsArr.length){
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValidators([Validators.required],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValidators([Validators.required],{ emitEvent: false });
+
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_issuedFrom].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_description].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityFrom].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
+    }else {
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValue(null);
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].setValue(null);
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValue(null);
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValue(null);
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValue(null);
+
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].clearValidators();
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].clearValidators();
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].clearValidators();
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].clearValidators();
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].clearValidators();
+
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_issuedFrom].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_description].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityFrom].updateValueAndValidity();
+      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
+    } })
+}
+
   isCertificateExpire(e, i:number) {
     if (e.checked) {
         this.check = true
@@ -384,29 +404,128 @@ if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_journalEnt
       this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValidators([Validators.required],{ emitEvent: false });
       this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
       console.log(this.getCertificationsArr.controls[i]['controls'][this.form_certification_validityUpto]);
-
     }
   }
 
   initawardsArray(){
     return this.fb.group({
-      [this.form_award_title]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_award_date]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_award_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+      [this.form_award_date]: [null,[Validators.required]],
     })
   }
+  setAwardArrValidation(){
+    this.getawardsArr.controls.forEach((data, index) => {
+    if(this.getawardsArr.length){
+      this.getawardsArr.controls[index]['controls'][this.form_award_title].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getawardsArr.controls[index]['controls'][this.form_award_date].setValidators([Validators.required,this.glovbal_validators.urlRegex()],{ emitEvent: false });
 
+      this.getawardsArr['controls'][index]['controls'][this.form_award_title].updateValueAndValidity();
+      this.getawardsArr['controls'][index]['controls'][this.form_award_date].updateValueAndValidity();
+    }else {
+      this.getawardsArr.controls[index]['controls'][this.form_award_title].setValue(null);
+      this.getawardsArr.controls[index]['controls'][this.form_award_date].setValue(null);
+
+      this.getawardsArr.controls[index]['controls'][this.form_award_title].clearValidators();
+      this.getawardsArr.controls[index]['controls'][this.form_award_date].clearValidators();
+
+      this.getawardsArr['controls'][index]['controls'][this.form_award_title].updateValueAndValidity();
+      this.getawardsArr['controls'][index]['controls'][this.form_award_date].updateValueAndValidity();
+    } })
+    }
   initJournalEntryArray(){
     return this.fb.group({
-      [this.form_journalEntity_title]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_journalEntity_url]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_journalEntity_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+      [this.form_journalEntity_url]: [null,[Validators.required,this.glovbal_validators.urlRegex()]],
       [this.form_journalEntity_publishedOn]: [null],
-      [this.form_journalEntity_description]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_journalEntity_description]: [null],
     })
   }
+  setjournalArrValidation(){
+    this.getJournalEntryArr.controls.forEach((data, index) => {
+    if(this.getJournalEntryArr.length){
+      this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].setValidators([Validators.required,this.glovbal_validators.urlRegex()],{ emitEvent: false });
 
-  removeCertificationsArray(i) {
-    this.getCertificationsArr.removeAt(i);
+      this.getJournalEntryArr['controls'][index]['controls'][this.form_journalEntity_title].updateValueAndValidity();
+      this.getJournalEntryArr['controls'][index]['controls'][this.form_journalEntity_url].updateValueAndValidity();
+    }else {
+      this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].setValue(null);
+      this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].setValue(null);
+
+      this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].clearValidators();
+      this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].clearValidators();
+
+      this.getJournalEntryArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
+      this.getJournalEntryArr['controls'][index]['controls'][this.form_journalEntity_url].updateValueAndValidity();
+    } })
+    }
+
+ // Open dailog
+ openDialog(component, data) {
+  let dialogDetails: any;
+
+  dialogDetails = {
+    iconName: data.iconName,
+    showCancel: data.showCancel,
+    showConfirm: data.showConfirm,
+    showOk: data.showOk,
+    dataToBeShared: data.sharedData,
+  };
+
+  /**
+   * Dialog modal window
+   */
+  // tslint:disable-next-line: one-variable-per-declaration
+  const dialogRef = this.matDialog.open(component, {
+    width: 'auto',
+    height: 'auto',
+    autoFocus: false,
+    data: dialogDetails
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      if(this.getCertificationsArr.length && this.removeArr1){
+        this.getCertificationsArr.removeAt(this.currentDeleteIndex );
+      }
+      if(this.getawardsArr.length && this.removeArr2){
+        this.getawardsArr.removeAt(this.currentDeleteIndex );
+      }
+      if(this.getJournalEntryArr.length && this.removeArr3){
+        this.getJournalEntryArr.removeAt(this.currentDeleteIndex );
+      }
+    }
+  });
+}
+removeData(i,removeArr) {
+  if(removeArr == "certification"){
+    this.removeArr1=true;
   }
+  if(removeArr == "awards"){
+    this.removeArr2=true;
+  }
+  if(removeArr == "journalEntry"){
+    this.removeArr3=true;
+  }
+  const data = {
+    iconName: '',
+    sharedData: {
+      confirmText: 'Are you sure you want to delete?',
+      componentData: '',
+      type: 'delete',
+      identity: 'logout'
+    },
+    showConfirm: 'Ok',
+    showCancel: 'Cancel',
+    showOk: ''
+  };
+  this.openDialog(ModalBoxComponent, data);
+}
+
+
+  // removeCertificationsArray(i) {
+  //   this.getCertificationsArr.removeAt(i);
+  // }
 
 addToCertifications() {
   console.log(this.getCertificationsArr,'ooo');
@@ -421,6 +540,8 @@ if(this.getCertificationsArr.length == 0){
 
 addMoreCertifications(){
   if (this.getCertificationsArr.valid && this.getCertificationsArr.length > 0) {
+    this.setCertificationArrValidation()
+
     return this.getCertificationsArr.push(this.initCertificationsArray());
    }
    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
@@ -435,13 +556,14 @@ addToawards() {
 
 addMoreAwards(){
   if (this.getawardsArr.valid) {
+    this.setAwardArrValidation();
     return this.getawardsArr.push(this.initawardsArray());
    }
    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_awardsArray]) as FormArray);
 }
-removeawardsArray(i) {
-  this.getawardsArr.removeAt(i);
-}
+// removeawardsArray(i) {
+//   this.getawardsArr.removeAt(i);
+// }
 
 addToJournalEntry() {
   if (this.getJournalEntryArr.length == 0) {
@@ -452,13 +574,14 @@ addToJournalEntry() {
 
 addMoreJournalEntry() {
   if (this.getJournalEntryArr.valid  ) {
+    this.setjournalArrValidation()
    return this.getJournalEntryArr.push(this.initJournalEntryArray());
   }
   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
 }
-removeJournalArray(i){
-  this.getJournalEntryArr.removeAt(i);
-}
+// removeJournalArray(i){
+//   this.getJournalEntryArr.removeAt(i);
+// }
 
 ngOnDestroy() {
   this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';

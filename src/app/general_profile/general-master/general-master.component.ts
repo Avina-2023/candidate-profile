@@ -38,9 +38,7 @@ export class GeneralMasterComponent implements OnInit {
     // this.setprofileimageToLocal()
     this.username = localStorage.getItem('username');
     this.email = localStorage.getItem('userEmail');
-    console.log(this.CandidateDetails(),'this.CandidateDetails()');
     this.CandidateDetails()
-    console.log(this.CandidateDetails(),'this.CandidateDetails()');
 
   }
 
@@ -54,11 +52,10 @@ export class GeneralMasterComponent implements OnInit {
         environment.cryptoEncryptionKey
       ),
     };
-    console.log(obj,'obj');
+    // console.log(obj,'obj');
     this.skillexService.candidateDetails(obj).subscribe((res: any) => {
       if (res.success) {
         this.Details = res.data;
-        console.log(res.data,'obj');
         // this.profileImage = this.Details.personal_details.profileImage;
         // this.msgData.sendMessage("profileImage",this.profileImage)
         // if (this.profileImage && this.productionUrl == true) {
@@ -72,16 +69,21 @@ export class GeneralMasterComponent implements OnInit {
         // this.appConfig.setLocalStorage('candidateProfile',JSON.stringify(this.Details));
         this.profilepercentage = Math.ceil(this.Details.profilePercentage);
         localStorage.setItem("profilePercentage",(this.profilepercentage));
+
+          let ProfileUpdated = JSON.parse(localStorage.getItem("profileData"))  ;
+          ProfileUpdated.updatedAt = this.Details.updatedAt ;
+          ProfileUpdated.createdAt = this.Details.createdAt ;
+          localStorage.setItem("profileData",JSON.stringify(ProfileUpdated));
+      //     console.log(candidateProfileimage,'updatedAt');
+
         // this.appConfig.localStorage('profilePercentage', this.profilepercentage);
       }
     });
-    console.log();
 
   }
   gotoProfile(){
     let emailval = localStorage.getItem('email')
     let enc_email = encodeURIComponent(this.skillexService.encryptnew(emailval,environment.cryptoEncryptionKey))
-    console.log(enc_email,'enc_email')
     // window.open(environment.SKILL_PROFILE_URL+'/externallogin?extId='+enc_email, 'profile_redir');
     window.location.assign(environment.SKILLEX_BASE_URL+'/externallogin?extId='+enc_email);
   }
@@ -97,7 +99,6 @@ export class GeneralMasterComponent implements OnInit {
   //   this.skillexService.candidateprogress(obj).subscribe((res: any) => {
   //     if (res.success) {
   //       this.Details = res.data;
-  //       console.log(this.Details,'this.Details');
 
   //       // this.profileImage = this.Details.personal_details.profileImage;
   //       // this.msgData.sendMessage("profileImage",this.profileImage)
@@ -140,7 +141,6 @@ export class GeneralMasterComponent implements OnInit {
 
 
     } catch (e) {
-      console.log("error while profile pic"+e)
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');

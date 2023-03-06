@@ -89,7 +89,7 @@
       {{dob?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' +
       momentForm(dob?.errors?.matDatepickerMax.max) : ''}}
     </div>
-    <div *ngIf="dob?.errors?.matDatepickerMin">
+    <div class="err" *ngIf="dob?.errors?.matDatepickerMin">
       {{dob?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' +
       momentForm(dob?.errors?.matDatepickerMin.min) : ''}}
     </div>
@@ -194,18 +194,17 @@
                             allowed</div>
                     </div>
                 </div> -->
-                <div>
+                <ng-container>
                   <div class="overall-input-wrapper width-45">
-                    <label>Mother Tongue<span class="redTxt">*</span></label>
+                    <label>Mother Tongue<span  class="redTxt">*</span></label>
                     <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_mother_tongue">
-
                   </div>
                   <div class="form-error" *ngIf="mother_tongue?.invalid && mother_tongue?.touched">
                     <div class="err" *ngIf="mother_tongue?.errors?.required">Mother Tongue is Required</div>
                     <div class="err" *ngIf="mother_tongue?.errors?.alphaNum255">Alpha numeric with maximum of 255 characters
                       only allowed</div>
                   </div>
-                </div>
+                </ng-container>
 
           <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
             <div class="overall-input-wrapper width-45">
@@ -349,8 +348,8 @@
           </div>
         </ng-container>
         <div class="carddiv pt-0 pb-4">
-          <h6 class="sub-heading " style="border-bottom: 1px solid #BBC2CB99;padding-bottom: 0.5em;">Languages Known
-          </h6>
+          <h5 class="sub-heading" style="border-bottom: 1px solid #BBC2CB99;padding-bottom: 0.5em;">Languages Known
+          </h5>
           <div class="overall-input-wrapper width-100" style="flex-direction: column; ">
             <ng-container *ngIf="getLanguageArr && getLanguageArr.controls" [formArrayName]="form_language_array">
               <!-- <label>Language Name<span></span></label> -->
@@ -368,7 +367,6 @@
                         Alpha numeric with maximum of 255
                         characters only allowed</div>
                     </div>
-
                   </div>
                   <div class="flex-box language-knowns">
                     <div style="display: flex;">
@@ -388,7 +386,7 @@
                     </div>
 
                     <div [ngClass]="i == 0 ? 'hideClose' : ''" matTooltip="Remove" class="close-icon">
-                      <i (click)="i == 0 ? '' : removeLanguage(i)"
+                      <i (click)="i == 0 ? '' :  removeData(i)"
                         class="icon-remove_circle pointer ag-icon-font-size"></i>
                     </div>
 
@@ -410,23 +408,34 @@
               <h6 class="sub-heading" style="border-bottom: 1px solid #BBC2CB99; padding-bottom: 0.5em;">
                 Hobbies/Interests
               </h6>
-              <div class="overall-input-wrapper width-45 list" style="margin-top: 0;">
-                <mat-form-field style="width: 99.5% !important;padding: 0.6px !important;" >
-                  <div class="d-flex chip-list">
-                    <input [formControlName]="form_hobbies_intrest" class="chipinput" style="border: 1px solid #707070; padding: 10px;   width: 100% !important; margin: 0px !important;"
-                    [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="addOnBlur" id="chip" (matChipInputTokenEnd)="add($event)">
-                    <span class="chipadd" >  <label class="chipclass" for="chip" (click)="add($event)">Add</label></span>
-                  </div>
-                  <mat-chip-list  #chipList class=" width-100">
-                    <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
-                      (removed)="remove(hobbie)">
-                      {{hobbie.hobbiesAndInterests}}
-                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                    </mat-chip>
-                  </mat-chip-list>
-                </mat-form-field>
-              </div>
+              <ng-container >
+                <div class="overall-input-wrapper width-45 list" style="margin-top: 0;">
+                  <mat-form-field style="width: 99.5% !important;padding: 0.6px !important;" >
+                    <div class="d-flex chip-list">
+                      <input [formControlName]="form_hobbies_intrest" class="chipinput " style="border: 1px solid #707070; padding: 10px;   width: 100% !important; margin: 0px !important;"
+                      [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur" id="chip" (matChipInputTokenEnd)="add($event)">
+                      <span class="chipadd" >  <label class="chipclass" for="chip" (click)="add($event)">Add</label></span>
+                    </div>
+                    <ng-container >
+                      <div  class="form-error mt-1" *ngIf="hobbies_intrest?.invalid && hobbies_intrest?.touched">
+                        <div *ngIf="hobbies_intrest?.errors?.required">Hobbies/Interests is Required</div>
+                        <div *ngIf="hobbies_intrest?.errors?.alphaNum255">Alpha numeric with maximum of 255
+                          characters only allowed</div>
+                      </div>
+                    </ng-container>
+                    <mat-chip-list  #chipList class=" width-100 mt-2">
+                      <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(hobbie)">
+                        {{hobbie.hobbiesAndInterests}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-form-field>
+
+                </div>
+
+              </ng-container>
             </ng-container>
           </div>
         </div>
@@ -568,30 +577,35 @@
             allowed</div>
     </div>
   </div> -->
-
-          <div class="overall-input-wrapper width-45 hei" >
-            <label>Physical Disability<span></span></label>
-            <div class="d-flex w-100 align-items-center" >
-              <div class="width-45">
-                <mat-radio-group  (change)="physicalDisability($event)"  [formControlName]="form_physical_disability" >
-                  <mat-radio-button  style="width: 50% !important;"  value="true">yes</mat-radio-button>
-                  <mat-radio-button  style="width: 50% !important;" value="false">no</mat-radio-button>
-                </mat-radio-group>
-              </div>
-
-              <div class="physicaldisability" *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
-                <input matInput placeholder="Enter Physical Disability" class="input" type="text" [formControlName]="form_physical_disability_rsn">
-              </div>
-            </div>
-
-            <!-- <input matInput placeholder="Enter here" class="input" type="text"
-        [formControlName]="form_physical_disability">
-    <div class="form-error" *ngIf="physical_disability?.invalid && physical_disability?.touched">
-        <div *ngIf="physical_disability?.errors?.required">Physical Disability is Required</div>
-        <div *ngIf="physical_disability?.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
-            allowed</div>
-    </div> -->
+  <ng-container >
+    <div class="overall-input-wrapper width-45 hei" >
+      <label>Physical Disability<span></span></label>
+      <div class="d-flex w-100 align-items-center" >
+        <div class="width-45">
+          <mat-radio-group  (change)="physicalDisability($event)"  [formControlName]="form_physical_disability" >
+            <mat-radio-button  style="width: 50% !important;"  value="true">yes</mat-radio-button>
+            <mat-radio-button  style="width: 50% !important;" value="false">no</mat-radio-button>
+          </mat-radio-group>
+        </div>
+          <div class="physicaldisability" *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
+            <input matInput placeholder="Enter Physical Disability" class="input" type="text" [formControlName]="form_physical_disability_rsn">
           </div>
+      </div>
+      <!-- <input matInput placeholder="Enter here" class="input" type="text"
+  [formControlName]="form_physical_disability">
+<div class="form-error" *ngIf="physical_disability?.invalid && physical_disability?.touched">
+  <div *ngIf="physical_disability?.errors?.required">Physical Disability is Required</div>
+  <div *ngIf="physical_disability?.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
+      allowed</div>
+</div> -->
+    </div>
+    <div class="form-error" *ngIf="physical_disability_rsn?.invalid && physical_disability_rsn?.touched">
+      <div class="err" *ngIf="physical_disability_rsn?.errors?.required">Physical Disability is Required</div>
+      <div class="err" *ngIf="physical_disability_rsn?.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only allowed
+      </div>
+    </div>
+  </ng-container>
+
 
           <div class="overall-input-wrapper width-45">
             <label>Height (in Cms)<span *ngIf="candidateService.checkKycOrJoiningForm()" class="redTxt">*</span></label>

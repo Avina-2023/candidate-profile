@@ -1,5 +1,5 @@
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit , ViewChild, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -15,6 +15,8 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 // import { AdminServiceService } from 'src/app/services/admin-service.service';
 
 
@@ -49,8 +51,12 @@ export const MY_FORMATS = {
   ]
 })
 export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+  currentDeleteIndex:number  ;
   currentIndex=0;
   public selection: string;
+  removeArr1: boolean = false;
+  removeArr2: boolean = false;
 
   // getSkillSelection='noviceselected';
   panelOpenState = false;
@@ -165,7 +171,9 @@ check: any;
     private loadingService:LoaderService,
     private skillexService:SkillexService,
     private fb: FormBuilder,
-    private glovbal_validators: GlobalValidatorService
+    private glovbal_validators: GlobalValidatorService,
+    private matDialog: MatDialog,
+    public dialog: MatDialog,
   ) {
     this.dateValidation();
   }
@@ -767,13 +775,73 @@ changeInIsArticleship(event){
     this.getTrainingArr.removeAt(i);
   }
 
-  removeEmploymentArray(i) {
-    this.getEmploymentArr.removeAt(i);
-  }
+  // removeEmploymentArray(i) {
+  //   this.getEmploymentArr.removeAt(i);
+  // }
 
-  removeSkillsArray(i) {
-    this.getSkillsArr.removeAt(i);
-  }
+  // removeSkillsArray(i) {
+  //   this.getSkillsArr.removeAt(i);
+  // }
+
+    // Open dailog
+    openDialog(component, data) {
+      // const obj = {
+      //   skill: this.getSkillsArr,
+      //   employment: this.getEmploymentArr
+      // };
+      let dialogDetails: any;
+      dialogDetails = {
+        iconName: data.iconName,
+        showCancel: data.showCancel,
+        showConfirm: data.showConfirm,
+        showOk: data.showOk,
+        dataToBeShared: data.sharedData,
+      };
+
+      /**
+       * Dialog modal window
+       */
+      // tslint:disable-next-line: one-variable-per-declaration
+      const dialogRef = this.matDialog.open(component, {
+        width: 'auto',
+        height: 'auto',
+        autoFocus: false,
+        data: dialogDetails,
+
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          if(this.getSkillsArr.length && this.removeArr1){
+            this.getSkillsArr.removeAt(this.currentDeleteIndex);
+          }
+          if(this.getEmploymentArr.length && this.removeArr2 ){
+            this.getEmploymentArr.removeAt(this.currentDeleteIndex);
+          }
+        }
+      });
+    }
+    removeData(i,removeArr) {
+      if(removeArr == "skill"){
+        this.removeArr1=true;
+      }
+      if(removeArr == "employment"){
+        this.removeArr2=true;
+      }
+      const data = {
+        iconName: '',
+        sharedData: {
+          confirmText: 'Are you sure you want to delete?',
+          componentData: '',
+          type: 'delete',
+          identity: 'logout'
+        },
+        showConfirm: 'Ok',
+        showCancel: 'Cancel',
+        showOk: ''
+      };
+      this.openDialog(ModalBoxComponent, data);
+    }
 
   // addRelatives() {
   //   let i = this.getRelativesArr['controls'].length - 1;

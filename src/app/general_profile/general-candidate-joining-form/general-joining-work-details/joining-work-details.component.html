@@ -53,7 +53,7 @@
               </mat-accordion>
             </div>
             <div class="remove-wrapper">
-              <div (click)="removeSkillsArray(i)" *ngIf="i !==0" matTooltip="Remove" class="remove">
+              <div (click)="removeData(i,'skill')" *ngIf="i !==0" matTooltip="Remove" class="remove">
                 <i class="icon-BinDelete pointer ag-icon-font-size"></i>
               </div>
             </div>
@@ -103,7 +103,7 @@
                 <div class="d-flex justify-content-between">
                   <h6>Employment{{i+1}}</h6>
                   <div class="remove-wrapper">
-                    <div (click)="removeEmploymentArray(i)" *ngIf="i !==0" matTooltip="Remove" class="remove">
+                    <div (click)="removeData(i,'employment')" *ngIf="i !==0" matTooltip="Remove" class="remove">
                       <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                     </div>
                   </div>

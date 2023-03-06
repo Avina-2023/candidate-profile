@@ -31,7 +31,7 @@
                           <div class="Qualification-head w-100">
                             <h6>Qualification{{i+1}}</h6>
                             <div class="remove-wrapper">
-                              <div (click)="removeEducationArray(i)" *ngIf="i > 0" matTooltip="Remove" class="remove">
+                              <div (click)="removeData(i)" *ngIf="i > 0" matTooltip="Remove" class="remove">
                                   <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                               </div>
                               </div>
@@ -493,13 +493,14 @@
                                 [formControlName]="form_historyOfbacklog">
                               </div>
                             <div class="form-error"
-                                *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).invalid && getEducationArr.controls[i].get(form_reasonForbacklog).touched">
+                                *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).invalid && getEducationArr.controls[i].get(form_historyOfbacklog).touched">
                                 <div class="err"
                                     *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog)?.errors?.required">
-                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
+                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'History of Backlogs' : 'No. of Attempts Required'}}</div>
                                     <div class="err"
-                                        *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).errors?.backlog">
+                                        *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).errors?.maxlength">
                                         Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                                        <div class="err" *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).errors?.numberOnly">Numerics only Allowed</div>
                             </div>
                         </ng-container>
                         <ng-container >
@@ -512,10 +513,13 @@
                                 *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).invalid && getEducationArr.controls[i].get(form_noActivebacklog).touched">
                                 <div class="err"
                                     *ngIf="getEducationArr.controls[i].get(form_noActivebacklog)?.errors?.required">
-                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
+                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Active Backlogs' : 'No. of Attempts Required'}}
+                                  </div>
                                     <div  class="err"
-                                        *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).errors?.backlog">
+                                        *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).errors?.maxlength">
                                         Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                                        <div class="err" *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).errors?.numberOnly">Numerics only Allowed</div>
+
                             </div>
                         </ng-container>
                         <ng-container >
@@ -528,7 +532,7 @@
                                 *ngIf="getEducationArr.controls[i].get(form_reasonForbacklog).invalid && getEducationArr.controls[i].get(form_reasonForbacklog).touched">
                                 <div class="err"
                                     *ngIf="getEducationArr.controls[i].get(form_reasonForbacklog)?.errors?.required">
-                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
+                                    {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'Reason for the gap' : 'No. of Attempts Required'}}</div>
                                     <div class="err"
                                         *ngIf="getEducationArr.controls[i].get(form_reasonForbacklog).errors?.backlog">
                                         Accept Numbers only and Maximum of 2 digits only Allowed</div>
@@ -555,11 +559,11 @@
                   </span>
                 </div>
 
-                <div *ngIf="!this.check" class="row-wrapper mt-0 pt-0 " style="align-items: flex-end;">
+                <div *ngIf="!this.check" class="row-wrapper d-flex flexEnd mt-0 pt-0 ">
                   <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button" (click)="addToEducationArray()">+ Add More Education</button>
           </div>
             </ng-container>
-            <div class="row-wrapper justify-content-between d-flex align-items-center mt-5 mb-3 footer" style="width: 100%;">
+            <div class="row-wrapper justify-content-between d-flex  align-items-center mt-5 mb-3 footer" style="width: 100%;">
                 <!-- <div (click)="routeNext('education')"
                     class="d-flex align-content-center align-items-center position-relative" style="cursor: pointer;">
                     <div class="left-arrow position-absolute"></div>

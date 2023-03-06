@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,8 @@ import * as  moment from 'moment';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -45,6 +47,9 @@ export const MY_FORMATS = {
   ]
 })
 export class GeneralJoiningProjectDetailsComponent implements OnInit {
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+  currentDeleteIndex: number ;
+
   projectForm: FormGroup;
   form_projectArray = 'projects';
   form_projectDetails = "projectDetails";
@@ -85,7 +90,9 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     private loadingService:LoaderService,
     private skillexService:SkillexService,
     private fb: FormBuilder,
-    private glovbal_validators: GlobalValidatorService
+    private glovbal_validators: GlobalValidatorService,
+    private matDialog: MatDialog,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -125,9 +132,54 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       console.log('no');
     }
 
-  removeProjectArray(i) {
-    this.getprojectArr.removeAt(i);
+  // removeProjectArray(i) {
+  //   this.getprojectArr.removeAt(i);
+  // }
+  // Open dailog
+  openDialog(component, data) {
+    let dialogDetails: any;
+
+    dialogDetails = {
+      iconName: data.iconName,
+      showCancel: data.showCancel,
+      showConfirm: data.showConfirm,
+      showOk: data.showOk,
+      dataToBeShared: data.sharedData,
+    };
+
+    /**
+     * Dialog modal window
+     */
+    // tslint:disable-next-line: one-variable-per-declaration
+    const dialogRef = this.matDialog.open(component, {
+      width: 'auto',
+      height: 'auto',
+      autoFocus: false,
+      data: dialogDetails
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getprojectArr.removeAt(this.currentDeleteIndex );
+      }
+    });
   }
+  removeData(i) {
+    const data = {
+      iconName: '',
+      sharedData: {
+        confirmText: 'Are you sure you want to delete?',
+        componentData: '',
+        type: 'delete',
+        identity: 'logout'
+      },
+      showConfirm: 'Ok',
+      showCancel: 'Cancel',
+      showOk: ''
+    };
+    this.openDialog(ModalBoxComponent, data);
+  }
+
   dateValidation() {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();

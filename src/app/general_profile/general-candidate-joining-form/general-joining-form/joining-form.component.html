@@ -100,7 +100,7 @@
         <div class="notexpanddetails">
           <div class="name">{{this.name}}</div>
           <div class="email">{{this.email}}</div>
-          <div class="loc">Chennai, Tamil Nadu, India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
+          <div class="loc">{{this.addressCity}}, {{this.addressState}}, India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
         </div>
       </div>
       <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
@@ -122,13 +122,13 @@
         <div class="notexpanddetails">
           <div class="name mt-1">{{this.name}}</div>
           <div class="email mt-1">{{this.email}}</div>
-          <div class="loc mt-1">{{this.addressCity}}, {{this.addressState}}, India</div>
+          <div class="loc mt-1">{{this.addressCity}}, {{this.addressState}}, India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
           <div>
             <div class="gender mt-1 mb-1 ">{{this.gender}}</div>
           </div>
-          <div class="email mt-1">Member Since Jul 19, 2020 </div>
+          <div class="email mt-1">Member Since {{this.createdOn | date: "MMM dd, yyy"}} </div>
           <div class="email mt-1">Profile Last Updated on</div>
-          <div class="date">{{this.updatedOn | date: "mm/yy" }}</div>
+          <div class="date">{{this.updatedOn | date: "MMM dd, yyy" }}</div>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ import { SkillexService } from 'src/app/service/skillex.service';
 import {MatIconModule} from '@angular/material/icon';
 import { ImageCroppedEvent,Dimensions,ImageTransform, base64ToFile } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-joining-form',
@@ -216,6 +217,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   public addressState: any ;
   public addressCountry: any ;
   public updatedOn: any;
+  public createdOn: any;
   form_permanent_city = 'permanent_city';
   form_permanent_state = 'permanent_state';
   routingSelection: any;
@@ -230,6 +232,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   cadidatefinalimage: any;
   contactDetails: any;
   contactDetailsMap: any;
+  CandidateProfileDetails: any;
+  profiledetails: any;
   constructor(
     private skillexService: SkillexService,
     private loadingService: LoaderService,
@@ -254,9 +258,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.checkJoiningComponentNeeded();
     this.email = localStorage.getItem('userEmail');
     this.name = localStorage.getItem('username');
+
+
 // this.getAllPermanentCities(id, cityId, callback);
     this.getprofileimageFromLocal();
-// console.log(this.profilePicture.file_path)
 this.getStateAPI()
   }
 
@@ -288,17 +293,12 @@ this.getStateAPI()
   });
   // this.fileChangeEvent(this.imageChangedEvent)
     this.profilePicture.file_path=null;
-// console.log(this.profilePicture.file_path);
-
 }
 
  fileChangeEvent(event: any): void {
 
   this.imageChangedEvent = event;
   // this.imageChangedEvent = this.profilePicture.file_path;
-
-  // console.log(this.imageChangedEvent,'event');
-
 }
 getAllPermanentCities(id, cityId, callback) {
   const ApiData = {
@@ -309,8 +309,6 @@ getAllPermanentCities(id, cityId, callback) {
     // this.hideCityDropDown = false;
 
     this.allPermanentCityList = datas.data;
-    // console.log(this.allPermanentCityList,'this.allPermanentCityList');
-
     this.allPermanentCityList.forEach(element => {
       if (element.id == cityId) {
         city = element.name;
@@ -328,22 +326,16 @@ getStateAPI() {
     country_id: '101'
   };
   let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
-  // console.log(candidateProfileimage,'this.candidateProfileimage');
-
 //   candidateProfileimage.contactDetails.permanent_state = this.addressState ;
 //   candidateProfileimage.contactDetails.permanent_city = this.addressCountry ;
 //   candidateProfileimage.contactDetails.permanent_country = this.addressCity ;
-// console.log(this.addressCity,'this.addressCity');
 
   this.candidateService.updatedState(datas).subscribe((data: any) => {
-    console.log(data,'datas');
 
     this.getAllStates = data[0];
     this.getAllStates.forEach(element => {
       if (element.id == this.addressState) {
         this.addressState = element.name;
-        console.log(this.addressState);
-
         this.getAllPermanentCities(element.id, this.addressCity, (callback) => {
           this.addressCity = callback ? callback : 'NA';
         });
@@ -362,7 +354,6 @@ localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
 
 getprofileimageFromLocal(){
   let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
-  console.log(candyprofileimage,'candyprofileimage');
   // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
   this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
   this.gender = candyprofileimage.personal_details.gender;
@@ -370,12 +361,10 @@ getprofileimageFromLocal(){
   this.addressState = candyprofileimage.contact_details.present_state;
   this.addressCountry = candyprofileimage.contact_details.present_country;
  this.updatedOn = candyprofileimage.updatedAt;
-  console.log(this.cadidatefinalimage,'this.cadidatefinalimage')
+ this.createdOn = candyprofileimage.createdAt;
 }
 
 imageCropped(event: ImageCroppedEvent) {
-  // console.log(event,'crop');
-
   this.croppedImage = event.base64;
 }
 
@@ -410,7 +399,6 @@ loadImageFailed() {
   }
 
   onSelectFile(event) {
-    // console.log(this.profilePicture.file_path,'yyy');
     // this.validimage = true;
 
     const fd = new FormData();
@@ -424,8 +412,6 @@ loadImageFailed() {
         fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name, { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
         fd.append('type',"profile");
         this.uploadImage(fd);
-// console.log(this.profilePicture.file_path,'onsave.files');
-
       }
      } else {
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
@@ -436,7 +422,6 @@ loadImageFailed() {
   }
 
   async uploadImage(file) {
-// console.log(file,'ooo');
     try {
       this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(true);
@@ -446,7 +431,6 @@ loadImageFailed() {
         //   return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
         // }
         this.loadingService.setLoading(false);
-        // console.log(data,'iii');
         this.profilePicture = {
 
           file_path: data?.data.length? data.data : null,
@@ -470,7 +454,6 @@ loadImageFailed() {
 
       });
     } catch (e) {
-      // console.log("error while profile pic"+e)
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
