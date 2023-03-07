@@ -1,5 +1,5 @@
 <div>
-  <form>
+  <form class="uploadF" [formGroup]="uploadForm" (ngSubmit)="formSubmit()">
     <div class="backgroundwall">
       <div class="backgroundwhite">
         <div class="joining-personal-wrapper">
@@ -8,44 +8,37 @@
           </h5>
           <P class="content_para">Write 2-4 short & energetic sentences to interest the reader! Mention your role,
             experience & most importantly - your biggest achievements, best qualities and skills</P>
-          <div class="hr_line">
+          <div class="hr_line_1">
             <hr>
           </div>
-          <!-- <div style="display:flex;align-items:center;"> -->
-          <!-- <div>icon</div> -->
-          <!-- <div></div> -->
-          <!-- </div> -->
           <div>
+            <div class="pre_button" (click)="showDialog = !showDialog">
+              <button style="border: none;background-color: #FFFFFF;">
+                <em [ngClass]="{'icon-Icon-awesome-plus-circle-1 x_circle_icon': showDialog, 'icon-Icon-awesome-plus-circle-2': !showDialog }"></em></button>
 
-            <button class="pre_button" (click)="showDialog = !showDialog">
-              <!-- <em class="icon-thumsreview"></em> -->
-              <em class="icon-camera "></em>
-              Pre-written Phrases
-            </button>
+              <div style="border: none;cursor: pointer;margin: 1px 0px 0px 0px;">
+                Pre-written Phrases
+              </div>
+
+            </div>
+
             <div *ngIf="showDialog">
               <div class="dlog_box">
-                <!-- <div class="">
-          <mat-form-field appearance="outline">
-            <input matInput [(ngModel)]="searchData" placeholder="Filter phrases by keyword and job title"
-              (keyup)="applyFilter($event.target.value)"/>
-            <button mat-button matPrefix mat-icon-button>
-              <mat-icon class="searchIcon" (click)="searchList()" type="submit">search</mat-icon>
-            </button>
-            </mat-form-field>
-        </div> -->
 
-                <mat-form-field>
-                  <div style="display: flex;justify-content: space-between;">
-                    <div><span class="icon-Search"></span></div>
-                    <div><input matInput type="search" placeholder="Filter"></div>
-                  </div>
-                  <!-- <mat-icon (click)="searchList()" type="submit"></mat-icon> -->
-
+                <mat-form-field appearance="fill">
+                  <mat-label>Search Something</mat-label>
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input type="text" matInput placeholder="Type something..">
                 </mat-form-field>
-                <label class="most_popular">Most Popular</label>
 
-                <div *ngFor="let content of contents" (click)="appendPara($event)">
-                  <p class="phrase_1 targetcontent">{{content}} <span class="icon-RightArrow"></span></p>
+                <label class="most_popular"><span class="icon-Icon-awesome-crown"></span>
+                  Most Popular</label>
+
+                <div *ngFor="let content of contents">
+                  <div (click)="appendPara(content)">
+                  <!-- <p class="phrase_1 targetcontent">{{content}} <span [ngClass]="{'icon-right_arrow_circled': !isSpanChanged,'icon-tick_mark_circled': isSpanChanged}"></span></p> -->
+                  <p class="phrase_1 targetcontent">{{content}} <span [ngClass]="selectedFlag?'icon-tick_mark_circled':'icon-right_arrow_circled'"></span></p>
+                </div>
                 </div>
                 <!-- <div (click)="appendPara($event)">
                   <p class="phrase_2 targetcontent">Dynamic Executive with six years of experience helping
@@ -55,9 +48,9 @@
                       class="icon-RightArrow"></span></p>
 
                 </div> -->
-
               </div>
-              <!-- <button (click)="showDialog = false">Close</button> -->
+              <!-- <button style="border: none;" (click)="showDialog = false"><span class="icon-close-rounded-filled"> </span> </button> -->
+
             </div>
           </div>
 
@@ -202,40 +195,111 @@
         <div class="upload_resume_border">
           <div class="upload_stud_resume">
             <div class="cloud_img">
-              <!-- <img src="/assets/images/Group 2.svg"> -->
-              <!-- <div (drop)="onDrop($event)" (dragover)="onDragOver($event)"> -->
-              <!-- <input type="file" (change)="onFileSelected($event)" #fileInput> -->
-              <!-- <div class="drag_drop_text"> -->
-              <!-- <label>Drag and drop files here</label> -->
-              <!-- </div> -->
-              <!-- </div> -->
-              <div class="dropzone" (change)="($event)" (click)="$event.target.value=null" type="file" alt="upload">
+
+              <div class="dropzone">
                 <!-- <input multiple (change)="($event.target.files)"/> -->
                 <div>
 
                   <img src="/assets/images/Group 2.svg" alt="">
                 </div>
                 <h3> Drag and Drop file here</h3>
-                <h3>or</h3>
-                <label for="fileDropRef">Browse for file</label>
+                <h3 class="or">or</h3>
+                <h3 for="fileDropRef">Browse for file</h3>
               </div>
             </div>
-
-            <div class="or">
-              <label>or</label>
-            </div>
-            <div class="upload_student_resume">
-              <input class="file-input" type="file" id="upload" name="image" accept="applicaion/pdf" (change)="($event)"
-                (click)="$event.target.value=null" type="file" alt="upload" />
-            </div>
-            <!-- cancel button -->
-            <!-- <div class="closeupload">
-  <div class="close_btn"> <span [matTooltip]="fileName" class="blackLable subInstruction"></span></div>
-  <div *ngIf="fileName" class="close" (click)="cancleUpload()">
-    <span class="pointer-close"><mat-icon class="close-icon">close</mat-icon></span>
-  </div>
-</div> -->
             <!--  -->
+
+            <!-- upload resume code  -->
+             <div class="alig" >
+              <div class="alignment">
+
+                  <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="fileDropped($event)" accept="application/pdf"
+                contentClassName="ngx-file-drop" [multiple]="false">
+
+                  <input class="file-input" type="file" id="upload" name="image"
+                  accept="application/pdf" (change)="onFileSelected($event)" (click)="$event.target.value=null" type="file" alt="upload" />
+
+                  <label for="upload"  class="uploadbutton">
+                  <i class="bi bi-cloud-arrow-up"></i> {{  trimFilename(fileName) || "NO file choosen"}}
+
+                </label>
+
+              </ngx-file-drop>
+                <div class="download_btn">
+                  <span (click)="downloadFiledata()" class="icon-download_icon"></span>
+                </div>
+              </div>
+
+
+              </div>
+<!-- upload resume code  -->
+
+
+<!-- drag and drop -->
+
+  <!-- <div class="alig" >
+              <div class="alignment">
+
+                <ngx-file-drop dropZoneLabel="Drop files here" [dropZoneClassName] = "'drag_img'" (onFileDrop)="dropped($event)"
+                (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+
+                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <img src="../../../../assets/images/Group 2.svg">
+                    <br>
+                    <span class="draganddropinnertext">Drag and drop files here</span>
+                    <button type="button" (click)="openFileSelector()">Browse Files</button>
+                  </ng-template>
+
+                  <input class="file-input" type="file" id="upload" name="image"
+                  accept="application/pdf" (change)="onFileSelected($event)" (click)="$event.target.value=null" type="file" alt="upload" />
+
+                  <label for="upload"  class="uploadbutton">
+                  <i class="bi bi-cloud-arrow-up"></i> {{  trimFilename(fileName) || "NO file choosen"}}
+
+                </label>
+
+              </ngx-file-drop>
+                <div class="download_btn">
+                  <span (click)="downloadFiledata()" class="icon-download_icon"></span>
+                </div>
+              </div>
+
+
+              </div> -->
+
+<!-- <div class="draganddrop_parent">
+  <div class="drag_img">
+    <ngx-file-drop dropZoneLabel="Drop files here" [dropZoneClassName] = "'drag_img'" (onFileDrop)="dropped($event)"
+  (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+        <img src="/assets/images/Group 2.svg">
+        <br>
+        <span class="draganddropinnertext">Drag and drop files here</span>
+        <button type="button" (click)="openFileSelector()">Browse Files</button>
+      </ng-template>
+  </ngx-file-drop>
+
+  <!-- <div *ngFor="let item of files; let i=index">
+    <h5><strong>{{ item.relativePath }}</strong></h5>
+  </div> -->
+  <!-- </div> -->
+<!-- </div> --> -->
+<!--  -->
+            <!-- </div>
+              </div> -->
+
+            <!--  -->
+            <!-- <div class="upload_greybox">
+            <div class="upload_student_resume">
+              <label class="filebg" for="upload"><span [matTooltip]="documentfileName" class="blackLable subInstruction">{{trimFilename(documentfileName) || "No file choosen"}}</span></label>
+              <input class="file-input" type="file" id="upload" name="image"  (change)="onFileSelected($event)"
+                (click)="$event.target.value=null"
+                 type="file" alt="upload" />
+            <span (click)="downloadFiledata()" class="icon-download_icon"></span>
+          </div>
+          </div> -->
+
+
             <div class="note_upload">
               <span class="note_clr">Note:</span>
               <span class="note_text"> .PDF format only supported. Maximum upload size is 2MB</span>
@@ -249,6 +313,9 @@
     </div>
   </form>
 </div>
+
+
+
 <!-- <ng-template #matDialog>
     <div class="main-wrappers">
       <div class="pdf-viewer-close">

@@ -171,4 +171,9 @@ export class ApiServiceService {
   //   }
   //   return null;
   // }
+
+getdescription(data:any){
+  return this.http.post(`${ this.BASE_URL}/getprofileSummary`,data)
+}
+
 }

@@ -876,24 +876,38 @@ margin: 0px 0px 0px 20px;
 opacity: 1;
 }
 
-.hr_line{
-  margin-right: 45px;
+.hr_line_1{
+  margin-right: 2px;
   margin-left: 20px;
 }
 
+.hr_line{
+  margin-right: 22px;
+    margin-left: 20px;
+}
+
+.x_circle_icon{
+  // display: none;
+
+
+}
+
 .pre_button{
-top: 344px;
+  display: flex;
+  border: none;
+// top: 344px;
 border: none;
-left: 463px;
+// left: 463px;
 text-align: center;
 font: normal normal bold 14px/20px Lato;
 color: #1C4D98;
-background-color: none;
+background-color: #FFFFFF!important;
 margin: 0px 0px 0px 20px;
 opacity: 1;
 }
 
 .written_phrase_border{
+  width: -webkit-fill-available;
 //   top: 376px;
 // left: 440px;
 // width: 866px;
@@ -902,7 +916,12 @@ opacity: 1;
 // border: 0.5px solid #707070;
 // border-radius: 3px;
 // opacity: 1;
-// margin: 0px 0px 0px 20px;
+ margin: 0px 0px 0px 0px;
+
+
+#phrasebox{
+  padding: 5px;
+}
 
 .Eg_phrase{
   // border: none;
@@ -939,9 +958,9 @@ opacity: 1;
   // left: 410px;
   // width: 926px;
   // height: 327px;
-  // // background: #FFFFFF 0% 0% no-repeat padding-box;
-  // box-shadow: 0.5px 0.87px 10px #00000012;
-  // opacity: 1;
+  // background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0.5px 0.87px 10px #00000012;
+  opacity: 1;
 }
 
 .backgroundwhite_uploadresume{
@@ -969,7 +988,7 @@ opacity: 1;
 .upload_resume_border{
   top: 676px;
 left: 440px;
-width: 866px;
+width: 845px;
 height: 350px;
 border: 2px dashed #707070;
 opacity: 1;
@@ -979,6 +998,7 @@ margin: 0px 0px 0px 20px;
 
 
 .cloud_img{
+  margin: 18px 0px 0px 0px;
   text-align: center;
   position: relative;
   top: 30px;
@@ -1007,13 +1027,66 @@ font: normal normal medium 14px/17px Lato;
 color: #666666;
 opacity: 1;
 }
+.upload_document{
+  height: 40px;
+  width: 30%;
+  // border: #EAEAEA;
+  // background-color: #EAEAEA;
+
+}
+// .upload_greybox{
+//   // top: 882px;
+//   // left: 760px;
+//   width: 247px;
+//   height: 40px;
+//   border: #EAEAEA;
+//   background-color: #EAEAEA;
+//   margin: auto;
+// }
+
 .upload_student_resume{
+  margin: 40px 0px 0px 0px;
   text-align: center;
   position: relative;
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
   cursor: pointer;
+  .file-input{
+    display: none;
+    cursor: pointer;
+
+  .filebg{
+
+  }
+
+// .download_Icon_{
+//   display: flex;
+//   justify-content: right;
+// }
+
+
 }
+}
+.upload_alignment{
+  display: flex;
+  width: 30%;
+  justify-content: space-evenly;
+  // top: 882px;
+// left: 760px;
+width: 247px;
+height: 40px;
+  background-color: #EAEAEA;
+    color: black;
+    border-radius: 25px;
+    border: 1px solid #EAEAEA;
+  padding-top: 10px;
+  .file_input{
+    cursor: pointer;
+    display: none;
+  }
+}
+
 .note_upload{
   text-align: center;
   position: relative;
@@ -1137,32 +1210,100 @@ justify-content: space-evenly;
 
 }
 
-// .closeupload{
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
 
-//   position: relative;
-//   top: 50px;
+//
 
-//   .close_btn{
-//     font-size: 14px;
-//     color: #848484;
-//     text-align: center;
-//     position: relative;
-//     // top: 13px;
-//     // right: 14px;
-//   }
-//   .close{
-//     position: relative;
-//   //  left: 124px;
-//    .pointer-close{
-//     position: relative;
+.alig{
+  display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 
-//     color: red;
-//     cursor: pointer;
-//     padding-left: 10px !important;
-//     top: -1px !important;
-//    }
-//   }
-// }
+.alignment{
+  display: flex;
+    justify-content: center;
+    position: relative;
+    // top: 50px;
+    // left: 20px;
+     margin: 30px 0px 0px 0px;
+     background-color: #EAEAEA;
+
+  }
+
+    .uploadbutton{
+      color: black;
+      // border-radius: 25px;
+      // top: 882px;
+// left: 760px;
+width: 247px;
+height: 40px;
+      border: 1px solid #EAEAEA;
+      height: 32px;
+      font-size: 14px;
+      left: 0;
+      display: flex;
+      cursor: pointer;
+      font-weight: 300;
+      padding: 10px;
+      text-align: center;
+
+    }
+    .file-input{
+        cursor: pointer;
+        display: none;
+    }
+    .download_btn{
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+
+     /////////////////////////////////////////
+     .draganddrop_parent{
+      height: 350px;
+        margin: auto;
+        border: 2px dashed #707070;
+        border-radius: 5px;
+
+    }
+
+    .drag_img{
+      margin-top: 100px;
+      display: grid;
+      align-items: start;
+      justify-content: center;
+      height: 100px;
+      color: #0782d0;
+      justify-items: center;
+
+    }
+
+    .draganddropinnertext{
+      font-size: 18px;
+      color: #555A6B;
+      text-align: center;
+      font: normal normal 900 18px/22px Lato;
+    }
+
+    .ngx-file-drop__drop-zone{
+      height: 350px;
+      margin: auto;
+      border: 2px dotted #fff;
+      border-radius: 30px ;
+    }
+    .ngx-file-drop__content {
+      margin-top: 100px ;
+      display: grid ;
+      align-items: start;
+      justify-content: center;
+      height: 100px;
+      color: #0782d0 ;
+      justify-items: center;
+    }
+
+
+
+
+

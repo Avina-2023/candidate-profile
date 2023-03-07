@@ -25,16 +25,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow_circle_right_FILL0_wght400_GRAD0_opsz48:before {
-  content: "\e9a7";
-}
 
-.icon-close-rounded-filled:before {
-  content: "\e9a5";
-}
-.icon-add-rounded-filled:before {
-  content: "\e9a6";
-}
 .icon-thumsreview:before {
   content: "\e9a3";
 }

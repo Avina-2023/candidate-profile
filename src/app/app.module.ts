@@ -22,7 +22,7 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgxFileDropModule } from 'ngx-file-drop';
 registerLocaleData(en);
 
 @NgModule({
@@ -49,6 +49,7 @@ registerLocaleData(en);
       autoDismiss: true
     }),
     NgbModule,
+    NgxFileDropModule
   ],
   entryComponents:[ModalBoxComponent],
   providers: [
