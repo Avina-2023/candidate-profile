@@ -413,3 +413,13 @@ padding: 20px;
 .flexEnd{
   align-items: flex-end !important;
 }
+.remove{
+  i {
+    color: #DB2828;
+  }
+  i:hover {
+      color: white;
+      background-color:  #DB2828;
+      border-radius: 50%;
+  }
+}

@@ -5,7 +5,13 @@
       <div class="overlay">
       <img class="profilebanner" src="../../../assets/images/candidateprofile/se-banner.png">
       <div class="bttn">
-        <span class="logout">
+         <!-- <span *ngIf="!isExternal" matTooltip="Logout" class="logout" (click)="logOut()">
+        <em class="icon-logout"></em>
+      </span> -->
+      <!-- <span *ngIf="isExternal" matTooltip="Back" class="logout" (click)="extRedir()">
+        <button  class="btn"><div style="display: flex; align-items: center;"><em class="icon-logout"></em>&nbsp; Back</div></button>
+      </span> -->
+        <span *ngIf="isExternal" class="logout">
           <button class="backbtn" mat-raised-button (click)="extRedir()" matTooltip="Back">Back to Dashboard
           </button>
         </span>

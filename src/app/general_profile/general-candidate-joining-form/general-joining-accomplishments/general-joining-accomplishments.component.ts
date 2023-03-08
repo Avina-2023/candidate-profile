@@ -1,6 +1,6 @@
 import { Component, OnInit , ViewChild, TemplateRef } from '@angular/core';
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
-import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, AbstractControl, ValidationErrors, ValidatorFn, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
@@ -29,7 +29,19 @@ export const MY_FORMATS = {
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
   },
-}
+};
+export const MY_FORMATS_Month = {
+  parse: {
+    dateInput: 'MM-YYYY',
+  },
+  display: {
+    // dateInput: 'DD MMM YYYY', // output ->  01 May 1995
+    dateInput: 'DD-MM', // output ->  01-10-1995
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-general-joining-accomplishments',
@@ -61,6 +73,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   accomplishmentDetailsAllData: any;
   accomplishmentDetails: any;
   accomplishmentsForm: FormGroup;
+  maxDate: Date;
+  minDate: Date;
 
 //form variable
 form_certificationsArray = 'certifications';
@@ -92,7 +106,10 @@ check: any;
     private glovbal_validators: GlobalValidatorService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
-  ) { }
+  ) {
+    this.dateValidation();
+
+  }
 
   ngOnInit(): void {
     // this.customerName = this.appConfig.getSelectedCustomerName();
@@ -151,6 +168,12 @@ this.setCertificationArrValidation();
 this.setjournalArrValidation();
 this.setAwardArrValidation();
   }
+  dateValidation() {
+    // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 50, 0, 1);
+    this.maxDate = new Date(currentYear + 20, 11, 31);
+}
 
   momentForm(date) {
     if (date) {
@@ -231,8 +254,8 @@ this.setAwardArrValidation();
   [this.form_certification_name]: [data[this.form_certification_name], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
   [this.form_certification_issuedFrom]: [data[this.form_certification_issuedFrom], [Validators.required]],
   [this.form_certification_description]: [data[this.form_certification_description], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-  [this.form_certification_validityFrom]: [data[this.form_certification_validityFrom], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-  [this.form_certification_validityUpto]: [this.dateConvertion(data[this.form_certification_validityUpto]), [Validators.required]],
+  [this.form_certification_validityFrom]: [data[this.form_certification_validityFrom], [ Validators.required, this.startTrue(true)]],
+  [this.form_certification_validityUpto]: [this.dateConvertion(data[this.form_certification_validityUpto]), [Validators.required, this.startTrue(true)]],
 [this.form_isexpire]:[data[this.form_isexpire]?data[this.form_isexpire]: false]
  })
   }
@@ -251,6 +274,33 @@ this.setAwardArrValidation();
     })
   }
 
+  regexValidator(error: ValidationErrors, param): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if (!control.value) {
+        return null;
+      }
+      let check;
+      // let yearofPassing = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_yearpassing]['value'] ? control['_parent']['controls'][this.form_yearpassing]['value'] : null;
+      let startDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_certification_validityFrom]['value'] ? control['_parent']['controls'][this.form_certification_validityFrom]['value'] : null;
+      let endDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_certification_validityUpto]['value'] ? control['_parent']['controls'][this.form_certification_validityUpto]['value'] : null;
+      // if (yearofPassing) {
+        let start = moment(control.value).format('YYYY-MM-DD');
+        // let yearofPassing1 = moment(yearofPassing).format('YYYY-MM-DD');
+        // error.notValid = this.momentFormMonth(yearofPassing);
+        // check = moment(start).isSameOrBefore(yearofPassing1, 'month');
+        // check = !check;
+      // }
+      if (!param) {
+        return check ? error : null;
+      } else {
+        // this.detectStartDateCalc(startDate, endDate, control);
+        return null;
+      }
+    };
+  }
+  startTrue(param) {
+    return this.regexValidator({notValid: true}, param);
+  }
   formInitialize() {
     this.accomplishmentsForm = this.fb.group({
       [this.form_certificationsArray]: this.fb.array([]),
@@ -363,8 +413,8 @@ this.setAwardArrValidation();
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValidators([Validators.required],{ emitEvent: false });
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValidators([Validators.required],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValidators([Validators.required, this.startTrue(true)],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValidators([Validators.required, this.startTrue(true)],{ emitEvent: false });
 
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_issuedFrom].updateValueAndValidity();
@@ -401,7 +451,7 @@ this.setAwardArrValidation();
         console.log(this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto])
       }  else {
       this.check = false
-      this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValidators([Validators.required],{ emitEvent: false });
+      this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
       this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
       console.log(this.getCertificationsArr.controls[i]['controls'][this.form_certification_validityUpto]);
     }

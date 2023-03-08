@@ -81,7 +81,7 @@
         <!-- {{this.workDetailsForm['controls'][this.form_isWorkExp].value}} -->
         <div style="width: 100% !important;">
                   <!-- <mat-checkbox  [formControl]="isWorkExp"   (change)="changeWorkExp($event)" class="mr-2"></mat-checkbox>  -->
-          <mat-radio-group  (change)="workExperience($event)" [formControlName]="form_isWorkExp" #radioGroup="matRadioGroup">
+          <mat-radio-group  (change)="workExperienceChange($event)" [formControlName]="form_isWorkExp" #radioGroup="matRadioGroup">
             <mat-radio-button style="width: 12% !important;"  value="true">yes</mat-radio-button>
             <mat-radio-button style="width: 12% !important;" value="false">no</mat-radio-button>
           </mat-radio-group>
@@ -90,10 +90,28 @@
         <ng-container  *ngIf="workDetailsForm['controls'][this.form_isWorkExp].value == 'true'">
           <div class="container-wrapper pb-0 d-flex  mt-0 flex-container pt-4 pl-4 pr-4 justify-content-between align-items-center">
           <label>Total Experience<span class="redTxt">*</span></label>
-          <div class="inpu-preview w-100 d-flexze-16 bold-700 color-black">
-            <input class="in width-20 p-1 mr-2"  [formControlName]="form_total_exp_years" >Years
+          <div class="inpu-preview w-100 d-flex f_size_16 bold-700 color-black">
+            <div class="w-50">
+              <input class="in width-20 p-1 mr-2"  [formControlName]="form_total_exp_years" >Years
+              <div class="form-error"
+                *ngIf="total_exp_years?.invalid && total_exp_years?.touched">
+                <div  *ngIf="total_exp_years?.errors?.required">
+                  Total Experience Years is Required</div>
+                  <div *ngIf="total_exp_years?.errors?.maxlength">Maximum of 2 characters only allowed</div>
+        <div *ngIf="total_exp_years?.errors?.numberOnly">Numerics only Allowed</div>
+              </div>
+            </div>
+
             <span class="ml-2 inpu-preview f_size_16 bold-700 color-black">
-              <input class="in width-20 p-1 mr-2" [formControlName]="form_total_exp_months"  style="border: 0.5px solid #707070;border-radius: 3px;" ></span>
+              <input class="in width-20 p-1 mr-2" [formControlName]="form_total_exp_months"  style="border: 0.5px solid #707070;border-radius: 3px;" >
+              <div class="form-error"
+              *ngIf="total_exp_months?.invalid && total_exp_months?.touched">
+              <div class="err" *ngIf="total_exp_months?.errors?.required">
+                Total Experience Month is Required</div>
+                <div *ngIf="total_exp_months?.errors?.maxlength">Maximum of 2 characters only allowed</div>
+        <div *ngIf="total_exp_months?.errors?.numberOnly">Numerics only Allowed</div>
+            </div>
+            </span>
           </div>
           </div>
         <ng-container *ngIf="getEmploymentArr && getEmploymentArr.controls" [formArrayName]="form_Employment_Array">

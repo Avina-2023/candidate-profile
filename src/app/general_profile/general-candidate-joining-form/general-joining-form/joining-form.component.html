@@ -13,6 +13,9 @@
         <div class="photo-wrapper">
           <div class="avatar">
             <div class="photo">
+              <div *ngIf="!profilePicture.file_path && !cadidatefinalimage" >
+                <img class="maskGroup" src="assets/images/candidateprofile/MaskGroup.png" alt="">
+            </div>
               <div *ngIf="profilePicture && profilePicture.file_path" matTooltip="Remove Photo"
                 matTooltipPostion="after" (click)="delete()" class="remove">
                 <img src="assets/images/cancel-black-36dp.svg" alt="" srcset="">
@@ -23,23 +26,18 @@
               </div>
               <label [ngClass]="profilePicture && profilePicture.file_path ? 'hoverable' : 'hoverable1'  ">
                 <ng-container *ngIf="!profilePicture.file_path">
-                  <div (click)="open()" class="icon" style="cursor: pointer;">
-                    <img src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
+                  <div (click)="open()" class="changeprofile" style="cursor: pointer;">
+                    <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
                   </div>
-                  <diXv class="add-image">
-                    <div class="mini-icon">
-                      <img [src]="'assets/images/MaskGroup1.png'" alt="">
-                    </div>
-                    <span>Click and upload your photo here</span>
-                  </diXv>
+
                 </ng-container>
                 <ng-container *ngIf="cadidatefinalimage ">
-                  <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="delete()" class="remove">
-                    <img src="assets/images/cancel-black-36dp.svg" alt="" srcset="">
+                  <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="removeData($event)" class="remove">
+                    <i class="icon-BinDelete pointer binIcon ag-icon-font-size"></i>
                   </div>
                   <div  matTooltip="Change profile image"
                 matTooltipPostion="after" (click)="open()"  class="changeprofile">
-                <img src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
+                <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
               </div>
                   <div class="urlExist">
                     <img [src]="cadidatefinalimage" alt="">
@@ -85,16 +83,16 @@
                 </div>
               </ng-template>
             </div>
-            <div class="error-section">
+            <!-- <div class="error-section">
               <div class="notes mb-1" style="color: red"
                 *ngIf="profilePictureFormControl.touched && profilePictureFormControl.invalid && !profilePicture.file_path">
-                *Profile Picture is Required</div>
+                *Profile Picture is Required</div> -->
               <!-- <div class="notes" *ngIf="!showSizeError.image"> JPEG and PNG only supported</div>
                 <div class="notes"> Size: Maximum 2MB</div>
                 <div class="error" *ngIf="showSizeError.image">JPEG and PNG only supported</div>
                 <div class="error" *ngIf="showSizeError.minsize">Minimum File Size: 10KB!</div>
                 <div class="error" *ngIf="showSizeError.maxsize">Maximum File Size: 2MB!</div> -->
-            </div>
+            <!-- </div> -->
           </div>
         </div>
         <div class="notexpanddetails">

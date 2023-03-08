@@ -15,6 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { ImageCroppedEvent,Dimensions,ImageTransform, base64ToFile } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 
 @Component({
   selector: 'app-joining-form',
@@ -29,8 +30,10 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   imageChangedEvent: any = '';
     croppedImage: any = '';
     // candidateProfileimage= localStorage.profileData.personal_details.profileImage;
-  @ViewChild('matDialog', {static: false}) matDialogRef: TemplateRef<any>;
+  @ViewChild('matDialog', {static: false}) matDialogRef2: TemplateRef<any>;
   @ViewChild('matDialog1', {static: false}) matDialogRef1: TemplateRef<any>;
+  @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+
   allPresentCityList: any;
   allPermanentCityList: any;
   getAllStates: any;
@@ -364,6 +367,9 @@ getprofileimageFromLocal(){
  this.createdOn = candyprofileimage.createdAt;
 }
 
+
+
+
 imageCropped(event: ImageCroppedEvent) {
   this.croppedImage = event.base64;
 }
@@ -383,6 +389,56 @@ cropperReady(sourceImageDimensions: Dimensions) {
 loadImageFailed() {
   // show message
 }
+
+openDialog(component, data) {
+  let dialogDetails: any;
+
+  dialogDetails = {
+    iconName: data.iconName,
+    showCancel: data.showCancel,
+    showConfirm: data.showConfirm,
+    showOk: data.showOk,
+    dataToBeShared: data.sharedData,
+  };
+
+  /**
+   * Dialog modal window
+   */
+  // tslint:disable-next-line: one-variable-per-declaration
+  const dialogRef = this.matDialog.open(component, {
+    width: 'auto',
+    height: 'auto',
+    autoFocus: false,
+    data: dialogDetails
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      const fd = new FormData();
+      // this.loadingService.setLoading(true);
+        fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
+        fd.append('type',"profileDelete");
+        this.uploadImage(fd);
+        this.profilePictureFormControl.setValue(null);
+        this.profilePictureFormControl.markAsTouched();    }
+  });
+}
+removeData(event) {
+  const data = {
+    iconName: '',
+    sharedData: {
+      confirmText: 'Are you sure you want to delete?',
+      componentData: '',
+      type: 'delete',
+      identity: 'logout'
+    },
+    showConfirm: 'Ok',
+    showCancel: 'Cancel',
+    showOk: ''
+  };
+  this.openDialog(ModalBoxComponent, data);
+}
+
 
   public delete(event) {
     const fd = new FormData();
@@ -649,7 +705,7 @@ loadImageFailed() {
   }
 
   openMatDialog() {
-    const dialogRef = this.dialog.open(this.matDialogRef, {
+    const dialogRef = this.dialog.open(this.matDialogRef2, {
       width: '400px',
       height: 'auto',
       autoFocus: false,

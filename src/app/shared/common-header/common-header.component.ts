@@ -23,6 +23,7 @@ export class CommonHeaderComponent implements OnInit {
   logoURL: any;
   isExternal: boolean = false;
   router: any;
+  cadidatefinalimage: any;
 
   constructor(
     private appConfig: AppConfigService,
@@ -35,6 +36,11 @@ export class CommonHeaderComponent implements OnInit {
     this.username = this.appConfig.getLocalData('username') ? this.appConfig.getLocalData('username') : 'NA';
     this.logoURL = "../../../assets/images/EduTech_Logo.svg";//this.appConfig.logoBasedOnCustomer();
     this.isExternal = this.appConfig.getLocalData('externalLogin')
+    this. getprofileimageFromLocal();
+  }
+  getprofileimageFromLocal(){
+    let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
+    this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
   }
  dropdown() {
     this.dropdownVisible = !this.dropdownVisible;

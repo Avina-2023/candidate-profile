@@ -355,11 +355,14 @@ height: 800px;
         position: absolute;
         z-index: 10;
         border-radius: 50% !important;
-        opacity: 0.85;
-        top: -12px;
+        // opacity: 0.85;
+        top: 6px;
         padding: 0;
         margin: 0 !important;
-        right: -12px;
+        right: 0px;
+        .ag-icon-font-size {
+          font-size: 23px !important;
+      }
         img {
           width: 24px;
           height: 24px;
@@ -630,4 +633,24 @@ height: 800px;
   -moz-transform:rotate(180deg);
   -webkit-transform:rotate(180deg);
   transform:rotate(180deg);
+}
+.binIcon{
+    border: 1px solid;
+    border-radius: 15px;
+    color: #DB2828;
+    border-color: #DB2828;
+    background-color: #ffffff;
+
+}
+
+i:hover {
+  color: white;
+  background-color: #DB2828;
+  border-radius: 50%;
+}
+.maskGroup{
+  width: 100px;
+}
+.prfselect{
+  border-radius: 50% !important;
 }

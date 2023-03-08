@@ -9,13 +9,19 @@
       <!-- <span class="title">
         {{username ? 'Welcome, ' + username : ''}}
       </span> -->
-      <div class="toolbar-pic">
+      <div *ngIf="!isExternal" class="toolbar-pic">
         <span class="username">{{username}}</span>
         <img class="profileimg pointer " mat-button [matMenuTriggerFor]="menu"
-          [src]="profileimge && profileimge !=''?profileimge:'../../../assets/images/profile.svg'">
+          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'../../../assets/images/profile.svg'">
           <mat-menu #menu="matMenu" >
             <button mat-menu-item (click)="logOut()">Logout</button>
           </mat-menu>
+      </div>
+      <div *ngIf="isExternal"  class="toolbar-pic">
+        <span class="username">{{username}}</span>
+        <img class="profileimg pointer "
+          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'../../../assets/images/profile.svg'">
+
       </div>
       <!-- #enddocregion mat-menu-trigger-for -->
 

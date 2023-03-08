@@ -775,10 +775,10 @@
 
         <ng-container *ngIf="workDetailsAlldata && !noShowWork; else noWork">
           <ng-container *ngIf="workDetails.skills && workDetails.skills.length > 0">
-            <div class="header d-flex justify-content-between mb-1 mt-5  align-items-center"> <h6 >Skills</h6></div>
+            <div class="header d-flex justify-content-between mb-1 mt-3  align-items-center"> <h6 >Skills</h6></div>
 
             <div class="d-flex p-0 skills-wrapper">
-              <div class="mr-2 mt-2 hobbie-name" *ngFor="let skills of workDetails.skills; let i = index">{{skills}}
+              <div class="mr-2 mt-2 hobbie-name" *ngFor="let skills of workDetails.skills; let i = index">{{skills.skill}}
               </div>
             </div>
           </ng-container>

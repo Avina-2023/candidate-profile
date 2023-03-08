@@ -296,6 +296,8 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     // Add our hobbie
     if ((value || '').trim()) {
       this.hobbies.push({hobbiesAndInterests: value.trim()});
+      console.log(this.hobbies.length);
+
     }
 
     // Reset the input value
@@ -666,13 +668,13 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     if(this.personalDetails[this.form_hobbies_intrest].length) {
       this.hobbies = this.personalDetails[this.form_hobbies_intrest];
       if(this.personalDetails[this.form_hobbies_intrest].length > 0){
-        console.log(this.personalForm.controls[this.form_hobbies_intrest],'this.personalDetails.controls[this.form_hobbies_intrest]');
+        console.log(this.personalDetails[this.form_hobbies_intrest].length,'this.personalDetails.controls[this.form_hobbies_intrest]');
         this.personalForm.controls[this.form_hobbies_intrest].clearValidators();
       }
-      if(this.personalDetails[this.form_hobbies_intrest].length == 0){
-        console.log(this.personalForm.controls[this.form_hobbies_intrest],'this.personalDetails.controls[this.form_hobbies_intrest]');
+    }
+    else if(this.personalDetails[this.form_hobbies_intrest].length == 0){
+      console.log(this.personalForm.controls[this.form_hobbies_intrest],'[this.form_hobbies_intrest]');
         this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
-      }
     }
     this.personalForm.patchValue({
       // [this.form_title]: this.personalDetails[this.form_title],

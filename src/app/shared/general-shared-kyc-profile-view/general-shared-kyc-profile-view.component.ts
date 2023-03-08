@@ -649,13 +649,13 @@ form_projectDescription = 'projectDescription';
         if (element.id == this.contactDetails[this.form_present_state]) {
           this.contactDetailsMap[this.form_present_state] = element.name;
           this.getAllPresentCities(element.id, this.contactDetails[this.form_present_city], (callback) => {
-            this.contactDetailsMap[this.form_present_city] = callback ? callback : 'NA';
+            this.contactDetailsMap[this.form_present_city] = callback ? callback : 'NIL';
         });
         }
         if (element.id == this.contactDetails[this.form_permanent_state]) {
           this.contactDetailsMap[this.form_permanent_state] = element.name;
           this.getAllPermanentCities(element.id, this.contactDetails[this.form_permanent_city], (callback) => {
-            this.contactDetailsMap[this.form_permanent_city] = callback ? callback : 'NA';
+            this.contactDetailsMap[this.form_permanent_city] = callback ? callback : 'NIL';
           });
         }
       });
@@ -811,31 +811,31 @@ form_projectDescription = 'projectDescription';
     this.educationDetails.forEach(element => {
       if (element) {
         if (element[this.form_qualification_type] == 'SSLC') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'SSLC/10th' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'SSLC/10th' : 'NIL';
         }
         if (element[this.form_qualification_type] == 'HSC') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'HSC/12th' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'HSC/12th' : 'NIL';
         }
         if (element[this.form_qualification_type] == 'UG') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Undergraduate' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Undergraduate' : 'NIL';
         }
         if (element[this.form_qualification_type] == 'PG') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Postgraduate' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Postgraduate' : 'NIL';
         }
-        element[this.form_qualification_type] = element?.[this.form_qualification_type] ? element?.[this.form_qualification_type] : 'NA';
+        element[this.form_qualification_type] = element?.[this.form_qualification_type] ? element?.[this.form_qualification_type] : 'NIL';
         element[this.form_qualification] = element?.[this.form_qualification] ? element?.[this.form_qualification] : '';
         element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : '';
         element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : '';
         element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
         element[this.isHighLevelEdu] = element?.[this.isHighLevelEdu] && element[this.isHighLevelEdu]  == 'true' ? true : false;
-        element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NA';
+        element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NIL';
         element[this.form_gap] = element?.[this.form_gap] && (element[this.form_gap] == 'true')? 'Yes' : 'No';
-        element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NA';
+        element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NIL';
         element[this.form_backlog] = element?.[this.form_backlog] ? element?.[this.form_backlog] : 0;
-        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : '';
-        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : '';
-        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : 'NA';
-        element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NA';
+        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : 'NIL';
+        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : 'NIL';
+        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : 'NIL';
+        element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NIL';
         this.educationDetailsMap.push(element);
       }
     });
@@ -847,13 +847,13 @@ form_projectDescription = 'projectDescription';
     this.dependentDetailsMap = [];
     this.dependentDetails.forEach(element => {
       if (element) {
-        element[this.form_dependent_dob] = element?.[this.form_dependent_dob] ? this.dateConvertion(element[this.form_dependent_dob]) : 'NA';
-        element[this.form_dependent_differently_abled] = element?.[this.form_dependent_differently_abled] == '1' ? 'Yes' : element[this.form_dependent_differently_abled] == '0' ? 'No' : 'NA';
-        element[this.form_dependent_status] = element?.[this.form_dependent_status] == '1' ? 'Active' : element[this.form_dependent_status] == '0' ? 'Inactive' : 'NA';
-        element[this.form_isDependent] = element?.[this.form_isDependent] == '1' ? 'Yes' : element[this.form_isDependent] == '0' ? 'No' : 'NA';
-        element[this.form_dependent_occupation] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
-        element[this.form_dependent_relationship] = element?.[this.form_dependent_relationship] ? element[this.form_dependent_relationship] : 'NA';
-        element[this.form_dependent_other] = element?.[this.form_dependent_other] ? element[this.form_dependent_other] : 'NA';
+        element[this.form_dependent_dob] = element?.[this.form_dependent_dob] ? this.dateConvertion(element[this.form_dependent_dob]) : 'NIL';
+        element[this.form_dependent_differently_abled] = element?.[this.form_dependent_differently_abled] == '1' ? 'Yes' : element[this.form_dependent_differently_abled] == '0' ? 'No' : 'NIL';
+        element[this.form_dependent_status] = element?.[this.form_dependent_status] == '1' ? 'Active' : element[this.form_dependent_status] == '0' ? 'Inactive' : 'NIL';
+        element[this.form_isDependent] = element?.[this.form_isDependent] == '1' ? 'Yes' : element[this.form_isDependent] == '0' ? 'No' : 'NIL';
+        element[this.form_dependent_occupation] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NIL';
+        element[this.form_dependent_relationship] = element?.[this.form_dependent_relationship] ? element[this.form_dependent_relationship] : 'NIL';
+        element[this.form_dependent_other] = element?.[this.form_dependent_other] ? element[this.form_dependent_other] : 'NIL';
         this.dependentDetailsMap.push(element);
       }
     });
@@ -864,13 +864,13 @@ form_projectDescription = 'projectDescription';
     // console.log(this.projectDetails,'this.projectDetailspatch');
     this.projectDetails.forEach(element => {
       if (element) {
-        element[this.form_typeList] = element?.[this.form_typeList] ? element[this.form_typeList] : 'NA';
-        element[this.form_teamSize] = element?.[this.form_teamSize] ? element[this.form_teamSize] : 'NA';
-        element[this.form_projectTitle] = element?.[this.form_projectTitle] ? element[this.form_projectTitle]  : 'NA';
-        element[this.form_periodFrom] = element?.[this.form_periodFrom] ? element[this.form_periodFrom]  : 'NA';
-        element[this.form_periodTo] = element?.[this.form_periodTo] ? element[this.form_periodTo]  : 'NA';
-        element[this.form_projectDescription] = element?.[this.form_projectDescription] ? element[this.form_projectDescription] : 'NA';
-        element[this.form_projectOrganization] = element?.[this.form_projectOrganization] ? element[this.form_projectOrganization] : 'NA';
+        element[this.form_typeList] = element?.[this.form_typeList] ? element[this.form_typeList] : 'NIL';
+        element[this.form_teamSize] = element?.[this.form_teamSize] ? element[this.form_teamSize] : 'NIL';
+        element[this.form_projectTitle] = element?.[this.form_projectTitle] ? element[this.form_projectTitle]  : 'NIL';
+        element[this.form_periodFrom] = element?.[this.form_periodFrom] ? element[this.form_periodFrom]  : 'NIL';
+        element[this.form_periodTo] = element?.[this.form_periodTo] ? element[this.form_periodTo]  : 'NIL';
+        element[this.form_projectDescription] = element?.[this.form_projectDescription] ? element[this.form_projectDescription] : 'NIL';
+        element[this.form_projectOrganization] = element?.[this.form_projectOrganization] ? element[this.form_projectOrganization] : 'NIL';
         // element[this.form_periodTo] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
         this.projectDetailsMap.push(element);
         // console.log(this.projectDetailsMap,'this.projectDetailsMap');
@@ -990,16 +990,16 @@ form_projectDescription = 'projectDescription';
       [this.form_present_address_3]: this.contactDetails?.[this.form_present_address_3] ? this.contactDetails[this.form_present_address_3] : null,
       // [this.form_present_city]: presentCity ? presentCity : 'NA',
       // [this.form_present_state]: presentState ? presentState : 'NA',
-      [this.form_present_region]: this.contactDetails?.[this.form_present_region] ? 'India' : 'NA',
-      [this.form_present_zip_code]: this.contactDetails?.[this.form_present_zip_code] ? this.contactDetails[this.form_present_zip_code] : 'NA',
+      [this.form_present_region]: this.contactDetails?.[this.form_present_region] ? 'India' : 'NIL',
+      [this.form_present_zip_code]: this.contactDetails?.[this.form_present_zip_code] ? this.contactDetails[this.form_present_zip_code] : 'NIL',
       [this.form_same_as_checkbox]: this.contactDetails?.[this.form_same_as_checkbox] ? this.contactDetails[this.form_same_as_checkbox] : false,
       [this.form_permanent_address_1]: this.contactDetails?.[this.form_permanent_address_1] ? this.contactDetails[this.form_permanent_address_1] : null,
       [this.form_permanent_address_2]: this.contactDetails?.[this.form_permanent_address_2] ? this.contactDetails[this.form_permanent_address_2] : null,
       [this.form_permanent_address_3]: this.contactDetails?.[this.form_permanent_address_3] ? this.contactDetails[this.form_permanent_address_3] : null,
       // [this.form_permanent_city]: permanentCity ? permanentCity : 'NA',
       // [this.form_permanent_state]: permanentState ? permanentState : 'NA',
-      [this.form_permanent_region]: this.contactDetails?.[this.form_permanent_region] ? 'India' : 'NA',
-      [this.form_permanent_zip_code]: this.contactDetails?.[this.form_permanent_zip_code] ? this.contactDetails[this.form_permanent_zip_code] : 'NA'
+      [this.form_permanent_region]: this.contactDetails?.[this.form_permanent_region] ? 'India' : 'NIL',
+      [this.form_permanent_zip_code]: this.contactDetails?.[this.form_permanent_zip_code] ? this.contactDetails[this.form_permanent_zip_code] : 'NIL'
     };
     this.contactDetailsMap = data;
     // console.log(this.contactDetailsMap)
@@ -1015,7 +1015,7 @@ form_projectDescription = 'projectDescription';
       present = p3 ? present + ', ' + p3 : present;
       return `${present}`;
     }
-    return 'NA';
+    return 'NIL';
   }
 
   getPermanentAddress(p1,p2,p3) {
@@ -1026,7 +1026,7 @@ form_projectDescription = 'projectDescription';
       present = p3 ? present + ', ' + p3 : present;
       return `${present}`;
     }
-    return 'NA';
+    return 'NIL';
   }
 
   patchAccomplishments(){
@@ -1064,51 +1064,51 @@ form_projectDescription = 'projectDescription';
       //   this.hobbies = this.personalDetails[this.form_hobbies_intrest];
       // }
       // [this.form_title]: this.personalDetails[this.form_title],
-      [this.form_name]: this.personalDetails?.[this.form_name] ? this.personalDetails[this.form_name] : 'NA',
-      [this.form_dob]: this.personalDetails?.[this.form_dob] ? this.dateConvertion(this.personalDetails[this.form_dob]) : 'NA',
-      [this.form_gender]: this.personalDetails?.[this.form_gender] ? this.personalDetails[this.form_gender] : 'NA',
-      [this.form_place_of_birth]: this.personalDetails?.[this.form_place_of_birth] ? this.personalDetails[this.form_place_of_birth] : 'NA',
+      [this.form_name]: this.personalDetails?.[this.form_name] ? this.personalDetails[this.form_name] : 'NIL',
+      [this.form_dob]: this.personalDetails?.[this.form_dob] ? this.dateConvertion(this.personalDetails[this.form_dob]) : 'NIL',
+      [this.form_gender]: this.personalDetails?.[this.form_gender] ? this.personalDetails[this.form_gender] : 'NIL',
+      [this.form_place_of_birth]: this.personalDetails?.[this.form_place_of_birth] ? this.personalDetails[this.form_place_of_birth] : 'NIL',
       // [this.form_state_of_birth]: stateOfBirth ? stateOfBirth : 'NA',
-      [this.form_nationality]: this.personalDetails?.[this.form_nationality] ? this.personalDetails[this.form_nationality] : 'NA',
-      [this.form_mother_tongue]: this.personalDetails?.[this.form_mother_tongue] ? this.personalDetails[this.form_mother_tongue] : 'NA',
-      [this.form_religion]: this.personalDetails?.[this.form_religion] ? this.personalDetails[this.form_religion] : 'NA',
-      [this.form_caste]: this.personalDetails?.[this.form_caste] ? this.personalDetails[this.form_caste] : 'NA',
-      [this.form_category]: category ? category : 'NA',
+      [this.form_nationality]: this.personalDetails?.[this.form_nationality] ? this.personalDetails[this.form_nationality] : 'NIL',
+      [this.form_mother_tongue]: this.personalDetails?.[this.form_mother_tongue] ? this.personalDetails[this.form_mother_tongue] : 'NIL',
+      [this.form_religion]: this.personalDetails?.[this.form_religion] ? this.personalDetails[this.form_religion] : 'NIL',
+      [this.form_caste]: this.personalDetails?.[this.form_caste] ? this.personalDetails[this.form_caste] : 'NIL',
+      [this.form_category]: category ? category : 'NIL',
       // [this.form_blood_group]: bloodGroup ? bloodGroup : 'NA',
-      [this.form_father_name]: this.personalDetails?.[this.form_father_name] ? this.personalDetails[this.form_father_name] : 'NA',
-      [this.form_emergency_contact]: this.personalDetails?.[this.form_emergency_contact] ? this.personalDetails[this.form_emergency_contact] : 'NA',
-      [this.form_mobile]: this.personalDetails?.[this.form_mobile] ? this.personalDetails[this.form_mobile] : 'NA',
-      [this.form_email]: this.personalDetails?.[this.form_email] ? this.personalDetails[this.form_email] : 'NA',
-      [this.form_aadhar]: this.personalDetails?.[this.form_aadhar] ? this.personalDetails[this.form_aadhar] : 'NA',
-      [this.form_pan]: this.personalDetails?.[this.form_pan] ? this.personalDetails[this.form_pan] : 'NA',
-      [this.form_offer_reference]: this.personalDetails?.[this.form_offer_reference] ? this.personalDetails[this.form_offer_reference] : 'NA',
-      [this.form_offer_date]: this.personalDetails?.[this.form_offer_date] ? this.dateConvertion(this.personalDetails[this.form_offer_date]) : 'NA',
-      [this.form_height]: this.personalDetails?.[this.form_height] ? this.personalDetails[this.form_height] : 'NA',
-      [this.form_weight]: this.personalDetails?.[this.form_weight] ? this.personalDetails[this.form_weight] : 'NA',
-      [this.form_emergency_contact_name]: this.personalDetails?.[this.form_emergency_contact_name] ? this.personalDetails[this.form_emergency_contact_name] : 'NA',
-      [this.form_emergency_contact_relation]: this.personalDetails?.[this.form_emergency_contact_relation] ? this.personalDetails[this.form_emergency_contact_relation] : 'NA',
-      [this.form_personal_email]: this.personalDetails?.[this.form_personal_email] ? this.personalDetails[this.form_personal_email] : 'NA',
-      [this.form_marital_status]: this.personalDetails?.[this.form_marital_status] ? this.personalDetails[this.form_marital_status] : 'NA',
-      [this.form_no_of_children]: this.personalDetails?.[this.form_no_of_children] ? this.personalDetails[this.form_no_of_children] : 'NA',
+      [this.form_father_name]: this.personalDetails?.[this.form_father_name] ? this.personalDetails[this.form_father_name] : 'NIL',
+      [this.form_emergency_contact]: this.personalDetails?.[this.form_emergency_contact] ? this.personalDetails[this.form_emergency_contact] : 'NIL',
+      [this.form_mobile]: this.personalDetails?.[this.form_mobile] ? this.personalDetails[this.form_mobile] : 'NIL',
+      [this.form_email]: this.personalDetails?.[this.form_email] ? this.personalDetails[this.form_email] : 'NIL',
+      [this.form_aadhar]: this.personalDetails?.[this.form_aadhar] ? this.personalDetails[this.form_aadhar] : 'NIL',
+      [this.form_pan]: this.personalDetails?.[this.form_pan] ? this.personalDetails[this.form_pan] : 'NIL',
+      [this.form_offer_reference]: this.personalDetails?.[this.form_offer_reference] ? this.personalDetails[this.form_offer_reference] : 'NIL',
+      [this.form_offer_date]: this.personalDetails?.[this.form_offer_date] ? this.dateConvertion(this.personalDetails[this.form_offer_date]) : 'NIL',
+      [this.form_height]: this.personalDetails?.[this.form_height] ? this.personalDetails[this.form_height] : 'NIL',
+      [this.form_weight]: this.personalDetails?.[this.form_weight] ? this.personalDetails[this.form_weight] : 'NIL',
+      [this.form_emergency_contact_name]: this.personalDetails?.[this.form_emergency_contact_name] ? this.personalDetails[this.form_emergency_contact_name] : 'NIL',
+      [this.form_emergency_contact_relation]: this.personalDetails?.[this.form_emergency_contact_relation] ? this.personalDetails[this.form_emergency_contact_relation] : 'NIL',
+      [this.form_personal_email]: this.personalDetails?.[this.form_personal_email] ? this.personalDetails[this.form_personal_email] : 'NIL',
+      [this.form_marital_status]: this.personalDetails?.[this.form_marital_status] ? this.personalDetails[this.form_marital_status] : 'NIL',
+      [this.form_no_of_children]: this.personalDetails?.[this.form_no_of_children] ? this.personalDetails[this.form_no_of_children] : 'NIL',
       // [this.form_domicile_state]: domicile ? domicile : 'NA',
-      [this.form_identification_mark1]: this.personalDetails?.[this.form_identification_mark1] ? this.personalDetails[this.form_identification_mark1] : 'NA',
-      [this.form_identification_mark2]: this.personalDetails?.[this.form_identification_mark2] ? this.personalDetails[this.form_identification_mark2] : 'NA',
+      [this.form_identification_mark1]: this.personalDetails?.[this.form_identification_mark1] ? this.personalDetails[this.form_identification_mark1] : 'NIL',
+      [this.form_identification_mark2]: this.personalDetails?.[this.form_identification_mark2] ? this.personalDetails[this.form_identification_mark2] : 'NIL',
       [this.form_hobbies_intrest]: this.personalDetails?.[this.form_hobbies_intrest] && this.personalDetails?.[this.form_hobbies_intrest].length > 0 ? this.personalDetails?.[this.form_hobbies_intrest] : [],
       [this.form_language_array]: this.personalDetails?.[this.form_language_array] && this.personalDetails?.[this.form_language_array].length > 0 ? this.personalDetails[this.form_language_array] : [],
-      [this.form_passport_number]: this.personalDetails?.[this.form_passport_number] ? this.personalDetails[this.form_passport_number] : 'NA',
-      [this.form_name_as_in_passport]: this.personalDetails?.[this.form_name_as_in_passport] ? this.personalDetails[this.form_name_as_in_passport] : 'NA',
-      [this.form_profession_as_in_passport]: this.personalDetails?.[this.form_profession_as_in_passport] ? this.personalDetails[this.form_profession_as_in_passport] : 'NA',
-      [this.form_date_of_issue]: this.personalDetails?.[this.form_date_of_issue] ? this.dateConvertion(this.personalDetails[this.form_date_of_issue]) : 'NA',
-      [this.form_valid_upto]: this.personalDetails?.[this.form_valid_upto] ? this.dateConvertion(this.personalDetails[this.form_valid_upto]) : 'NA',
-      [this.form_place_of_issue]: this.personalDetails?.[this.form_place_of_issue] ? this.personalDetails[this.form_place_of_issue] : 'NA',
-      [this.form_country_valid_for]: this.personalDetails?.[this.form_country_valid_for] ? this.personalDetails[this.form_country_valid_for] : 'NA',
-      [this.form_serious_illness]: this.personalDetails?.[this.form_serious_illness] ? this.personalDetails[this.form_serious_illness] : 'NA',
-      [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NA',
-      [this.form_nature_of_illness]: this.personalDetails?.[this.form_nature_of_illness] ? this.personalDetails[this.form_nature_of_illness] : 'NA',
+      [this.form_passport_number]: this.personalDetails?.[this.form_passport_number] ? this.personalDetails[this.form_passport_number] : 'NIL',
+      [this.form_name_as_in_passport]: this.personalDetails?.[this.form_name_as_in_passport] ? this.personalDetails[this.form_name_as_in_passport] : 'NIL',
+      [this.form_profession_as_in_passport]: this.personalDetails?.[this.form_profession_as_in_passport] ? this.personalDetails[this.form_profession_as_in_passport] : 'NIL',
+      [this.form_date_of_issue]: this.personalDetails?.[this.form_date_of_issue] ? this.dateConvertion(this.personalDetails[this.form_date_of_issue]) : 'NIL',
+      [this.form_valid_upto]: this.personalDetails?.[this.form_valid_upto] ? this.dateConvertion(this.personalDetails[this.form_valid_upto]) : 'NIL',
+      [this.form_place_of_issue]: this.personalDetails?.[this.form_place_of_issue] ? this.personalDetails[this.form_place_of_issue] : 'NIL',
+      [this.form_country_valid_for]: this.personalDetails?.[this.form_country_valid_for] ? this.personalDetails[this.form_country_valid_for] : 'NIL',
+      [this.form_serious_illness]: this.personalDetails?.[this.form_serious_illness] ? this.personalDetails[this.form_serious_illness] : 'NIL',
+      [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NNILA',
+      [this.form_nature_of_illness]: this.personalDetails?.[this.form_nature_of_illness] ? this.personalDetails[this.form_nature_of_illness] : 'NIL',
       [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == 'true') ? 'Yes': 'No',
-      [this.form_physical_disability_rsn]: this.personalDetails?.[this.form_physical_disability_rsn] ? this.personalDetails[this.form_physical_disability_rsn] : 'NA',
-      [this.form_left_eyepower_glass]: this.personalDetails?.[this.form_left_eyepower_glass] ? this.personalDetails[this.form_left_eyepower_glass] : 'NA',
-      [this.form_right_eye_power_glass]: this.personalDetails?.[this.form_right_eye_power_glass] ? this.personalDetails[this.form_right_eye_power_glass] : 'NA',
+      [this.form_physical_disability_rsn]: this.personalDetails?.[this.form_physical_disability_rsn] ? this.personalDetails[this.form_physical_disability_rsn] : 'NIL',
+      [this.form_left_eyepower_glass]: this.personalDetails?.[this.form_left_eyepower_glass] ? this.personalDetails[this.form_left_eyepower_glass] : 'NIL',
+      [this.form_right_eye_power_glass]: this.personalDetails?.[this.form_right_eye_power_glass] ? this.personalDetails[this.form_right_eye_power_glass] : 'NIL',
       [this.form_isWorkingHere]: this.personalDetails?.[this.form_isWorkingHere] ? this.personalDetails[this.form_isWorkingHere] : 'false',
       // [this.form_employment_name_address]: this.personalDetails?.[this.form_employment_name_address] ? this.personalDetails[this.form_employment_name_address] : 'NA'
 
