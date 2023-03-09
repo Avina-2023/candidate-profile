@@ -22,7 +22,7 @@ import { GeneralJoiningAccomplishmentsComponent } from './general-candidate-join
 
 
 // import { MatDatepicker, MatDateRangePicker } from '@angular/material/datepicker';
-
+// import { NgxFileDropModule } from 'ngx-file-drop';
 
 const path = {
   CANDIDATE_DASHBOARD: {
@@ -157,6 +157,7 @@ const routes: Routes = [
     MaterialModule,
     MatIconModule,
     ImageCropperModule
-  ],
+  ]
+  
 })
 export class GeneralModuleModule { }
