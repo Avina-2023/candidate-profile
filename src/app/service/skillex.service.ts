@@ -43,8 +43,9 @@ constructor(
   collegeList(){
     return this.http.post(`${environment.SKILLEX_BASE_URL}/collegesList`,{});
   }
-getdescription(){
-    return this.http.post(`${environment.SKILLEX_BASE_URL}/getprofileSummary`,{})
+  getdescription(data:any){
+    
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/getprofileSummary`,data)
   }
   //get JOB Description page
   getJobDetail(jobdata){

@@ -41,8 +41,9 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
-import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry  } from 'ngx-file-drop';
+// import { Timer } from 'ag-grid-community';
 
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry  } from 'ngx-file-drop';
 
 
 export const MY_FORMATS = {
@@ -77,6 +78,8 @@ export class GeneralJoiningUploadComponent
 {
 
   public files: NgxFileDropEntry[] = [];
+  change: any;
+  favoriteComment: any;
 
 fileDropped(files: NgxFileDropEntry[]): void {
   this.files = files;
@@ -92,11 +95,16 @@ throw new Error('Method not implemented.');
   @ViewChild('noDocs', { static: false }) matNoDocs: TemplateRef<any>;
   @ViewChild(MatAccordion, { static: false }) accordion: MatAccordion;
   @ViewChild('inputField', { static: false }) inputField: ElementRef;
+  timerval: any;
+
   step = 0;
   showDialog: any;
   isSpanChanged: any;
   content: any;
-  selectedFlag: any;
+  selectedFlag: boolean=false;
+  selectedFlagtwo: boolean = true;
+  isFavorite: any;
+
   // index: number;
   // selected: any;
 
@@ -107,9 +115,10 @@ throw new Error('Method not implemented.');
   elementRef: any;
   data: any[];
 
-  contents = ['content 1', 'content 2', 'content 3', 'content 4'];
+   contents :any;
   fileName: any;
   allFiles: any;
+  searchkey: any;
   // selectedFile: File;
   // DRAG AND DROP //
   onDrop(event) {
@@ -118,26 +127,8 @@ throw new Error('Method not implemented.');
     this.files = event.dataTransfer.files;
   }
 
-  appendPara(content, index) {
-    // let targetText = document.getElementById('phrasebox') as HTMLTextAreaElement;
-    // console.log(event.target.innerHTML);
 
-    let textToAppend = content;
-    // this.isSpanChanged = !this.isSpanChanged;
-    this.selectedFlag = !this.selectedFlag;
 
-    this.inputField.nativeElement.value += textToAppend;
-
-    if (this.inputField.nativeElement.value != '') {
-      this.inputField.nativeElement.value = '';
-      this.inputField.nativeElement.value += textToAppend;
-    }
-    console.log(this.inputField.nativeElement.value);
-    //     let textToAppend = event.target.innerHTML;
-    // textToAppend = textToAppend.replace(/<span[^>]*>(.*?)<\/span>/gi, '$1');
-    // this.inputField.nativeElement.value += textToAppend;
-    // console.log("hello.world")
-  }
 
   //  appendToTextArea(event) {
   //       this.inputField.nativeElement.value += event.target.innerHTML + '\n';
@@ -379,7 +370,37 @@ throw new Error('Method not implemented.');
   showStepper() {
     this.sharedService.joiningFormActiveSelector.next('upload');
   }
+  onClickicon(content) {
+    this.selectedFlag = true;
 
+    // this.isFavorite = i;
+    // this.change.emit({ newValue: this.favoriteComment });
+  }
+
+  appendPara(content, i) {
+    let textToAppend = content.description;
+    // this.isSpanChanged = !this.isSpanChanged;
+    if(this.inputField.nativeElement.value != textToAppend){
+      this.inputField.nativeElement.value = textToAppend;
+      this.selectedFlag = true;
+      }else
+    if (this.inputField.nativeElement.value == textToAppend) {
+       this.inputField.nativeElement.value = '';
+
+       this.selectedFlag = false;
+
+      //  this.inputField.nativeElement.value += textToAppend;
+      //  this.inputField.nativeElement.value += textToAppend;
+    //   let rem = document.getElementById('rem');
+    // rem.addEventListener('click',()=>{
+    //   rem.remove()
+    //   console.log(rem.remove(),'rem.remove()');
+    // })
+    //  this.selectedFlag = true;
+    //  this.selectedFlagtwo = false;
+    }
+
+  }
   formInitialize() {
     this.uploadForm = this.fb.group({
       [this.form_joiningArray]: this.fb.array([]),
@@ -2135,9 +2156,42 @@ throw new Error('Method not implemented.');
       ? this.newSaveProfileDataSubscription.unsubscribe()
       : '';
   }
+
+  applyFilter(data:any){
+
+    clearTimeout(this.timerval)
+
+    this.timerval = setTimeout(() => {
+      this.contents.filter=data.trim().toLowerCase()
+      console.log (data);
+    }, 200);
+    let searchdata={
+      "searchDescription":data
+    }
+    this.skillexService.getdescription(searchdata).subscribe((data: any) => {
+      console.log('data',data.data);
+      this.contents=data.data
+    });
+  }
+
+
+timeout(callback, ms) {
+
+  var timer ;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(callback.bind(this, ...args), ms || 0)
+  };
+}
+
   getDatadescription() {
-    this.skillexService.getdescription().subscribe((data: any) => {
-      console.log('data', data);
+    console.log('enter');
+    let data={
+      "searchDescription":""
+    }
+    this.skillexService.getdescription(data).subscribe((data: any) => {
+      console.log('data',data.data);
+      this.contents=data.data
     });
   }
 
