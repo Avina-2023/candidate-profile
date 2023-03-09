@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.932" height="22.932" viewBox="0 0 22.932 22.932">
+  <g id="Group_25040" data-name="Group 25040" transform="translate(-110.032 -61.014)">
+    <g id="Ellipse_620" data-name="Ellipse 620" transform="translate(110.032 61.014)" fill="#fff" stroke="#ef2917" stroke-width="1">
+      <circle cx="11.466" cy="11.466" r="11.466" stroke="none"/>
+      <circle cx="11.466" cy="11.466" r="10.966" fill="none"/>
+    </g>
+    <path id="Icon_material-delete" data-name="Icon material-delete" d="M8.1,14.112a1.205,1.205,0,0,0,1.2,1.2h4.806a1.205,1.205,0,0,0,1.2-1.2V6.9H8.1ZM15.911,5.1h-2.1l-.6-.6h-3l-.6.6H7.5V6.3h8.411Z" transform="translate(109.792 62.574)" fill="#ef2917"/>
+  </g>
+</svg>

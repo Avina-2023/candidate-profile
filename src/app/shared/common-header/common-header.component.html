@@ -6,15 +6,45 @@
     <span class="rightlog">
         <!-- <button class="btn" (click)="gotopage('profile')">Profile</button>
         <button class="btn ml-2 mr-2" (click)="gotopage('apply')">Jobs</button> -->
-      <span class="title">
+      <!-- <span class="title">
         {{username ? 'Welcome, ' + username : ''}}
-      </span>
-      <span *ngIf="!isExternal" matTooltip="Logout" class="logout" (click)="logOut()">
+      </span> -->
+      <div *ngIf="!isExternal" class="toolbar-pic">
+        <span class="username">{{username}}</span>
+        <img class="profileimg pointer " mat-button [matMenuTriggerFor]="menu"
+          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'../../../assets/images/profile.svg'">
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="logOut()">Logout</button>
+          </mat-menu>
+      </div>
+      <div *ngIf="isExternal"  class="toolbar-pic">
+        <span class="username">{{username}}</span>
+        <img class="profileimg pointer "
+          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'../../../assets/images/profile.svg'">
+
+      </div>
+      <!-- #enddocregion mat-menu-trigger-for -->
+
+      <!-- <span *ngIf="!isExternal" matTooltip="Logout" class="logout" (click)="logOut()">
         <em class="icon-logout"></em>
-      </span>
-      <span *ngIf="isExternal" matTooltip="Back" class="logout" (click)="extRedir()">
+      </span> -->
+      <!-- <span *ngIf="isExternal" matTooltip="Back" class="logout" (click)="extRedir()">
         <button  class="btn"><div style="display: flex; align-items: center;"><em class="icon-logout"></em>&nbsp; Back</div></button>
-      </span>
+      </span> -->
     </span>
   </div>
 </mat-toolbar>
+<div class="logdialog">
+  <ng-template #confirmDialog>
+    <div class="logd">
+      <div class="box">
+        <p class="p mb-0 mt-4 ml-4">Are you sure you want to logout?</p>
+        <span style="position: relative;left: 5px;"> <mat-icon mat-dialog-close>close</mat-icon></span>
+      </div>
+      <div mat-dialog-actions class="actions" >
+        <button class="yes" mat-button (click)="confirm(true)" cdkFocusInitial>Yes</button>
+        <button class="no" mat-button (click)="confirm(false)">No</button>
+      </div>
+    </div>
+  </ng-template>
+  </div>

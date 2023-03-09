@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SkillexService {
-
+  // encryptnew: any;
+  EncryptKEY = environment.encryptionKey;
+  cryptoEncryptionKey = environment.cryptoEncryptionKey;
 constructor(
   private http: HttpClient,
 ) {}
@@ -27,15 +30,50 @@ constructor(
     // this.datas is api body data
     return this.http.post(`${environment.SKILLEX_BASE_URL}/userLogin`, loginData);
   }
+
+
   // userlogin
   saveCandidateProfile(loginData) {
     // this.datas is api body data
     return this.http.post(`${environment.SKILLEX_BASE_URL}/addUserDetail`, loginData);
   }
+  // uploadfile(profileform) {
+  //   // this.datas is api body data
+  //   return this.http.post(`${environment.SKILLEX_BASE_URL}/uploadCandidateFile`, profileform);
+  // }
   uploadfile(profileform) {
     // this.datas is api body data
-    return this.http.post(`${environment.SKILLEX_BASE_URL}/uploadCandidateFile`, profileform);
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/imageUploadForProfile`, profileform);
   }
+//progressbar
+  candidateDetails(data){
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/getcandidatedetail`,data)
+  }
+
+  encrypt(data) {
+    try {
+      return CryptoJS.AES.encrypt(JSON.stringify(data), this.EncryptKEY).toString();
+    } catch (e) {
+      console.log(e);
+      return data;
+    }
+  }
+
+  encryptnew(data, customSecretKey) {
+    try {
+      this.EncryptKEY = customSecretKey ? customSecretKey : this.EncryptKEY;
+      return CryptoJS.AES.encrypt(data, this.EncryptKEY).toString();
+      // return CryptoJS.AES.encrypt(JSON.stringify(data), this.EncryptKEY).toString();
+    } catch (e) {
+      console.log(e);
+      return data;
+    }
+  }
+
+
+  // candidateprogress(data){
+  //   return this.http.post(`${environment.SKILLEX_BASE_URL}/getcandidatedetail`, data);
+  // }
   districtList(stateId) {
     // this.datas is api body data
     return this.http.post(`${environment.SKILLEX_BASE_URL}/districtList`, stateId);

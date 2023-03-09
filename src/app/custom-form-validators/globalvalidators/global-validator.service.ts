@@ -84,7 +84,10 @@ export class GlobalValidatorService {
       const address255: RegExp = /^([a-zA-Z0-9_ \-,.:/\r\n|\r|\n/]){0,255}$/;
       return this.regexValidator(address255, {address255: true});
     }
-
+    urlRegex(){
+    const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+    return this.regexValidator(urlRegex, {urlRegex: true});
+   }
     skills255() {
       const skills255: RegExp = /^([a-zA-Z0-9_ \-,.:+#*&/\r\n|\r|\n/]){0,255}$/;
       return this.regexValidator(skills255, {skills255: true});

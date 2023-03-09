@@ -1,6 +1,13 @@
 @import "../../../themes/themes.scss";
+.joining-personal-wrapper::-webkit-scrollbar {
+  display: none;
+}
 .joining-personal-wrapper {
     width: 100%;
+    padding-top: 0px !important;
+    overflow-y: scroll;
+    height: 775px;
+    // padding: 20px;
     .grids-wrapper {
         display: flex;
         width: 100%;
@@ -129,12 +136,12 @@
                     height: 20px;
                     transform: translate(-50%, 20%);
                     i {
-                        color: $primary-text-color;
+                        color: #DB2828;
                         font-size: 22px;
                     }
                     i:hover {
                         color: white;
-                        background-color: $primary-hover-color;
+                        background-color:#DB2828 ;
                         border-radius: 50%;
                     }
                 }

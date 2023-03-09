@@ -154,7 +154,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_marital_status = 'marital_status';
   form_domicile_state = 'domicile_state';
   form_no_of_children = 'no_of_children';
-
+  form_hobbies_intrest = 'hobbies_intrest';
   form_language_array = 'languages_known';
   form_language_name = 'language';
   form_language_is_read = 'is_read';
@@ -169,14 +169,34 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_place_of_issue = 'place_of_issue';
   form_country_valid_for = 'country_valid_for';
 
+  //accomplishment
+
+  form_certificationsArray = 'certifications';
+  form_certification_name = 'certificationName';
+form_certification_issuedFrom = 'certificationIssuedFrom';
+form_certification_description = 'certificationDescription';
+form_certification_validityFrom = 'certificationValidityFrom';
+form_certification_validityUpto = 'certificationValidityUpto';
+form_isexpire = 'isexpire'
+
+form_awardsArray = 'awards';
+form_award_date = 'awardDate';
+form_award_title = 'awardTitle';
+
+form_journalEntryArray = 'journals';
+form_journalEntity_title = 'journalEntityTitle';
+form_journalEntity_url = 'journalEntityUrl';
+form_journalEntity_publishedOn = 'journalEntityPublishedOn';
+form_journalEntity_description = 'journalEntityDescription';
   // Health
+
   form_serious_illness = 'serious_illness';
   form_no_of_days = 'no_of_days';
   form_nature_of_illness = 'nature_of_illness';
   form_physical_disability = 'physical_disability';
   form_left_eyepower_glass = 'left_eyepower_glass';
   form_right_eye_power_glass = 'right_eye_power_glass';
-
+  form_physical_disability_rsn = 'physical_disability_rsn';
   // Form control name declaration end
 
   form_present_address_1 = 'present_line_street_addres';
@@ -202,7 +222,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_dependent_occupation = 'occupation';
   form_dependent_differently_abled = 'differently_abled';
   form_dependent_status = 'status';
-  form_isDependent = 'dependent'
+  form_isDependent = 'dependent';
+  form_dependent_other = 'dependent_other';
 
   // Education
   form_qualification_type = 'level';
@@ -216,9 +237,22 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_backlog = 'backlogs';
   form_mode = 'mode';
   form_cgpa = 'percentage';
+  isHighLevelEdu = 'is_highLevelEdu';
+  form_historyOfbacklog = 'historyOfbacklog';
+  form_reasonForbacklog = 'reasonForbacklog';
+  form_noActivebacklog = 'noActivebacklog';s
+  form_gap = 'gap'
   form_finalcgpa = 'final_percentage';
   form_CARanks = 'rank';
   ca_bothgroup_status = 'ca_bothgroup_status';
+// project
+form_projectTitle = 'projectTitle';
+form_typeList = 'typeList';
+form_teamSize = 'teamSize';
+form_projectOrganization = 'projectOrganization';
+form_periodFrom = 'periodFrom';
+form_periodTo = 'periodTo';
+form_projectDescription = 'projectDescription';
 
   // Upload
   form_file_id = 'file_id';
@@ -253,6 +287,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_ack_date = 'ack_date';
 
   // Work details
+
   //form Variables
   form_workDetails = "workDetails";
   form_total_exp_years = "total_exp_years";
@@ -265,7 +300,9 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_post = "post";
   form_when_interview = "when_interview"
   form_employment_name_address = "employment_name_address";
+  form_isWorkingHere = "is_working_here";
   form_duration_from = "duration_from";
+  form_achievement = "achievement";
   form_duration_to = "duration_to";
   form_duration_year = "duration_year";
   form_duration_month = "duration_month";
@@ -277,6 +314,8 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   form_hr_name = 'hr_name';
   form_hr_contact_no = 'hr_contact_no';
   form_hr_email = 'hr_email';
+  //discip
+  form_disciplinaryDetails='disciplinaryDetails'
   form_bgvDetails = "bgvDetails";
   form_convicted_by_Court = "convicted_by_Court";
   form_arrested = "arrested";
@@ -322,8 +361,13 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   contactDetailsMap: any;
   dependentDetails: any;
   dependentDetailsMap: any;
+  projectDetails: any;
+  projectDetailsMap: any;
+  accomplishmentDetails: any;
+  accomplishmentsMap: any;
   educationDetails: any;
   educationDetailsMap: any;
+  disciplinarydetails: any;
   workDetails: any;
   workDetailsMap: any;
 
@@ -346,12 +390,15 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   newSaveProfileDataSubscription: Subscription;
   workDetailsAlldata: any;
   educationDetailsAllData: any;
+  projectDetailsAllData: any;
   matDialogRefDocViewerPopUpRef: any;
   termsAndCondtionsPopRef: any;
   customerName: any;
   customerCode: any;
   lttsCustomerCode = '#LTTS';
   useremail: string = "";
+  disciplinaryDetails: any;
+  disciplinaryDetailsAlldata: any;
   // BASE_URL = environment.API_BASE_URL;
   constructor(
     private appConfig: AppConfigService,
@@ -393,9 +440,6 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     //  });;
    }
 
-
-
-
   joiningFormDataFromJoiningFormComponentRxjs() {
    this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any)=> {
       this.getPreviewData();
@@ -414,12 +458,17 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.patchPersonalForm();
     this.contactDetails = data && data.contact_details ? data.contact_details : null;
     this.patchContactForm();
+    this.accomplishmentDetails = data && data.accomplishment_details  ? data.accomplishment_details : null;
+    this.patchAccomplishments();
+    // console.log(data,'this.data.accomplishment_details ');
+
     this.dependentDetails = data && data.dependent_details && data.dependent_details.length > 0 ? data.dependent_details : [];
     if (this.dependentDetails.length > 0) {
       this.patchDependent();
     } else {
       this.dependentDetailsMap = [];
     }
+
     this.educationDetails = data && data.education_details && data.education_details.educations && data.education_details.educations.length > 0 ? data.education_details.educations : [];
     this.educationDetailsAllData = data.education_details ? data.education_details : null;
     this.selectedPost = data && data.education_details && data.education_details.selected_post ? data.education_details.selected_post : '';
@@ -427,6 +476,18 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       this.patchEducation();
     } else {
       this.educationDetailsMap = [];
+    }
+
+
+
+    this.projectDetails = data && data.project_details && data.project_details.projects && data.project_details.projects.length > 0 ? data.project_details.projects : [];
+    // this.projectDetailsAllData = data.project_details ? data.project_details : null;
+    // this.projectDetailsAllData = data.project_details && data.project_details.projects ? data.project_details.projects : null;
+    // console.log( this.projectDetails,'length');
+    if (this.projectDetails.length > 0) {
+      this.patchProject();
+    } else {
+      this.projectDetailsMap = [];
     }
     // Documents mapping
     this.documentDetails = data && data.document_details ? data.document_details : null;
@@ -482,9 +543,14 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         this.documentDetails = null;
       }
     }
+    // this.patchingCriminal();
+
     // Work Experience
     this.getWorkApiDetails(data);
-
+    //disciplinary
+    this.disciplinarydetails = data && data.disciplinary_details && data.disciplinary_details.bgv_details ;
+    console.log(this.disciplinarydetails,'data');
+    this.patchDisciplinary();
     // Acknowledgements section show, When form is not submitted
     this.ifFormNotSubmitted(data);
     this.getStateAPI();
@@ -583,13 +649,13 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
         if (element.id == this.contactDetails[this.form_present_state]) {
           this.contactDetailsMap[this.form_present_state] = element.name;
           this.getAllPresentCities(element.id, this.contactDetails[this.form_present_city], (callback) => {
-            this.contactDetailsMap[this.form_present_city] = callback ? callback : 'NA';
+            this.contactDetailsMap[this.form_present_city] = callback ? callback : 'NIL';
         });
         }
         if (element.id == this.contactDetails[this.form_permanent_state]) {
           this.contactDetailsMap[this.form_permanent_state] = element.name;
           this.getAllPermanentCities(element.id, this.contactDetails[this.form_permanent_city], (callback) => {
-            this.contactDetailsMap[this.form_permanent_city] = callback ? callback : 'NA';
+            this.contactDetailsMap[this.form_permanent_city] = callback ? callback : 'NIL';
           });
         }
       });
@@ -650,6 +716,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       // [this.form_caste_preview]: [null, [Validators.required ]],
       // [this.form_coc]: [null, [Validators.required ]],
       // [this.form_joining]: [null,[Validators.required ]],
+
       [this.form_terms_conditions]: [null, [Validators.requiredTrue, Validators.nullValidator]],
       [this.form_ack_place]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_ack_date]: [{ value: this.dateConvertionForm(new Date()), disabled: true }, [Validators.required]]
@@ -661,56 +728,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.acknowledgmentForm.patchValue(data);
   }
 
-  patchingCriminal() {
-    let bgv;
-    if (this.workDetails.bgvDetails) {
-      let data = this.workDetails.bgvDetails;
-      bgv = {
-        [this.form_convicted_by_Court]: data[this.form_convicted_by_Court] && data[this.form_convicted_by_Court] == '1' ? true : false,
-        [this.form_arrested]: data[this.form_arrested] && data[this.form_arrested] == '1' ? true : false,
-        [this.form_prosecuted]: data[this.form_prosecuted] && data[this.form_prosecuted] == '1' ? true : false,
-        [this.form_detention]: data[this.form_detention] && data[this.form_detention] == '1' ? true : false,
-        [this.form_fined_by_court]: data[this.form_fined_by_court] && data[this.form_fined_by_court] == '1' ? true : false,
-        [this.form_debarred_exam_university]: data[this.form_debarred_exam_university] && data[this.form_debarred_exam_university] == '1' ? true : false,
-        [this.form_debarred_psc_company]: data[this.form_debarred_psc_company] && data[this.form_debarred_psc_company] == '1' ? true : false,
-        [this.form_court_case_pending]: data[this.form_court_case_pending] && data[this.form_court_case_pending] == '1' ? true : false,
-        [this.form_university_case_pending]: data[this.form_university_case_pending] && data[this.form_university_case_pending] == '1' ? true : false,
-        [this.form_disciplinary_proceedings]: data[this.form_disciplinary_proceedings] && data[this.form_disciplinary_proceedings] == '1' ? true : false,
-        [this.form_full_particulars]: data[this.form_full_particulars]
-      }
-    } else {
-      bgv = {
-        [this.form_convicted_by_Court]: null,
-        [this.form_arrested]: null,
-        [this.form_prosecuted]: null,
-        [this.form_detention]: null,
-        [this.form_fined_by_court]: null,
-        [this.form_debarred_exam_university]: null,
-        [this.form_debarred_psc_company]: null,
-        [this.form_court_case_pending]: null,
-        [this.form_university_case_pending]: null,
-        [this.form_disciplinary_proceedings]: null,
-        [this.form_full_particulars]: null
-      }
-    }
 
-    if (
-      bgv[this.form_convicted_by_Court] ||
-      bgv[this.form_arrested] ||
-      bgv[this.form_prosecuted] ||
-      bgv[this.form_detention] ||
-      bgv[this.form_fined_by_court] ||
-      bgv[this.form_debarred_exam_university] ||
-      bgv[this.form_debarred_psc_company] ||
-      bgv[this.form_court_case_pending] ||
-      bgv[this.form_university_case_pending] ||
-      bgv[this.form_disciplinary_proceedings]) {
-      bgv.show = true;
-    } else {
-      bgv.show = false;
-    }
-    this.workDetails.bgvDetails = bgv;
-  }
   patchWorkDetails() {
     if (this.workDetails.Employment && this.workDetails.Employment.length > 0) {
       let experience = [];
@@ -721,6 +739,20 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       });
       this.workDetails.Employment = experience;
     }
+
+    if (this.workDetails && this.workDetails.intern && this.workDetails.intern.length > 0) {
+      let training = [];
+// console.log(this.workDetails.intern,'this.workDetails.intern');
+
+      this.workDetails.intern.forEach((element) => {
+        element[this.form_training_employer_name] = element?.[this.form_training_employer_name] ? element?.[this.form_training_employer_name] : 'NIL';
+        element[this.form_training_from_date] = element?.[this.form_training_from_date] ? element?.[this.form_training_from_date] : 'NIL';
+        element[this.form_training_to_date] = element?.[this.form_training_to_date] ? element?.[this.form_training_to_date] : 'NIL';
+        element[this.form_training_work_responsiability] = element?.[this.form_training_work_responsiability] ? element?.[this.form_training_work_responsiability] : 'NIL';
+      });
+      this.workDetails.intern = training;
+    }
+
     if (this.workDetails.workDetails) {
       let work = this.workDetails.workDetails;
       work[this.form_break_in_emp] = work[this.form_break_in_emp] ? work[this.form_break_in_emp] : null;
@@ -739,19 +771,20 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       let work = {
         workDetails: data && data.work_details ? data.work_details : null,
         Employment: data && data.employments ? data.employments : [],
-        bgvDetails: data && data.bgv_details ? data.bgv_details : null,
+        intern: data && data.intern ? data.intern : [],
+        // bgvDetails: data && data.bgv_details ? data.bgv_details : null,
         relatives: data && data[this.form_Relatives_Array] && data[this.form_Relatives_Array].length > 0 ? data[this.form_Relatives_Array] : null,
         skills: data && data[this.form_Skills_Array] && data[this.form_Skills_Array].length > 0 ? data[this.form_Skills_Array] : null,
         faculty: data && data['faculty_references'] && data['faculty_references'].length > 0 ? data['faculty_references'] : null,
       }
       this.workDetails = work;
       this.patchWorkDetails();
-      this.patchingCriminal();
-      if ((work.workDetails && (work.workDetails.break_in_emp || work.workDetails.employed_us == '1' || work.workDetails.interviewed_by_us == '1' || work.workDetails.total_exp_months || work.workDetails.total_exp_years)) || (this.workDetails.bgvDetails && this.workDetails.bgvDetails.show) || (work.Employment && work.Employment.length > 0 && work.Employment[0] && work.Employment[0][this.form_employment_name_address] ) || this.workDetails.relatives || this.workDetails.skills || this.workDetails.faculty || (this.workDetailsAlldata && (this.workDetailsAlldata[this.form_training_is_articleship_status] || this.workDetailsAlldata[this.form_ca_achivement] || this.workDetailsAlldata[this.form_is_ca_resaon_suitable]))) {
-        this.noShowWork = false;
-      } else {
-        this.noShowWork = true;
-      }
+      // this.patchingCriminal();
+      // if ((work.workDetails && (work.workDetails.break_in_emp || work.workDetails.employed_us == '1' || work.workDetails.interviewed_by_us == '1' || work.workDetails.total_exp_months || work.workDetails.total_exp_years)) || (this.workDetails.bgvDetails && this.workDetails.bgvDetails.show) || (work.Employment && work.Employment.length > 0 && work.Employment[0] && work.Employment[0][this.form_employment_name_address] ) || this.workDetails.relatives || this.workDetails.skills || this.workDetails.faculty || (this.workDetailsAlldata && (this.workDetailsAlldata[this.form_training_is_articleship_status] || this.workDetailsAlldata[this.form_ca_achivement] || this.workDetailsAlldata[this.form_is_ca_resaon_suitable]))) {
+      //   this.noShowWork = false;
+      // } else {
+      //   this.noShowWork = true;
+      // }
     } else {
       this.workDetails = null;
     }
@@ -778,47 +811,72 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     this.educationDetails.forEach(element => {
       if (element) {
         if (element[this.form_qualification_type] == 'SSLC') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'SSLC/10th' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'SSLC/10th' : 'NIL';
         }
         if (element[this.form_qualification_type] == 'HSC') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'HSC/12th' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'HSC/12th' : 'NIL';
         }
         if (element[this.form_qualification_type] == 'UG') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Undergraduate' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Undergraduate' : 'NIL';
         }
         if (element[this.form_qualification_type] == 'PG') {
-          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Postgraduate' : 'NA';
+          element[this.form_qualification_type] = element[this.form_qualification_type] ? 'Postgraduate' : 'NIL';
         }
-
-        element[this.form_qualification_type] = element?.[this.form_qualification_type] ? element?.[this.form_qualification_type] : 'NA';
-        element[this.form_qualification] = element?.[this.form_qualification] ? element?.[this.form_qualification] : 'NA';
-        element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : 'NA';
-        element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : 'NA';
-        element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : 'NA';
-        element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NA';
-        element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NA';
+        element[this.form_qualification_type] = element?.[this.form_qualification_type] ? element?.[this.form_qualification_type] : 'NIL';
+        element[this.form_qualification] = element?.[this.form_qualification] ? element?.[this.form_qualification] : '';
+        element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : '';
+        element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : '';
+        element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
+        element[this.isHighLevelEdu] = element?.[this.isHighLevelEdu] && element[this.isHighLevelEdu]  == 'true' ? true : false;
+        element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NIL';
+        element[this.form_gap] = element?.[this.form_gap] && (element[this.form_gap] == 'true')? 'Yes' : 'No';
+        element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NIL';
         element[this.form_backlog] = element?.[this.form_backlog] ? element?.[this.form_backlog] : 0;
-        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : 'NA';
-        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : 'NA';
-        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : 'NA';
-        element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NA';
+        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : 'NIL';
+        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : 'NIL';
+        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : 'NIL';
+        element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NIL';
         this.educationDetailsMap.push(element);
       }
     });
+    // console.log(this.educationDetailsMap[this.educationDetailsMap.length-1],'educationDetailsMap');
+
   }
 
   patchDependent() {
     this.dependentDetailsMap = [];
     this.dependentDetails.forEach(element => {
       if (element) {
-        element[this.form_dependent_dob] = element?.[this.form_dependent_dob] ? this.dateConvertion(element[this.form_dependent_dob]) : 'NA';
-        element[this.form_dependent_differently_abled] = element?.[this.form_dependent_differently_abled] == '1' ? 'Yes' : element[this.form_dependent_differently_abled] == '0' ? 'No' : 'NA';
-        element[this.form_dependent_status] = element?.[this.form_dependent_status] == '1' ? 'Active' : element[this.form_dependent_status] == '0' ? 'Inactive' : 'NA';
-        element[this.form_isDependent] = element?.[this.form_isDependent] == '1' ? 'Yes' : element[this.form_isDependent] == '0' ? 'No' : 'NA';
-        element[this.form_dependent_occupation] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
+        element[this.form_dependent_dob] = element?.[this.form_dependent_dob] ? this.dateConvertion(element[this.form_dependent_dob]) : 'NIL';
+        element[this.form_dependent_differently_abled] = element?.[this.form_dependent_differently_abled] == '1' ? 'Yes' : element[this.form_dependent_differently_abled] == '0' ? 'No' : 'NIL';
+        element[this.form_dependent_status] = element?.[this.form_dependent_status] == '1' ? 'Active' : element[this.form_dependent_status] == '0' ? 'Inactive' : 'NIL';
+        element[this.form_isDependent] = element?.[this.form_isDependent] == '1' ? 'Yes' : element[this.form_isDependent] == '0' ? 'No' : 'NIL';
+        element[this.form_dependent_occupation] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NIL';
+        element[this.form_dependent_relationship] = element?.[this.form_dependent_relationship] ? element[this.form_dependent_relationship] : 'NIL';
+        element[this.form_dependent_other] = element?.[this.form_dependent_other] ? element[this.form_dependent_other] : 'NIL';
         this.dependentDetailsMap.push(element);
       }
     });
+  }
+
+  patchProject() {
+    this.projectDetailsMap = [];
+    // console.log(this.projectDetails,'this.projectDetailspatch');
+    this.projectDetails.forEach(element => {
+      if (element) {
+        element[this.form_typeList] = element?.[this.form_typeList] ? element[this.form_typeList] : 'NIL';
+        element[this.form_teamSize] = element?.[this.form_teamSize] ? element[this.form_teamSize] : 'NIL';
+        element[this.form_projectTitle] = element?.[this.form_projectTitle] ? element[this.form_projectTitle]  : 'NIL';
+        element[this.form_periodFrom] = element?.[this.form_periodFrom] ? element[this.form_periodFrom]  : 'NIL';
+        element[this.form_periodTo] = element?.[this.form_periodTo] ? element[this.form_periodTo]  : 'NIL';
+        element[this.form_projectDescription] = element?.[this.form_projectDescription] ? element[this.form_projectDescription] : 'NIL';
+        element[this.form_projectOrganization] = element?.[this.form_projectOrganization] ? element[this.form_projectOrganization] : 'NIL';
+        // element[this.form_periodTo] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
+        this.projectDetailsMap.push(element);
+        // console.log(this.projectDetailsMap,'this.projectDetailsMap');
+      }
+    });
+
   }
 
   getAllPresentCities(id, cityId, callback) {
@@ -861,32 +919,90 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     });
   }
 
+  patchDisciplinary(){
+    console.log(this.disciplinarydetails,'this.disciplinaryDetails.bgv_details');
 
+    if (this.disciplinarydetails) {
+            this.patchingCriminal();
+    }
+  }
+  patchingCriminal() {
+    let bgv;
+    if (this.disciplinarydetails) {
+      let data = this.disciplinarydetails;
+      console.log(data,'patchingCriminal');
+      bgv = {
+        [this.form_convicted_by_Court]: data[this.form_convicted_by_Court] && data[this.form_convicted_by_Court] == '1' ? true : false,
+        [this.form_arrested]: data[this.form_arrested] && data[this.form_arrested] == '1' ? true : false,
+        [this.form_prosecuted]: data[this.form_prosecuted] && data[this.form_prosecuted] == '1' ? true : false,
+        [this.form_detention]: data[this.form_detention] && data[this.form_detention] == '1' ? true : false,
+        [this.form_fined_by_court]: data[this.form_fined_by_court] && data[this.form_fined_by_court] == '1' ? true : false,
+        [this.form_debarred_exam_university]: data[this.form_debarred_exam_university] && data[this.form_debarred_exam_university] == '1' ? true : false,
+        [this.form_debarred_psc_company]: data[this.form_debarred_psc_company] && data[this.form_debarred_psc_company] == '1' ? true : false,
+        [this.form_court_case_pending]: data[this.form_court_case_pending] && data[this.form_court_case_pending] == '1' ? true : false,
+        [this.form_university_case_pending]: data[this.form_university_case_pending] && data[this.form_university_case_pending] == '1' ? true : false,
+        [this.form_disciplinary_proceedings]: data[this.form_disciplinary_proceedings] && data[this.form_disciplinary_proceedings] == '1' ? true : false,
+        [this.form_full_particulars]: data[this.form_full_particulars]
+      }
+    } else {
+      bgv = {
+        [this.form_convicted_by_Court]: null,
+        [this.form_arrested]: null,
+        [this.form_prosecuted]: null,
+        [this.form_detention]: null,
+        [this.form_fined_by_court]: null,
+        [this.form_debarred_exam_university]: null,
+        [this.form_debarred_psc_company]: null,
+        [this.form_court_case_pending]: null,
+        [this.form_university_case_pending]: null,
+        [this.form_disciplinary_proceedings]: null,
+        [this.form_full_particulars]: null
+      }
+    }
+    if (
+      bgv[this.form_convicted_by_Court] ||
+      bgv[this.form_arrested] ||
+      bgv[this.form_prosecuted] ||
+      bgv[this.form_detention] ||
+      bgv[this.form_fined_by_court] ||
+      bgv[this.form_debarred_exam_university] ||
+      bgv[this.form_debarred_psc_company] ||
+      bgv[this.form_court_case_pending] ||
+      bgv[this.form_university_case_pending] ||
+      bgv[this.form_disciplinary_proceedings]) {
+      bgv.show = true;
+    } else {
+      bgv.show = false;
+    }
+    this.disciplinarydetails = bgv;
+    console.log(this.disciplinarydetails,'this.disciplinaryDetails.bgvDetails');
+
+  }
   patchContactForm() {
     let presentState: any;
     let permanentState: any;
     let presentCity: any;
     let permanentCity: any;
-    console.log(this.contactDetails)
+    // console.log(this.contactDetails)
     const data = {
       [this.form_present_address_1]: this.contactDetails?.[this.form_present_address_1] ? this.contactDetails[this.form_present_address_1] : null,
       [this.form_present_address_2]: this.contactDetails?.[this.form_present_address_2] ? this.contactDetails[this.form_present_address_2] : null,
       [this.form_present_address_3]: this.contactDetails?.[this.form_present_address_3] ? this.contactDetails[this.form_present_address_3] : null,
       // [this.form_present_city]: presentCity ? presentCity : 'NA',
       // [this.form_present_state]: presentState ? presentState : 'NA',
-      [this.form_present_region]: this.contactDetails?.[this.form_present_region] ? 'India' : 'NA',
-      [this.form_present_zip_code]: this.contactDetails?.[this.form_present_zip_code] ? this.contactDetails[this.form_present_zip_code] : 'NA',
+      [this.form_present_region]: this.contactDetails?.[this.form_present_region] ? 'India' : 'NIL',
+      [this.form_present_zip_code]: this.contactDetails?.[this.form_present_zip_code] ? this.contactDetails[this.form_present_zip_code] : 'NIL',
       [this.form_same_as_checkbox]: this.contactDetails?.[this.form_same_as_checkbox] ? this.contactDetails[this.form_same_as_checkbox] : false,
       [this.form_permanent_address_1]: this.contactDetails?.[this.form_permanent_address_1] ? this.contactDetails[this.form_permanent_address_1] : null,
       [this.form_permanent_address_2]: this.contactDetails?.[this.form_permanent_address_2] ? this.contactDetails[this.form_permanent_address_2] : null,
       [this.form_permanent_address_3]: this.contactDetails?.[this.form_permanent_address_3] ? this.contactDetails[this.form_permanent_address_3] : null,
       // [this.form_permanent_city]: permanentCity ? permanentCity : 'NA',
       // [this.form_permanent_state]: permanentState ? permanentState : 'NA',
-      [this.form_permanent_region]: this.contactDetails?.[this.form_permanent_region] ? 'India' : 'NA',
-      [this.form_permanent_zip_code]: this.contactDetails?.[this.form_permanent_zip_code] ? this.contactDetails[this.form_permanent_zip_code] : 'NA'
+      [this.form_permanent_region]: this.contactDetails?.[this.form_permanent_region] ? 'India' : 'NIL',
+      [this.form_permanent_zip_code]: this.contactDetails?.[this.form_permanent_zip_code] ? this.contactDetails[this.form_permanent_zip_code] : 'NIL'
     };
     this.contactDetailsMap = data;
-    console.log(this.contactDetailsMap)
+    // console.log(this.contactDetailsMap)
     this.contactDetailsMap.presentAddress =  this.getPresentAddress(this.contactDetails?.[this.form_present_address_1], this.contactDetails?.[this.form_present_address_2], this.contactDetails?.[this.form_present_address_3]);
     this.contactDetailsMap.permanentAddress = this.getPermanentAddress(this.contactDetails?.[this.form_permanent_address_1], this.contactDetails?.[this.form_permanent_address_2], this.contactDetails?.[this.form_permanent_address_3]);
   }
@@ -899,7 +1015,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       present = p3 ? present + ', ' + p3 : present;
       return `${present}`;
     }
-    return 'NA';
+    return 'NIL';
   }
 
   getPermanentAddress(p1,p2,p3) {
@@ -910,7 +1026,25 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       present = p3 ? present + ', ' + p3 : present;
       return `${present}`;
     }
-    return 'NA';
+    return 'NIL';
+  }
+
+  patchAccomplishments(){
+    // this.accomplishmentsMap = [];
+    // this.accomplishmentDetails.forEach(element => {
+    //   if (element) {
+
+    //   }
+    // });
+    const data = {
+      [this.form_certificationsArray]: this.accomplishmentDetails?.[this.form_certificationsArray] && this.accomplishmentDetails?.[this.form_certificationsArray].length > 0 ? this.accomplishmentDetails[this.form_certificationsArray] : [],
+      [this.form_journalEntryArray]: this.accomplishmentDetails?.[this.form_journalEntryArray] && this.accomplishmentDetails?.[this.form_journalEntryArray].length > 0 ? this.accomplishmentDetails[this.form_journalEntryArray] : [],
+      [this.form_awardsArray]: this.accomplishmentDetails?.[this.form_awardsArray] && this.accomplishmentDetails?.[this.form_awardsArray].length > 0 ? this.accomplishmentDetails[this.form_awardsArray] : [],
+
+    };
+    this.accomplishmentsMap = data;
+    console.log(this.accomplishmentsMap,'this.accomplishmentsMap');
+
   }
 
   patchPersonalForm() {
@@ -926,53 +1060,65 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       });
     }
     const data = {
+      // if(this.personalDetails[this.form_hobbies_intrest].length) {
+      //   this.hobbies = this.personalDetails[this.form_hobbies_intrest];
+      // }
       // [this.form_title]: this.personalDetails[this.form_title],
-      [this.form_name]: this.personalDetails?.[this.form_name] ? this.personalDetails[this.form_name] : 'NA',
-      [this.form_dob]: this.personalDetails?.[this.form_dob] ? this.dateConvertion(this.personalDetails[this.form_dob]) : 'NA',
-      [this.form_gender]: this.personalDetails?.[this.form_gender] ? this.personalDetails[this.form_gender] : 'NA',
-      [this.form_place_of_birth]: this.personalDetails?.[this.form_place_of_birth] ? this.personalDetails[this.form_place_of_birth] : 'NA',
+      [this.form_name]: this.personalDetails?.[this.form_name] ? this.personalDetails[this.form_name] : 'NIL',
+      [this.form_dob]: this.personalDetails?.[this.form_dob] ? this.dateConvertion(this.personalDetails[this.form_dob]) : 'NIL',
+      [this.form_gender]: this.personalDetails?.[this.form_gender] ? this.personalDetails[this.form_gender] : 'NIL',
+      [this.form_place_of_birth]: this.personalDetails?.[this.form_place_of_birth] ? this.personalDetails[this.form_place_of_birth] : 'NIL',
       // [this.form_state_of_birth]: stateOfBirth ? stateOfBirth : 'NA',
-      [this.form_nationality]: this.personalDetails?.[this.form_nationality] ? this.personalDetails[this.form_nationality] : 'NA',
-      [this.form_mother_tongue]: this.personalDetails?.[this.form_mother_tongue] ? this.personalDetails[this.form_mother_tongue] : 'NA',
-      [this.form_religion]: this.personalDetails?.[this.form_religion] ? this.personalDetails[this.form_religion] : 'NA',
-      [this.form_caste]: this.personalDetails?.[this.form_caste] ? this.personalDetails[this.form_caste] : 'NA',
-      [this.form_category]: category ? category : 'NA',
+      [this.form_nationality]: this.personalDetails?.[this.form_nationality] ? this.personalDetails[this.form_nationality] : 'NIL',
+      [this.form_mother_tongue]: this.personalDetails?.[this.form_mother_tongue] ? this.personalDetails[this.form_mother_tongue] : 'NIL',
+      [this.form_religion]: this.personalDetails?.[this.form_religion] ? this.personalDetails[this.form_religion] : 'NIL',
+      [this.form_caste]: this.personalDetails?.[this.form_caste] ? this.personalDetails[this.form_caste] : 'NIL',
+      [this.form_category]: category ? category : 'NIL',
       // [this.form_blood_group]: bloodGroup ? bloodGroup : 'NA',
-      [this.form_father_name]: this.personalDetails?.[this.form_father_name] ? this.personalDetails[this.form_father_name] : 'NA',
-      [this.form_emergency_contact]: this.personalDetails?.[this.form_emergency_contact] ? this.personalDetails[this.form_emergency_contact] : 'NA',
-      [this.form_mobile]: this.personalDetails?.[this.form_mobile] ? this.personalDetails[this.form_mobile] : 'NA',
-      [this.form_email]: this.personalDetails?.[this.form_email] ? this.personalDetails[this.form_email] : 'NA',
-      [this.form_aadhar]: this.personalDetails?.[this.form_aadhar] ? this.personalDetails[this.form_aadhar] : 'NA',
-      [this.form_pan]: this.personalDetails?.[this.form_pan] ? this.personalDetails[this.form_pan] : 'NA',
-      [this.form_offer_reference]: this.personalDetails?.[this.form_offer_reference] ? this.personalDetails[this.form_offer_reference] : 'NA',
-      [this.form_offer_date]: this.personalDetails?.[this.form_offer_date] ? this.dateConvertion(this.personalDetails[this.form_offer_date]) : 'NA',
-      [this.form_height]: this.personalDetails?.[this.form_height] ? this.personalDetails[this.form_height] : 'NA',
-      [this.form_weight]: this.personalDetails?.[this.form_weight] ? this.personalDetails[this.form_weight] : 'NA',
-      [this.form_emergency_contact_name]: this.personalDetails?.[this.form_emergency_contact_name] ? this.personalDetails[this.form_emergency_contact_name] : 'NA',
-      [this.form_emergency_contact_relation]: this.personalDetails?.[this.form_emergency_contact_relation] ? this.personalDetails[this.form_emergency_contact_relation] : 'NA',
-      [this.form_personal_email]: this.personalDetails?.[this.form_personal_email] ? this.personalDetails[this.form_personal_email] : 'NA',
-      [this.form_marital_status]: this.personalDetails?.[this.form_marital_status] ? this.personalDetails[this.form_marital_status] : 'NA',
-      [this.form_no_of_children]: this.personalDetails?.[this.form_no_of_children] ? this.personalDetails[this.form_no_of_children] : 'NA',
+      [this.form_father_name]: this.personalDetails?.[this.form_father_name] ? this.personalDetails[this.form_father_name] : 'NIL',
+      [this.form_emergency_contact]: this.personalDetails?.[this.form_emergency_contact] ? this.personalDetails[this.form_emergency_contact] : 'NIL',
+      [this.form_mobile]: this.personalDetails?.[this.form_mobile] ? this.personalDetails[this.form_mobile] : 'NIL',
+      [this.form_email]: this.personalDetails?.[this.form_email] ? this.personalDetails[this.form_email] : 'NIL',
+      [this.form_aadhar]: this.personalDetails?.[this.form_aadhar] ? this.personalDetails[this.form_aadhar] : 'NIL',
+      [this.form_pan]: this.personalDetails?.[this.form_pan] ? this.personalDetails[this.form_pan] : 'NIL',
+      [this.form_offer_reference]: this.personalDetails?.[this.form_offer_reference] ? this.personalDetails[this.form_offer_reference] : 'NIL',
+      [this.form_offer_date]: this.personalDetails?.[this.form_offer_date] ? this.dateConvertion(this.personalDetails[this.form_offer_date]) : 'NIL',
+      [this.form_height]: this.personalDetails?.[this.form_height] ? this.personalDetails[this.form_height] : 'NIL',
+      [this.form_weight]: this.personalDetails?.[this.form_weight] ? this.personalDetails[this.form_weight] : 'NIL',
+      [this.form_emergency_contact_name]: this.personalDetails?.[this.form_emergency_contact_name] ? this.personalDetails[this.form_emergency_contact_name] : 'NIL',
+      [this.form_emergency_contact_relation]: this.personalDetails?.[this.form_emergency_contact_relation] ? this.personalDetails[this.form_emergency_contact_relation] : 'NIL',
+      [this.form_personal_email]: this.personalDetails?.[this.form_personal_email] ? this.personalDetails[this.form_personal_email] : 'NIL',
+      [this.form_marital_status]: this.personalDetails?.[this.form_marital_status] ? this.personalDetails[this.form_marital_status] : 'NIL',
+      [this.form_no_of_children]: this.personalDetails?.[this.form_no_of_children] ? this.personalDetails[this.form_no_of_children] : 'NIL',
       // [this.form_domicile_state]: domicile ? domicile : 'NA',
-      [this.form_identification_mark1]: this.personalDetails?.[this.form_identification_mark1] ? this.personalDetails[this.form_identification_mark1] : 'NA',
-      [this.form_identification_mark2]: this.personalDetails?.[this.form_identification_mark2] ? this.personalDetails[this.form_identification_mark2] : 'NA',
+      [this.form_identification_mark1]: this.personalDetails?.[this.form_identification_mark1] ? this.personalDetails[this.form_identification_mark1] : 'NIL',
+      [this.form_identification_mark2]: this.personalDetails?.[this.form_identification_mark2] ? this.personalDetails[this.form_identification_mark2] : 'NIL',
+      [this.form_hobbies_intrest]: this.personalDetails?.[this.form_hobbies_intrest] && this.personalDetails?.[this.form_hobbies_intrest].length > 0 ? this.personalDetails?.[this.form_hobbies_intrest] : [],
       [this.form_language_array]: this.personalDetails?.[this.form_language_array] && this.personalDetails?.[this.form_language_array].length > 0 ? this.personalDetails[this.form_language_array] : [],
-      [this.form_passport_number]: this.personalDetails?.[this.form_passport_number] ? this.personalDetails[this.form_passport_number] : 'NA',
-      [this.form_name_as_in_passport]: this.personalDetails?.[this.form_name_as_in_passport] ? this.personalDetails[this.form_name_as_in_passport] : 'NA',
-      [this.form_profession_as_in_passport]: this.personalDetails?.[this.form_profession_as_in_passport] ? this.personalDetails[this.form_profession_as_in_passport] : 'NA',
-      [this.form_date_of_issue]: this.personalDetails?.[this.form_date_of_issue] ? this.dateConvertion(this.personalDetails[this.form_date_of_issue]) : 'NA',
-      [this.form_valid_upto]: this.personalDetails?.[this.form_valid_upto] ? this.dateConvertion(this.personalDetails[this.form_valid_upto]) : 'NA',
-      [this.form_place_of_issue]: this.personalDetails?.[this.form_place_of_issue] ? this.personalDetails[this.form_place_of_issue] : 'NA',
-      [this.form_country_valid_for]: this.personalDetails?.[this.form_country_valid_for] ? this.personalDetails[this.form_country_valid_for] : 'NA',
-      [this.form_serious_illness]: this.personalDetails?.[this.form_serious_illness] ? this.personalDetails[this.form_serious_illness] : 'NA',
-      [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NA',
-      [this.form_nature_of_illness]: this.personalDetails?.[this.form_nature_of_illness] ? this.personalDetails[this.form_nature_of_illness] : 'NA',
-      [this.form_physical_disability]: this.personalDetails?.[this.form_physical_disability] ? this.personalDetails[this.form_physical_disability] : 'NA',
-      [this.form_left_eyepower_glass]: this.personalDetails?.[this.form_left_eyepower_glass] ? this.personalDetails[this.form_left_eyepower_glass] : 'NA',
-      [this.form_right_eye_power_glass]: this.personalDetails?.[this.form_right_eye_power_glass] ? this.personalDetails[this.form_right_eye_power_glass] : 'NA'
+      [this.form_passport_number]: this.personalDetails?.[this.form_passport_number] ? this.personalDetails[this.form_passport_number] : 'NIL',
+      [this.form_name_as_in_passport]: this.personalDetails?.[this.form_name_as_in_passport] ? this.personalDetails[this.form_name_as_in_passport] : 'NIL',
+      [this.form_profession_as_in_passport]: this.personalDetails?.[this.form_profession_as_in_passport] ? this.personalDetails[this.form_profession_as_in_passport] : 'NIL',
+      [this.form_date_of_issue]: this.personalDetails?.[this.form_date_of_issue] ? this.dateConvertion(this.personalDetails[this.form_date_of_issue]) : 'NIL',
+      [this.form_valid_upto]: this.personalDetails?.[this.form_valid_upto] ? this.dateConvertion(this.personalDetails[this.form_valid_upto]) : 'NIL',
+      [this.form_place_of_issue]: this.personalDetails?.[this.form_place_of_issue] ? this.personalDetails[this.form_place_of_issue] : 'NIL',
+      [this.form_country_valid_for]: this.personalDetails?.[this.form_country_valid_for] ? this.personalDetails[this.form_country_valid_for] : 'NIL',
+      [this.form_serious_illness]: this.personalDetails?.[this.form_serious_illness] ? this.personalDetails[this.form_serious_illness] : 'NIL',
+      [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NNILA',
+      [this.form_nature_of_illness]: this.personalDetails?.[this.form_nature_of_illness] ? this.personalDetails[this.form_nature_of_illness] : 'NIL',
+      [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == 'true') ? 'Yes': 'No',
+      [this.form_physical_disability_rsn]: this.personalDetails?.[this.form_physical_disability_rsn] ? this.personalDetails[this.form_physical_disability_rsn] : 'NIL',
+      [this.form_left_eyepower_glass]: this.personalDetails?.[this.form_left_eyepower_glass] ? this.personalDetails[this.form_left_eyepower_glass] : 'NIL',
+      [this.form_right_eye_power_glass]: this.personalDetails?.[this.form_right_eye_power_glass] ? this.personalDetails[this.form_right_eye_power_glass] : 'NIL',
+      [this.form_isWorkingHere]: this.personalDetails?.[this.form_isWorkingHere] ? this.personalDetails[this.form_isWorkingHere] : 'false',
+      // [this.form_employment_name_address]: this.personalDetails?.[this.form_employment_name_address] ? this.personalDetails[this.form_employment_name_address] : 'NA'
+
     };
     this.url = this.personalDetails?.profileImage;
+    console.log(this.url,'this.url');
+
     this.personalDetailsMap = data;
+    console.log(this.personalDetailsMap,'this.personalDetailsMap');
+
   }
 
 
@@ -985,12 +1131,21 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   }
 
   formSubmitFinal() {
+    console.log(this.acknowledgmentForm,'this.acknowledgmentForm');
+
     if (this.acknowledgmentForm.valid) {
+      // console.log(this.signature,'');
       if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
+        console.log(this.signature,'');
+
         return this.matDialogOpen();
       }
       this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
+      console.log(this.signature,'faild');
+
     } else {
+      console.log(this.acknowledgmentForm,'faild');
+
       this.glovbal_validators.validateAllFields(this.acknowledgmentForm);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields in Acknowledgements and Declarations');
     }
@@ -1004,11 +1159,15 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       formSections['document_details'] == '1' &&
       formSections['education_details'] == '1' &&
       formSections['experience_details'] == '1' &&
-      formSections['personal_details'] == '1'
-    ) {
+      formSections['personal_details'] == '1' &&
+      formSections['project_details'] == '1' &&
+      formSections['accomplishment_details'] == '1' &&
+      formSections['disciplinary_details'] == '1'
+      // formSections['project_details'] == '1' &&
+      ) {
       return true;
     } else {
-     formSections['personal_details'] != '1' ? this.appConfig.nzNotification('error', 'Personal Details', 'Go back and submit the personal details form again') : formSections['contact_details'] != '1' ? this.appConfig.nzNotification('error', 'Contact Details', 'Go back and submit the contact details form again') : formSections['dependent_details'] != '1' ? this.appConfig.nzNotification('error', 'Dependent Details', 'Go back and submit the dependent details form again') : formSections['document_details'] != '1' ? this.appConfig.nzNotification('error', 'Upload documents', 'Go back and submit the upload documents form again') : formSections['education_details'] != '1' ? this.appConfig.nzNotification('error', 'Education Details', 'Go back and submit the education details form again') : formSections['experience_details'] != '1' ? this.appConfig.nzNotification('error', 'Work Experience Details', 'Go back and submit the work experience details form again') : '';
+     formSections['personal_details'] != '1' ? this.appConfig.nzNotification('error', 'Personal Details', 'Go back and submit the personal details form again') : formSections['contact_details'] != '1' ? this.appConfig.nzNotification('error', 'Contact Details', 'Go back and submit the contact details form again') : formSections['dependent_details'] != '1' ? this.appConfig.nzNotification('error', 'Dependent Details', 'Go back and submit the dependent details form again') : formSections['document_details'] != '1' ? this.appConfig.nzNotification('error', 'Upload documents', 'Go back and submit the upload documents form again') : formSections['education_details'] != '1' ? this.appConfig.nzNotification('error', 'Education Details', 'Go back and submit the education details form again') : formSections['experience_details'] != '1' ? this.appConfig.nzNotification('error', 'Work Experience Details', 'Go back and submit the work experience details form again') : formSections['project_details'] != '1' ? this.appConfig.nzNotification('error', 'project Details', 'Go back and submit the project details form again') : formSections['accomplishment_details'] != '1' ? this.appConfig.nzNotification('error', 'accomplishments', 'Go back and submit the accomplishments form again') : formSections['disciplinary_details'] != '1' ? this.appConfig.nzNotification('error', 'discipilinary Details', 'Go back and submit the discipilinary details form again'): '';
      return false;
     }
   }
@@ -1138,8 +1297,17 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     if (route == 'work') {
       return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
     }
+    if (route == 'project') {
+      return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
+    }
+    if (route == 'accomplishments') {
+      return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
+    }
     if (route == 'upload') {
       return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
+    }
+    if (route == 'disciplinary') {
+      return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
     }
   }
 

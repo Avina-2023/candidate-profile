@@ -1,12 +1,16 @@
 <ng-container
   *ngIf="(data && data.dataToBeShared && data.dataToBeShared.type !== 'video') && data && data.dataToBeShared && data.dataToBeShared.type !== 'kyc-terms'">
   <div class="modal-wrapper">
-    <div class="heading-wrapper">
-      <div class="heading">
+    <div class="heading-wrapper ">
+      <!-- <div class="heading">
       {{data.dataToBeShared.heading ? data.dataToBeShared.heading : 'Confirmation Message'}}
-      </div>
+      </div> -->
+      <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
     </div>
     <div class="body-wrapper">
+      <div class="warning-icon">
+        <img class="iconfont" src="assets/images/candidateprofile/alerttt.png">
+      </div>
     <div class="confirmation-text">
       {{data.dataToBeShared.confirmText ? data.dataToBeShared.confirmText : ''}}
     </div>
