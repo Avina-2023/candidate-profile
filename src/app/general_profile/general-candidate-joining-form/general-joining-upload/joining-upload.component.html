@@ -1,5 +1,5 @@
 <div>
-  <form class="uploadF" [formGroup]="uploadForm" (ngSubmit)="formSubmit()">
+  <form class="uploadF" [formGroup]="uploadForm" >
     <div class="backgroundwall">
       <div class="backgroundwhite">
         <div class="joining-personal-wrapper">
@@ -18,22 +18,17 @@
               <div style="border: none;cursor: pointer;margin: -1px 0px 0px 5px;">
                 Pre-written Phrases
               </div>
-
             </div>
-
             <div *ngIf="showDialog">
               <div class="dlog_box">
-
                 <mat-form-field >
                   <mat-label>Search Something</mat-label>
                   <mat-icon matPrefix>search </mat-icon>
                   <input type="text" matInput placeholder="Type something.."
-                  (keyup)="searchFilter($event.target.value)">
+                  (keyup)="searchFilter($event.target.value)" >
                 </mat-form-field>
-
                 <label class="most_popular"><span class="icon-Icon-awesome-crown"></span>
                   Most Popular</label>
-
                 <div  *ngFor="let content of contents;let i = index" style="margin:8px 0px 0px 0px">
                   <div  (click)="appendPara(content,i)">
                   <!-- <p class="phrase_1 targetcontent">{{content}} <span [ngClass]="{'icon-right_arrow_circled': !isSpanChanged,'icon-tick_mark_circled': isSpanChanged}"></span></p> -->
@@ -45,11 +40,8 @@
               </div>
               </div>
               <!-- <button style="border: none;" (click)="showDialog = false"><span class="icon-close-rounded-filled"> </span> </button> -->
-
             </div>
           </div>
-
-
           <!-- <div class="grids-wrapper">
         <div class="uploadForm">
 
@@ -176,12 +168,11 @@
         </div>
     </div>-->
           <div  class="written_phrase_border">
-            <textarea   #inputField id="phrasebox" class="Eg_phrase"
+            <textarea [(ngModel)]="Pre_written_phrase" [ngModelOptions]="{standalone: true}"  class="Eg_phrase"
               placeholder="E.g. Engineering Graduate with 2+ years of experience..."></textarea>
           </div>
         </div>
       </div>
-
       <div class="backgroundwhite_uploadresume">
         <label class="head_upload">Upload Resume <span>*</span></label>
         <div class="hr_line">
@@ -190,11 +181,9 @@
         <div class="upload_resume_border">
           <div class="upload_stud_resume">
             <div class="cloud_img">
-
               <div class="dropzone">
                 <!-- <input multiple (change)="($event.target.files)"/> -->
                 <div>
-
                   <img src="/assets/images/Group 2.svg" alt="">
                 </div>
                 <h3> Drag and Drop file here</h3>
@@ -203,35 +192,24 @@
               </div>
             </div>
             <!--  -->
-
             <!-- upload resume code  -->
-
-
              <div class="alig" >
               <div class="alignment">
-
                   <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" accept="application/pdf"
                 contentClassName="ngx-file-drop" [multiple]="false">
-
                   <input class="file-input" type="file" id="upload" name="image"
                   accept="application/pdf" (change)="onFileSelected($event)" (click)="$event.target.value=null" type="file" alt="upload" />
-
                   <label for="upload"  class="uploadbutton">
-                  <i class="bi bi-cloud-arrow-up"></i> {{  trimFilename(fileName) || "NO file choosen"}}
-
+                  <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "NO file choosen"}}
                 </label>
-
               </ngx-file-drop>
-                <div class="download_btn">
-                  <span (click)="downloadFiledata()" class="icon-download_icon"></span>
+                <div (click)="downloadFile(pdfsrc)" class="download_btn">
+                  <span  class="icon-download_icon"></span>
                 </div>
-
                 <div *ngFor="let item of files; let i=index">
                   <h5><strong>{{ item.relativePath }}</strong></h5>
                 </div>
               </div>
-
-
               </div>
 <!-- upload resume code  -->
 
@@ -308,7 +286,7 @@
           </div>
         </div>
       </div>
-      <div class="Save_nd_cntnu">
+      <div (click)="formSubmit()" class="Save_nd_cntnu">
         <button type="submit">Save & Continue</button>
       </div>
     </div>
