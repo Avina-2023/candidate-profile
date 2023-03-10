@@ -296,17 +296,11 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     // Add our hobbie
     if ((value || '').trim()) {
       this.hobbies.push({hobbiesAndInterests: value.trim()});
-      console.log(this.hobbies.length);
-
     }
-
     // Reset the input value
     if (input) {
       input.value = '';
     }
-    // this.form_hobbies_intrest = this.hobbies;
-    console.log();
-
   }
   physicalDisability(event){
     // this.form_Employment_Array['controls'][this.isWorkExp].setValue('1');
@@ -321,10 +315,15 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
   remove(hobbie: Hobbie): void {
     const index = this.hobbies.indexOf(hobbie);
-
     if (index >= 0) {
       this.hobbies.splice(index, 1);
+      console.log(this.hobbies.length,'this.hobbies.length');
     }
+    if(this.hobbies && this.hobbies.length == 0){
+         this.personalForm.controls[this.form_hobbies_intrest].reset();
+        this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+        this.personalForm.controls[this.form_hobbies_intrest].updateValueAndValidity();
+      }
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
@@ -672,10 +671,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         this.personalForm.controls[this.form_hobbies_intrest].clearValidators();
       }
     }
-    else if(this.personalDetails[this.form_hobbies_intrest].length == 0){
-      console.log(this.personalForm.controls[this.form_hobbies_intrest],'[this.form_hobbies_intrest]');
-        this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
-    }
+
     this.personalForm.patchValue({
       // [this.form_title]: this.personalDetails[this.form_title],
       [this.form_name]: this.personalDetails[this.form_name],

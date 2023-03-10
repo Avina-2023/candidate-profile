@@ -6,6 +6,7 @@
   position: relative;
   padding-bottom: 1em;
   margin: auto;
+      padding-top: 2% !important;
   background-color: #ecf0f4;
   .stepper::-webkit-scrollbar {
     display: none;
@@ -16,9 +17,9 @@
     min-width: 30% !important;
     position: sticky;
     // top: 6em;
-    padding-top: 2% !important;
-    // height: 800px;
-    // overflow-y: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 769px;
 
     .stepper-wrapper {
       margin-top: 1em;
@@ -137,7 +138,7 @@ border-radius: 0px 0px 3px 3px;
 // margin-left: 20px;
 // margin-top: 2em;
 padding-left: 2%;
-padding-top: 2%;
+// padding-top: 2%;
 height: 800px;
 }
 
@@ -157,12 +158,16 @@ height: 800px;
   .main-wrapper {
     padding: 1em;
     background-color: white;
-    display: block;
+    // display: block;
     width: 100%;
+    display: flex  !important;
+    flex-direction: column !important;
     .text {
       margin-top: 0.5em;
       font-size: 15px;
       text-align: center;
+      padding-top: 10px;
+      padding-bottom: 5px;
     }
     .button-wrapper-form-pop-up {
       display: grid;
@@ -568,11 +573,22 @@ height: 800px;
     display: grid;
     justify-content: center;
     position: relative;
-    padding-top: 25px;
+    padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #d4d4d4;
     // top: 50px;
     // left: 20px;
+  }
+  .note{
+    padding-top: 35px;
+    padding-left: 40px;
+    padding-right: 10px;
+    display: flex;
+    color:#294D96;
+    font-size: 14px;
+    label{
+      color: #0E566C;
+    }
   }
   .upload {
     background-color: #1b4e9b;
@@ -605,14 +621,14 @@ height: 800px;
       background: #294d96;
       color: #fff;
       padding: 0;
-      height: 35px;
+      height: 30px;
     }
     .cancel {
       border: 1px solid #294d96;
       border-radius: 4px;
       margin-left: 0;
       padding: 0;
-      height: 35px;
+      height: 30px;
       color: #294d96;
     }
   }
@@ -653,4 +669,17 @@ i:hover {
 }
 .prfselect{
   border-radius: 50% !important;
+}
+.warning-icon{
+  display: flex;
+justify-content: space-around;
+//     width: 92px;
+// height: 74px;
+.iconfont{
+  width: 100px;
+}
+}
+.closeIcon{
+  display: flex;
+    justify-content: flex-end;
 }

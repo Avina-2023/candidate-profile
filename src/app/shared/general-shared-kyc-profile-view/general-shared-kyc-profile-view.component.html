@@ -1111,9 +1111,10 @@
           <span (click)="editRoute('project')" class="icon-Edit ag-icon-font-size edit-icon"> Edit</span>
         </div>
         </div>
-        <h6 class="mt-4">project</h6>
         <ng-container *ngIf="projectDetailsMap && projectDetailsMap.length > 0;else noproject">
-        <div class="row-wrapper mt-0" *ngFor="let project of projectDetailsMap; let i = index">
+          <ng-container *ngFor="let project of projectDetailsMap; let i = index">
+          <h6 class="mt-4">project {{i+1}}</h6>
+        <div class="row-wrapper mt-0" >
             <div class="overall-input-wrapper mt-3 width-32"  >
                  <label>Project Type</label>
         <div class="inpu-preview size-16 bold-700 color-black">{{ project[form_typeList] }}</div>
@@ -1157,6 +1158,7 @@
   </div>
 </div>
 </div>
+</ng-container>
 </ng-container>
       </div>
 
@@ -1746,7 +1748,7 @@
   <div class="header p-0 d-flex justify-content-between mb-1 align-items-center custom-header-padding">
     <h6>Disciplinary Details</h6>
     <div *ngIf="!formSubmitted" class="icon">
-      <span (click)="editRoute('upload')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
+      <span (click)="editRoute('disciplinary')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
     </div>
   </div>
 
@@ -2136,16 +2138,31 @@
 
 <ng-template #matDialog>
   <div class="main-wrapper">
-    <div class="text">
-      Please confirm the information. Once you have submitted the form, you cannot change it anymore.
+    <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
+    <div class="warning-icon">
+      <img class="iconfont" src="assets/images/candidateprofile/alerttt.png">
     </div>
+    <div class="text">
+      Are you sure you want to submit the profile?    </div>
     <div class="button-wrapper-form-pop-up">
       <button class="b1" (click)="closeDialog('save')" type="button" mat-raised-button>
-        Confirm
+        Yes
       </button>
       <button class="b3" (click)="closeDialog('cancel')" type="button" mat-raised-button>
-        Cancel
+        No
       </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #matDialogSuccess>
+  <div class="main-wrapper">
+    <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
+    <div class="warning-icon iconbg">
+      <span class="icon-Tick"></span>
+    </div>
+    <div class="textsuc">
+      Your Profile has been Submitted Successfully
     </div>
   </div>
 </ng-template>
