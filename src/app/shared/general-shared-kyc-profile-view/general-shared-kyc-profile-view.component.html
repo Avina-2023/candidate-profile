@@ -1291,7 +1291,7 @@
                   <label>Uploaded Resume</label>
                   <div class="inpu-preview d-flex  width-50 size-14 bold-700 color-black">
                     <div class="inpu-preview d-flex bgupload width-20 size-14 bold-700 color-black" >
-                      <div >{{ document[form_file_name] ? document[form_file_name ] : "-" }}</div>
+                      <div >{{  trimFilename(fileName)  || "NO file choosen"}}</div>
                     <span *ngIf="document && document[form_file_path]" class="overall-input-wrapper mt-0 width-19">
                       <button class="download-button" matTooltip="Download" style="width: 50px" (click)="
                               downloadFile(

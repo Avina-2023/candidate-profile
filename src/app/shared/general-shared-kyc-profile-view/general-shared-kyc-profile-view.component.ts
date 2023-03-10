@@ -98,6 +98,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
   checkFormValidRequest: Subscription;
   minDate: Date;
   maxDate: Date;
+  getResumeDocuments: any[];
 
   showSizeError = {
     image: false,
@@ -535,6 +536,10 @@ form_projectDescription = 'projectDescription';
       this.documentDetails.joining_details = joinCheck;
       this.documentDetails.banking_details = Banking_Details;
       this.documentDetails.resume = Resume;
+      this.pdfsrc = this.documentDetails.resume[0].file_path;
+
+      console.log(this.documentDetails.resume[0].file_path,'this.documentDetails.resume');
+
       this.documentDetails.transfer_certificate = Transfer_Certificate;
       this.documentDetails.education_documents = Education_Documents;
       if ((joinCheck && joinCheck.length > 0) || (Banking_Details && Banking_Details.length > 0) || (Resume && Resume.length > 0) || (Transfer_Certificate && Transfer_Certificate.length > 0) || (Education_Documents && Education_Documents.length > 0) || (this.documentDetails && this.documentDetails.certifications && this.documentDetails.certifications.length > 0) || (this.documentDetails && this.documentDetails.other_certifications && this.documentDetails.other_certifications.length > 0)) {
@@ -832,9 +837,9 @@ form_projectDescription = 'projectDescription';
         element[this.form_gap] = element?.[this.form_gap] && (element[this.form_gap] == 'true')? 'Yes' : 'No';
         element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NIL';
         element[this.form_backlog] = element?.[this.form_backlog] ? element?.[this.form_backlog] : 0;
-        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : 'NIL';
-        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : 'NIL';
-        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : 'NIL';
+        element[this.form_startDate] = element[this.form_startDate] ? this.dateConvertion(element[this.form_startDate]) : '';
+        element[this.form_endDate] = element[this.form_endDate] ? this.dateConvertion(element[this.form_endDate]) : '';
+        element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : '';
         element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NIL';
         this.educationDetailsMap.push(element);
       }
@@ -877,6 +882,16 @@ form_projectDescription = 'projectDescription';
       }
     });
 
+  }
+  trimFilename(fileName: any) {
+    if (fileName = this.documentDetails.resume[0].file_path) {
+      let replaceFilename = '';
+      let pdfname =fileName.split('/').pop().split('.')[0];
+      replaceFilename =
+      pdfname.length > 25 ? pdfname.slice(0, 25) + '...' : pdfname;
+      return replaceFilename;
+    }
+    return '';
   }
 
   getAllPresentCities(id, cityId, callback) {
