@@ -14,7 +14,7 @@
           <div>
             <div class="pre_button" (click)="showDialog = !showDialog">
               <div style="border: none;background-color: #FFFFFF;">
-                <em style="cursor: pointer" [ngClass]="{'icon-Icon-awesome-plus-circle-1 x_circle_icon': showDialog, 'icon-Icon-awesome-plus-circle-2': !showDialog }"></em></div>
+                <em style="cursor: pointer" [ngClass]="{'icon-circled_X_icon x_circle_icon': showDialog, 'icon-circled_plus_icon': !showDialog }"></em></div>
               <div style="border: none;cursor: pointer;margin: -1px 0px 0px 5px;">
                 Pre-written Phrases
               </div>
@@ -25,16 +25,16 @@
                   <mat-label>Search Something</mat-label>
                   <mat-icon matPrefix>search </mat-icon>
                   <input type="text" matInput placeholder="Type something.."
-                  (keyup)="searchFilter($event.target.value)" >
+                  (keyup)="applyFilter($event.target.value)" >
                 </mat-form-field>
-                <label class="most_popular"><span class="icon-Icon-awesome-crown"></span>
+                <label class="most_popular"><span class="icon-awesome_crown_icon"></span>
                   Most Popular</label>
                 <div  *ngFor="let content of contents;let i = index" style="margin:8px 0px 0px 0px">
                   <div  (click)="appendPara(content,i)">
                   <!-- <p class="phrase_1 targetcontent">{{content}} <span [ngClass]="{'icon-right_arrow_circled': !isSpanChanged,'icon-tick_mark_circled': isSpanChanged}"></span></p> -->
                   <!-- <span *ngIf="selectedFlag" class="icon-tick_mark_circled"></span>
                   <span *ngIf="selectedFlagtwo" class="icon-right_arrow_circled"></span> -->
-                  <p id="rem" class="phrase_1 targetcontent">{{content.description}}<span  [ngClass]="selectedFlag ? 'icon-tick_mark_circled' : !selectedFlag? 'icon-right_arrow_circled' : 'icon-right_arrow_circled'" (click)="change = !change"></span>
+                  <p id="rem" class="phrase_1 targetcontent">{{content.description}}<span (click)="toggleButtonSelection()"  [ngClass]="{'icon-circled_tick_icon circled_tick':  selectedFlag, 'icon-right_arrow_circled right_arrow': !selectedFlag}"></span>
                   </p>
                 </div>
               </div>
@@ -204,7 +204,7 @@
                 </label>
               </ngx-file-drop>
                 <div (click)="downloadFile(pdfsrc)" class="download_btn">
-                  <span  class="icon-download_icon"></span>
+                  <span  class="icon-download_icon dwlnd_icon"></span>
                 </div>
                 <div *ngFor="let item of files; let i=index">
                   <h5><strong>{{ item.relativePath }}</strong></h5>

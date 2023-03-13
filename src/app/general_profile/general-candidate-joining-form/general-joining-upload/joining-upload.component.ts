@@ -90,6 +90,12 @@ export class GeneralJoiningUploadComponent
   pdfFileSize: any;
   pdfFileType: any;
 
+
+
+
+
+
+
 fileDropped(files: NgxFileDropEntry[]): void {
   this.files = files;
     for (const droppedFile of files)
@@ -109,7 +115,7 @@ throw new Error('Method not implemented.');
   showDialog: any;
   isSpanChanged: any;
   content: any;
-  selectedFlag: boolean=false;
+  selectedFlag: boolean = false;
   selectedFlagtwo: boolean = true;
   isFavorite: any;
 
@@ -136,6 +142,9 @@ throw new Error('Method not implemented.');
   }
 
 
+  toggleButtonSelection() {
+    this.selectedFlag = !this.selectedFlag;
+  }
 
 
   //  appendToTextArea(event) {
@@ -483,6 +492,7 @@ throw new Error('Method not implemented.');
   appendPara(content, i) {
     let textToAppend = content.description;
     // this.isSpanChanged = !this.isSpanChanged;
+    this.selectedFlag = !this.selectedFlag;
     if(this.Pre_written_phrase != textToAppend){
       this.Pre_written_phrase = textToAppend;
       this.selectedFlag = true;
@@ -504,6 +514,13 @@ throw new Error('Method not implemented.');
     }
 
   }
+
+
+
+
+
+
+
   formInitialize() {
     this.uploadForm = this.fb.group({
     });
@@ -2314,3 +2331,7 @@ timeout(callback, ms) {
 
 
 }
+function toggleButtonSelection() {
+  throw new Error('Function not implemented.');
+}
+

@@ -872,7 +872,7 @@ mat-expansion-panel-header {
 // new css //
 
 .header_profile{
-  margin: 0px 0px 0px 20px;
+  margin: 5px 0px 0px 20px;
 }
 
 .content_para{
@@ -895,8 +895,20 @@ opacity: 1;
 
 .x_circle_icon{
   // display: none;
+color: #EF2917;
 
+}
 
+.circled_tick{
+  color:grey ;
+}
+
+.right_arrow{
+  color: #000000;
+}
+
+.dwlnd_icon{
+  color:#294D96;
 }
 
 .pre_button{
@@ -914,15 +926,16 @@ opacity: 1;
 }
 
 .written_phrase_border{
-  width: -webkit-fill-available;
-//   top: 376px;
-// left: 440px;
-// width: 866px;
+  // width: -webkit-fill-available;
+  width: fit-content;
+  // top: 376px;
+//  left: 440px;
+// width: 792px;
 // height: 183px;
-// background: transparent;
+ background: transparent;
 // border: 0.5px solid #707070;
-// border-radius: 3px;
-// opacity: 1;
+ border-radius: 3px;
+opacity: 1;
  margin: 0px 0px 0px 0px;
 
 
@@ -931,13 +944,15 @@ opacity: 1;
 }
 
 .Eg_phrase{
+  // width: -webkit-fill-available;
   // border: none;
-  top: 376px;
-  left: 440px;
-  width: 866px;
+  // top: 376px;
+  // left: 440px;
+  // width: fit-content;
+  width: 792px;
   height: 183px;
   background: transparent;
-  border: 0.5px solid #707070;
+  // border: 0.5px solid #707070;
   border-radius: 3px;
   opacity: 1;
   line-height: normal;
@@ -951,34 +966,36 @@ opacity: 1;
 
 }
 }
-// .backgroundwall{
+ .backgroundwall{
 //   top: 0px;
 // left: 0px;
-// //height: 1189px;
+// height: 1189px;
 // background: #ECF0F4 0% 0% no-repeat padding-box;
 // opacity: 1;
 
-// }
+ }
 
 .backgroundwhite{
   // top: 255px;
   // left: 410px;
   // width: 926px;
-  // height: 327px;
-  // background: #FFFFFF 0% 0% no-repeat padding-box;
+   height: 327px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 0.5px 0.87px 10px #00000012;
   opacity: 1;
 }
 
 .backgroundwhite_uploadresume{
-  top: 602px;
-left: 410px;
-//width: 926px;
-height: 454px;
+  // top: 602px;
+// left: 410px;
+// width: 926px;
+// height: 454px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0.5px 0.87px 10px #00000012;
 margin-top: 20px;
 opacity: 1;
+padding: 0px 0px 18px 0px;
+// margin-bottom: 10px;
 }
 .head_upload{
   margin: 20px 0px 0px 20px;
@@ -993,13 +1010,13 @@ opacity: 1;
 }
 
 .upload_resume_border{
-  top: 676px;
+  // top: 676px;
 left: 440px;
-width: 845px;
-height: 350px;
+// width: 845px;
+height: 300px;
 border: 2px dashed #707070;
 opacity: 1;
-margin: 0px 0px 0px 20px;
+margin: 0px 20px 0px 20px;
 
 .upload_stud_resume{
 
@@ -1052,7 +1069,7 @@ opacity: 1;
 // }
 
 .upload_student_resume{
-  margin: 40px 0px 0px 0px;
+  // margin: 40px 0px 0px 0px;
   text-align: center;
   position: relative;
   display: flex;
@@ -1124,6 +1141,7 @@ height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0px 0px 0px;
 
   button{
     color: #fff;
@@ -1149,7 +1167,8 @@ opacity: 1;
   position: absolute;
   justify-content: center;
   top: 3%;
-  right: 76%;
+  right: 70%;
+    left: 2%;
   z-index: 999;
   background: white;
   border: 1px solid;
