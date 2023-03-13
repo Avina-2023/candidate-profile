@@ -1,5 +1,5 @@
 <div>
-  <form class="uploadF" [formGroup]="uploadForm" >
+  <form class="uploadF" [formGroup]="uploadForm">
     <div class="backgroundwall">
       <div class="backgroundwhite">
         <div class="joining-personal-wrapper">
@@ -14,167 +14,42 @@
           <div>
             <div class="pre_button" (click)="showDialog = !showDialog">
               <div style="border: none;background-color: #FFFFFF;">
-                <em style="cursor: pointer" [ngClass]="{'icon-circled_X_icon x_circle_icon': showDialog, 'icon-circled_plus_icon': !showDialog }"></em></div>
+                <em style="cursor: pointer"
+                  [ngClass]="{'icon-circled_X_icon x_circle_icon': showDialog, 'icon-circled_plus_icon': !showDialog }"></em>
+              </div>
               <div style="border: none;cursor: pointer;margin: -1px 0px 0px 5px;">
                 Pre-written Phrases
               </div>
             </div>
             <div *ngIf="showDialog">
               <div class="dlog_box">
-                <mat-form-field >
-                  <mat-label>Search Something</mat-label>
+                <mat-form-field class="searchbox">
+                  <!-- <mat-label>Filter phrases by keyword and job title</mat-label> -->
                   <mat-icon matPrefix>search </mat-icon>
-                  <input type="text" matInput placeholder="Type something.."
-                  (keyup)="applyFilter($event.target.value)" >
+                  <input  type="text" matInput placeholder="Filter phrases by keyword and job title" (keyup)="applyFilter($event.target.value)">
                 </mat-form-field>
-                <label class="most_popular"><span class="icon-awesome_crown_icon"></span>
-                  Most Popular</label>
-                <div  *ngFor="let content of contents;let i = index" style="margin:8px 0px 0px 0px">
-                  <div  (click)="appendPara(content,i)">
-                  <!-- <p class="phrase_1 targetcontent">{{content}} <span [ngClass]="{'icon-right_arrow_circled': !isSpanChanged,'icon-tick_mark_circled': isSpanChanged}"></span></p> -->
-                  <!-- <span *ngIf="selectedFlag" class="icon-tick_mark_circled"></span>
-                  <span *ngIf="selectedFlagtwo" class="icon-right_arrow_circled"></span> -->
-                  <p id="rem" class="phrase_1 targetcontent">{{content.description}}<span (click)="toggleButtonSelection()"  [ngClass]="{'icon-circled_tick_icon circled_tick':  selectedFlag, 'icon-right_arrow_circled right_arrow': !selectedFlag}"></span>
-                  </p>
+                <div><label class="most_popular"><span class="icon-awesome_crown_icon"></span>
+                  Most Popular</label></div>
+                <div *ngFor="let content of contents;let i = index" style="padding:0px 0px 0px 20px">
+                  <div (click)="appendPara(content,i)">
+
+                    <p class="phrase_1 targetcontent"><span class="rem">{{content.description}}</span><span id="rem_id"
+                        [ngClass]="{'icon-circled_tick_icon circled_tick': selectedFlag && selectedContentIndex === i, 'icon-right_arrow_circled right_arrow': !selectedFlag || selectedContentIndex !== i}"></span>
+                    </p>
+                  </div>
                 </div>
               </div>
-              </div>
-              <!-- <button style="border: none;" (click)="showDialog = false"><span class="icon-close-rounded-filled"> </span> </button> -->
             </div>
           </div>
-          <!-- <div class="grids-wrapper">
-        <div class="uploadForm">
 
-          <form class="uploadF" [formGroup]="uploadForm" (ngSubmit)="formSubmit()">
-
-                <mat-accordion class="example-headers-align" multi>
-
-                    <mat-expansion-panel [expanded]="true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <h6 class="mt-0 mb-0 ml-0 mr-0">Resume Upload</h6>
-
-                            </mat-panel-title>
-                            <mat-panel-description>
-                                <div class="cl">Accepted Formats (.pdf) (Maximum file size 2MB)</div>
-                            </mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <ng-container *ngIf="getResumeArr && getResumeArr.controls"
-                            [formArrayName]="form_resumeArray">
-                            <ng-container *ngFor="let item of getResumeArr.controls; let j = index;"
-                                [formGroupName]="j">
-
-                                <div class="row-wrapper flexEnd" [ngClass]="getResumeArr.controls[j].get(form_file_path).invalid && getResumeArr.controls[j].get(form_file_path).touched ? 'custom-error-border' : ''">
-                                    <div class="overall-input-wrapper min200 top22">
-                                        <div class="readonlyTitle">
-                                            {{getResumeArr.controls[j].get(form_label).value ? getResumeArr.controls[j].get(form_label).value : 'Resume'}}<span class="f_size_14 asterick">*</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="overall-input-wrapper width-20">
-                                        <label>Document Description<span></span></label>
-                                        <input matInput placeholder="Enter here" class="input" type="text"
-                                            [formControlName]="form_description">
-                                        <div class="form-error"
-                                            *ngIf="getResumeArr.controls[j].get(form_description).invalid && getResumeArr.controls[j].get(form_description).touched">
-                                            <div
-                                                *ngIf="getResumeArr.controls[j].get(form_description).errors?.required">
-                                                Document Description is Required</div>
-                                            <div
-                                                *ngIf="getResumeArr.controls[j].get(form_description).errors?.alphaNum255">
-                                                Alpha numeric with maximum of 255 characters only
-                                                allowed</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="overall-input-wrapper width-30 alignCenter top20">
-                                        <label class="custom-upload"
-                                            [ngClass]="!getResumeArr.controls[j].get(form_file_name).value ? 'choose-button' : 'preview'"
-                                            [for]="j + getResumeArr.controls[j].get(form_label).value">
-                                            <ng-container *ngIf="!getResumeArr.controls[j].get(form_file_name).value">
-                                                <i class="icon-upload ag-icon-font-size-14"></i>
-                                                <div class="choose">Choose a file</div>
-                                            </ng-container>
-                                            <ng-container *ngIf="getResumeArr.controls[j].get(form_file_name).value">
-                                                <div class="uploaded-view">
-                                                    <div [matTooltip]="'Choose another file'" class="ufilename">
-                                                        {{getResumeArr.controls[j].get(form_file_name).value ? getResumeArr.controls[j].get(form_file_name).value : ''}}
-                                                    </div>
-                                                    <i [matTooltip]="'Remove'"
-                                                        (click)="removeFile(j, conditionResume); $event.preventDefault()"
-                                                        class="icon-cancel_black ag-icon-font-size pointer"></i>
-                                                </div>
-                                            </ng-container>
-                                        </label>
-                                        <input [id]="j + getResumeArr.controls[j].get(form_label).value" type="file" accept=".pdf" (click)="files.value = null" #files
-                                            (change)="onSelectFile($event, j, conditionResume)" hidden>
-                                        <div class="form-error"
-                                            *ngIf="getResumeArr.controls[j].get(form_file_path).invalid && getResumeArr.controls[j].get(form_file_path).touched">
-                                            <div
-                                                *ngIf="getResumeArr.controls[j].get(form_file_path).errors?.required">
-                                                Resume is Required</div>
-                                            <div
-                                                *ngIf="getResumeArr.controls[j].get(form_file_path).errors?.alphaNum255">
-                                                Alpha numeric with maximum of 255 characters only
-                                                allowed</div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="overall-input-wrapper width-20 alignCenter top20">
-                                        <button class="choose-button btnView" mat-raised-button
-                                            (click)="openMatDialog(getResumeArr.controls[j].get(form_file_path).value, 'application/pdf')"
-                                            [disabled]="getResumeArr.controls[j].get(form_file_path).value ? false : true"
-                                            type="button"> View</button>
-                                    </div>
-
-
-                                </div>
-                            </ng-container>
-                        </ng-container>
-                    </mat-expansion-panel>
-
-
-
-                </mat-accordion>
-
-
-                <div class="row-wrapper justify-content-between align-items-center mt-5 mb-3 footer">
-                    <div (click)="routeNext('accomplishments')"
-                        class="d-flex align-content-center align-items-center position-relative"
-                        style="cursor: pointer;">
-                        <div class="left-arrow position-absolute"></div>
-                        <div class="sections left-space">
-                            <div class="label">Previous Section</div>
-                            <div class="value">Work Experience Details</div>
-                        </div>
-                    </div>
-                    <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button
-                        type="submit">Save &
-                        Continue</button>
-                    <div (click)="routeNext('disciplinary')"
-                        class="d-flex align-content-center align-items-center text-right position-relative pointer"
-                        style="cursor: pointer;">
-                        <div class="right-arrow position-absolute"></div>
-                        <div class="sections right-space">
-                            <div class="label">Next Section</div>
-                            <div class="value">Preview Details</div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="photo-wrapper">
-        </div>
-    </div>-->
-          <div  class="written_phrase_border">
-            <textarea [(ngModel)]="Pre_written_phrase" [ngModelOptions]="{standalone: true}"  class="Eg_phrase"
+          <div class="written_phrase_border">
+            <textarea [(ngModel)]="Pre_written_phrase" [ngModelOptions]="{standalone: true}" class="Eg_phrase"
               placeholder="E.g. Engineering Graduate with 2+ years of experience..."></textarea>
           </div>
         </div>
       </div>
       <div class="backgroundwhite_uploadresume">
-        <label class="head_upload">Upload Resume <span>*</span></label>
+        <label class="head_upload">Upload Resume <span></span></label>
         <div class="hr_line">
           <hr>
         </div>
@@ -182,7 +57,6 @@
           <div class="upload_stud_resume">
             <div class="cloud_img">
               <div class="dropzone">
-                <!-- <input multiple (change)="($event.target.files)"/> -->
                 <div>
                   <img src="/assets/images/Group 2.svg" alt="">
                 </div>
@@ -193,90 +67,28 @@
             </div>
             <!--  -->
             <!-- upload resume code  -->
-             <div class="alig" >
+            <div class="alig">
               <div class="alignment">
-                  <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" accept="application/pdf"
-                contentClassName="ngx-file-drop" [multiple]="false">
-                  <input class="file-input" type="file" id="upload" name="image"
-                  accept="application/pdf" (change)="onFileSelected($event)" (click)="$event.target.value=null" type="file" alt="upload" />
-                  <label for="upload"  class="uploadbutton">
-                  <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "NO file choosen"}}
-                </label>
-              </ngx-file-drop>
-                <div (click)="downloadFile(pdfsrc)" class="download_btn">
-                  <span  class="icon-download_icon dwlnd_icon"></span>
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" accept="application/pdf"
+                  contentClassName="ngx-file-drop" [multiple]="false">
+                  <input  formControlName="sampleinput" class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
+                    (change)="onFileSelected($event)" (click)="$event.target.value=null" type="file" alt="upload" />
+                  <label for="upload" class="uploadbutton">
+                    <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "NO file choosen"}}
+                  </label>
+                </ngx-file-drop>
+
+                <div (click)="downloadFile(pdfdoc)" class="download_btn">
+                  <span class="icon-download_icon dwlnd_icon"></span>
                 </div>
                 <div *ngFor="let item of files; let i=index">
                   <h5><strong>{{ item.relativePath }}</strong></h5>
                 </div>
               </div>
-              </div>
-<!-- upload resume code  -->
+            </div>
+            <!--   -->
 
 
-<!-- drag and drop -->
-
-  <!-- <div class="alig" >
-              <div class="alignment">
-
-                <ngx-file-drop dropZoneLabel="Drop files here" [dropZoneClassName] = "'drag_img'" (onFileDrop)="dropped($event)"
-                (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-
-                  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                    <img src="../../../../assets/images/Group 2.svg">
-                    <br>
-                    <span class="draganddropinnertext">Drag and drop files here</span>
-                    <button type="button" (click)="openFileSelector()">Browse Files</button>
-                  </ng-template>
-
-                  <input class="file-input" type="file" id="upload" name="image"
-                  accept="application/pdf" (change)="onFileSelected($event)" (click)="$event.target.value=null" type="file" alt="upload" />
-
-                  <label for="upload"  class="uploadbutton">
-                  <i class="bi bi-cloud-arrow-up"></i> {{  trimFilename(fileName) || "NO file choosen"}}
-
-                </label>
-
-              </ngx-file-drop>
-                <div class="download_btn">
-                  <span (click)="downloadFiledata()" class="icon-download_icon"></span>
-                </div>
-              </div>
-
-
-              </div> -->
-
-<!-- <div class="draganddrop_parent">
-  <div class="drag_img">
-    <ngx-file-drop dropZoneLabel="Drop files here" [dropZoneClassName] = "'drag_img'" (onFileDrop)="dropped($event)"
-  (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-        <img src="/assets/images/Group 2.svg">
-        <br>
-        <span class="draganddropinnertext">Drag and drop files here</span>
-        <button type="button" (click)="openFileSelector()">Browse Files</button>
-      </ng-template>
-  </ngx-file-drop>
-
-  <div *ngFor="let item of files; let i=index">
-    <h5><strong>{{ item.relativePath }}</strong></h5>
-  </div>
-  </div>
- </div> -->
-<!--  -->
-            <!-- </div>
-              </div> -->
-
-            <!--  -->
-            <!-- <div class="upload_greybox">
-            <div class="upload_student_resume">
-              <label class="filebg" for="upload"><span [matTooltip]="documentfileName" class="blackLable subInstruction">{{trimFilename(documentfileName) || "No file choosen"}}</span></label>
-              <input class="file-input" type="file" id="upload" name="image"  (change)="onFileSelected($event)"
-                (click)="$event.target.value=null"
-                 type="file" alt="upload" />
-            <span (click)="downloadFiledata()" class="icon-download_icon"></span>
-          </div>
-          </div> -->
 
 
             <div class="note_upload">
@@ -295,130 +107,6 @@
 
 
 
-<!-- <ng-template #matDialog>
-    <div class="main-wrappers">
-      <div class="pdf-viewer-close">
-        <i matTooltip="Download" style="font-size: 26px; position: absolute; right: 30px;" (click)="downloadFile(pdfsrc)"
-        class="icon-get_app_black_24dp ag-icon-font-size pointer"></i>
 
-        <i (click)="closeBox()"
-            class="icon-cancel_black ag-icon-font-size pointer primary-clr"></i>
-    </div>
 
-        <pdf-viewer style="display:contents !important" [src]="pdfsrc"
-        [rotation]="0"
-        [original-size]="false"
-        [show-all]="true"
-        [fit-to-page]="false"
-        [zoom]="1"
-        [zoom-scale]="'page-width'"
-        [stick-to-page]="false"
-        [render-text]="true"
-        [external-link-target]="'blank'"
-        [autoresize]="true"
-        [show-borders]="false"
-        [original-size]="false"
-        ></pdf-viewer>
-    </div>
 
-</ng-template>
-
-<ng-template #noDocs>
-    <div class="no-doc-wrapper">
-        <div class="note">
-            Note:
-        </div>
-        <div class="doctext">* Below Documents are not uploaded. If you wish to upload now, Go back and upload these
-            docs.</div>
-        <div class="doctext">* If you Don't have these documents, Please mention the Reason below and Select the date,
-            when we can expext those Documents</div>
-        <h6 class="title">Not Uploaded Documents</h6>
-        <div class="nodoc-list">
-            <ng-container *ngIf="joiningNotUploadedDocs && joiningNotUploadedDocs.length > 0">
-                <div class="sub-title">Joining Documents</div>
-                <ol class="no-nested">
-                    <li *ngFor="let doc of joiningNotUploadedDocs">{{doc.label}}</li>
-                </ol>
-            </ng-container>
-
-            <ng-container *ngIf="educationNotUploadedDocs && educationNotUploadedDocs.length > 0">
-                <div class="sub-title">Education Documents</div>
-                <ol class="nested">
-                    <li *ngFor="let doc of educationNotUploadedDocs">{{doc.label}}
-                        <ul class="no-nested pl-0 pt-0">
-                            <li *ngFor="let sub of doc.subDocs" style="font-size: 13.5px;">{{sub.label}}</li>
-                        </ul>
-
-                        </li>
-                </ol>
-            </ng-container>
-
-            <ng-container *ngIf="transferNotUploadedDocs && transferNotUploadedDocs.length > 0">
-                <div class="sub-title">Transfer Certificate</div>
-                <ol class="no-nested">
-                    <li *ngFor="let doc of transferNotUploadedDocs">{{doc.label}}</li>
-                </ol>
-            </ng-container>
-
-            <ng-container *ngIf="resumeNotUploadedDocs && resumeNotUploadedDocs.length > 0">
-                <div class="sub-title">Resume</div>
-                <ol class="no-nested">
-                    <li *ngFor="let doc of resumeNotUploadedDocs">{{doc.label}}</li>
-                </ol>
-            </ng-container>
-
-            <ng-container *ngIf="bankNotUploadedDocs && bankNotUploadedDocs.length > 0">
-                <div class="sub-title">Bank Details</div>
-                <ol class="no-nested">
-                    <li *ngFor="let doc of bankNotUploadedDocs">{{doc.label}}</li>
-                </ol>
-            </ng-container>
-
-        </div>
-        <h6 class="title">Not Having Documents</h6>
-        <div class="row-wrapper">
-            <div class="overall-input-wrapper width-45">
-                <label>Reason<span>*</span></label>
-                <textarea matInput placeholder="Enter here" class="input text-area" type="text"
-                    [formControl]="reason"></textarea>
-                <div class="form-error" *ngIf="reason.invalid && reason.touched">
-                    <div *ngIf="reason.errors?.required">
-                        Reason is Required</div>
-                    <div *ngIf="reason.errors?.alphaNum255">
-                        Alpha numeric with maximum of 255 characters only
-                        allowed</div>
-                </div>
-
-            </div>
-            <div class="overall-input-wrapper width-32">
-                <label class="dateInput">Expected Date<span></span></label>
-                <div class="date-relative">
-                    <input matInput class="input dateInput" [min]="minDate" [max]="maxDate" [matDatepicker]="picker"
-                        placeholder="DD-MM-YYYY" [formControl]="expectedDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </div>
-                <div class="form-error dateInput" *ngIf="expectedDate.invalid && expectedDate.touched">
-                    <div *ngIf="expectedDate?.errors?.required">
-                        Expected Date is Required</div>
-                    <div *ngIf="expectedDate?.errors?.matDatepickerMax">
-                        {{expectedDate?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(expectedDate?.errors?.matDatepickerMax.max) : ''}}
-                    </div>
-                    <div *ngIf="expectedDate?.errors?.matDatepickerMin">
-                        {{expectedDate?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' + momentForm(expectedDate?.errors?.matDatepickerMin.min) : ''}}
-                    </div>
-                    <div *ngIf="expectedDate?.errors?.matDatepickerParse">
-                        Invalid Date Format</div>
-                </div>
-            </div>
-        </div>
-        <div class="row-wrapper justify-content-center align-items-center mt-4">
-            <button class="common-cancel-button common-button-height-30 animation-zoom" type="button"
-                (click)="closeBox()" mat-raised-button>Cancel</button>
-            <button class="common-button common-button-height-30 animation-zoom ml-3" (click)="validateNotUploaded()" type="button"
-                mat-raised-button>Submit</button>
-        </div>
-
-    </div>
-
-</ng-template>-->
