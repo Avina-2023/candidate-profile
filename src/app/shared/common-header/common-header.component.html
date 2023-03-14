@@ -12,7 +12,7 @@
       <div *ngIf="!isExternal" class="toolbar-pic">
         <span class="username">{{username}}</span>
         <img class="profileimg pointer " mat-button [matMenuTriggerFor]="menu"
-          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'../../../assets/images/profile.svg'">
+          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'assets/images/candidateprofile/MaskGroup.png'">
           <mat-menu #menu="matMenu" >
             <button mat-menu-item (click)="logOut()">Logout</button>
           </mat-menu>
@@ -20,7 +20,7 @@
       <div *ngIf="isExternal"  class="toolbar-pic">
         <span class="username">{{username}}</span>
         <img class="profileimg pointer "
-          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'../../../assets/images/profile.svg'">
+          [src]="cadidatefinalimage && cadidatefinalimage !=''?cadidatefinalimage:'assets/images/candidateprofile/MaskGroup.png'">
 
       </div>
       <!-- #enddocregion mat-menu-trigger-for -->

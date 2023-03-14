@@ -29,7 +29,6 @@
                   <div (click)="open()" class="changeprofile" style="cursor: pointer;">
                     <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
                   </div>
-
                 </ng-container>
                 <ng-container *ngIf="cadidatefinalimage ">
                   <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="removeData($event)" class="remove">
@@ -76,9 +75,12 @@
                         name="profile" accept="image/*" (change)="fileChangeEvent($event)" /></span>
                   </div>
                   <div class="action" mat-dialog-actions>
-                    <button class="confirm btn" mat-button (click)="onSelectFile(croppedImage)">save </button>
-                    <button class="cancel" mat-button [mat-dialog-close]="true">Cancel </button>
+                    <button class="confirm btn" mat-button [disabled]="IsToFeildEnable" (click)="onSelectFile(croppedImage)">save </button>
+                    <button class="cancel" mat-button  [mat-dialog-close]="true">Cancel </button>
 
+                  </div>
+                  <div class="note">
+                    <label>Note:</label>.JPEG and .PNG format only supported. Maximum upload size is 2MB
                   </div>
                 </div>
               </ng-template>
@@ -201,14 +203,20 @@
 
 <ng-template #matDialog>
   <div class="main-wrapper">
-    <div class="text">Do you want to change in the existing form?</div>
-    <div class="button-wrapper-form-pop-up"
-      [ngStyle]="{'grid-template-columns': !noSave ? '110px 110px 110px' : '110px 110px'}">
-      <button class="b1" (click)="closeDialog('save')" type="button" mat-raised-button>Save</button>
-      <button *ngIf="!noSave" class="b2" (click)="closeDialog('noSave')" type="button" mat-raised-button>Don't
-        Save</button>
-      <button class="b3" (click)="closeDialog('cancel')" type="button" mat-raised-button>Cancel</button>
+    <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
+    <div>
+      <div class="warning-icon">
+        <img class="iconfont" src="assets/images/candidateprofile/alerttt.png">
+      </div>
+      <div class="text">Do you want to change in the existing form?</div>
+      <div class="button-wrapper-form-pop-up"
+        [ngStyle]="{'grid-template-columns': !noSave ? '110px 110px' : '110px 110px'}">
+        <button class="b1" (click)="closeDialog('save')" type="button" mat-raised-button>Save</button>
+        <button *ngIf="!noSave" class="b2" (click)="closeDialog('noSave')" type="button" mat-raised-button>Skip</button>
+        <!-- <button class="b3" (click)="closeDialog('cancel')" type="button" mat-raised-button>Cancel</button> -->
+      </div>
     </div>
+
   </div>
 
 </ng-template>

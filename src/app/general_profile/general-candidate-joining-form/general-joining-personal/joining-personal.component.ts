@@ -19,6 +19,8 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
+
 export interface Hobbie {
   hobbiesAndInterests: string;
 }
@@ -266,6 +268,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     private loadingService: LoaderService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
+    private msgData:InterComponentMessenger
   ) {
     this.dateValidation();
   }
@@ -296,17 +299,11 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     // Add our hobbie
     if ((value || '').trim()) {
       this.hobbies.push({hobbiesAndInterests: value.trim()});
-      console.log(this.hobbies.length);
-
     }
-
     // Reset the input value
     if (input) {
       input.value = '';
     }
-    // this.form_hobbies_intrest = this.hobbies;
-    console.log();
-
   }
   physicalDisability(event){
     // this.form_Employment_Array['controls'][this.isWorkExp].setValue('1');
@@ -321,10 +318,15 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
   remove(hobbie: Hobbie): void {
     const index = this.hobbies.indexOf(hobbie);
-
     if (index >= 0) {
       this.hobbies.splice(index, 1);
+      console.log(this.hobbies.length,'this.hobbies.length');
     }
+    if(this.hobbies && this.hobbies.length == 0){
+         this.personalForm.controls[this.form_hobbies_intrest].reset();
+        this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+        this.personalForm.controls[this.form_hobbies_intrest].updateValueAndValidity();
+      }
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
@@ -540,7 +542,10 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
+        console.log(data.data.saved_data.gender,'data.data.saved_data.gender');
+
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Personal details is updated');
+        this.msgData.sendMessage("gender",data.data.saved_data.gender)
         this.sharedService.joiningFormStepperStatus.next();
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
       }else{
@@ -672,10 +677,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         this.personalForm.controls[this.form_hobbies_intrest].clearValidators();
       }
     }
-    else if(this.personalDetails[this.form_hobbies_intrest].length == 0){
-      console.log(this.personalForm.controls[this.form_hobbies_intrest],'[this.form_hobbies_intrest]');
-        this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
-    }
+
     this.personalForm.patchValue({
       // [this.form_title]: this.personalDetails[this.form_title],
       [this.form_name]: this.personalDetails[this.form_name],
