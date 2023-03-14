@@ -90,39 +90,35 @@
 
 
 
-
   }
 
 
-  .icon-tick_mark_circled:before {
-    content: "\e9ae";
-    color: #707070;
-  }
   .icon-right_arrow_circled:before {
-    content: "\e9af";
-    color: #707070;
+    content: "\e9a6";
+  }
+
+  .icon-circled_right_arrow:before {
+    content: "\e9a5";
   }
 
 
-  .icon-Icon-awesome-crown:before {
-    content: "\e9aa";
-    color: #ec930c;
-  }
-
-  .icon-Icon-awesome-plus-circle-2:before {
-    content: "\e9a9";
-    color: #1c4d98;
-  }
-
-  .icon-Icon-awesome-plus-circle-1:before {
+  .icon-awesome_crown_icon:before {
     content: "\e9a8";
-    color: #ef2917;
+  }
+  .icon-circled_tick_icon:before {
+    content: "\e9a9";
+  }
+  .icon-circled_X_icon:before {
+    content: "\e9aa";
+  }
+  .icon-circled_plus_icon:before {
+    content: "\e9ab";
   }
 
   .icon-download_icon:before {
     content: "\e9a7";
-    color: #294d96;
   }
+
 
   .icon-close-rounded-filled:before {
     content: "\e9a6";
