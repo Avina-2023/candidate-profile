@@ -19,6 +19,8 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
+
 export interface Hobbie {
   hobbiesAndInterests: string;
 }
@@ -266,6 +268,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     private loadingService: LoaderService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
+    private msgData:InterComponentMessenger
   ) {
     this.dateValidation();
   }
@@ -539,7 +542,10 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
+        console.log(data.data.saved_data.gender,'data.data.saved_data.gender');
+
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Personal details is updated');
+        this.msgData.sendMessage("gender",data.data.saved_data.gender)
         this.sharedService.joiningFormStepperStatus.next();
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
       }else{

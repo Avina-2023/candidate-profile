@@ -392,14 +392,14 @@
                                 [formControlName]="form_cgpa">
                               </div>
                             <div class="form-error"
-                                *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
-                                <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
+                                *ngIf="getEducationArr.controls[i].get(form_cgpercentage).invalid && getEducationArr.controls[i].get(form_cgpercentage).touched">
+                                <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpercentage).errors?.required">
                                   Grade Points is Required</div>
                                 <div class="err"
-                                    *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.percentage">
+                                    *ngIf="getEducationArr.controls[i].get(form_cgpercentage).errors?.percentage">
                                     Grade Points should be in the range of 10 to 100</div>
                                     <div
-                                    *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.maxlength">
+                                    *ngIf="getEducationArr.controls[i].get(form_cgpercentage).errors?.maxlength">
                                     Number with 2 Decimal points only allowed</div>
                             </div>
                         </ng-container>
@@ -426,19 +426,19 @@
                           <label>Percentage(%)<span class="redTxt">*</span></label>
                           <div class="width-100">
                             <input matInput placeholder="Enter here" class="input" type="text"
-                            [formControlName]="form_cgpercentage">
+                            [formControlName]="form_cgpa">
                             <div>Please convert your CGPA into percentage as per your College/University conversion and then enter the percentage above.</div>
                           </div>
                         </div>
                           <div class="form-error"
-                              *ngIf="getEducationArr.controls[i].get(form_cgpercentage).invalid && getEducationArr.controls[i].get(form_cgpercentage).touched">
-                              <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpercentage).errors?.required">
+                              *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
+                              <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
                                   Percentage is Required</div>
                               <div class="err"
-                                  *ngIf="getEducationArr.controls[i].get(form_cgpercentage).errors?.percentage">
+                                  *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.percentage">
                                   Percentage should be in the range of 10 to 100</div>
                                   <div class="err"
-                                  *ngIf="getEducationArr.controls[i].get(form_cgpercentage).errors?.maxlength">
+                                  *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.maxlength">
                                   Number with 2 Decimal points only allowed</div>
                           </div>
                       </ng-container>

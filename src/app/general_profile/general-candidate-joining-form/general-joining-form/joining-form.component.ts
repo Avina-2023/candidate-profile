@@ -268,7 +268,16 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.checkJoiningComponentNeeded();
     this.email = localStorage.getItem('userEmail');
     this.name = localStorage.getItem('username');
-
+    this.msgData.getMessage().subscribe((data)=>{
+      console.log(data,'data');
+      if(data.head=='gender'&& data.value !="" && data.value != undefined){
+        if (data.value && this.productionUrl == true) {
+          this.gender=data.value + environment.blobToken
+        } else if (data.value && this.productionUrl == false) {
+          this.gender=data.value
+        }
+      }
+    })
 
 // this.getAllPermanentCities(id, cityId, callback);
     this.getprofileimageFromLocal();
