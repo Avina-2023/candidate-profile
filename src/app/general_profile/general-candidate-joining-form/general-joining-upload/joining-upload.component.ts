@@ -48,7 +48,6 @@ import { SkillexService } from 'src/app/service/skillex.service';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry  } from 'ngx-file-drop';
 
 
-
 export const MY_FORMATS = {
   // onFileSelecteded(event) {
   //   this.file = event.target.files[0];
@@ -90,16 +89,6 @@ export class GeneralJoiningUploadComponent
   pdfFileName: any;
   pdfFileSize: any;
   pdfFileType: any;
-  selectedContentIndex: any;
-  textOpacity: any;
-  selectedElement: Element;
-  deselectedElement: Element;
-
-
-
-
-
-
 
 fileDropped(files: NgxFileDropEntry[]): void {
   this.files = files;
@@ -120,7 +109,7 @@ throw new Error('Method not implemented.');
   showDialog: any;
   isSpanChanged: any;
   content: any;
-  selectedFlag: boolean = false;
+  selectedFlag: boolean=false;
   selectedFlagtwo: boolean = true;
   isFavorite: any;
 
@@ -147,9 +136,40 @@ throw new Error('Method not implemented.');
   }
 
 
-  toggleButtonSelection() {
-    this.selectedFlag = !this.selectedFlag;
-  }
+
+
+  //  appendToTextArea(event) {
+  //       this.inputField.nativeElement.value += event.target.innerHTML + '\n';
+  //     }
+
+  //   appenddiv(event) {
+  //     let targetText = document.getElementsByClassName('targetcontent')[0];
+  //     console.log(targetText.innerHTML);
+  //     let textToAppend = targetText.innerHTML;
+  //     this.inputField.nativeElement.value += textToAppend;
+  //  }
+
+  //   onFileSelected(event:any) {
+  // console.log(event)
+  //     this.files = event.target.files[0];
+  //     // // alert(this.files)
+  //     // if (this.file) {
+  //     //   this.documentfileName = this.file.name;
+  //     //   this.IsToFeildEnable = false;
+  //     // }
+  //   }
+
+  // trimFilename(documentfileName) {
+  //   if (documentfileName) {
+  //     let replaceFilename = '';
+  //     replaceFilename = documentfileName.length > 25 ? documentfileName.slice(0, 25) + '...' : documentfileName;
+  //     return replaceFilename;
+  //   }
+  //   return '';
+  // }
+
+
+
 
 
   onDragOver(event) {
@@ -308,7 +328,7 @@ throw new Error('Method not implemented.');
 
   downloadFiledata() {
     const downloadLink = document.createElement('a');
-    downloadLink.href = window.URL.createObjectURL(this.pdfdoc);
+    downloadLink.href = window.URL.createObjectURL(this.pdfFileName);
     console.log(downloadLink.href, 'test');
 
     downloadLink.download = this.getResumeDocuments[0].file_path;
@@ -319,17 +339,13 @@ throw new Error('Method not implemented.');
     this.appConfig.downloadFile(path);
   }
 
-
-
-
-
   onFileSelected(event: any) {
     const fd = new FormData();
     if (event.target.files && event.target.files[0].type.includes('pdf')) {
       if (event.target.files[0].size < 2000000){
         if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
           let doc = event.target.files[0];
-          // this.pdfFileName = doc.name;
+          this.pdfFileName = doc.name;
 
           console.log(doc,'doc');
 
@@ -356,9 +372,10 @@ throw new Error('Method not implemented.');
           console.log(data,'datadata');
           console.log(data.data,'datadsdata');
           this.pdfdoc = data.data;
+          this.pdfdoc = this.pdfdoc
           this.pdfFormControl.setValue(this.pdfdoc);
         }
-        this.appConfig.nzNotification('success', 'Uploaded', 'Resume uploaded successfully');
+        this.appConfig.nzNotification('success', 'Uploaded', 'Profile Picture uploaded successfully');
       });
     } catch (e) {
       console.log("error while profile pic"+e)
@@ -382,7 +399,7 @@ throw new Error('Method not implemented.');
   //   }
   // }
        formSubmit(routeValue?: any){
-        if(this.uploadForm.valid){
+        if(this.uploadForm){
           const apiData = {
             preWritten_phrase: this.Pre_written_phrase,
             resume:[{
@@ -416,13 +433,13 @@ throw new Error('Method not implemented.');
           else{
           this.ngAfterViewInit();
           this.pdfFormControl.markAsTouched();
-          this.appConfig.nzNotification('error', 'Not Saved', 'Please upload the resume to proceed further');
+          this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
           this.loadingService.setLoading(false)
           this.glovbal_validators.validateAllFields(this.uploadForm);
         }
     }
   trimFilename(fileName: any) {
-    if (fileName = this.pdfdoc) {
+    if (fileName = this.pdfsrc) {
       let replaceFilename = '';
       let pdfname =fileName.split('/').pop().split('.')[0];
       replaceFilename =
@@ -463,47 +480,32 @@ throw new Error('Method not implemented.');
     // this.change.emit({ newValue: this.favoriteComment });
   }
 
-
   appendPara(content, i) {
-    const textToAppend = content.description;
-    const selectedElement = document.querySelectorAll('.rem')[i];
-
-    if (this.Pre_written_phrase !== textToAppend) {
-      // New element selected
+    let textToAppend = content.description;
+    // this.isSpanChanged = !this.isSpanChanged;
+    if(this.Pre_written_phrase != textToAppend){
       this.Pre_written_phrase = textToAppend;
       this.selectedFlag = true;
-      this.selectedContentIndex = i;
+      }else
+    if (this.Pre_written_phrase == textToAppend) {
+       this.Pre_written_phrase = '';
 
-      // Reset opacity of previously selected element
-      if (this.selectedElement) {
-        this.selectedElement.setAttribute('style', 'opacity: 1;');
-      }
+       this.selectedFlag = false;
 
-      // Apply opacity to newly selected element
-      if (selectedElement instanceof HTMLElement) {
-        selectedElement.style.opacity = '0.2';
-      }
-
-      // Set the newly selected element as the currently selected element
-      this.selectedElement = selectedElement;
-    } else {
-      // Same element deselected
-      this.Pre_written_phrase = '';
-      this.selectedFlag = false;
-      this.selectedContentIndex = null;
-
-      // Reset opacity of previously selected element
-      if (this.selectedElement) {
-        this.selectedElement.setAttribute('style', 'opacity: 1;');
-        this.selectedElement = null;
-      }
+      //  this.inputField.nativeElement.value += textToAppend;
+      //  this.inputField.nativeElement.value += textToAppend;
+    //   let rem = document.getElementById('rem');
+    // rem.addEventListener('click',()=>{
+    //   rem.remove()
+    //   console.log(rem.remove(),'rem.remove()');
+    // })
+    //  this.selectedFlag = true;
+    //  this.selectedFlagtwo = false;
     }
+
   }
-
-
   formInitialize() {
     this.uploadForm = this.fb.group({
-      sampleinput: new FormControl('',Validators.required)
     });
   }
 
@@ -640,7 +642,7 @@ timeout(callback, ms) {
 
    getDownloadableDocs() {
     this.downloadabledocs = [];
-    this.pdfsrc = this.pdfdoc;
+    this.pdfsrc = this.getResumeDocuments[0].file_path;
       if (this.pdfsrc && this.productionUrl == true) {
           this.pdfsrc = this.pdfsrc + environment.blobToken
         } else if (this.pdfsrc && this.productionUrl == false) {
@@ -2312,7 +2314,3 @@ timeout(callback, ms) {
 
 
 }
-function toggleButtonSelection() {
-  throw new Error('Function not implemented.');
-}
-
