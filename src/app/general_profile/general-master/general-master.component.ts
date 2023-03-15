@@ -13,6 +13,8 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
   styleUrls: ['./general-master.component.scss']
 })
 export class GeneralMasterComponent implements OnInit {
+  productionUrl = environment.SKILLEX_BASE_URL == "https://skilledge.lntedutech.com"?true:false;
+
   public email: any;
    public objDetails: any;
    public Details: any;
@@ -25,6 +27,8 @@ export class GeneralMasterComponent implements OnInit {
   percentage: number;
   username:any;
   profileCompletion:any;
+  msgData: any;
+  profileImage: any;
   constructor(private appConfig: AppConfigService,
     private loadingService: LoaderService,
     private skillexService: SkillexService,
@@ -59,12 +63,11 @@ export class GeneralMasterComponent implements OnInit {
         // this.profileImage = this.Details.personal_details.profileImage;
         // this.msgData.sendMessage("profileImage",this.profileImage)
         // if (this.profileImage && this.productionUrl == true) {
-        //   this.appConfig.setLocalStorage('profileImage',this.profileImage + environment.blobToken);
+        //   this.appConfig.setLocalData('profileImage',this.profileImage + environment.blobToken);
         //   this.profileImage = this.profileImage + environment.blobToken
         // } else if (this.profileImage && this.productionUrl == false) {
-        //   this.appConfig.setLocalStorage('profileImage',this.profileImage);
+        //   this.appConfig.setLocalData('profileImage',this.profileImage);
         //   this.profileImage = this.profileImage
-
         // }
         // this.appConfig.setLocalStorage('candidateProfile',JSON.stringify(this.Details));
         this.profilepercentage = Math.ceil(this.Details.profilePercentage);
