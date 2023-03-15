@@ -217,20 +217,20 @@ export class GeneralJoiningUploadComponent
   // Resume Variables
   form_resumeArray = 'resume';
 
-  // Transfer certificate Variables
-  form_transferCertArray = 'transfer_certificate';
+  // // Transfer certificate Variables
+  // form_transferCertArray = 'transfer_certificate';
 
-  // Other certificate Variables
-  form_otherCertArray = 'other_certifications';
+  // // Other certificate Variables
+  // form_otherCertArray = 'other_certifications';
 
-  // Certifications array
-  form_CertificationArray = 'certifications';
-  getCertificationDocuments: any;
-  // Banking
-  form_bankArray = 'banking_details';
-  form_acc_no = 'account_no';
-  form_ifsc_code = 'ifsc_code';
-  form_branch = 'branch';
+  // // Certifications array
+  // form_CertificationArray = 'certifications';
+  // getCertificationDocuments: any;
+  // // Banking
+  // form_bankArray = 'banking_details';
+  // form_acc_no = 'account_no';
+  // form_ifsc_code = 'ifsc_code';
+  // form_branch = 'branch';
 
   dependedentDetails: any;
   downloadabledocs: any;
