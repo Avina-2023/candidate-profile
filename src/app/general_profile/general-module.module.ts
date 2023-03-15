@@ -19,10 +19,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { GeneralJoiningDisciplinaryDetailsComponent } from './general-candidate-joining-form/general-joining-disciplinary-details/general-joining-disciplinary-details.component';
 import { GeneralJoiningProjectDetailsComponent } from './general-candidate-joining-form/general-joining-project-details/general-joining-project-details.component';
 import { GeneralJoiningAccomplishmentsComponent } from './general-candidate-joining-form/general-joining-accomplishments/general-joining-accomplishments.component';
-
-
 // import { MatDatepicker, MatDateRangePicker } from '@angular/material/datepicker';
-// import { NgxFileDropModule } from 'ngx-file-drop';
 
 const path = {
   CANDIDATE_DASHBOARD: {
@@ -156,8 +153,8 @@ const routes: Routes = [
     SharedModule,
     MaterialModule,
     MatIconModule,
-    ImageCropperModule
+    ImageCropperModule,
   ]
-  
+
 })
 export class GeneralModuleModule { }

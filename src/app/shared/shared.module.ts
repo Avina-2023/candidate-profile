@@ -8,6 +8,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { GeneralSharedKycProfileViewComponent } from './general-shared-kyc-profile-view/general-shared-kyc-profile-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
+import { FiledragDirective } from './directive/filedrag.directive';
 
 @NgModule({
   imports: [
@@ -16,16 +17,17 @@ import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.co
     NzSelectModule,
     PdfViewerModule,
     FormsModule,ReactiveFormsModule
-    
+
   ],
-  declarations: [CommonHeaderComponent,ModalBoxComponent,GeneralSharedKycProfileViewComponent,DashboardHeaderComponent],
+  declarations: [CommonHeaderComponent,ModalBoxComponent,GeneralSharedKycProfileViewComponent,DashboardHeaderComponent, FiledragDirective],
   exports:[
     CommonHeaderComponent,
     ModalBoxComponent,
     NzSelectModule,
     PdfViewerModule,
     GeneralSharedKycProfileViewComponent,
-    DashboardHeaderComponent
+    DashboardHeaderComponent,
+    FiledragDirective
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 
