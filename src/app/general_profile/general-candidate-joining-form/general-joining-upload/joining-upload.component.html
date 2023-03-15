@@ -44,11 +44,29 @@
 
           <div class="written_phrase_border">
             <textarea [(ngModel)]="Pre_written_phrase" [ngModelOptions]="{standalone: true}" class="Eg_phrase"
-              placeholder="E.g. Engineering Graduate with 2+ years of experience..."></textarea>
+              placeholder="E.g. Engineering Graduate with 2+ years of experience..." style="margin:0px 0px 0px 0px"></textarea>
           </div>
         </div>
       </div>
-      <div class="backgroundwhite_uploadresume">
+
+      <!-- <div class="draganddrop_parent">
+        <div class="drag_img">
+          <ngx-file-drop dropZoneLabel="Drop files here" [dropZoneClassName] = "'drag_img'" (onFileDrop)="dropped($event)"
+        (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+              <img src="../../assets/images/upload.svg">
+              <br>
+              <span class="draganddropinnertext">Drag and drop files here</span>
+              <button type="button" (click)="openFileSelector()">Browse Files</button>
+            </ng-template>
+        </ngx-file-drop>
+        <div *ngFor="let item of files; let i=index">
+          <h5><strong>{{ item.relativePath }}</strong></h5>
+        </div>
+        </div>
+      </div> -->
+
+       <div class="backgroundwhite_uploadresume">
         <label class="head_upload">Upload Resume <span></span></label>
         <div class="hr_line">
           <hr>
@@ -65,18 +83,16 @@
                 <h3 for="fileDropRef">Browse for file</h3>
               </div>
             </div>
-            <!--  -->
-            <!-- upload resume code  -->
+
             <div class="alig">
               <div class="alignment">
-                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" accept="application/pdf"
-                  contentClassName="ngx-file-drop" [multiple]="false">
-                  <input  formControlName="sampleinput" class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
-                    (change)="onFileSelected($event)" (click)="$event.target.value=null" type="file" alt="upload" />
+                <div appFiledrag (fileEmitter)="onFileSelected($event,true)">
+                  <input formControlName="sampleinput" class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
+                    (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" />
                   <label for="upload" class="uploadbutton">
                     <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "NO file choosen"}}
                   </label>
-                </ngx-file-drop>
+                </div>
 
                 <div (click)="downloadFile(pdfdoc)" class="download_btn">
                   <span class="icon-download_icon dwlnd_icon"></span>
@@ -86,11 +102,6 @@
                 </div>
               </div>
             </div>
-            <!--   -->
-
-
-
-
             <div class="note_upload">
               <span class="note_clr">Note:</span>
               <span class="note_text"> .PDF format only supported. Maximum upload size is 2MB</span>

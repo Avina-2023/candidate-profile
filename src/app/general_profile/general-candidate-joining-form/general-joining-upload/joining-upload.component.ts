@@ -43,12 +43,10 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+
 // import { Timer } from 'ag-grid-community';
 
-import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry  } from 'ngx-file-drop';
-
-
-
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 export const MY_FORMATS = {
   // onFileSelecteded(event) {
   //   this.file = event.target.files[0];
@@ -101,16 +99,16 @@ export class GeneralJoiningUploadComponent
 
 
 
-fileDropped(files: NgxFileDropEntry[]): void {
-  this.files = files;
-    for (const droppedFile of files)
-    if (droppedFile.fileEntry.isFile){
-    const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-    fileEntry.file((file: File) => {}
-    )
-  }
-throw new Error('Method not implemented.');
-}
+// fileDropped(files: NgxFileDropEntry[]): void {
+//   this.files = files;
+//     for (const droppedFile of files)
+//     if (droppedFile.fileEntry.isFile){
+//     const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+//     fileEntry.file((file: File) => {}
+//     )
+//   }
+// throw new Error('Method not implemented.');
+// }
   @ViewChild('matDialog', { static: false }) matDialogRef: TemplateRef<any>;
   @ViewChild('noDocs', { static: false }) matNoDocs: TemplateRef<any>;
   @ViewChild(MatAccordion, { static: false }) accordion: MatAccordion;
@@ -285,53 +283,50 @@ throw new Error('Method not implemented.');
 
 
 
-  public dropped(files: NgxFileDropEntry[]) {
-    this.files = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-        });
-      } else {
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
-      }
-    }
-  }
-  public fileOver(event:any){
-    console.log(event);
-  }
+  // public dropped(files: NgxFileDropEntry[]) {
+  //   this.files = files;
+  //   for (const droppedFile of files) {
+  //     if (droppedFile.fileEntry.isFile) {
+  //       const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+  //       fileEntry.file((file: File) => {
+  //       });
+  //     } else {
+  //       const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+  //       console.log(droppedFile.relativePath, fileEntry);
+  //     }
+  //   }
+  // }
+  // public fileOver(event:any){
+  //   console.log(event);
+  // }
 
-  public fileLeave(event:any){
-    console.log(event);
-  }
+  // public fileLeave(event:any){
+  //   console.log(event);
+  // }
 
   downloadFiledata() {
     const downloadLink = document.createElement('a');
     downloadLink.href = window.URL.createObjectURL(this.pdfdoc);
-    console.log(downloadLink.href, 'test');
+    // console.log(downloadLink.href, 'test');
 
     downloadLink.download = this.getResumeDocuments[0].file_path;
     downloadLink.click();
   }
 
   downloadFile(path: any, type?: any) {
-    this.appConfig.downloadFile(path);
+     this.appConfig.downloadFile(path);
   }
 
-
-
-
-
-  onFileSelected(event: any) {
+  onFileSelected(event: any,isDragged:boolean) {
+    let files = isDragged ? event[0] : event.target.files[0];
     const fd = new FormData();
-    if (event.target.files && event.target.files[0].type.includes('pdf')) {
-      if (event.target.files[0].size < 2000000){
-        if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
-          let doc = event.target.files[0];
+    if (files && files.type.includes('pdf')) {
+      if (files.size < 2000000){
+        if (this.appConfig.minImageSizeValidation(files.size)) {
+          let doc = files;
           // this.pdfFileName = doc.name;
 
-          console.log(doc,'doc');
+          // console.log(doc,'doc');
 
           fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
           fd.append('uploadFile', doc);
@@ -353,15 +348,15 @@ throw new Error('Method not implemented.');
 
         this.loadingService.setLoading(false);
         if (data) {
-          console.log(data,'datadata');
-          console.log(data.data,'datadsdata');
+          // console.log(data,'datadata');
+          // console.log(data.data,'datadsdata');
           this.pdfdoc = data.data;
           this.pdfFormControl.setValue(this.pdfdoc);
         }
         this.appConfig.nzNotification('success', 'Uploaded', 'Resume uploaded successfully');
       });
     } catch (e) {
-      console.log("error while profile pic"+e)
+      // console.log("error while profile pic"+e)
       this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -384,12 +379,12 @@ throw new Error('Method not implemented.');
        formSubmit(routeValue?: any){
         if(this.uploadForm.valid){
           const apiData = {
-            preWritten_phrase: this.Pre_written_phrase,
+            preWrittenPhrase: this.Pre_written_phrase,
             resume:[{
               file_path:this.pdfdoc
             }],
           }
-          console.log(apiData,'apiData');
+          // console.log(apiData,'apiData');
         const DocumentApiRequestDetails = {
           email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "document_details",
@@ -530,15 +525,15 @@ throw new Error('Method not implemented.');
   }
 
   ifDocumentDetails(data) {
-    console.log(data,'ifDocumentDetails');
+    // console.log(data,'ifDocumentDetails');
 
     // this.getJoiningDocuments =
     //   data && data['joining_details'] ? data['joining_details'] : [];
     // this.getEducationDocuments =
     //   data && data['education_documents'] ? data['education_documents'] : [];
     this.getResumeDocuments = data && data['resume'] ? data['resume'] : [];
-    console.log(this.getResumeDocuments,'getResumeDocuments');
-    console.log(this.getResumeDocuments[0].file_path,'ifDocumentDetails');
+    // console.log(this.getResumeDocuments,'getResumeDocuments');
+    // console.log(this.getResumeDocuments[0].file_path,'ifDocumentDetails');
 
     // this.getTransferDocuments =
     //   data && data['transfer_certificate'] ? data['transfer_certificate'] : [];
@@ -602,13 +597,13 @@ throw new Error('Method not implemented.');
 
     this.timerval = setTimeout(() => {
       this.contents.filter=data.trim().toLowerCase()
-      console.log (data);
+      // console.log (data);
     }, 200);
     let searchdata={
       "searchDescription":data
     }
     this.skillexService.getdescription(searchdata).subscribe((data: any) => {
-      console.log('data',data.data);
+      // console.log('data',data.data);
       this.contents=data.data
     });
   }
@@ -624,12 +619,12 @@ timeout(callback, ms) {
 }
 
   getDatadescription() {
-    console.log('enter');
+    // console.log('enter');
     let data={
       "searchDescription":""
     }
     this.skillexService.getdescription(data).subscribe((data: any) => {
-      console.log('data',data.data);
+      // console.log('data',data.data);
       this.contents=data.data
     });
   }
