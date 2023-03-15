@@ -239,6 +239,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     })
      }
 
+
   formInitialize() {
     this.projectForm = this.fb.group({
       [this.form_projectArray]: this.fb.array([]),

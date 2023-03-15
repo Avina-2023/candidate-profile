@@ -45,6 +45,10 @@ constructor(
     // this.datas is api body data
     return this.http.post(`${environment.SKILLEX_BASE_URL}/imageUploadForProfile`, profileform);
   }
+  pdfFileUpload(profileform) {
+    // this.datas is api body data
+    return this.http.post(`${environment.SKILLEX_BASE_URL}/imageUpload`, profileform);
+  }
 //progressbar
   candidateDetails(data){
     return this.http.post(`${environment.SKILLEX_BASE_URL}/getcandidatedetail`,data)
@@ -82,7 +86,7 @@ constructor(
     return this.http.post(`${environment.SKILLEX_BASE_URL}/collegesList`,{});
   }
   getdescription(data:any){
-    
+
     return this.http.post(`${environment.SKILLEX_BASE_URL}/getprofileSummary`,data)
   }
   //get JOB Description page

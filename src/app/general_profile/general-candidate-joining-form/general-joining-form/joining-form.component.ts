@@ -16,6 +16,10 @@ import { ImageCroppedEvent,Dimensions,ImageTransform, base64ToFile } from 'ngx-i
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
+import { L } from '@angular/cdk/keycodes';
+import { Observable, Subject } from 'rxjs';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
+
 
 @Component({
   selector: 'app-joining-form',
@@ -23,7 +27,8 @@ import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component'
   styleUrls: ['./joining-form.component.scss']
 })
 export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
-
+  productionUrl = environment.SKILLEX_BASE_URL == "https://skilledge.lntedutech.com"?true:false;
+  IsToFeildEnable = true;
   panelOpenState = false;
   expand =false;
   currentlyOpenedItemIndex = -1;
@@ -245,7 +250,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     private sharedService: SharedServiceService,
     private dialog: MatDialog,
     public matDialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private msgData:InterComponentMessenger
   ) {
     const subWrapperMenus = null;
     this.sharedService.subMenuSubject.next(subWrapperMenus);
@@ -254,6 +260,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.getStateAPI();
     this.statusOfForms();
     this.openPopupRequest();
     this.activeSelectorRxJs();
@@ -261,11 +268,19 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.checkJoiningComponentNeeded();
     this.email = localStorage.getItem('userEmail');
     this.name = localStorage.getItem('username');
-
+    this.msgData.getMessage().subscribe((data)=>{
+      console.log(data,'data');
+      if(data.head=='gender'&& data.value !="" && data.value != undefined){
+        if (data.value && this.productionUrl == true) {
+          this.gender=data.value + environment.blobToken
+        } else if (data.value && this.productionUrl == false) {
+          this.gender=data.value
+        }
+      }
+    })
 
 // this.getAllPermanentCities(id, cityId, callback);
     this.getprofileimageFromLocal();
-this.getStateAPI()
   }
 
 
@@ -287,8 +302,8 @@ this.getStateAPI()
  //profile img
  open(){
   const dialogRef = this.matDialog.open(this.matDialogRef1, {
-    width: '400px',
-    height: '450px',
+    width: '375px',
+    height: '500px',
     panelClass: 'matDialog',
     autoFocus: false,
     closeOnNavigation: true,
@@ -329,9 +344,6 @@ getStateAPI() {
     country_id: '101'
   };
   let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
-//   candidateProfileimage.contactDetails.permanent_state = this.addressState ;
-//   candidateProfileimage.contactDetails.permanent_city = this.addressCountry ;
-//   candidateProfileimage.contactDetails.permanent_country = this.addressCity ;
 
   this.candidateService.updatedState(datas).subscribe((data: any) => {
 
@@ -358,7 +370,15 @@ localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
 getprofileimageFromLocal(){
   let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
   // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+
   this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
+  if (this.cadidatefinalimage && this.productionUrl == true) {
+    this.cadidatefinalimage = this.cadidatefinalimage + environment.blobToken
+  } else if (this.cadidatefinalimage && this.productionUrl == false) {
+    this.cadidatefinalimage = this.cadidatefinalimage
+  }
+  console.log(this.cadidatefinalimage,'this.cadidatefinalimagethis.cadidatefinalimage');
+
   this.gender = candyprofileimage.personal_details.gender;
   this.addressCity = candyprofileimage.contact_details.permanent_city;
   this.addressState = candyprofileimage.contact_details.present_state;
@@ -372,6 +392,7 @@ getprofileimageFromLocal(){
 
 imageCropped(event: ImageCroppedEvent) {
   this.croppedImage = event.base64;
+  this.IsToFeildEnable = false;
 }
 
 base64ToBinary(base64Data: string): Uint8Array {
@@ -409,7 +430,8 @@ openDialog(component, data) {
     width: 'auto',
     height: 'auto',
     autoFocus: false,
-    data: dialogDetails
+    data: dialogDetails,
+
   });
 
   dialogRef.afterClosed().subscribe(result => {
@@ -420,7 +442,9 @@ openDialog(component, data) {
         fd.append('type',"profileDelete");
         this.uploadImage(fd);
         this.profilePictureFormControl.setValue(null);
-        this.profilePictureFormControl.markAsTouched();    }
+        this.profilePictureFormControl.markAsTouched();
+        this.msgData.sendMessage("profileImage",true)
+      }
   });
 }
 removeData(event) {
@@ -448,26 +472,26 @@ removeData(event) {
       this.uploadImage(fd);
       this.profilePictureFormControl.setValue(null);
       this.profilePictureFormControl.markAsTouched();
-      // this.setprofileimageToLocal();
-      // let candidateProfileimage = JSON.parse(localStorage.getItem("profileData"))  ;
-      // candidateProfileimage.personal_details.profileImage = this.profilePicture.file_path ;
-      //  localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
+
   }
+
 
   onSelectFile(event) {
     // this.validimage = true;
-
     const fd = new FormData();
     this.profilePictureFormControl.markAsTouched();
     if (this.imageChangedEvent.target.files && (this.imageChangedEvent.target.files[0].type.includes('image/png') || this.imageChangedEvent.target.files[0].type.includes('image/jpeg')) && !this.imageChangedEvent.target.files[0].type.includes('svg')) {
       if (this.imageChangedEvent.target.files[0].size < 2000000) {
         if (this.appConfig.minImageSizeValidation(this.imageChangedEvent.target.files[0].size)) {
+          console.log(this.IsToFeildEnable);
         // let image = this.croppedImage target.files[0].name;
         // let image = Buffer.from(this.croppedImage, "base64");
         fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
         fd.append('uploadFile',new File([base64ToFile(this.croppedImage)],this.imageChangedEvent.target.files[0].name, { lastModified: this.imageChangedEvent.target.files[0].lastModified,type: this.imageChangedEvent.target.files[0].type, }));
         fd.append('type',"profile");
         this.uploadImage(fd);
+
+
       }
      } else {
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
@@ -492,6 +516,10 @@ removeData(event) {
           file_path: data?.data.length? data.data : null,
 
         };
+        this.msgData.sendMessage("profileImageChange",this.profilePicture.file_path)
+        console.log(this.profilePicture.file_path,'this.profileImage');
+        console.log(this.profilePicture,'jhbjhb ');
+
         // if (data && data.data && data.data.length) {
 
         // }else{
@@ -710,7 +738,7 @@ removeData(event) {
       height: 'auto',
       autoFocus: false,
       closeOnNavigation: true,
-      disableClose: false,
+      disableClose: true,
       panelClass: 'popupModalContainerForForms'
     });
   }

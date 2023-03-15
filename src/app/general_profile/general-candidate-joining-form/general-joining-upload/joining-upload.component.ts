@@ -331,7 +331,7 @@ export class GeneralJoiningUploadComponent
           fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
           fd.append('uploadFile', doc);
            fd.append('uploadType',"pdf");
-          this.uploadImage(fd);
+          this.uploadPdf(fd);
     }
      } else {
      this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
@@ -340,11 +340,11 @@ export class GeneralJoiningUploadComponent
       return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PNG/JPEG files only');
     }
   }
-  async uploadImage(file) {
+  async uploadPdf(file) {
     try {
       this.loadingService.setLoading(true);
-      this.skillexService.uploadfile(file).subscribe((data:any) => {
-        // console.log(data,'data');
+      this.skillexService.pdfFileUpload(file).subscribe((data:any) => {
+        console.log(data,'data');
 
         this.loadingService.setLoading(false);
         if (data) {

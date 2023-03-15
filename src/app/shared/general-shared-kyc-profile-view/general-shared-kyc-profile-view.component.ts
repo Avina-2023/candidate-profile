@@ -51,6 +51,7 @@ export const MY_FORMATS = {
 export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('matDialog', { static: false }) matDialogRef: TemplateRef<any>;
+  @ViewChild('matDialogSuccess', { static: false }) matDialogRefSuccess: TemplateRef<any>;
   @ViewChild('matDialogTerms', { static: false }) matDialogRefTerms: TemplateRef<any>;
   @ViewChild('matDialogBGV', { static: false }) matDialogRefBGV: TemplateRef<any>;
   @ViewChild('matDialogCaste', { static: false }) matDialogRefCaste: TemplateRef<any>;
@@ -94,7 +95,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
       caste: 'Other'
     },
   ];
-
+  productionUrl = environment.SKILLEX_BASE_URL == "https://skilledge.lntedutech.com"?true:false;
   checkFormValidRequest: Subscription;
   minDate: Date;
   maxDate: Date;
@@ -537,7 +538,11 @@ form_projectDescription = 'projectDescription';
       this.documentDetails.banking_details = Banking_Details;
       this.documentDetails.resume = Resume;
       this.pdfsrc = this.documentDetails.resume[0].file_path;
-
+      if (this.pdfsrc && this.productionUrl == true) {
+        this.pdfsrc = this.pdfsrc + environment.blobToken
+      } else if (this.pdfsrc && this.productionUrl == false) {
+        this.pdfsrc = this.pdfsrc
+      }
       console.log(this.documentDetails.resume[0].file_path,'this.documentDetails.resume');
 
       this.documentDetails.transfer_certificate = Transfer_Certificate;
@@ -1118,7 +1123,7 @@ form_projectDescription = 'projectDescription';
       [this.form_place_of_issue]: this.personalDetails?.[this.form_place_of_issue] ? this.personalDetails[this.form_place_of_issue] : 'NIL',
       [this.form_country_valid_for]: this.personalDetails?.[this.form_country_valid_for] ? this.personalDetails[this.form_country_valid_for] : 'NIL',
       [this.form_serious_illness]: this.personalDetails?.[this.form_serious_illness] ? this.personalDetails[this.form_serious_illness] : 'NIL',
-      [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NNILA',
+      [this.form_no_of_days]: this.personalDetails?.[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days] : 'NIL',
       [this.form_nature_of_illness]: this.personalDetails?.[this.form_nature_of_illness] ? this.personalDetails[this.form_nature_of_illness] : 'NIL',
       [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == 'true') ? 'Yes': 'No',
       [this.form_physical_disability_rsn]: this.personalDetails?.[this.form_physical_disability_rsn] ? this.personalDetails[this.form_physical_disability_rsn] : 'NIL',
@@ -1196,11 +1201,21 @@ form_projectDescription = 'projectDescription';
       panelClass: 'popupModalContainerForForms'
     });
   }
-
+  matSuccessMsgOpen(){
+    const dialogRef = this.dialog.open(this.matDialogRefSuccess, {
+      width: '400px',
+      height: 'auto',
+      autoFocus: false,
+      closeOnNavigation: true,
+      disableClose: true,
+      panelClass: 'popupModalContainerForForms'
+    });
+  }
   closeDialog(e) {
     if (e == 'save') {
       this.dialog.closeAll();
-      this.formSubmit();
+ return this.matSuccessMsgOpen()
+      // this.formSubmit();
     } else {
       this.dialog.closeAll();
     }

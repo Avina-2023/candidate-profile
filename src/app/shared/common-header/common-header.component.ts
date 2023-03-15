@@ -6,6 +6,8 @@ import { ModalBoxComponent } from '../modal-box/modal-box.component';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
 import { environment } from 'src/environments/environment';
 import {MatIconModule} from '@angular/material/icon';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-common-header',
@@ -14,7 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class CommonHeaderComponent implements OnInit {
   @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
-
+  productionUrl = environment.SKILLEX_BASE_URL == "https://skilledge.lntedutech.com"?true:false;
   dropdownVisible = false;
   candidateName = localStorage.getItem('name')
   profileimge: any ="";
@@ -30,17 +32,41 @@ export class CommonHeaderComponent implements OnInit {
     private apiService: ApiServiceService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
+    private msgData:InterComponentMessenger
   ) { }
 
   ngOnInit() {
+    this.msgData.getMessage().subscribe((data)=>{
+      console.log(data,'data');
+      if(data.head == 'profileImage' && data.value == true){
+        if (data.value == true && this.productionUrl == true) {
+          this.cadidatefinalimage = '';
+        } else if (data.value == true && this.productionUrl == false) {
+          this.cadidatefinalimage = '';
+        }
+      }else
+      if(data.head=='profileImageChange'&& data.value !="" && data.value != undefined){
+        if (data.value && this.productionUrl == true) {
+          this.cadidatefinalimage=data.value + environment.blobToken
+        } else if (data.value && this.productionUrl == false) {
+          this.cadidatefinalimage=data.value
+        }
+      }
+    })
+    this.getprofileimageFromLocal();
     this.username = this.appConfig.getLocalData('username') ? this.appConfig.getLocalData('username') : 'NA';
     this.logoURL = "../../../assets/images/EduTech_Logo.svg";//this.appConfig.logoBasedOnCustomer();
-    this.isExternal = this.appConfig.getLocalData('externalLogin')
-    this. getprofileimageFromLocal();
+    this.isExternal = this.appConfig.getLocalData('externalLogin');
+
   }
   getprofileimageFromLocal(){
     let candyprofileimage = JSON.parse(localStorage.getItem("profileData")) ;
     this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
+    if (this.cadidatefinalimage && this.productionUrl == true) {
+      this.cadidatefinalimage = this.cadidatefinalimage + environment.blobToken
+    } else if (this.cadidatefinalimage && this.productionUrl == false) {
+      this.cadidatefinalimage = this.cadidatefinalimage
+    }
   }
  dropdown() {
     this.dropdownVisible = !this.dropdownVisible;

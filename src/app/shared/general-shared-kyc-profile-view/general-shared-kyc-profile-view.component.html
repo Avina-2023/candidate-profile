@@ -966,6 +966,8 @@
             </div>
             <div class="row-wrapper mt-4" [ngClass]="i == 0 ? 'padding-0' : 'border-wrapper'"
               *ngFor="let training of workDetailsAlldata[this.form_training_Array]; let i = index">
+              <ng-container *ngIf="training && training[this.form_is_training_status] && training[this.form_is_training_status].length > 0;else noArticleshipTraining">
+
               <h6>Articleship/Training {{i+1}}</h6>
               <div class="row-wrapper mt-0">
                 <div class="overall-input-wrapper mt-3 width-20">
@@ -998,7 +1000,9 @@
                   </div>
                 </div>
               </div>
+            </ng-container>
             </div>
+
           </ng-container>
 <!--
           <ng-container
@@ -1111,9 +1115,10 @@
           <span (click)="editRoute('project')" class="icon-Edit ag-icon-font-size edit-icon"> Edit</span>
         </div>
         </div>
-        <h6 class="mt-4">project</h6>
         <ng-container *ngIf="projectDetailsMap && projectDetailsMap.length > 0;else noproject">
-        <div class="row-wrapper mt-0" *ngFor="let project of projectDetailsMap; let i = index">
+          <ng-container *ngFor="let project of projectDetailsMap; let i = index">
+          <h6 class="mt-4">project {{i+1}}</h6>
+        <div class="row-wrapper mt-0" >
             <div class="overall-input-wrapper mt-3 width-32"  >
                  <label>Project Type</label>
         <div class="inpu-preview size-16 bold-700 color-black">{{ project[form_typeList] }}</div>
@@ -1158,6 +1163,7 @@
 </div>
 </div>
 </ng-container>
+</ng-container>
       </div>
 
       <!--Accomplishments-->
@@ -1199,7 +1205,7 @@
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Certification Validity from</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    {{ certification[form_certification_validityFrom]}}
+    {{ dateConvertion(certification[form_certification_validityFrom])}}
   </div>
 </div>
 <div *ngIf="certification[form_isexpire] != true" class="overall-input-wrapper mt-3 width-32">
@@ -1215,11 +1221,12 @@
 </div>
 </ng-container>
 </ng-container>
-<ng-container *ngIf="accomplishmentsMap[form_awardsArray] && accomplishmentsMap[form_awardsArray].length > 0;else noAwards">
-  <ng-container *ngFor="let awards of accomplishmentsMap[form_awardsArray];let i = index">
+<!--awards-->
   <div class="header d-flex justify-content-between mb-1 mt-3 p-0 align-items-center custom-header-padding">
       <h6>Awards</h6>
   </div>
+  <ng-container *ngIf="accomplishmentsMap[form_awardsArray] && accomplishmentsMap[form_awardsArray].length > 0;else noAwards">
+    <ng-container *ngFor="let awards of accomplishmentsMap[form_awardsArray];let i = index">
   <h6 class="mt-3">Awards {{i+1}}</h6>
 <div class="overall-input-wrapper mt-3 width-32">
   <!-- <label>Symposium - Technical Paper Design</label>
@@ -1229,11 +1236,12 @@
 </div>
 </ng-container>
 </ng-container>
-<ng-container *ngIf="accomplishmentsMap[form_journalEntryArray] && accomplishmentsMap[form_journalEntryArray].length > 0;else noJournalEntry">
-  <ng-container *ngFor="let journalEntry of accomplishmentsMap[form_journalEntryArray];let i = index">
+<!--journal-->
     <div class="header d-flex justify-content-between mb-3 mt-3 p-0 align-items-center custom-header-padding">
       <h6>Research Publication/Journal Entry</h6>
   </div>
+  <ng-container *ngIf="accomplishmentsMap[form_journalEntryArray] && accomplishmentsMap[form_journalEntryArray].length > 0;else noJournalEntry">
+    <ng-container *ngFor="let journalEntry of accomplishmentsMap[form_journalEntryArray];let i = index">
   <h6>Journal 1</h6>
   <div class="row-wrapper mt-0">
 <div class="overall-input-wrapper mt-3 width-32">
@@ -1746,7 +1754,7 @@
   <div class="header p-0 d-flex justify-content-between mb-1 align-items-center custom-header-padding">
     <h6>Disciplinary Details</h6>
     <div *ngIf="!formSubmitted" class="icon">
-      <span (click)="editRoute('upload')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
+      <span (click)="editRoute('disciplinary')" class="icon-Edit ag-icon-font-size edit-icon"> Edit </span>
     </div>
   </div>
 
@@ -2117,6 +2125,24 @@
 <ng-template #noWork>
   <div class="nodata">No Work Experience Details Available</div>
 </ng-template>
+<ng-template #noArticleshipTraining>
+  <div class="nodata">No Articleship/Training Details Available</div>
+</ng-template>
+<ng-template #noHobbies>
+  <div class="nodata">No Hobbies Details Available</div>
+</ng-template>
+<ng-template #noproject>
+  <div class="nodata">No Project Details Available</div>
+</ng-template>
+<ng-template #noAwards>
+  <div class="nodata">No Awards Details Available</div>
+</ng-template>
+<ng-template #noJournalEntry>
+  <div class="nodata">No Journal Entry Details Available</div>
+</ng-template>
+<ng-template #noCertification>
+  <div class="nodata">No Certification Details Available</div>
+</ng-template>
 <ng-template #noContact>
   <div class="nodata">No Contact Details Available</div>
 </ng-template>
@@ -2136,16 +2162,31 @@
 
 <ng-template #matDialog>
   <div class="main-wrapper">
-    <div class="text">
-      Please confirm the information. Once you have submitted the form, you cannot change it anymore.
+    <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
+    <div class="warning-icon">
+      <img class="iconfont" src="assets/images/candidateprofile/alerttt.png">
     </div>
+    <div class="text">
+      Are you sure you want to submit the profile?    </div>
     <div class="button-wrapper-form-pop-up">
       <button class="b1" (click)="closeDialog('save')" type="button" mat-raised-button>
-        Confirm
+        Yes
       </button>
       <button class="b3" (click)="closeDialog('cancel')" type="button" mat-raised-button>
-        Cancel
+        No
       </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #matDialogSuccess>
+  <div class="main-wrapper">
+    <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
+    <div class="warning-icon iconbg">
+      <span class="icon-Tick"></span>
+    </div>
+    <div class="textsuc">
+      Your Profile has been Submitted Successfully
     </div>
   </div>
 </ng-template>
