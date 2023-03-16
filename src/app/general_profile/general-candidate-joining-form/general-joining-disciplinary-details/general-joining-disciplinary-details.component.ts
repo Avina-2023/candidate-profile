@@ -152,7 +152,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     } else {
       this.ngAfterViewInit();
       this.loadingService.setLoading(false);
-      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the mandatory fields to proceed further');
       // this.glovbal_validators.validateAllFields(this.discipilinaryForm);
     }
     console.log( this.discipilinaryForm,'apiData');
