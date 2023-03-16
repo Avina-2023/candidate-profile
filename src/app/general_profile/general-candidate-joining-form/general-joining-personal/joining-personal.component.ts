@@ -670,7 +670,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     //   }
     // }
   patchPersonalForm() {
-    if(this.personalDetails[this.form_hobbies_intrest].length) {
+    if(this.personalDetails[this.form_hobbies_intrest]?.length) {
       this.hobbies = this.personalDetails[this.form_hobbies_intrest];
       if(this.personalDetails[this.form_hobbies_intrest].length > 0){
         console.log(this.personalDetails[this.form_hobbies_intrest].length,'this.personalDetails.controls[this.form_hobbies_intrest]');
