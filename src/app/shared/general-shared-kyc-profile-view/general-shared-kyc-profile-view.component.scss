@@ -76,6 +76,7 @@
                   .inpu-preview {
                     width: 50%;
                       position: relative;
+                      padding: 0px 0px 0px 10px;
                       // border: solid 0.8px #bebebe;
                       // border-radius: 2px;
                       outline: none;
@@ -145,6 +146,8 @@
                         // width: 100%;
                         // line-height: 1.2;
                         line-height: inherit;
+                        padding: 0px 0px 0px 20px;
+
                     }
                     .size-16 {
                         font-size: 14px;
