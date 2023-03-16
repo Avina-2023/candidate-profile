@@ -13,6 +13,7 @@ export class DashboardHeaderComponent implements OnInit {
   username: any;
   getCurrentYear = this.appConfig.getCurrentYear();
   supportEmail: any;
+  year = new Date().getFullYear();
 
   constructor(
     private appConfig: AppConfigService,
