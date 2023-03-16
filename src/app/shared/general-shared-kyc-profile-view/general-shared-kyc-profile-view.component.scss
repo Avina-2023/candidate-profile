@@ -67,9 +67,9 @@
                     // align-items: center;
                     label {
                         color: #808080;
-                        padding: 0 0 0px 0;
+                        padding: 20px 0px 0px 1px;
                         margin: 0;
-                        font-size: 14px;
+                        font-size: 15.5px;
                         width: 50%;
 
                     }
@@ -1011,7 +1011,8 @@
 }
 .bgupload{
   background-color:#EAEAEA !important;
-  padding: 7px;
+  padding: 2px;
+    margin: 0px 0px 0px 5px;
 }
 .flexend{
   justify-content: flex-end !important;
