@@ -319,7 +319,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     }
         else {
       this.ngAfterViewInit();
-      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the mandatory fields to proceed further');
       this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.projectForm);
     }

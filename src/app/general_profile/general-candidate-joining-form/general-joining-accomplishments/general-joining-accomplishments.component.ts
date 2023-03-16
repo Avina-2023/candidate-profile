@@ -197,7 +197,7 @@ this.setAwardArrValidation();
     this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
 
       if (result.result == 'save') {
-        // this.formSubmit(result.route);
+        this.formSubmit(result.route);
       }
     });
   }
@@ -240,7 +240,7 @@ this.setAwardArrValidation();
     } else {
       this.ngAfterViewInit();
       this.loadingService.setLoading(false);
-      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the mandatory fields to proceed further');
       // this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
       this.glovbal_validators.validateAllFields(this.accomplishmentsForm);
     }

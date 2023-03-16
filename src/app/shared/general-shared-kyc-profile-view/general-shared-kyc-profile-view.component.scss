@@ -57,6 +57,63 @@
                 align-items: flex-start;
                 flex-wrap: wrap;
                 flex-direction: column;
+                .overall-inputlang-wrapper{
+                  display: flex;
+                  flex-direction: row;
+                  position: relative;
+                  flex-wrap: wrap;
+                  margin-right: 8px;
+                  width: 100%;
+                  // align-items: center;
+                  label {
+                      color: #808080;
+                      padding: 0 0 0px 0;
+                      margin: 0;
+                      font-size: 14px;
+                      width: 50%;
+
+                  }
+                  .inpu-preview {
+                    width: 50%;
+                      position: relative;
+                      // border: solid 0.8px #bebebe;
+                      // border-radius: 2px;
+                      outline: none;
+                      box-sizing: border-box;
+                      // min-height: 35px !important;
+                      // max-height: 35px !important;
+                      // line-height: 35px;
+                      // padding: 4px 8px;
+                      background-color: $white;
+                      // width: 100%;
+                      // line-height: 1.2;
+                      line-height: inherit;
+                  }
+                  .size-16 {
+                      font-size: 14px;
+                  }
+                  .bold-700 {
+                      font-weight: 400;
+                  }
+                  .color-black {
+                      color: #000000;
+                  }
+                  .select {
+                      display: flex;
+                      align-items: center;
+                      padding: 0px !important;
+                      border: none !important;
+                  }
+                  .form-error {
+                      color: $primary-error-text;
+                      font-size: 12px;
+                  }
+                   ::placeholder {
+                      color: #a5a5a5 !important;
+                      opacity: 1;
+                      font-size: 13px;
+                  }
+                }
                 .overall-input-wrapper {
                     display: flex;
                     flex-direction: row;
