@@ -893,9 +893,17 @@ opacity: 1;
     margin-left: 20px;
 }
 
+.plus_icon{
+  // font-size: 10px;
+}
+
+
 .x_circle_icon{
   // display: none;
 color: #EF2917;
+font-size: 14px;
+
+
 
 }
 
@@ -954,7 +962,7 @@ padding: 0px 20px;
   opacity: 1;
   line-height: normal;
   // margin: 0px 0px 0px 20px;
-  padding: 0px 20px;
+  padding: 0px 10px;
 
   text-align: left;
 font: normal normal normal 14px/24px Lato;
@@ -1280,91 +1288,3 @@ height: 40px;
     }
 
 
-     /////////////////////////////////////////
-    //  .draganddrop_parent{
-    //   height: 350px;
-    //     margin: auto;
-    //     border: 2px dashed #707070;
-    //     border-radius: 5px;
-
-    // }
-
-    // .drag_img{
-    //   margin-top: 100px;
-    //   display: grid;
-    //   align-items: start;
-    //   justify-content: center;
-    //   height: 100px;
-    //   color: #0782d0;
-    //   justify-items: center;
-
-    // }
-
-    // .draganddropinnertext{
-    //   font-size: 18px;
-    //   color: #555A6B;
-    //   text-align: center;
-    //   font: normal normal 900 18px/22px Lato;
-    // }
-
-    // .ngx-file-drop__drop-zone{
-    //   height: 350px;
-    //   margin: auto;
-    //   border: 2px dotted #fff;
-    //   border-radius: 30px ;
-    // }
-    // .ngx-file-drop__content {
-    //   margin-top: 100px ;
-    //   display: grid ;
-    //   align-items: start;
-    //   justify-content: center;
-    //   height: 100px;
-    //   color: #0782d0 ;
-    //   justify-items: center;
-    // }
-
-
-
-
-
-    .draganddrop_parent{
-      height: 350px;
-        margin: auto;
-        border: 2px dashed #707070;
-        border-radius: 5px;
-
-    }
-
-    .drag_img{
-      margin-top: 100px;
-      display: grid;
-      align-items: start;
-      justify-content: center;
-      height: 100px;
-      color: #0782d0;
-      justify-items: center;
-
-    }
-
-    .draganddropinnertext{
-      font-size: 18px;
-      color: #555A6B;
-      text-align: center;
-      font: normal normal 900 18px/22px Lato;
-    }
-
-    .ngx-file-drop__drop-zone{
-      height: 350px !important;
-      margin: auto !important;
-      border: 2px dotted #fff !important;
-      border-radius: 30px !important;
-    }
-    .ngx-file-drop__content {
-      margin-top: 100px !important;
-      display: grid !important;
-      align-items: start !important;
-      justify-content: center !important;
-      height: 100px !important;
-      color: #0782d0 !important;
-      justify-items: center !important;
-    }
