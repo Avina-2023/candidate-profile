@@ -777,15 +777,15 @@
           <ng-container *ngIf="workDetails.skills && workDetails.skills.length > 0">
             <div class="header d-flex justify-content-between mb-1 mt-3  align-items-center"> <h6 >Skills</h6></div>
 
-            <div class="d-flex p-0 skills-wrapper">
+            <div class="d-flex p-0 mb-3 skills-wrapper">
               <div class="mr-2 mt-2 hobbie-name" *ngFor="let skills of workDetails.skills; let i = index">{{skills.skill}}
               </div>
             </div>
           </ng-container>
-          <ng-container *ngIf="workDetails.Employment && workDetails.Employment.length > 0">
             <div class="header d-flex justify-content-between mt-5 mb-1 align-items-center" >
               <h6 class="">Professional Experience</h6>
             </div>
+            <ng-container *ngIf="workDetails.Employment && workDetails.Employment.length > 0; else noWork">
             <div class="row-wrapper mt-3 pb-4" [ngClass]="i == 0 ? 'padding-0' : 'border-wrapper'"
               *ngFor="let work of workDetails.Employment; let i = index">
               <h6 class="pt-2">Employment {{i+1}}</h6>
@@ -888,7 +888,7 @@
           </ng-container>
           <!-- Contant Work details -->
           <ng-container *ngIf="workDetails.workDetails">
-            <div *ngIf="
+            <!-- <div *ngIf="
             workDetails.workDetails &&
             workDetails.workDetails[form_break_in_emp]
           " class="row-wrapper mt-0" class="border-wrapper">
@@ -899,9 +899,9 @@
                   {{ workDetails.workDetails[form_break_in_emp] }}
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <ng-container *ngIf="
+            <!-- <ng-container *ngIf="
             workDetails.workDetails &&
             workDetails.workDetails[form_employed_us]
           ">
@@ -925,9 +925,9 @@
                   </div>
                 </div>
               </div>
-            </ng-container>
+            </ng-container> -->
 
-            <ng-container *ngIf="
+            <!-- <ng-container *ngIf="
             workDetails.workDetails &&
             workDetails.workDetails[form_interviewed_by_us]
           ">
@@ -956,12 +956,12 @@
                   </div>
                 </div>
               </div>
-            </ng-container>
+            </ng-container> -->
           </ng-container>
 <!--Articleship/Training-->
           <ng-container
             *ngIf="workDetailsAlldata && workDetailsAlldata[this.form_training_Array] && workDetailsAlldata[this.form_training_Array].length > 0">
-            <div class="header d-flex mt-4 justify-content-between mb-1 align-items-center" >
+            <div class="header d-flex mt-1 justify-content-between mb-1 align-items-center" >
               <h6 >Articleship/Training Details</h6>
             </div>
             <div class="row-wrapper mt-4" [ngClass]="i == 0 ? 'padding-0' : 'border-wrapper'"
@@ -2123,7 +2123,7 @@
   <div class="nodata">No Dependent Details Available</div>
 </ng-template>
 <ng-template #noWork>
-  <div class="nodata">No Work Experience Details Available</div>
+  <div class="nodata mt-4">No Professional Experience Details Available</div>
 </ng-template>
 <ng-template #noArticleshipTraining>
   <div class="nodata">No Articleship/Training Details Available</div>
@@ -2132,16 +2132,16 @@
   <div class="nodata">No Hobbies Details Available</div>
 </ng-template>
 <ng-template #noproject>
-  <div class="nodata">No Project Details Available</div>
+  <div class="nodata mt-4">No Project Details Available</div>
 </ng-template>
 <ng-template #noAwards>
-  <div class="nodata">No Awards Details Available</div>
+  <div class="nodata mt-4">No Awards Details Available</div>
 </ng-template>
 <ng-template #noJournalEntry>
-  <div class="nodata">No Journal Entry Details Available</div>
+  <div class="nodata mt-4">No Journal Entry Details Available</div>
 </ng-template>
 <ng-template #noCertification>
-  <div class="nodata">No Certification Details Available</div>
+  <div class="nodata mt-4">No Certification Details Available</div>
 </ng-template>
 <ng-template #noContact>
   <div class="nodata">No Contact Details Available</div>

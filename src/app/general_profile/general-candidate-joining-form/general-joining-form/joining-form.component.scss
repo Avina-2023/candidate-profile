@@ -471,15 +471,15 @@ height: 800px;
 }
 .crop-popup {
   .content {
-    min-height: 33.3vh;
+    min-height: 45.3vh;
   }
   .noprfl{
-    height: 230px;
+    height: 270px;
     background-color: #0000003b;
     display: flex;
     justify-content: space-around;
     .noPrflImg{
-      height: 230px;
+      height: 270px;
 
     }
   }
@@ -493,6 +493,8 @@ height: 800px;
     padding: 15px;
     font-size: 20px;
     font-weight: 500;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
   }
   .add-image {
     padding: 0 1em;
@@ -574,15 +576,15 @@ height: 800px;
     display: grid;
     justify-content: center;
     position: relative;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-bottom: 1px solid #d4d4d4;
     // top: 50px;
     // left: 20px;
   }
   .note{
-    padding-top: 35px;
-    padding-left: 40px;
+    padding-top: 28px;
+    padding-left: 47px;
     padding-right: 10px;
     display: flex;
     color:#294D96;
