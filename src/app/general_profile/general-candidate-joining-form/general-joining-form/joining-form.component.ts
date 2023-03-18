@@ -313,10 +313,21 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 }
 
  fileChangeEvent(event: any): void {
-
-  this.imageChangedEvent = event;
-  // this.imageChangedEvent = this.profilePicture.file_path;
+  if (event.target.files && (event.target.files[0].type.includes('image/png') || event.target.files[0].type.includes('image/jpeg')) && !event.target.files[0].type.includes('svg')) {
+    if (event.target.files[0].size < 2000000) {
+      if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
+       this.imageChangedEvent = event;
+      }
+    }
+  else {
+    this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
+   }
+  }
+  else {
+    return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PNG/JPEG files only');
+  }
 }
+
 getAllPermanentCities(id, cityId, callback) {
   const ApiData = {
     state_id: id
