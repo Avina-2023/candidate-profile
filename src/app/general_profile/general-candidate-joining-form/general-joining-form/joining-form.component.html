@@ -6,7 +6,7 @@
   <div *ngIf="!hideStepper" class="stepper">
     <div class="profileExpansion">
       <div class="exheader">
-        <div class="profileStatus"> <p>Active</p> </div>
+        <div [ngClass]="!expand? 'profileStatus' : 'profileStatusexp'" > <p>Active</p> </div>
         <button [ngClass]="!expand? 'rotate' : 'rotate.down '" [disableRipple]="true"  mat-icon-button (click)="expand = !expand"><mat-icon  [ngClass]="!expand? 'rotate' : 'rotate down '" >keyboard_arrow_down</mat-icon></button>
       </div>
       <div class="notexpand" *ngIf="!expand">
@@ -114,8 +114,74 @@
       <div class="expand" *ngIf="expand">
         <div class="photo-wrapper">
           <div class="avatar">
-            <div class="photo urlExist">
-                <img class="photo" [src]="cadidatefinalimage" alt="">
+            <div class="photo">
+              <div *ngIf="!profilePicture.file_path && !cadidatefinalimage" >
+                <img class="maskGroup" src="assets/images/candidateprofile/MaskGroup.png" alt="">
+            </div>
+              <div *ngIf="profilePicture && profilePicture.file_path" matTooltip="Remove Photo"
+                matTooltipPostion="after" (click)="delete()" class="remove">
+                <img src="assets/images/cancel-black-36dp.svg" alt="" srcset="">
+              </div>
+              <div *ngIf="profilePicture && profilePicture.file_path" matTooltip="Change profile image"
+                matTooltipPostion="after" (click)="open()" id="upload" class="changeprofile">
+                <img [src]="'assets/images/MaskGroup1.png'" alt="">
+              </div>
+              <label [ngClass]="profilePicture && profilePicture.file_path ? 'hoverable' : 'hoverable1'  ">
+                <ng-container *ngIf="!profilePicture.file_path">
+                  <div (click)="open()" class="changeprofile" style="cursor: pointer;">
+                    <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="cadidatefinalimage ">
+                  <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="removeData($event)" class="remove">
+                    <i class="icon-BinDelete pointer binIcon ag-icon-font-size"></i>
+                  </div>
+                  <div  matTooltip="Change profile image"
+                matTooltipPostion="after" (click)="open()"  class="changeprofile">
+                <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
+              </div>
+                  <div class="urlExist">
+                    <img [src]="cadidatefinalimage" alt="">
+                  </div>
+                </ng-container>
+              </label>
+              <ng-template #matDialog1>
+                <div class="crop-popup">
+                  <div class="popUpHead mb-0" mat-dialog-title>
+                    <div class="heading">Select User Image</div>
+                    <!-- <mat-icon mat-dialog-close>close</mat-icon> -->
+                  </div>
+                  <mat-dialog-content class="md-content m-0 p-0">
+                    <div class="content">
+                      <div class="noprfl" *ngIf="!imageChangedEvent">
+                        <img class="noPrflImg" src="assets/images/candidateprofile/noProfile.png" alt="">
+                      </div>
+                      <div *ngIf="imageChangedEvent">
+                        <image-cropper class="backgim" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
+                        (loadImageFailed)="loadImageFailed()"></image-cropper>
+                      </div>
+                    </div>
+                  </mat-dialog-content>
+                  <div class="alignment">
+                    <span class="uploadbutton">
+                      <label for="upload" style="  cursor: pointer;position: relative;top: -2px;"
+                        class="upload p-1 mb-0"> Upload New Image </label>
+                      <input class="file-input"
+                        [matTooltip]="profilePicture && profilePicture.file_path ? 'Click to Change Photo' : 'No File Chosen'"
+                         matTooltipPostion="left" title="" id="upload" #files type='file'
+                        name="profile" accept="image/*" (change)="fileChangeEvent($event)" /></span>
+                  </div>
+                  <div class="action" mat-dialog-actions>
+                    <button class="confirm btn" mat-button [disabled]="IsToFeildEnable" (click)="onSelectFile(croppedImage)">save </button>
+                    <button class="cancel" mat-button  [mat-dialog-close]="true">Cancel </button>
+                  </div>
+                  <div class="note">
+                    <label>Note:&nbsp;</label>.JPEG and .PNG format only supported. Maximum upload size is 2MB
+                  </div>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>

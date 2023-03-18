@@ -241,6 +241,26 @@ height: 800px;
   border-radius: 0px 0px 24px 0px;
   color: #ffffff;
   font-size: 14px;
+  margin-left: 12px;
+  -moz-transition: all .3s linear;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+  p{
+    padding: 3px;
+    padding-left: 22px;
+  }
+}
+
+.profileStatusexp{
+  width: 93px;
+  height: 27px;
+  background: #49ae31 0% 0% no-repeat padding-box;
+  border-radius: 0px 0px 24px 0px;
+  color: #ffffff;
+  font-size: 14px;
+  -moz-transition: all .3s linear;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
   p{
     padding: 3px;
     padding-left: 22px;
@@ -251,6 +271,9 @@ height: 800px;
   // margin-top: 2em;
   background-color: #ffffff;
   border: solid 1px #c8ced5;
+  // -moz-transition: all .5s linear;
+  // -webkit-transition: all .5s linear;
+  // transition: all .5s linear;
   .exheader {
     display: flex;
     justify-content: space-between;
@@ -293,6 +316,7 @@ height: 800px;
   display: flex;
   align-items: center;
   flex-direction: column;
+
   .notexpanddetails {
     width: 70%;
     display: flex;
@@ -402,6 +426,8 @@ height: 800px;
           width: 100px;
           height: 100px;
           border-radius: 50%;
+          padding: 2px;
+          box-shadow: 0px 0px 6px #00000029;
         }
       }
       .icon {
