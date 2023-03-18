@@ -781,23 +781,17 @@ form_projectDescription = 'projectDescription';
         intern: data && data.intern ? data.intern : [],
         // bgvDetails: data && data.bgv_details ? data.bgv_details : null,
         relatives: data && data[this.form_Relatives_Array] && data[this.form_Relatives_Array].length > 0 ? data[this.form_Relatives_Array] : null,
-        skills: null,
+        // skills: data && data[this.form_Skills_Array] && data[this.form_Skills_Array].length > 0 ? data[this.form_Skills_Array] : null,
+        skills:null,
         faculty: data && data['faculty_references'] && data['faculty_references'].length > 0 ? data['faculty_references'] : null,
       }
-        if((data && data[this.form_Skills_Array]?.length)){
-          if( data[this.form_Skills_Array][0].skill){
-            console.log(data[this.form_Skills_Array],'new');
-            work.skills = data[this.form_Skills_Array]
-          }else{
-            work.skills =  [];
-            data[this.form_Skills_Array].forEach(element => {
-            work.skills.push({
-              skill:element[this.form_Skill],
-              skilllevel_selected:element[this.form_skilllevel_selected]
-            });
-           });
-          }
-      }
+      if((data && data[this.form_Skills_Array]?.length)){
+        if( data[this.form_Skills_Array][0].skill){
+          work.skills = data[this.form_Skills_Array]
+        }else{
+          work.skills =  data[this.form_Skills_Array];
+        }
+    }
       this.workDetails = work;
       this.patchWorkDetails();
       // this.patchingCriminal();

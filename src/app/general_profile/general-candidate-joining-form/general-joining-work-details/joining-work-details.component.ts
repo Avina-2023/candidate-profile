@@ -497,7 +497,6 @@ check: any;
         [this.form_Skill]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
         [this.form_skilllevel_selected]: ['Novice', [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
       })
-
     }
   }
 
