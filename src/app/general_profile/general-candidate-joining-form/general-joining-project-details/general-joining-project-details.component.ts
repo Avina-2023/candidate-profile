@@ -111,25 +111,19 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
    }
 
    getProjectApiDetails() {
-    console.log(this.candidateService.getLocalProfileData());
-
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.projectDetails = this.candidateService.getLocalproject_details().projects;
       this.projectDetails && this.projectDetails.length >0 ? this.ifProjectDetails() : this.ifNotProjectDetails();
-      console.log(this.projectDetails,'projectDetails');
     } else {
     }
   }
   ifProjectDetails() {
     this.patchProjectForm();
-    console.log('yes');
-
   }
   ifNotProjectDetails() {
     this.projectDetails = [];
       this.getprojectArr.push(this.initProjectArray());
-      console.log('no');
     }
 
   // removeProjectArray(i) {
@@ -224,8 +218,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     this.projectDetails.forEach((element, i) => {
       this.getprojectArr.push(this.patchingProjectdetails(element, i));
     });
-    console.log(this.getprojectArr);
-
   }
   patchingProjectdetails(data, i){
     return this.fb.group({
@@ -300,8 +292,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
         [this.form_projectArray]: rawprojectFormValue[this.form_projectArray],
 
       };
-      console.log(projectobj,'projectobj');
-
       const ProjectApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "project_details",
@@ -323,8 +313,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.projectForm);
     }
-    console.log(this.projectForm,'projectForm');
-
   }
 
    saveRequestRxJs() {

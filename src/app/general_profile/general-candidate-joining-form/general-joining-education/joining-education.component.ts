@@ -609,7 +609,6 @@ validSelectedPost() {
       // let entryValid = this.validSelectedPost();
       // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
-        console.log(formArray,'formArray');
         const EducationApiRequestDetails = {
           email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
           section_name: "education_details",
@@ -619,13 +618,10 @@ validSelectedPost() {
                       educations: formArray
           }
         };
-        console.log(formArray,'educations');
-
        this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(EducationApiRequestDetails).subscribe((data: any)=> {
         this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-        console.log(data.data.saved_data,'');
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
@@ -641,8 +637,6 @@ validSelectedPost() {
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
     }
-console.log(this.getEducationArr.controls.length-1,'educationForm');
-
   }
 
   saveRequestRxJs() {
@@ -686,15 +680,9 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
     });
     this.setValidations( );
     this.edugapValidation();
-    console.log(this.educationDetails,'educationDetails');
-
-    console.log(this.getEducationArr,' this.getEducationArr');
-
   }
 
   patching(data, i) {
-    console.log(data,'patching');
-
     return this.fb.group({
       [this.form_qualification_type]: [{ value: data[this.form_qualification_type], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_qualification]: [{ value: data[this.form_qualification], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
@@ -712,9 +700,9 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
 
       [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false },[Validators.required]],
       // [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
-      [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
-      [this.form_Finalcgpa]: [{ value: data[this.form_Finalcgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
-      [this.form_cgpercentage]: [{ value: data[this.form_cgpercentage], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
+      [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
+      [this.form_Finalcgpa]: [{ value: data[this.form_Finalcgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
+      [this.form_cgpercentage]: [{ value: data[this.form_cgpercentage], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
       [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_gap]:[ (data[this.form_gap] && data[this.form_gap] == 'true')  ? 'true' : 'false' ],
       [this.isHighLevelEdu]:[  data[this.isHighLevelEdu] ],
@@ -748,7 +736,6 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
     })
   }
   eduLevel(e, i) {
-    console.log(e.checked,'e.checked');
     if (e.checked) {
       this.check = true
     } else {
@@ -761,10 +748,6 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
   this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
   this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].setValidators([Validators.required,this.glovbal_validators.alphaNum255() ],{ emitEvent: false });
     }if(event.value == 'false'){
-        console.log(this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog]);
-        console.log(this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog]);
-        console.log(this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog]);
-
         this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValue(null);
         this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValue(null);
         this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].setValue(null);
@@ -876,7 +859,6 @@ console.log(this.getEducationArr.controls.length-1,'educationForm');
 
     }
     if(element['controls'][this.form_gap]['value'] == 'false'){
-      console.log(element['controls'][this.form_historyOfbacklog]);
 
       element['controls'][this.form_historyOfbacklog].setValue(null);
       element['controls'][this.form_noActivebacklog].setValue(null);

@@ -269,7 +269,6 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.email = localStorage.getItem('userEmail');
     this.name = localStorage.getItem('username');
     this.msgData.getMessage().subscribe((data)=>{
-      console.log(data,'data');
       if(data.head=='gender'&& data.value !="" && data.value != undefined){
         if (data.value && this.productionUrl == true) {
           this.gender=data.value + environment.blobToken
@@ -303,7 +302,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
  open(){
   const dialogRef = this.matDialog.open(this.matDialogRef1, {
     width: '375px',
-    height: '520px',
+    // height: '530px',
     panelClass: 'matDialog',
     autoFocus: false,
     closeOnNavigation: true,
@@ -314,10 +313,21 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 }
 
  fileChangeEvent(event: any): void {
-
-  this.imageChangedEvent = event;
-  // this.imageChangedEvent = this.profilePicture.file_path;
+  if (event.target.files && (event.target.files[0].type.includes('image/png') || event.target.files[0].type.includes('image/jpeg')) && !event.target.files[0].type.includes('svg')) {
+    if (event.target.files[0].size < 2000000) {
+      if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
+       this.imageChangedEvent = event;
+      }
+    }
+  else {
+    this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
+   }
+  }
+  else {
+    return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PNG/JPEG files only');
+  }
 }
+
 getAllPermanentCities(id, cityId, callback) {
   const ApiData = {
     state_id: id
@@ -377,8 +387,6 @@ getprofileimageFromLocal(){
   } else if (this.cadidatefinalimage && this.productionUrl == false) {
     this.cadidatefinalimage = this.cadidatefinalimage
   }
-  console.log(this.cadidatefinalimage,'this.cadidatefinalimagethis.cadidatefinalimage');
-
   this.gender = candyprofileimage.personal_details.gender;
   this.addressCity = candyprofileimage.contact_details.permanent_city;
   this.addressState = candyprofileimage.contact_details.present_state;
@@ -483,7 +491,6 @@ removeData(event) {
     if (this.imageChangedEvent.target.files && (this.imageChangedEvent.target.files[0].type.includes('image/png') || this.imageChangedEvent.target.files[0].type.includes('image/jpeg')) && !this.imageChangedEvent.target.files[0].type.includes('svg')) {
       if (this.imageChangedEvent.target.files[0].size < 2000000) {
         if (this.appConfig.minImageSizeValidation(this.imageChangedEvent.target.files[0].size)) {
-          console.log(this.IsToFeildEnable);
         // let image = this.croppedImage target.files[0].name;
         // let image = Buffer.from(this.croppedImage, "base64");
         fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
@@ -517,10 +524,6 @@ removeData(event) {
 
         };
         this.msgData.sendMessage("profileImageChange",this.profilePicture.file_path)
-        console.log(this.profilePicture.file_path,'this.profileImage');
-        console.log(this.profilePicture,'jhbjhb ');
-
-        // if (data && data.data && data.data.length) {
 
         // }else{
         //   this.profilePicture = {

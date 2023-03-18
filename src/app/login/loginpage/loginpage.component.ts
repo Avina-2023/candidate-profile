@@ -116,7 +116,6 @@ export class LoginpageComponent implements OnInit {
         this.skillexService.login(apiData).subscribe((data:any)=> {
           if(data.success)
           {
-            console.log(data,'datadatadatadata');
 
           this.appConfig.setLocalData('userId', data && data.data.userId ? data.data.userId : '');
           this.appConfig.setLocalData('userEmail', data && data.data.email ? data.data.email : '');

@@ -320,7 +320,6 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     const index = this.hobbies.indexOf(hobbie);
     if (index >= 0) {
       this.hobbies.splice(index, 1);
-      console.log(this.hobbies.length,'this.hobbies.length');
     }
     if(this.hobbies && this.hobbies.length == 0){
          this.personalForm.controls[this.form_hobbies_intrest].reset();
@@ -542,8 +541,6 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-        console.log(data.data.saved_data.gender,'data.data.saved_data.gender');
-
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Personal details is updated');
         this.msgData.sendMessage("gender",data.data.saved_data.gender)
         this.sharedService.joiningFormStepperStatus.next();
@@ -560,8 +557,6 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.personalForm);
     }
-    console.log(this.personalForm,'personalForm');
-
   }
 
 
@@ -626,7 +621,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
 
 
     } catch (e) {
-      console.log("error while profile pic"+e)
+      // console.log("error while profile pic"+e)
       this.profilePicture.file_path ? this.profilePictureFormControl.markAsTouched() : this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -673,7 +668,6 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     if(this.personalDetails[this.form_hobbies_intrest]?.length) {
       this.hobbies = this.personalDetails[this.form_hobbies_intrest];
       if(this.personalDetails[this.form_hobbies_intrest].length > 0){
-        console.log(this.personalDetails[this.form_hobbies_intrest].length,'this.personalDetails.controls[this.form_hobbies_intrest]');
         this.personalForm.controls[this.form_hobbies_intrest].clearValidators();
       }
     }
@@ -735,8 +729,6 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     this.patchLanguageForm();
     this.checkIsMarried();
     // this.checkPhysicalDisability();
-    console.log( this.personalForm,' this.checkPhysicalDisability();');
-
   }
 
   patchLanguageForm() {
@@ -797,7 +789,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_religion]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_caste]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_category]: [null, [Validators.required]],
-      [this.form_blood_group]: [null, [Validators.required]],
+      [this.form_blood_group]: [null],
       // [this.form_father_name]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_emergency_contact]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.mobileRegex()]],
       [this.form_mobile]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.mobileRegex()]],
