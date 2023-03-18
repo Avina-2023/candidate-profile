@@ -302,7 +302,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
  open(){
   const dialogRef = this.matDialog.open(this.matDialogRef1, {
     width: '375px',
-    height: '520px',
+    // height: '530px',
     panelClass: 'matDialog',
     autoFocus: false,
     closeOnNavigation: true,

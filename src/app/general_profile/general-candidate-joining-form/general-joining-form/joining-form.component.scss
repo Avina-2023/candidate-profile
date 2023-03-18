@@ -471,7 +471,7 @@ height: 800px;
 }
 .crop-popup {
   .content {
-    min-height: 45.3vh;
+    // min-height: 45.3vh;
   }
   .noprfl{
     height: 270px;
@@ -586,6 +586,7 @@ height: 800px;
     padding-top: 28px;
     padding-left: 47px;
     padding-right: 10px;
+    padding-bottom: 20px;
     display: flex;
     color:#294D96;
     font-size: 14px;
