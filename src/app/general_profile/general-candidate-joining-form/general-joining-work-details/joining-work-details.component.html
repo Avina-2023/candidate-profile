@@ -70,8 +70,7 @@
         </div>
         <div class="skills-add mt-3 mb-3" *ngIf="getSkillsArr && getSkillsArr.controls && getSkillsArr.controls.length < 10">
           <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
-            (click)="addSkills()">+
-            Add More Skills</button>
+            (click)="addSkills()">+ Add More Skills</button>
       </div>
         <div class="divcard">
           <h5 class="h mb-0" >Employment Details</h5>
@@ -116,7 +115,7 @@
           </div>
         <ng-container *ngIf="getEmploymentArr && getEmploymentArr.controls" [formArrayName]="form_Employment_Array">
           <ng-container *ngFor="let item of getEmploymentArr.controls; let i = index;" [formGroupName]="i">
-            <div class="container-wrapper mb-3 mt-0 flex-container pt-3  pl-4 pr-4  pb-4 justify-content-between align-items-center">
+            <div class="container-wrapper mb-0 mt-0 flex-container pt-3  pl-4 pr-4  pb-4 justify-content-between align-items-center">
               <div class="form-grouping w-100">
                 <div class="d-flex justify-content-between">
                   <h6>Employment{{i+1}}</h6>
@@ -357,10 +356,9 @@
 </div>
           </ng-container>
           <div class="row-wrapper mt-3">
-            <div *ngIf="!this.check" class="skills-add">
+            <div *ngIf="!this.check" class="skills-add mt-3 mb-3">
               <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
-                (click)="addToEmploymentArray(i)">+
-                Add</button>
+                (click)="addToEmploymentArray(i)">+ Add More Employment</button>
             </div>
           </div>
         </ng-container>
@@ -524,10 +522,9 @@
 
         <div *ngIf="getTrainingArr && getTrainingArr.controls && getTrainingArr.controls.length < 4 "
           class="row-wrapper mt-3">
-          <div class="skills-add">
+          <div class="skills-add ">
             <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
-              (click)="addToTrainingArray()">+
-              Add</button>
+              (click)="addToTrainingArray()">+ Add More Articleship</button>
           </div>
         </div>
 
