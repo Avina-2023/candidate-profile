@@ -199,7 +199,7 @@
                       </div>
                     </div>
                     <div class="form-error"
-                      *ngIf="getawardsArr.controls[i].get(form_award_date).invalid && getawardsArr.controls[i]?.get(form_award_date).touched">
+                      *ngIf="getawardsArr.controls[i]?.get(form_award_date).invalid && getawardsArr.controls[i]?.get(form_award_date).touched">
                       <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_date)?.errors?.required">
                         Awarded Date is Required</div>
                       <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_date)?.errors?.matDatepickerMax">

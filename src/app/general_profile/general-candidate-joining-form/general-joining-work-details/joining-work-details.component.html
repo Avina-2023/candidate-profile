@@ -21,9 +21,9 @@
               <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                   <mat-expansion-panel-header class="pt-3 heigh pb-3">
-                    <mat-panel-title >
-                      {{getSkillsArr.controls[i].get(form_Skill).value}}<br>
-                      {{getSkillSelection(i)}}
+                    <mat-panel-title class="skill-title" >
+                      <div class="bold-skill">{{getSkillsArr.controls[i].get(form_Skill).value}}</div>
+                      <div>{{getSkillSelection(i)}}</div>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div class="d-flex" >

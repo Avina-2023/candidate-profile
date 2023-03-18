@@ -337,9 +337,12 @@ check: any;
 
     //skillarray
     if (this.workDetailsAllData && this.workDetailsAllData[this.form_Skills_Array] && this.workDetailsAllData[this.form_Skills_Array].length > 0) {
+
       this.getSkillsArr.clear();
+      console.log(this.workDetailsAllData[this.form_Skills_Array],"lol");
+
       this.workDetailsAllData[this.form_Skills_Array].forEach((element, i) => {
-        // console.log(this.getSkillsArr,'element');
+        console.log(this.getSkillsArr,'element');
         element ? this.getSkillsArr.push(this.SkillsArrayPatch(element,i,)) : '';
       });
     }
@@ -480,6 +483,10 @@ check: any;
 
   SkillsArrayPatch(data,i) {
     // this.workSkill = this.getSkillsArr.controls[0].value.skill
+    // return this.fb.group({
+    //   [this.form_Skill]: [data [this.form_Skill], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+    //   [this.form_skilllevel_selected]: [data[this.form_skilllevel_selected], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+    // })
     if(data && data.skill){
       return this.fb.group({
         [this.form_Skill]: [data [this.form_Skill], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
@@ -487,8 +494,10 @@ check: any;
       })
     }else {
       return this.fb.group({
-        [this.form_Skill]: [data [this.form_Skill], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+        [this.form_Skill]: [data, [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+        [this.form_skilllevel_selected]: ['Novice', [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
       })
+
     }
   }
 

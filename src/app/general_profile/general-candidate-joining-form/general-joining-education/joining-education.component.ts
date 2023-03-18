@@ -700,9 +700,9 @@ validSelectedPost() {
 
       [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false },[Validators.required]],
       // [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
-      [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
-      [this.form_Finalcgpa]: [{ value: data[this.form_Finalcgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
-      [this.form_cgpercentage]: [{ value: data[this.form_cgpercentage], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(5)]],
+      [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
+      [this.form_Finalcgpa]: [{ value: data[this.form_Finalcgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
+      [this.form_cgpercentage]: [{ value: data[this.form_cgpercentage], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
       [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_gap]:[ (data[this.form_gap] && data[this.form_gap] == 'true')  ? 'true' : 'false' ],
       [this.isHighLevelEdu]:[  data[this.isHighLevelEdu] ],

@@ -80,15 +80,15 @@
               </div>
             </div>
 
-            <div class="overall-input-wrapper mt-3 width-32">
+            <!-- <div class="overall-input-wrapper mt-3 width-32">
               <label>Caste<span></span></label>
               <div class="inpu-preview size-14 bold-700 color-black">
                 {{ personalDetailsMap[form_caste] }}
               </div>
-            </div>
+            </div> -->
 
             <div class="overall-input-wrapper mt-3 width-32">
-              <label>Caste Category<span></span></label>
+              <label>Community<span></span></label>
               <div class="inpu-preview size-14 bold-700 color-black">
                 {{ personalDetailsMap[form_category] }}
               </div>
@@ -726,11 +726,11 @@
                   </div>
                 </ng-container>
               </ng-container>
-              <div
+              <!-- <div
                 *ngIf="education[form_qualification_type] && education[form_qualification_type] == 'CA' && (educationDetailsAllData && educationDetailsAllData.ca_bothgroup_status) && i == checkLastIndexOfCA()"
                 class="overall-input-wrapper mt-3 width-100">
                 <label>Note: I have cleared both the groups together in one sitting.</label>
-              </div>
+              </div> -->
 
             </div>
 
@@ -848,13 +848,13 @@
                 <div class="overall-input-wrapper mt-3 width-20">
                   <label>Duration From</label>
                   <div class="inpu-preview size_16 bold-700 color-black">
-                    {{ dateConvertion(work[form_duration_from]) }}
+                    {{ dateConvertion(work[form_duration_from]) | date : 'MMM y' }}
                   </div>
                 </div>
                 <div *ngIf="work[form_isWorkingHere] != true" class="overall-input-wrapper mt-3 width-20">
                   <label>Duration To</label>
                   <div class="inpu-preview size_16 bold-700 color-black">
-                    {{ dateConvertion(work[form_duration_to]) }}
+                    {{ dateConvertion(work[form_duration_to]) | date : 'MMM y' }}
                   </div>
                 </div>
                 <div *ngIf="work[form_isWorkingHere] == true" class="overall-input-wrapper mt-3  width-100">
@@ -980,14 +980,14 @@
                 <div class="overall-input-wrapper mt-3 width-20">
                   <label>Period From</label>
                   <div class="inpu-preview size_16 bold-700 color-black">
-                    {{ dateConvertion(training[form_training_from_date]) }}
+                    {{ dateConvertion(training[form_training_from_date]) | date : 'MMM y' }}
                   </div>
                 </div>
 
                 <div class="overall-input-wrapper mt-3 width-20">
                   <label>Period To</label>
                   <div class="inpu-preview size_16 bold-700 color-black">
-                    {{ dateConvertion(training[form_training_to_date]) }}
+                    {{ dateConvertion(training[form_training_to_date]) | date : 'MMM y' }}
                   </div>
                 </div>
               </div>
@@ -1031,7 +1031,7 @@
             </div>
           </ng-container> -->
 
-          <ng-container
+          <!-- <ng-container
             *ngIf="workDetailsAlldata[this.form_ca_achivement] || workDetailsAlldata[this.form_is_ca_resaon_suitable]">
             <div class="row-wrapper mt-0">
               <div *ngIf="workDetailsAlldata[this.form_ca_achivement]" class="overall-input-wrapper width-50 padding-1">
@@ -1050,10 +1050,10 @@
 
             </div>
 
-          </ng-container>
+          </ng-container> -->
 
 
-          <ng-container *ngIf="workDetails.relatives && workDetails.relatives.length > 0">
+          <!-- <ng-container *ngIf="workDetails.relatives && workDetails.relatives.length > 0">
             <div class="subDocumentTitle">Relatives / Acquaintances in {{customerName}} group of companies</div>
             <div class="row-wrapper mt-0 pb-4" [ngClass]="i == 0 ? 'padding-1' : 'border-wrapper'"
               *ngFor="let relatives of workDetails.relatives; let i = index">
@@ -1087,9 +1087,9 @@
                 </div>
               </div>
             </div>
-          </ng-container>
+          </ng-container> -->
 
-          <ng-container *ngIf="workDetails.faculty && workDetails.faculty.length > 0">
+          <!-- <ng-container *ngIf="workDetails.faculty && workDetails.faculty.length > 0">
             <div class="subDocumentTitle">Faculty References</div>
             <div class="row-wrapper mt-0">
               <div *ngFor="let faculty of workDetails.faculty; let i = index"
@@ -1101,7 +1101,7 @@
               </div>
             </div>
 
-          </ng-container>
+          </ng-container> -->
 
         </ng-container>
       </div>
@@ -1205,13 +1205,13 @@
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Certification Validity from</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    {{ dateConvertion(certification[form_certification_validityFrom])}}
+    {{ dateConvertion(certification[form_certification_validityFrom]) | date : 'MMM y'}}
   </div>
 </div>
 <div *ngIf="certification[form_isexpire] != true" class="overall-input-wrapper mt-3 width-32">
   <label>Certification Validity upto</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    {{ dateConvertion(certification[form_certification_validityUpto])}}
+    {{ dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto])| date : 'MMM y' ):'NIL'}}
   </div>
 </div>
 <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100" >
@@ -1259,7 +1259,7 @@
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Published On</label>
   <div class="inpu-preview size-16 bold-700 color-black">
-    {{ journalEntry[form_journalEntity_publishedOn] }}
+    {{ dateConvertion(journalEntry[form_journalEntity_publishedOn]) | date : 'MMM y' }}
   </div>
 </div>
 <div class="overall-input-wrapper mt-3 width-32">
@@ -1295,7 +1295,6 @@
               *ngFor="let document of documentDetails.resume; let i = index">
               <div class="row-wrapper mt-0" style="align-items: flex-end;">
                 <div class="overall-input-wrapper  align-items-center mt-0 width-32">
-
                   <label>Uploaded Resume</label>
                   <div class="inpu-preview d-flex  width-50 size-14 bold-700 color-black">
                     <div class="inpu-preview d-flex bgupload width-20 size-14 bold-700 color-black" >
@@ -1311,9 +1310,7 @@
                       </button>
                     </span>
                     </div>
-
                   </div>
-
                 </div>
 
                 <!-- <div class="overall-input-wrapper mt-0 width-32">
@@ -1335,7 +1332,7 @@
                 </div> -->
 
 
-                <div *ngIf="!document[form_file_path]" class="overall-input-wrapper mt-0 width-19">
+                <!-- <div *ngIf="!document[form_file_path]" class="overall-input-wrapper mt-0 width-19">
                   <button class="add-button yet-to-submit" [matTooltip]="
                             document[form_expectedDate]
                               ? 'Expected to be submitted within ' +
@@ -1344,13 +1341,13 @@
                           " mat-raised-button type="button">
                     Yet to Submit
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </ng-container>
           <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm">
             <!-- Joining -->
-             <ng-container *ngIf="
+             <!-- <ng-container *ngIf="
             documentDetails.joining_details &&
             documentDetails.joining_details.length > 0
           ">
@@ -1407,10 +1404,10 @@
                   </div>
                 </div>
               </div>
-            </ng-container>
+            </ng-container> -->
 
             <!-- Banking -->
-            <ng-container *ngIf="
+            <!-- <ng-container *ngIf="
             documentDetails.banking_details &&
             documentDetails.banking_details.length > 0
           ">
@@ -1490,10 +1487,10 @@
                   </div>
                 </div>
               </div>
-            </ng-container>
+            </ng-container> -->
 
             <!-- Transfer -->
-             <ng-container *ngIf="
+             <!-- <ng-container *ngIf="
             documentDetails.transfer_certificate &&
             documentDetails.transfer_certificate.length > 0
           ">
@@ -1550,12 +1547,12 @@
                   </div>
                 </div>
               </div>
-            </ng-container>
+            </ng-container> -->
           </ng-container>
           <ng-container
             *ngIf="(candidateService.checkKycOrJoiningForm() && !currentForm) || (documentDetails.education_documents && documentDetails.education_documents.length > 0)">
             <!-- Education -->
-             <ng-container *ngIf="
+             <!-- <ng-container *ngIf="
             documentDetails.education_documents &&
             documentDetails.education_documents.length > 0
           ">
@@ -1621,12 +1618,12 @@
                 </ng-container>
               </ng-container>
               <ng-container *ngIf="selectedPost == 'ca'" [ngTemplateOutlet]="caCertificationsPreview"></ng-container>
-            </ng-container>
+            </ng-container> -->
           </ng-container>
 
           <ng-container *ngIf="selectedPost != 'ca'" [ngTemplateOutlet]="caCertificationsPreview"></ng-container>
           <!-- Certifications -->
-           <ng-template #caCertificationsPreview>
+           <!-- <ng-template #caCertificationsPreview>
             <ng-container *ngIf="
             documentDetails.certifications &&
             documentDetails.certifications.length > 0
@@ -1685,10 +1682,10 @@
                 </div>
               </div>
             </ng-container>
-          </ng-template>
+          </ng-template> -->
 
           <!-- Other uploads -->
-           <ng-container *ngIf="
+           <!-- <ng-container *ngIf="
             documentDetails.other_certifications &&
             documentDetails.other_certifications.length > 0
           ">
@@ -1745,7 +1742,7 @@
                 </div>
               </div>
             </div>
-          </ng-container>
+          </ng-container> -->
         </ng-container>
       </div>
 

@@ -248,7 +248,7 @@ this.setAwardArrValidation();
   [this.form_certification_name]: [data[this.form_certification_name], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
   [this.form_certification_issuedFrom]: [data[this.form_certification_issuedFrom], [Validators.required]],
   [this.form_certification_description]: [data[this.form_certification_description], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-  [this.form_certification_validityFrom]: [data[this.form_certification_validityFrom], [ Validators.required, this.startTrue(true)]],
+  [this.form_certification_validityFrom]: [this.dateConvertion(data[this.form_certification_validityFrom]), [ Validators.required, this.startTrue(true)]],
   [this.form_certification_validityUpto]: [this.dateConvertion(data[this.form_certification_validityUpto]), [Validators.required, this.startTrue(true)]],
 [this.form_isexpire]:[data[this.form_isexpire]?data[this.form_isexpire]: false]
  })
@@ -256,7 +256,7 @@ this.setAwardArrValidation();
   patchingAwards(data, i){
      return this.fb.group({
       [this.form_award_title]: [data[this.form_award_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_award_date]: [data[this.form_award_date], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_award_date]: [this.dateConvertion(data[this.form_award_date]), [RemoveWhitespace.whitespace(), Validators.required,, this.startTrue(true)]],
  })
   }
   patchingjournalentry(data, i){
@@ -452,7 +452,7 @@ this.setAwardArrValidation();
   initawardsArray(){
     return this.fb.group({
       [this.form_award_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
-      [this.form_award_date]: [null,[Validators.required]],
+      [this.form_award_date]: [null,[Validators.required,  this.startTrue(true)]],
     })
   }
   setAwardArrValidation(){

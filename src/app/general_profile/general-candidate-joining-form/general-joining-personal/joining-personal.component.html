@@ -28,7 +28,7 @@
                         <div *ngIf="ftitle?.errors?.required">Title is Required</div>
                     </div>
                 </div> -->
-        <div class="carddiv pt-0 pb-0">
+        <div class="carddiv pt-0 pb-5">
           <div class="overall-input-wrapper width-100">
             <label>Name (as per Aadhaar)<span class="redTxt">*</span></label>
             <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text" [formControlName]="form_name">
@@ -38,7 +38,6 @@
               </div>
             </div>
           </div>
-
           <div class="overall-input-wrapper width-45">
             <label>Email ID<span class="redTxt">*</span></label>
             <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_email">
@@ -57,11 +56,6 @@
       <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digit mobile number</div>
     </div>
 </ng-container>
-
-
-
-
-
           <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
             <div class="overall-input-wrapper width-45">
               <label>PAN No.<span *ngIf="candidateService.checkKycOrJoiningForm()" class="redTxt">*</span></label>
@@ -109,7 +103,6 @@
     <div class="err" *ngIf="gender?.errors?.required">Gender is Required</div>
   </div>
 </ng-container>
-
             <ng-container >
 <div class="overall-input-wrapper width-45">
   <label>Aadhaar No.<span class="redTxt">*</span></label>
@@ -152,13 +145,6 @@
               </div>
             </div>
           </ng-container>
-
-
-
-
-
-
-
           <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
             <div class="overall-input-wrapper width-45">
               <label>Place of Birth<span *ngIf="candidateService.checkKycOrJoiningForm()"
@@ -205,7 +191,6 @@
                       only allowed</div>
                   </div>
                 </ng-container>
-
           <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
             <div class="overall-input-wrapper width-45">
               <label>Religion<span *ngIf="candidateService.checkKycOrJoiningForm()" class="redTxt">*</span></label>
@@ -216,10 +201,7 @@
                 <div class="err" *ngIf="religion?.errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
                   allowed</div>
               </div>
-
-
           </ng-container>
-
           <div class="overall-input-wrapper width-45">
             <label>Community<span class="redTxt">*</span></label>
             <nz-select class="input select" [formControlName]="form_category" nzAllowClear nzShowSearch
@@ -234,10 +216,9 @@
                   allowed</div>
               </div>
             </div>
-
           </div>
           <ng-container >
-            <div class="overall-input-wrapper mb-5 width-45">
+            <div class="overall-input-wrapper mb-0 width-45">
               <label>Domicile State<span  class="redTxt">*</span></label>
               <nz-select class="input select" [formControlName]="form_domicile_state" nzAllowClear nzShowSearch
                 nzPlaceHolder="<--Select-->">
@@ -248,7 +229,7 @@
                 <div class="err" *ngIf="domicile_state?.errors?.required">Domicile State is Required</div>
               </div>
           </ng-container>
-          </div>
+        </div>
         <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
           <div class="overall-input-wrapper width-45">
             <label>Caste Name<span></span></label>
