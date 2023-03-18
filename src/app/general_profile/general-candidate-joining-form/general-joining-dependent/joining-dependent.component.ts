@@ -221,7 +221,6 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
       //   this.dependedentDetails && this.dependedentDetails.length > 0 ? this.ifDependentDetails() : this.ifNotDependentDetails();
       // });
     }
-    console.log(this.dependedentDetails ,'dfas');
 
   }
 
@@ -289,8 +288,6 @@ dateConvertion(date) {
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
       this.glovbal_validators.validateAllFormArrays(this.dependentForm.get([this.form_dependentArray]) as FormArray);
     }
-console.log(this.dependentForm,'dependentForm');
-
   }
 
   saveRequestRxJs() {
@@ -397,8 +394,6 @@ console.log(this.dependentForm,'dependentForm');
   })
 }
   addToDependentArray() {
-    console.log(this.dependentForm,'this.dependentForm');
-
     if (this.dependentForm.valid) {
      return this.getDependentArr.push(this.initDependentArray());
     }
@@ -434,11 +429,7 @@ console.log(this.dependentForm,'dependentForm');
   get relationship() {
     return this.dependentForm.get(this.form_dependent_relationship);
   }
-check(index){
-  console.log(this.getDependentArr.controls[index]['controls'][this.form_dependent_relationship].value);
-  this.getDependentArr
 
-}
   ngOnDestroy() {
     this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';
     this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';

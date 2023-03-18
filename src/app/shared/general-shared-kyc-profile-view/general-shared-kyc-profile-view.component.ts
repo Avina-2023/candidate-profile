@@ -335,7 +335,7 @@ form_projectDescription = 'projectDescription';
 
   form_Skills_Array = "skills";
   form_Skill = "skill";
-
+  form_skilllevel_selected = "skilllevel_selected";
   form_Relatives_Array = "relatives_in_company";
   form_relatives_name = "name";
   form_relatives_position = "position";
@@ -543,8 +543,6 @@ form_projectDescription = 'projectDescription';
       } else if (this.pdfsrc && this.productionUrl == false) {
         this.pdfsrc = this.pdfsrc
       }
-      console.log(this.documentDetails.resume[0].file_path,'this.documentDetails.resume');
-
       this.documentDetails.transfer_certificate = Transfer_Certificate;
       this.documentDetails.education_documents = Education_Documents;
       if ((joinCheck && joinCheck.length > 0) || (Banking_Details && Banking_Details.length > 0) || (Resume && Resume.length > 0) || (Transfer_Certificate && Transfer_Certificate.length > 0) || (Education_Documents && Education_Documents.length > 0) || (this.documentDetails && this.documentDetails.certifications && this.documentDetails.certifications.length > 0) || (this.documentDetails && this.documentDetails.other_certifications && this.documentDetails.other_certifications.length > 0)) {
@@ -559,7 +557,6 @@ form_projectDescription = 'projectDescription';
     this.getWorkApiDetails(data);
     //disciplinary
     this.disciplinarydetails = data && data.disciplinary_details && data.disciplinary_details.bgv_details ;
-    console.log(this.disciplinarydetails,'data');
     this.patchDisciplinary();
     // Acknowledgements section show, When form is not submitted
     this.ifFormNotSubmitted(data);
@@ -784,8 +781,22 @@ form_projectDescription = 'projectDescription';
         intern: data && data.intern ? data.intern : [],
         // bgvDetails: data && data.bgv_details ? data.bgv_details : null,
         relatives: data && data[this.form_Relatives_Array] && data[this.form_Relatives_Array].length > 0 ? data[this.form_Relatives_Array] : null,
-        skills: data && data[this.form_Skills_Array] && data[this.form_Skills_Array].length > 0 ? data[this.form_Skills_Array] : null,
+        skills: null,
         faculty: data && data['faculty_references'] && data['faculty_references'].length > 0 ? data['faculty_references'] : null,
+      }
+        if((data && data[this.form_Skills_Array]?.length)){
+          if( data[this.form_Skills_Array][0].skill){
+            console.log(data[this.form_Skills_Array],'new');
+            work.skills = data[this.form_Skills_Array]
+          }else{
+            work.skills =  [];
+            data[this.form_Skills_Array].forEach(element => {
+            work.skills.push({
+              skill:element[this.form_Skill],
+              skilllevel_selected:element[this.form_skilllevel_selected]
+            });
+           });
+          }
       }
       this.workDetails = work;
       this.patchWorkDetails();
@@ -940,8 +951,6 @@ form_projectDescription = 'projectDescription';
   }
 
   patchDisciplinary(){
-    console.log(this.disciplinarydetails,'this.disciplinaryDetails.bgv_details');
-
     if (this.disciplinarydetails) {
             this.patchingCriminal();
     }
@@ -950,7 +959,6 @@ form_projectDescription = 'projectDescription';
     let bgv;
     if (this.disciplinarydetails) {
       let data = this.disciplinarydetails;
-      console.log(data,'patchingCriminal');
       bgv = {
         [this.form_convicted_by_Court]: data[this.form_convicted_by_Court] && data[this.form_convicted_by_Court] == '1' ? true : false,
         [this.form_arrested]: data[this.form_arrested] && data[this.form_arrested] == '1' ? true : false,
@@ -995,8 +1003,6 @@ form_projectDescription = 'projectDescription';
       bgv.show = false;
     }
     this.disciplinarydetails = bgv;
-    console.log(this.disciplinarydetails,'this.disciplinaryDetails.bgvDetails');
-
   }
   patchContactForm() {
     let presentState: any;
@@ -1063,8 +1069,6 @@ form_projectDescription = 'projectDescription';
 
     };
     this.accomplishmentsMap = data;
-    console.log(this.accomplishmentsMap,'this.accomplishmentsMap');
-
   }
 
   patchPersonalForm() {
@@ -1134,11 +1138,7 @@ form_projectDescription = 'projectDescription';
 
     };
     this.url = this.personalDetails?.profileImage;
-    console.log(this.url,'this.url');
-
     this.personalDetailsMap = data;
-    console.log(this.personalDetailsMap,'this.personalDetailsMap');
-
   }
 
 
@@ -1151,21 +1151,13 @@ form_projectDescription = 'projectDescription';
   }
 
   formSubmitFinal() {
-    console.log(this.acknowledgmentForm,'this.acknowledgmentForm');
-
     if (this.acknowledgmentForm.valid) {
       // console.log(this.signature,'');
       if (this.signature && this.signature?.file_path && this.checkAllFormsValid()) {
-        console.log(this.signature,'');
-
         return this.matDialogOpen();
       }
       this.signature && this.signature.file_path ? '' : this.appConfig.nzNotification('error', 'Not Submitted', 'Please upload your Signature to submit the form');
-      console.log(this.signature,'faild');
-
     } else {
-      console.log(this.acknowledgmentForm,'faild');
-
       this.glovbal_validators.validateAllFields(this.acknowledgmentForm);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields in Acknowledgements and Declarations');
     }

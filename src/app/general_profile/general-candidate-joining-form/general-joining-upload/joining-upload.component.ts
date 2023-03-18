@@ -324,10 +324,6 @@ export class GeneralJoiningUploadComponent
       if (files.size < 2000000){
         if (this.appConfig.minImageSizeValidation(files.size)) {
           let doc = files;
-          // this.pdfFileName = doc.name;
-
-          // console.log(doc,'doc');
-
           fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
           fd.append('uploadFile', doc);
            fd.append('uploadType',"pdf");
@@ -344,19 +340,14 @@ export class GeneralJoiningUploadComponent
     try {
       this.loadingService.setLoading(true);
       this.skillexService.pdfFileUpload(file).subscribe((data:any) => {
-        console.log(data,'data');
-
         this.loadingService.setLoading(false);
         if (data) {
-          // console.log(data,'datadata');
-          // console.log(data.data,'datadsdata');
           this.pdfdoc = data.data;
           this.pdfFormControl.setValue(this.pdfdoc);
         }
         this.appConfig.nzNotification('success', 'Uploaded', 'Resume uploaded successfully');
       });
     } catch (e) {
-      // console.log("error while profile pic"+e)
       this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -410,7 +401,7 @@ export class GeneralJoiningUploadComponent
         }
           else{
           this.ngAfterViewInit();
-          this.pdfFormControl.markAsTouched();
+          this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
           this.appConfig.nzNotification('error', 'Not Saved', 'Please upload the resume to proceed further');
           this.loadingService.setLoading(false)
           this.glovbal_validators.validateAllFields(this.uploadForm);

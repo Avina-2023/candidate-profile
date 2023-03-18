@@ -269,7 +269,6 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.email = localStorage.getItem('userEmail');
     this.name = localStorage.getItem('username');
     this.msgData.getMessage().subscribe((data)=>{
-      console.log(data,'data');
       if(data.head=='gender'&& data.value !="" && data.value != undefined){
         if (data.value && this.productionUrl == true) {
           this.gender=data.value + environment.blobToken
@@ -377,8 +376,6 @@ getprofileimageFromLocal(){
   } else if (this.cadidatefinalimage && this.productionUrl == false) {
     this.cadidatefinalimage = this.cadidatefinalimage
   }
-  console.log(this.cadidatefinalimage,'this.cadidatefinalimagethis.cadidatefinalimage');
-
   this.gender = candyprofileimage.personal_details.gender;
   this.addressCity = candyprofileimage.contact_details.permanent_city;
   this.addressState = candyprofileimage.contact_details.present_state;
@@ -483,7 +480,6 @@ removeData(event) {
     if (this.imageChangedEvent.target.files && (this.imageChangedEvent.target.files[0].type.includes('image/png') || this.imageChangedEvent.target.files[0].type.includes('image/jpeg')) && !this.imageChangedEvent.target.files[0].type.includes('svg')) {
       if (this.imageChangedEvent.target.files[0].size < 2000000) {
         if (this.appConfig.minImageSizeValidation(this.imageChangedEvent.target.files[0].size)) {
-          console.log(this.IsToFeildEnable);
         // let image = this.croppedImage target.files[0].name;
         // let image = Buffer.from(this.croppedImage, "base64");
         fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
@@ -517,10 +513,6 @@ removeData(event) {
 
         };
         this.msgData.sendMessage("profileImageChange",this.profilePicture.file_path)
-        console.log(this.profilePicture.file_path,'this.profileImage');
-        console.log(this.profilePicture,'jhbjhb ');
-
-        // if (data && data.data && data.data.length) {
 
         // }else{
         //   this.profilePicture = {

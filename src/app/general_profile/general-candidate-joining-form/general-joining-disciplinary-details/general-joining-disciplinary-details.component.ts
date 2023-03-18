@@ -100,7 +100,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       this.discipilinaryForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]), { emitEvent: false };
     }
     this.discipilinaryForm.get(this.form_full_particulars).updateValueAndValidity(), { emitEvent: false };
-    console.log( bgvDetails,'fsef');
   }
   saveRequestRxJs() {
     this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
@@ -114,8 +113,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   formSubmit(routeValue?: any) {
     this.requiredDesc();
     let formValues = this.discipilinaryForm.getRawValue();
-    console.log(formValues,'formValues');
-
     if (this.discipilinaryForm.valid) {
       const bgv_details = {
         [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
@@ -143,7 +140,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(disciplinaryApiRequestDetails).subscribe((data: any) => {
       this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
-        console.log(data.data,'save');
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Discipilinary details is updated');
         this.sharedService.joiningFormStepperStatus.next();
@@ -155,7 +151,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the mandatory fields to proceed further');
       // this.glovbal_validators.validateAllFields(this.discipilinaryForm);
     }
-    console.log( this.discipilinaryForm,'apiData');
   }
 
   OtherConditionsPatch(data) {
@@ -217,7 +212,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.disciplinaryDetails = this.candidateService.getLocaldisciplinary_details();
-      console.log(this.candidateService.getLocaldisciplinary_details() );
       this.disciplinaryDetailsAllData = this.candidateService.getLocaldisciplinary_details();
       // this.disciplinaryDetails ? this.ifworkDetails() : this.ifNotworkDetails();
       this.patchWorkForm();
@@ -226,7 +220,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     }
   }
   patchWorkForm() {
-    console.log(this.disciplinaryDetails.bgv_details,'patch');
     if (this.disciplinaryDetails.bgv_details) {
       this.OtherConditionsPatch(this.disciplinaryDetails.bgv_details);
     }

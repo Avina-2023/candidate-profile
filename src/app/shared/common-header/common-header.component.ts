@@ -37,7 +37,6 @@ export class CommonHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.msgData.getMessage().subscribe((data)=>{
-      console.log(data,'data');
       if(data.head == 'profileImage' && data.value == true){
         if (data.value == true && this.productionUrl == true) {
           this.cadidatefinalimage = '';
@@ -148,14 +147,9 @@ export class CommonHeaderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result,'result');
-
           this.appConfig.clearLocalData();
           this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.HOME);
-
       }
-      console.log(result,'result');
-
     });
   }
 

@@ -268,7 +268,7 @@
               </ng-container>
               <ng-template #noLanguage>
                 <div class="inpu-preview size-16 bold-700 color-black">
-                  {{ "NA" }}
+                  {{ "NIL" }}
                 </div>
               </ng-template>
             </div>
@@ -276,7 +276,7 @@
               <h6 class="h6-sub-heading mt-4">Hobbies/Interests</h6>
               <ng-container *ngIf="
               personalDetailsMap[form_hobbies_intrest] &&
-                personalDetailsMap[form_hobbies_intrest].length > 0; else noHobbies">
+                personalDetailsMap[form_hobbies_intrest]?.length > 0; else noHobbies">
                 <div class="d-flex skills-wrapper " style="padding-top: 20px !important;padding-left: 0;">
                 <div class="mr-2 mt-2 hobbie-name" *ngFor="let hobbie of personalDetailsMap[form_hobbies_intrest];let i = index">{{hobbie.hobbiesAndInterests}}
                 </div>
@@ -350,13 +350,13 @@
             <div class="overall-input-wrapper mt-3 width-32">
               <label>Height (in cms)<span></span></label>
               <div class="inpu-preview size-16 bold-700 color-black">
-                {{ personalDetails && personalDetails[form_height] ? personalDetailsMap[form_height] : "NA" }}
+                {{ personalDetails && personalDetails[form_height] ? personalDetailsMap[form_height] : "NIL" }}
               </div>
             </div>
             <div class="overall-input-wrapper mt-3 width-32">
               <label>Weight (in kgs)<span></span></label>
               <div class="inpu-preview size-16 bold-700 color-black">
-                {{ personalDetails && personalDetails[form_weight] ? personalDetailsMap[form_weight] : "NA" }}
+                {{ personalDetails && personalDetails[form_weight] ? personalDetailsMap[form_weight] : "NIL" }}
               </div>
             </div>
             <div class="overall-input-wrapper mt-3 width-32">
@@ -2129,7 +2129,7 @@
   <div class="nodata">No Articleship/Training Details Available</div>
 </ng-template>
 <ng-template #noHobbies>
-  <div class="nodata">No Hobbies Details Available</div>
+  <div class="nodata mt-4">No Hobbies Details Available</div>
 </ng-template>
 <ng-template #noproject>
   <div class="nodata mt-4">No Project Details Available</div>

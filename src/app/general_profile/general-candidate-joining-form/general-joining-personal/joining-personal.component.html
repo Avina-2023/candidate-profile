@@ -236,17 +236,19 @@
             </div>
 
           </div>
-          <div class="overall-input-wrapper mb-5 width-45">
-            <label>Domicile State<span  class="redTxt">*</span></label>
-            <nz-select class="input select" [formControlName]="form_domicile_state" nzAllowClear nzShowSearch
-              nzPlaceHolder="<--Select-->">
-              <nz-option *ngFor="let state of getAllStates" [nzLabel]="state.name" [nzValue]="state.id"></nz-option>
-            </nz-select>
-            <div class="form-error" *ngIf="domicile_state?.invalid && domicile_state?.touched">
-              <div *ngIf="domicile_state?.errors?.required">Domicile State is Required</div>
-            </div>
+          <ng-container >
+            <div class="overall-input-wrapper mb-5 width-45">
+              <label>Domicile State<span  class="redTxt">*</span></label>
+              <nz-select class="input select" [formControlName]="form_domicile_state" nzAllowClear nzShowSearch
+                nzPlaceHolder="<--Select-->">
+                <nz-option *ngFor="let state of getAllStates" [nzLabel]="state.name" [nzValue]="state.id"></nz-option>
+              </nz-select>
+              </div>
+              <div class="form-error" *ngIf="domicile_state?.invalid && domicile_state?.touched">
+                <div class="err" *ngIf="domicile_state?.errors?.required">Domicile State is Required</div>
+              </div>
+          </ng-container>
           </div>
-        </div>
         <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
           <div class="overall-input-wrapper width-45">
             <label>Caste Name<span></span></label>
@@ -621,8 +623,8 @@
             <label>Weight (in Kgs)<span *ngIf="candidateService.checkKycOrJoiningForm()" class="redTxt">*</span></label>
             <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_weight">
             <div class="form-error" *ngIf="weight?.invalid && weight?.touched">
-              <div *ngIf="weight?.errors?.required">Weight (in Kgs) is Required</div>
-              <div *ngIf="weight?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
+              <div class="err" *ngIf="weight?.errors?.required">Weight (in Kgs) is Required</div>
+              <div class="err" *ngIf="weight?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
               </div>
             </div>
           </div>

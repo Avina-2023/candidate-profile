@@ -57,6 +57,8 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   public selection: string;
   removeArr1: boolean = false;
   removeArr2: boolean = false;
+  removeArr3: boolean = false;
+
 
   // getSkillSelection='noviceselected';
   panelOpenState = false;
@@ -265,7 +267,6 @@ check: any;
     // this.workDetailsForm['controls'][this.form_isWorkExp].setValue(this.workDetails && this.workDetails['is_anywork_exp'] && this.workDetails['is_anywork_exp'] == 'true' ? 'true' : 'false');
     this.workDetails = work;
     this.patchWorkForm();
-
   }
   ifNotworkDetails() {
     this.workDetails = null;
@@ -318,8 +319,6 @@ check: any;
     if (this.workDetails && this.workDetails.employment && this.workDetails.employment.length > 0) {
       this.getEmploymentArr.clear();
       this.workDetails.employment.forEach((element) => {
-        console.log(element,'element');
-
         this.getEmploymentArr.push(this.EmploymentArrayPatch(element));
       });
     } else {
@@ -414,8 +413,6 @@ check: any;
       })
     }
   EmploymentArrayPatch(data) {
-    console.log(data,'data');
-
     return this.fb.group({
       [this.form_employment_name_address]: [data[this.form_employment_name_address],[Validators.required]],
       [this.form_duration_from]: [this.dateConvertion(data[this.form_duration_from]) , [Validators.required]],
@@ -483,10 +480,16 @@ check: any;
 
   SkillsArrayPatch(data,i) {
     // this.workSkill = this.getSkillsArr.controls[0].value.skill
-    return this.fb.group({
-      [this.form_Skill]: [data [this.form_Skill], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
-      [this.form_skilllevel_selected]: [data[this.form_skilllevel_selected], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
-    })
+    if(data && data.skill){
+      return this.fb.group({
+        [this.form_Skill]: [data [this.form_Skill], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+        [this.form_skilllevel_selected]: [data[this.form_skilllevel_selected], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+      })
+    }else {
+      return this.fb.group({
+        [this.form_Skill]: [data [this.form_Skill], [RemoveWhitespace.whitespace(), this.glovbal_validators.skills255()]],
+      })
+    }
   }
 
   // initRelativesArray() {
@@ -510,7 +513,6 @@ check: any;
   workExperienceChange(event){
     if(event.value == 'true'){
       this.expChange = true
-      console.log(event,'true');
       if(this.getEmploymentArr.length == 0){
         this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
       this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
@@ -529,55 +531,21 @@ check: any;
       this.expChange = false
 
       if(this.getEmploymentArr.length > 0){
-        console.log('leng > 0 false');
         this.setEmploymentArrValidation()
-
         this.workDetailsForm.controls[this.form_total_exp_years].setValue(null);
       this.workDetailsForm.controls[this.form_total_exp_months].setValue(null);
         this.workDetailsForm.controls[this.form_total_exp_years].clearValidators();
         this.workDetailsForm.controls[this.form_total_exp_months].clearValidators();
            this.workDetailsForm['controls'][this.form_total_exp_years].updateValueAndValidity();
         this.workDetailsForm['controls'][this.form_total_exp_months].updateValueAndValidity();
-
-        // console.log(this.getEmploymentArr.controls[0]['controls'][this.form_employment_name_address]);
-
-        // this.getEmploymentArr.controls[0]['controls'][this.form_employment_name_address].setValue(null);
-        // this.getEmploymentArr.controls[0]['controls'][this.form_postion_field].setValue(null);
-        // this.getEmploymentArr.controls[0]['controls'][this.form_achievement].setValue(null);
-        // this.getEmploymentArr.controls[0]['controls'][this.form_duration_from].setValue(null);
-        // this.getEmploymentArr.controls[0]['controls'][this.form_duration_to].setValue(null);
-
-        // // this.workDetailsForm.controls[this.form_total_exp_years].clearValidators();
-        // // this.workDetailsForm.controls[this.form_total_exp_months].clearValidators();
-        // this.getEmploymentArr.controls[0]['controls'][this.form_employment_name_address].clearValidators();
-        // this.getEmploymentArr.controls[0]['controls'][this.form_postion_field].clearValidators();
-        // this.getEmploymentArr.controls[0]['controls'][this.form_achievement].clearValidators();
-        // this.getEmploymentArr.controls[0]['controls'][this.form_duration_from].clearValidators();
-        // this.getEmploymentArr.controls[0]['controls'][this.form_duration_to].clearValidators();
-
-        // // this.workDetailsForm['controls'][this.form_total_exp_years].updateValueAndValidity();
-        // // this.workDetailsForm['controls'][this.form_total_exp_months].updateValueAndValidity();
-        // this.getEmploymentArr['controls'][0]['controls'][this.form_employment_name_address].updateValueAndValidity();
-        // this.getEmploymentArr['controls'][0]['controls'][this.form_postion_field].updateValueAndValidity();
-        // this.getEmploymentArr['controls'][0]['controls'][this.form_achievement].updateValueAndValidity();
-        // this.getEmploymentArr['controls'][0]['controls'][this.form_duration_from].updateValueAndValidity();
-        // this.getEmploymentArr['controls'][0]['controls'][this.form_duration_to].updateValueAndValidity();
-      // return this.getEmploymentArr.push(this.initEmploymentArray())
-      console.log();
-      }
-
+        }
     }
   }
 
   setEmploymentArrValidation(){
-    console.log('arr');
-
     this.getEmploymentArr.controls.forEach((data, i) => {
 
     if(this.workDetailsForm.controls[this.form_isWorkExp].value == 'true' && this.expChange == true){
-      console.log('arr true');
-   console.log(this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address],'index');
-
       // this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
       // this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -597,7 +565,6 @@ check: any;
 
     }
     if(this.workDetailsForm.controls[this.form_isWorkExp].value == 'false' ){
-      console.log(this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address],'arr fale');
 
       // this.workDetailsForm.controls[this.form_total_exp_years].setValue(null);
       // this.workDetailsForm.controls[this.form_total_exp_months].setValue(null);
@@ -641,7 +608,6 @@ check: any;
         this.getTrainingArr['controls'][i]['controls'][this.form_training_work_responsiability].updateValueAndValidity();
       }
       if(this.workDetailsForm.controls[this.form_is_training_status].value == 'false' && this.getTrainingArr.length){
-        console.log(this.getTrainingArr.length,'this.getTrainingArr.length');
 
         this.getTrainingArr.controls[i]['controls'][this.form_training_employer_name].setValue(null);
         this.getTrainingArr.controls[i]['controls'][this.form_training_from_date].setValue(null);
@@ -832,10 +798,6 @@ changeInIsArticleship(event){
 
     // Open dailog
     openDialog(component, data) {
-      // const obj = {
-      //   skill: this.getSkillsArr,
-      //   employment: this.getEmploymentArr
-      // };
       let dialogDetails: any;
       dialogDetails = {
         iconName: data.iconName,
@@ -865,15 +827,24 @@ changeInIsArticleship(event){
           if(this.getEmploymentArr.length && this.removeArr2 ){
             this.getEmploymentArr.removeAt(this.currentDeleteIndex);
           }
+          if(this.getTrainingArr.length && this.removeArr3){
+            this.getSkillsArr.removeAt(this.currentDeleteIndex);
+          }
         }
       });
     }
     removeData(i,removeArr) {
       if(removeArr == "skill"){
         this.removeArr1=true;
+        this.currentDeleteIndex = i
       }
       if(removeArr == "employment"){
         this.removeArr2=true;
+        this.currentDeleteIndex = i
+      }
+      if(removeArr == "training"){
+        this.removeArr3=true;
+        this.currentDeleteIndex = i
       }
       const data = {
         iconName: '',
@@ -962,10 +933,6 @@ changeInIsArticleship(event){
   }
 
 
-  ckeck(i){
-    this.getSkillsArr
-    console.log(this.getSkillsArr.controls[0])
-  }
   formSubmit(routeValue?: any) {
     // this.requiredDesc();
     // let some =  this.workDetailsForm.getRawValue()[this.form_Employment_Array];
@@ -1059,10 +1026,6 @@ changeInIsArticleship(event){
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Skills_Array]) as FormArray);
     }
-console.log(this.workDetailsForm,'form');
-console.log(this.workDetailsForm.value.skills,'skill');
-
-
   }
 
 
@@ -1283,20 +1246,9 @@ console.log(this.workDetailsForm.value.skills,'skill');
     this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
     }
     choosen(selecteddata:any,i){
-      // console.log(this.getSkillsArr.controls[i],'KKK');
       this.getSkillsArr.controls[i].value[this.form_skilllevel_selected]=selecteddata;
-      console.log(this.getSkillsArr.controls[i].value[this.form_skilllevel_selected],'this.getSkillsArr.controls[i].value[this.form_skilllevel_selected]');
-
       this.currentIndex = i;
      this.skillandLevel =  this.getSkillSelection(i)
-
-    //  this.getSkillsArr.controls[i][this.form_skilllevel_selected].setValue(
-    //   this.skillandLevel
-    //   )
-
-      // this.getSkillsArr;
-
-// this.selected = selecteddata;
     }
 choosenBorder(i):String{
   let choosenborder = 'noviceborder';
@@ -1321,11 +1273,5 @@ choosenBorder(i):String{
       break;
   }
   return choosenborder;
-}
-checkConsole(){
-  console.log(this.getEmploymentArr.controls,'kk');
-
-  this.getEmploymentArr;
-
 }
 }

@@ -130,13 +130,13 @@ check: any;
 
    getAccomplishmentsApiDetails() {
     if (this.candidateService.getLocalProfileData()) {
-      console.log(this.candidateService.getLocalProfileData(),'this.candidateService.getLocalProfileData()');
-      console.log(this.candidateService.getLocalaccomplishments_details(),'this.candidateService.this.candidateService.getLocalaccomplishments_details()()');
+      // console.log(this.candidateService.getLocalProfileData(),'this.candidateService.getLocalProfileData()');
+      // console.log(this.candidateService.getLocalaccomplishments_details(),'this.candidateService.this.candidateService.getLocalaccomplishments_details()()');
 
       this.formInitialize();
       this.accomplishmentDetails = this.candidateService.getLocalaccomplishments_details();
       // this.accomplishmentsDetailsAllData = this.candidateService.getLocalAccomplishment_details();
-      console.log(this.accomplishmentDetails,'accomplishmentsDetails');
+      // console.log(this.accomplishmentDetails,'accomplishmentsDetails');
 
 this.patchaccomplishmentsForm();
     } else {
@@ -145,7 +145,6 @@ this.patchaccomplishmentsForm();
   }
   patchaccomplishmentsForm(){
 
-    console.log(this.accomplishmentDetails,'patchthis.accomplishmentsDetails');
 if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_certificationsArray] && this.accomplishmentDetails[this.form_certificationsArray].length > 0 ){
   this.getCertificationsArr.clear();
   this.accomplishmentDetails[this.form_certificationsArray].forEach((element, i) => {
@@ -219,8 +218,6 @@ this.setAwardArrValidation();
         awards,
         journals
       }
-      console.log(apiData,'apiData');
-
       const AccomplishmentsApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "accomplishment_details",
@@ -230,8 +227,6 @@ this.setAwardArrValidation();
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(AccomplishmentsApiRequestDetails).subscribe((data: any)=> {
       this.loadingService.setLoading(false)
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
-        console.log(data.data.saved_data  ,'data.data.saved_data');
-
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Accomplishments is updated');
         this.sharedService.joiningFormStepperStatus.next();
@@ -244,7 +239,6 @@ this.setAwardArrValidation();
       // this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
       this.glovbal_validators.validateAllFields(this.accomplishmentsForm);
     }
-    console.log(this.accomplishmentsForm,'accomplishmentsForm');
   }
 
 
@@ -448,12 +442,10 @@ this.setAwardArrValidation();
         this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValue(null);
         this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].clearValidators();
         this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
-        console.log(this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto])
       }  else {
       this.check = false
       this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
       this.getCertificationsArr.controls[this.getCertificationsArr.controls.length-1]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
-      console.log(this.getCertificationsArr.controls[i]['controls'][this.form_certification_validityUpto]);
     }
   }
 
@@ -467,7 +459,7 @@ this.setAwardArrValidation();
     this.getawardsArr.controls.forEach((data, index) => {
     if(this.getawardsArr.length){
       this.getawardsArr.controls[index]['controls'][this.form_award_title].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getawardsArr.controls[index]['controls'][this.form_award_date].setValidators([Validators.required,this.glovbal_validators.urlRegex()],{ emitEvent: false });
+      this.getawardsArr.controls[index]['controls'][this.form_award_date].setValidators([Validators.required],{ emitEvent: false });
 
       this.getawardsArr['controls'][index]['controls'][this.form_award_title].updateValueAndValidity();
       this.getawardsArr['controls'][index]['controls'][this.form_award_date].updateValueAndValidity();
@@ -550,12 +542,18 @@ this.setAwardArrValidation();
 removeData(i,removeArr) {
   if(removeArr == "certification"){
     this.removeArr1=true;
+    this.currentDeleteIndex = i
+
   }
   if(removeArr == "awards"){
     this.removeArr2=true;
+    this.currentDeleteIndex = i
+
   }
   if(removeArr == "journalEntry"){
     this.removeArr3=true;
+    this.currentDeleteIndex = i
+
   }
   const data = {
     iconName: '',
@@ -578,7 +576,6 @@ removeData(i,removeArr) {
   // }
 
 addToCertifications() {
-  console.log(this.getCertificationsArr,'ooo');
 if(this.getCertificationsArr.length == 0){
   if (this.accomplishmentsForm) {
     return this.getCertificationsArr.push(this.initCertificationsArray());
