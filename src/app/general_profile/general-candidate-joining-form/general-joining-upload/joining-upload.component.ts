@@ -45,7 +45,7 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 
 // import { Timer } from 'ag-grid-community';
-
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 export const MY_FORMATS = {
   // onFileSelecteded(event) {
@@ -262,7 +262,9 @@ export class GeneralJoiningUploadComponent
     // private ngxFileDrop: NgxFileDropEntry,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private msgData:InterComponentMessenger
+
   ) {
     this.dateValidation();
     this.joiningFormDataFromJoiningFormComponentRxjs();
@@ -352,8 +354,6 @@ export class GeneralJoiningUploadComponent
       });
     } catch (e) {
       this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
-      console.log(this.pdfFormControl);
-
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
     }
@@ -407,7 +407,7 @@ export class GeneralJoiningUploadComponent
           this.ngAfterViewInit();
           // this.pdfFormControl.setValue(this.pdfdoc);
           // this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
-          console.log(this.pdfFormControl,'this.pdfFormControl');
+          // console.log(this.pdfFormControl,'this.pdfFormControl');
           this.pdfFormControl.markAsTouched();
           // console.log(this.pdfFormControl,'this.pdfFormControl');
           this.appConfig.nzNotification('error', 'Not Saved', 'Please upload the resume to proceed further');
