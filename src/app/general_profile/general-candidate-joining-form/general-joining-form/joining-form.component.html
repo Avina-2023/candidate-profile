@@ -9,7 +9,7 @@
         <div [ngClass]="!expand? 'profileStatus' : 'profileStatusexp'" > <p>Active</p> </div>
         <button [ngClass]="!expand? 'rotate' : 'rotate.down '" [disableRipple]="true"  mat-icon-button (click)="expand = !expand"><mat-icon  [ngClass]="!expand? 'rotate' : 'rotate down '" >keyboard_arrow_down</mat-icon></button>
       </div>
-      <div>
+      <div  >
         <div class="notexpand" *ngIf="!expand">
           <div class="photo-wrapper">
             <div class="avatar">
@@ -44,7 +44,6 @@
                     </div>
                   </ng-container>
                 </label>
-
                 <ng-template #matDialog1>
                   <div class="crop-popup">
                     <div class="popUpHead mb-0" mat-dialog-title>
@@ -61,10 +60,8 @@
                           (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
                           (loadImageFailed)="loadImageFailed()"></image-cropper>
                         </div>
-
                       </div>
                     </mat-dialog-content>
-
                     <div class="alignment">
                       <span class="uploadbutton">
                         <label for="upload" style="  cursor: pointer;position: relative;top: -2px;"
@@ -85,22 +82,12 @@
                   </div>
                 </ng-template>
               </div>
-              <!-- <div class="error-section">
-                <div class="notes mb-1" style="color: red"
-                  *ngIf="profilePictureFormControl.touched && profilePictureFormControl.invalid && !profilePicture.file_path">
-                  *Profile Picture is Required</div>
-                <div class="notes" *ngIf="!showSizeError.image"> JPEG and PNG only supported</div>
-                  <div class="notes"> Size: Maximum 2MB</div>
-                  <div class="error" *ngIf="showSizeError.image">JPEG and PNG only supported</div>
-                  <div class="error" *ngIf="showSizeError.minsize">Minimum File Size: 10KB!</div>
-                  <div class="error" *ngIf="showSizeError.maxsize">Maximum File Size: 2MB!</div>
-              </div>  -->
             </div>
           </div>
           <div class="notexpanddetails">
             <div class="name">{{this.name}}</div>
             <div class="email">{{this.email}}</div>
-            <div class="loc">{{this.addressCity}}, {{this.addressState}}, India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
+            <div class="loc">{{this.addressCity?this.addressCity +',' : 'NIL'}} {{this.addressState? this.addressState +',':'NIL'}} India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
           </div>
         </div>
         <div class="expand" *ngIf="expand">

@@ -271,9 +271,9 @@ height: 800px;
   // margin-top: 2em;
   background-color: #ffffff;
   border: solid 1px #c8ced5;
-  -moz-transition: all 55s linear;
-  -webkit-transition: all 55s linear;
-  transition: all 55s linear;
+  -moz-transition: all .5s linear;
+  -webkit-transition: all .5s linear;
+  transition: all .5s linear;
   .exheader {
     display: flex;
     justify-content: space-between;

@@ -354,8 +354,6 @@ export class GeneralJoiningUploadComponent
       });
     } catch (e) {
       this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
-      console.log(this.pdfFormControl);
-
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
     }
