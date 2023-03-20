@@ -5,6 +5,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators, FormA
 import { SkillexService } from 'src/app/service/skillex.service';
 import { environment } from 'src/environments/environment';
 import { ApiServiceService } from 'src/app/service/api-service.service';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 
 
 @Component({
@@ -27,12 +28,12 @@ export class GeneralMasterComponent implements OnInit {
   percentage: number;
   username:any;
   profileCompletion:any;
-  msgData: any;
   profileImage: any;
   constructor(private appConfig: AppConfigService,
     private loadingService: LoaderService,
     private skillexService: SkillexService,
     private apiService: ApiServiceService,
+    private msgData:InterComponentMessenger
     ) {
   }
 
@@ -43,9 +44,15 @@ export class GeneralMasterComponent implements OnInit {
     this.username = localStorage.getItem('username');
     this.email = localStorage.getItem('userEmail');
     this.CandidateDetails()
-
+    this.msgData.getMessage().subscribe((data)=>{
+      console.log(data,'data');
+      if(data.head=='saved'&& data.value !="" && data.value != undefined){
+        if (data.value == true) {
+          this.CandidateDetails()
+        }
+      }
+  })
   }
-
 
 
   CandidateDetails() {
@@ -72,14 +79,11 @@ export class GeneralMasterComponent implements OnInit {
         // this.appConfig.setLocalStorage('candidateProfile',JSON.stringify(this.Details));
         this.profilepercentage = Math.ceil(this.Details.profilePercentage);
         localStorage.setItem("profilePercentage",(this.profilepercentage));
-
           let ProfileUpdated = JSON.parse(localStorage.getItem("profileData"))  ;
           ProfileUpdated.updatedAt = this.Details.updatedAt ;
           ProfileUpdated.createdAt = this.Details.createdAt ;
           localStorage.setItem("profileData",JSON.stringify(ProfileUpdated));
-      //     console.log(candidateProfileimage,'updatedAt');
 
-        // this.appConfig.localStorage('profilePercentage', this.profilepercentage);
       }
     });
 

@@ -234,25 +234,25 @@
                                         allowed</div>
                                 </div>
                           </ng-container>
-                          <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value == 'CA' || getEducationArr.controls[i].get(form_qualification_type).value == 'ICWA' || getEducationArr.controls[i].get(form_qualification_type).value == 'CS'">
+                          <!-- <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value == 'CA' || getEducationArr.controls[i].get(form_qualification_type).value == 'ICWA' || getEducationArr.controls[i].get(form_qualification_type).value == 'CS'">
                             <div class="overall-input-wrapper mb-0 width-100">
                                 <label>Ranks (If any)<span></span>
                                 </label>
                                 <ng-container>
                                 <input matInput placeholder="Enter here" class="input" type="text"
                                     [formControlName]="form_CARanks">
-                                </ng-container>
+                                </ng-container> -->
                                 <!-- For SSLC and HSC -->
-                                <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'SSLC') || (getEducationArr.controls[i].get(form_qualification_type).value == 'HSC')">
+                                <!-- <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'SSLC') || (getEducationArr.controls[i].get(form_qualification_type).value == 'HSC')">
                                     <nz-select class="input select" [formControlName]="form_boardUniversity" nzAllowClear nzShowSearch
                                     nzPlaceHolder="Select">
                                     <nz-option *ngFor="let level of boardsList" [nzLabel]="level.name" [nzValue]="level.name">
                                     </nz-option>
                                   </nz-select>
                                     </ng-container>
-                                  </div>
+                                  </div> -->
 
-                                <div class="form-error"
+                                <!-- <div class="form-error"
                                     *ngIf="getEducationArr.controls[i].get(form_CARanks).invalid && getEducationArr.controls[i].get(form_CARanks).touched">
                                     <div class="err" *ngIf="getEducationArr.controls[i].get(form_CARanks).errors?.required">
                                         Ranks is Required</div>
@@ -261,7 +261,7 @@
                                         Alpha numeric with maximum of 255 characters only
                                         allowed</div>
                                 </div>
-                          </ng-container>
+                          </ng-container> -->
                            <ng-container >
                             <ng-container >
                               <div class="overall-input-wrapper mb-0 width-100">
@@ -280,7 +280,7 @@
                                       Year of Commencement is Required</div>
                                     <div class="err"
                                         *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax">
-                                        {{getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentFormMonth(getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax.max) : ''}}
+                                        {{getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentFormMonth(getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax.max) : ''}}
                                     </div>
                                     <div class="err"
                                         *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMin">
@@ -291,7 +291,7 @@
                                         Invalid Date Format</div>
                                     <div class="err"
                                     *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.notValid">
-                                    {{'Start Date should be less than or equal to the Year of Passing, (Year of Passing - ' + getEducationArr.controls[i].get(form_startDate)?.errors?.notValid + ').'}}</div>
+                                    {{'Start Date should be less than  Year of Completion, (Year of Completion - ' + getEducationArr.controls[i].get(form_endDate)?.errors?.notValid + ').'}}</div>
                                 </div>
                             </ng-container>
                                <ng-container >
@@ -300,7 +300,7 @@
                                   <div class="date-relative">
                                       <input matInput class="input" [min]="minDate" [max]="maxDate"
                                           [matDatepicker]="picker1" placeholder="DD-MM-YYYY"
-                                          [formControlName]="form_endDate">
+                                          [formControlName]="form_endDate" >
                                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                       <mat-datepicker #picker1></mat-datepicker>
                                   </div>
@@ -311,18 +311,18 @@
                                         Year of Completion is Required</div>
                                       <div class="err"
                                           *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax">
-                                          {{getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax.max) : ''}}
+                                          {{getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(getEducationArr.controls[i].get(form_yearpassing)?.errors?.matDatepickerMax.max) : ''}}
                                       </div>
                                       <div class="err"
                                           *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMin">
-                                          {{getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' + momentForm(getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMin.min) : ''}}
+                                          {{getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' + momentForm(getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMin.min) : ''}}
                                       </div>
                                       <div class="err"
                                           *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerParse">
                                           Invalid Date Format</div>
-                                          <!-- <div
+                                          <div class="err"
                                           *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.notValid">
-                                          {{'Year of Passing should be greater than or equal to the selected End date, (Year of Passing - ' + getEducationArr.controls[i].get(form_endDate)?.errors?.notValid + ').'}}</div> -->
+                                          {{'Year of Completion should be greater than or equal to the selected End date, (Year of Passing - ' + getEducationArr.controls[i].get(form_yearpassing)?.errors?.notValid + ').'}}</div>
 
                                   </div>
                                </ng-container>
@@ -332,7 +332,7 @@
                               <label>Year of Passing<span class="redTxt">*</span></label>
                               <div class="date-relative">
                                   <input matInput class="input" [ngClass]="getEducationArr.controls[i].get(form_startDate)?.errors?.notValid || getEducationArr.controls[i].get(form_endDate)?.errors?.notValid ? 'custom-input-error-border' : ''" [min]="minDate" [max]="maxDate"
-                                      [matDatepicker]="pickerYearOfPassing" placeholder="Ex: Jan 2001"
+                                      [matDatepicker]="pickerYearOfPassing" placeholder="DD-MM-YYYY"
                                       [formControlName]="form_yearpassing" appYearMonth>
                                   <mat-datepicker-toggle matSuffix [for]="pickerYearOfPassing"></mat-datepicker-toggle>
                                   <!-- <mat-datepicker #pickerYearOfPassing></mat-datepicker> -->
@@ -360,9 +360,9 @@
                                       *ngIf="getEducationArr.controls[i].get(form_yearpassing)?.errors?.matDatepickerParse">
                                       Format Should be MMM YYYY(Jan 2000)</div>
                               </div>
-                              <div class="err" *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.notValid" class="form-error">
+                              <div class="err" *ngIf="getEducationArr.controls[i].get(form_yearpassing)?.errors?.notValid" class="form-error">
                                 <div class="err"
-                                *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.notValid">
+                                *ngIf="getEducationArr.controls[i].get(form_yearpassing)?.errors?.notValid">
                                 {{'Year of Passing should be greater than or equal to the selected End date.'}}</div>
                               </div>
                           </ng-container>
@@ -389,7 +389,7 @@
                           <div class="overall-input-wrapper width-100 mb-0" >
                             <label>Grade Points (GP)<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
-                                [formControlName]="form_cgpa">
+                                [formControlName]="form_cgpercentage">
                               </div>
                             <div class="form-error"
                                 *ngIf="getEducationArr.controls[i].get(form_cgpercentage).invalid && getEducationArr.controls[i].get(form_cgpercentage).touched">
@@ -418,7 +418,7 @@
                                     Total Grade Points should be in the range of 10 to 100</div>
                                     <form_Finalcgpa class="err"
                                     *ngIf="getEducationArr.controls[i].get(form_Finalcgpa).errors?.maxlength">
-                                    Number with 2 Decimal points only allowed</form_Finalcgpa>
+                                    Number with  Decimal points only allowed</form_Finalcgpa>
                             </div>
                         </ng-container>
                       <ng-container >
@@ -427,10 +427,7 @@
                           <div class="width-100">
                             <input matInput placeholder="Enter here" class="input" type="text"
                             [formControlName]="form_cgpa">
-                            <div>Please convert your CGPA into percentage as per your College/University conversion and then enter the percentage above.</div>
-                          </div>
-                        </div>
-                          <div class="form-error"
+                            <div class="form-error"
                               *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
                               <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
                                   Percentage is Required</div>
@@ -441,6 +438,10 @@
                                   *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.maxlength">
                                   Number with 2 Decimal points only allowed</div>
                           </div>
+                          <div>Please convert your CGPA into percentage as per your College/University conversion and then enter the percentage above.</div>
+                          </div>
+                        </div>
+
                       </ng-container>
 
 
@@ -541,9 +542,9 @@
 
                           </ng-container>
                       </ng-container>
-                      <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA' && i == checkLastIndexOfCA())" class="ca-checkbox mt-2 width-100">
+                      <!-- <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA' && i == checkLastIndexOfCA())" class="ca-checkbox mt-2 width-100">
                         <mat-checkbox [formControl]="ca_bothgroup_status" class="mr-2"></mat-checkbox>
-                        <span class="primary-clr">Click, if you have cleared both the groups together in one sitting</span></div>
+                        <span class="primary-clr">Click, if you have cleared both the groups together in one sitting</span></div> -->
                     </div>
 
                     </div>

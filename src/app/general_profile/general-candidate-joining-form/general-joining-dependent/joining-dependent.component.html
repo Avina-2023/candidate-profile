@@ -18,23 +18,23 @@
                     </div>
                   </div>
                 </div>
-<ng-container >
-  <div class="overall-input-wrapper width-32 mb-0">
-    <label>Name of the Dependent<span class="redTxt">*</span></label>
-    <input matInput placeholder="Enter here" class="input" type="text"
-      [formControlName]="form_dependent_name">
-  </div>
+                <ng-container >
+                  <div class="overall-input-wrapper width-32 mb-0">
+                    <label>Name of the Dependent<span class="redTxt">*</span></label>
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_dependent_name">
+                  </div>
 
-      <div class="form-error"
-      *ngIf="getDependentArr.controls[i].get(form_dependent_name).invalid && getDependentArr.controls[i].get(form_dependent_name).touched">
-      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.required">
-        Name
-        of the dependent is Required</div>
-      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.alphaNum255">
-        Alpha numeric with maximum of 255 characters only
-        allowed</div>
-    </div>
-</ng-container>
+                      <div class="form-error"
+                      *ngIf="getDependentArr.controls[i].get(form_dependent_name).invalid && getDependentArr.controls[i].get(form_dependent_name).touched">
+                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.required">
+                        Name
+                        of the dependent is Required</div>
+                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.alphaNum255">
+                        Alpha numeric with maximum of 255 characters only
+                        allowed</div>
+                    </div>
+                </ng-container>
                 <ng-container >
                   <div class="overall-input-wrapper width-32 mt-4">
                     <label>Date of Birth<span class="redTxt">*</span></label>
@@ -70,43 +70,53 @@
                   <div class="overall-input-wrapper width-32 mt-4">
                     <label>Relationship<span class="redTxt">*</span></label>
                     <div [ngClass]="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')? 'dynamicclass' : ' width-100' ">
-                      <nz-select  class="input select w-100" [formControlName]="form_dependent_relationship" nzAllowClear
+                      <nz-select  class="input select w-100" (ngModelChange)="dependentChange(i)" [formControlName]="form_dependent_relationship" nzAllowClear
                       nzShowSearch nzPlaceHolder="Select">
                       <nz-option *ngFor="let relation of relationshipList" [nzLabel]="relation.label"
                         [nzValue]="relation.value"></nz-option>
                     </nz-select>
-                    <div class="otherinp" *ngIf="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')" >
-                      <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_dependent_other"></div>
+                    <ng-container >
+                      <div class="otherinp" *ngIf="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')" >
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_dependent_other">
+                      </div>
+                    </ng-container>
+
                     </div>
                   </div>
+                  <div class="form-error"
+                  *ngIf="getDependentArr.controls[i].get(form_dependent_other).invalid && getDependentArr.controls[i].get(form_dependent_other).touched">
+                  <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.required">
+                    Relationship is Required</div>
+                  <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.alphaNum255">
+                    Alpha numeric with maximum of 255 characters only
+                    allowed</div>
+                </div>
+                </ng-container>
+                <ng-container >
+                  <div class="overall-input-wrapper width-32 mt-4">
+                    <label>Occupation<span></span></label>
+                    <input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_dependent_occupation">
                     <div class="form-error"
-                      *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).invalid && getDependentArr.controls[i].get(form_dependent_relationship).touched">
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).errors?.required">
-                        Relationship is Required</div>
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).errors?.alphaNum255">
+                      *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).invalid && getDependentArr.controls[i].get(form_dependent_occupation).touched">
+                      <div *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).errors?.required">
+                        Occupation is Required</div>
+                      <div *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).errors?.alphaNum255">
                         Alpha numeric with maximum of 255 characters only
                         allowed</div>
                     </div>
+                  </div>
                 </ng-container>
-
-
               </div>
 
-              <div class="row-wrapper">
-                <div class="overall-input-wrapper width-32 mt-4">
-                  <label>Occupation<span></span></label>
-                  <input matInput placeholder="Enter here" class="input" type="text"
-                    [formControlName]="form_dependent_occupation">
-                  <div class="form-error"
-                    *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).invalid && getDependentArr.controls[i].get(form_dependent_occupation).touched">
-                    <div *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).errors?.required">
-                      Occupation is Required</div>
-                    <div *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).errors?.alphaNum255">
-                      Alpha numeric with maximum of 255 characters only
-                      allowed</div>
-                  </div>
-                </div>
+            </div>
+
+          </div>
+        </ng-container>
+      </ng-container>
+              <!-- <div class="row-wrapper">
+
                 <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
                   <div class="overall-input-wrapper width-32 mt-4">
                     <label>Differently Abled<span class="redTxt">*</span></label>
@@ -136,7 +146,6 @@
                   </div>
                 </ng-container>
               </div>
-
               <div *ngIf="candidateService.checkKycOrJoiningForm()" class="row-wrapper">
                 <div class="overall-input-wrapper width-32 mt-4">
                   <label>Is Dependent<span></span></label>
@@ -151,12 +160,9 @@
                       Is Dependent is Required</div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> -->
 
-          </div>
-        </ng-container>
-      </ng-container>
+
 
       <div *ngIf="getDependentArr && getDependentArr.controls && getDependentArr.controls.length < 5 "
         class="row-wrapper pb-4 pt-0 mt-0 divcard">
@@ -191,5 +197,4 @@
     <div class="photo-wrapper">
     </div>
   </div>
-
 </div>

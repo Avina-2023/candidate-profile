@@ -45,7 +45,7 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 
 // import { Timer } from 'ag-grid-community';
-
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 export const MY_FORMATS = {
   // onFileSelecteded(event) {
@@ -262,7 +262,9 @@ export class GeneralJoiningUploadComponent
     // private ngxFileDrop: NgxFileDropEntry,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private msgData:InterComponentMessenger
+
   ) {
     this.dateValidation();
     this.joiningFormDataFromJoiningFormComponentRxjs();
@@ -325,9 +327,7 @@ export class GeneralJoiningUploadComponent
         if (this.appConfig.minImageSizeValidation(files.size)) {
           let doc = files;
           // this.pdfFileName = doc.name;
-
           // console.log(doc,'doc');
-
           fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
           fd.append('uploadFile', doc);
            fd.append('uploadType',"pdf");
@@ -342,21 +342,17 @@ export class GeneralJoiningUploadComponent
   }
   async uploadPdf(file) {
     try {
+      this.pdfFormControl.markAsUntouched();
       this.loadingService.setLoading(true);
       this.skillexService.pdfFileUpload(file).subscribe((data:any) => {
-        console.log(data,'data');
-
         this.loadingService.setLoading(false);
         if (data) {
-          // console.log(data,'datadata');
-          // console.log(data.data,'datadsdata');
           this.pdfdoc = data.data;
           this.pdfFormControl.setValue(this.pdfdoc);
         }
         this.appConfig.nzNotification('success', 'Uploaded', 'Resume uploaded successfully');
       });
     } catch (e) {
-      // console.log("error while profile pic"+e)
       this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
@@ -377,40 +373,43 @@ export class GeneralJoiningUploadComponent
   //   }
   // }
        formSubmit(routeValue?: any){
-        if(this.uploadForm.valid){
-          const apiData = {
-            preWrittenPhrase: this.Pre_written_phrase,
-            resume:[{
-              file_path:this.pdfdoc
-            }],
+          if(this.uploadForm.valid){
+            const apiData = {
+              preWrittenPhrase: this.Pre_written_phrase,
+              resume:[{
+                file_path:this.pdfdoc
+              }],
+            }
+          const DocumentApiRequestDetails = {
+            email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
+            section_name: "document_details",
+            saving_data: apiData
           }
-          // console.log(apiData,'apiData');
-        const DocumentApiRequestDetails = {
-          email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
-          section_name: "document_details",
-          saving_data: apiData
-        }
-        this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(DocumentApiRequestDetails).subscribe((data: any)=> {
-          setTimeout(() => {
-            this.loadingService.setLoading(false)
+          this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(DocumentApiRequestDetails).subscribe((data: any)=> {
+            setTimeout(() => {
+              this.loadingService.setLoading(false)
+            }, 2000);
+            if(data && data.success)
+              {
+              this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+              this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
+              this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Personal details is updated');
+              this.sharedService.joiningFormStepperStatus.next();
+              return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DISCIPLINARY_DETAILS);
+            }else{
+              this.appConfig.nzNotification('error', 'Not Saved', data && data.message ? data.message : 'Personal details not updated');
+              return false
+            }
+            });
+          }
 
-          }, 2000);
-          if(data && data.success)
-            {
-            this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
-            this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-            this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Personal details is updated');
-            this.sharedService.joiningFormStepperStatus.next();
-            return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
-          }else{
-            this.appConfig.nzNotification('error', 'Not Saved', data && data.message ? data.message : 'Personal details not updated');
-            return false
-          }
-          });
-        }
           else{
           this.ngAfterViewInit();
+          // this.pdfFormControl.setValue(this.pdfdoc);
+          // this.pdfdoc ? this.pdfFormControl.markAsTouched() : this.pdfFormControl.markAsUntouched();
+          // console.log(this.pdfFormControl,'this.pdfFormControl');
           this.pdfFormControl.markAsTouched();
+          // console.log(this.pdfFormControl,'this.pdfFormControl');
           this.appConfig.nzNotification('error', 'Not Saved', 'Please upload the resume to proceed further');
           this.loadingService.setLoading(false)
           this.glovbal_validators.validateAllFields(this.uploadForm);
@@ -499,7 +498,7 @@ export class GeneralJoiningUploadComponent
 
   formInitialize() {
     this.uploadForm = this.fb.group({
-      sampleinput: new FormControl('',Validators.required)
+      // sampleinput: new FormControl('',Validators.required)
     });
   }
 

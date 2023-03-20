@@ -16,6 +16,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -93,6 +94,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     private glovbal_validators: GlobalValidatorService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
+    private msgData:InterComponentMessenger
   ) { }
 
   ngOnInit(): void {
@@ -111,25 +113,19 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
    }
 
    getProjectApiDetails() {
-    console.log(this.candidateService.getLocalProfileData());
-
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.projectDetails = this.candidateService.getLocalproject_details().projects;
       this.projectDetails && this.projectDetails.length >0 ? this.ifProjectDetails() : this.ifNotProjectDetails();
-      console.log(this.projectDetails,'projectDetails');
     } else {
     }
   }
   ifProjectDetails() {
     this.patchProjectForm();
-    console.log('yes');
-
   }
   ifNotProjectDetails() {
     this.projectDetails = [];
       this.getprojectArr.push(this.initProjectArray());
-      console.log('no');
     }
 
   // removeProjectArray(i) {
@@ -224,8 +220,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     this.projectDetails.forEach((element, i) => {
       this.getprojectArr.push(this.patchingProjectdetails(element, i));
     });
-    console.log(this.getprojectArr);
-
   }
   patchingProjectdetails(data, i){
     return this.fb.group({
@@ -275,7 +269,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   initProjectArray(){
     return this.fb.group({
       [this.form_typeList]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_teamSize]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_teamSize]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.numberOnly(),Validators.maxLength(5)]],
       [this.form_projectTitle]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_periodFrom]: [null, [Validators.required]],
       [this.form_periodTo]: [null, [Validators.required]],
@@ -300,8 +294,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
         [this.form_projectArray]: rawprojectFormValue[this.form_projectArray],
 
       };
-      console.log(projectobj,'projectobj');
-
       const ProjectApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
         section_name: "project_details",
@@ -313,6 +305,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Project details is updated');
+        this.msgData.sendMessage("saved",true)
         this.sharedService.joiningFormStepperStatus.next();
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
       });
@@ -323,8 +316,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       this.loadingService.setLoading(false)
       this.glovbal_validators.validateAllFields(this.projectForm);
     }
-    console.log(this.projectForm,'projectForm');
-
   }
 
    saveRequestRxJs() {
