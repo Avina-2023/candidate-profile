@@ -565,7 +565,7 @@
       <label>Physical Disability<span></span></label>
       <div class="d-flex w-100 align-items-center" >
         <div class="width-45">
-          <mat-radio-group  (change)="physicalDisability($event)"  [formControlName]="form_physical_disability" >
+          <mat-radio-group  (change)="physicalDisabilityChange($event)"  [formControlName]="form_physical_disability" >
             <mat-radio-button  style="width: 50% !important;"  value="true">yes</mat-radio-button>
             <mat-radio-button  style="width: 50% !important;" value="false">no</mat-radio-button>
           </mat-radio-group>

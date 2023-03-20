@@ -276,6 +276,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
           this.gender=data.value
         }
       }
+
     })
 
 // this.getAllPermanentCities(id, cityId, callback);
@@ -387,6 +388,8 @@ getprofileimageFromLocal(){
   } else if (this.cadidatefinalimage && this.productionUrl == false) {
     this.cadidatefinalimage = this.cadidatefinalimage
   }
+  // console.log(this.cadidatefinalimage,'this.cadidatefinalimagethis.cadidatefinalimage');
+
   this.gender = candyprofileimage.personal_details.gender;
   this.addressCity = candyprofileimage.contact_details.permanent_city;
   this.addressState = candyprofileimage.contact_details.present_state;

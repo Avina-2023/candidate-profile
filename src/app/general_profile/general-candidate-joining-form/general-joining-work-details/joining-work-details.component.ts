@@ -17,6 +17,7 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 // import { AdminServiceService } from 'src/app/services/admin-service.service';
 
 
@@ -177,6 +178,7 @@ check: any;
     private glovbal_validators: GlobalValidatorService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
+    private msgData:InterComponentMessenger
   ) {
     this.dateValidation();
   }
@@ -780,16 +782,22 @@ changeInIsArticleship(event){
 
 
   addSkills() {
-    let i = this.getSkillsArr['controls'].length - 1;
-    if (this.getSkillsArr.valid && this.getSkillsArr['controls'].length < 10) {
-      if (this.getSkillsArr && this.getSkillsArr['controls'] && this.getSkillsArr['controls'][i] && this.getSkillsArr['controls'][i]['value'] && this.getSkillsArr['controls'][i]['value'][this.form_Skill]) {
-         this.getSkillsArr.push(this.initSkillsArray());
-        this.choosen('Novice', this.getSkillsArr.length -1)
+    if(this.getSkillsArr.length > 0){
+      let i = this.getSkillsArr['controls'].length - 1;
+      if (this.getSkillsArr.valid && this.getSkillsArr['controls'].length < 10) {
+        if (this.getSkillsArr && this.getSkillsArr['controls'] && this.getSkillsArr['controls'][i] && this.getSkillsArr['controls'][i]['value'] && this.getSkillsArr['controls'][i]['value'][this.form_Skill]) {
+           this.getSkillsArr.push(this.initSkillsArray());
+          this.choosen('Novice', this.getSkillsArr.length -1)
+        }
+      } else {
+        this.appConfig.nzNotification('error', 'Not Added', 'Please fix all the red highlighted fields in the Skill Section');
+        this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Skills_Array]) as FormArray);
       }
-    } else {
-      this.appConfig.nzNotification('error', 'Not Added', 'Please fix all the red highlighted fields in the Skill Section');
-      this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Skills_Array]) as FormArray);
+    }else {
+      this.getSkillsArr.push(this.initSkillsArray());
+
     }
+
   }
 
   removeTrainingArray(i) {
@@ -1023,6 +1031,7 @@ changeInIsArticleship(event){
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Work Experience details is updated');
+        this.msgData.sendMessage("saved",true)
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
       });

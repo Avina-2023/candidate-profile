@@ -17,6 +17,7 @@ import { SkillexService } from 'src/app/service/skillex.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -127,6 +128,8 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
     private glovbal_validators: GlobalValidatorService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
+    private msgData:InterComponentMessenger
+
 
   ) {
     this.dateValidation();
@@ -279,6 +282,7 @@ dateConvertion(date) {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data.dependent_details);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Dependent details is updated');
+        this.msgData.sendMessage("saved",true)
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_EDUCATION);
       });
@@ -356,7 +360,7 @@ dateConvertion(date) {
       [this.form_dependent_name]: [data[this.form_dependent_name], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dependent_dob]: [this.dateConvertion(data[this.form_dependent_dob]), [Validators.required]],
       [this.form_dependent_occupation]: [data[this.form_dependent_occupation], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-      [this.form_dependent_other]: [data[this.form_dependent_other]],
+      [this.form_dependent_other]: [data[this.form_dependent_other]?data[this.form_dependent_other]:''],
          [this.form_dependent_differently_abled]: [data[this.form_dependent_differently_abled], this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_dependent_status]: [data[this.form_dependent_status], this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_dependent_relationship]: [data[this.form_dependent_relationship], [Validators.required]],
@@ -378,9 +382,15 @@ dateConvertion(date) {
 
   formInitialize() {
     this.dependentForm = this.fb.group({
-      [this.form_dependentArray]: this.fb.array([this.initDependentArray()])
+      [this.form_dependentArray]: this.fb.array([])
     })
   }
+  dependentChange(i) {
+    this.getDependentArr.at(i).patchValue({
+      [this.form_dependent_other]: [null]
+      });
+ return this.setValidations();
+}
   setValidations() {
     this.getDependentArr.controls.forEach((data,index) => {
     if (this.getDependentArr.controls[index]['controls'][this.form_dependent_relationship].value == 'Others') {

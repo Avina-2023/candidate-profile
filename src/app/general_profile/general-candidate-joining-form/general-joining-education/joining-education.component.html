@@ -280,7 +280,7 @@
                                       Year of Commencement is Required</div>
                                     <div class="err"
                                         *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax">
-                                        {{getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentFormMonth(getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax.max) : ''}}
+                                        {{getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentFormMonth(getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax.max) : ''}}
                                     </div>
                                     <div class="err"
                                         *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.matDatepickerMin">
@@ -291,7 +291,7 @@
                                         Invalid Date Format</div>
                                     <div class="err"
                                     *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.notValid">
-                                    {{'Start Date should be less than or equal to the Year of Passing, (Year of Passing - ' + getEducationArr.controls[i].get(form_startDate)?.errors?.notValid + ').'}}</div>
+                                    {{'Start Date should be less than  Year of Completion, (Year of Completion - ' + getEducationArr.controls[i].get(form_endDate)?.errors?.notValid + ').'}}</div>
                                 </div>
                             </ng-container>
                                <ng-container >
@@ -300,7 +300,7 @@
                                   <div class="date-relative">
                                       <input matInput class="input" [min]="minDate" [max]="maxDate"
                                           [matDatepicker]="picker1" placeholder="DD-MM-YYYY"
-                                          [formControlName]="form_endDate">
+                                          [formControlName]="form_endDate" >
                                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                       <mat-datepicker #picker1></mat-datepicker>
                                   </div>
@@ -322,7 +322,8 @@
                                           Invalid Date Format</div>
                                           <div class="err"
                                           *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.notValid">
-                                          {{'Year of Completion should be less than or equal to the Year of Passing, (Year of Passing - ' + getEducationArr.controls[i].get(form_endDate)?.errors?.notValid + ').'}}</div>
+                                          {{'Year of Completion should be greater than or equal to the selected End date, (Year of Passing - ' + getEducationArr.controls[i].get(form_yearpassing)?.errors?.notValid + ').'}}</div>
+
                                   </div>
                                </ng-container>
                           </ng-container>
@@ -331,7 +332,7 @@
                               <label>Year of Passing<span class="redTxt">*</span></label>
                               <div class="date-relative">
                                   <input matInput class="input" [ngClass]="getEducationArr.controls[i].get(form_startDate)?.errors?.notValid || getEducationArr.controls[i].get(form_endDate)?.errors?.notValid ? 'custom-input-error-border' : ''" [min]="minDate" [max]="maxDate"
-                                      [matDatepicker]="pickerYearOfPassing" placeholder="Ex: Jan 2001"
+                                      [matDatepicker]="pickerYearOfPassing" placeholder="DD-MM-YYYY"
                                       [formControlName]="form_yearpassing" appYearMonth>
                                   <mat-datepicker-toggle matSuffix [for]="pickerYearOfPassing"></mat-datepicker-toggle>
                                   <!-- <mat-datepicker #pickerYearOfPassing></mat-datepicker> -->
@@ -388,7 +389,7 @@
                           <div class="overall-input-wrapper width-100 mb-0" >
                             <label>Grade Points (GP)<span class="redTxt">*</span></label>
                             <input matInput placeholder="Enter here" class="input" type="text"
-                                [formControlName]="form_cgpa">
+                                [formControlName]="form_cgpercentage">
                               </div>
                             <div class="form-error"
                                 *ngIf="getEducationArr.controls[i].get(form_cgpercentage).invalid && getEducationArr.controls[i].get(form_cgpercentage).touched">
@@ -426,10 +427,7 @@
                           <div class="width-100">
                             <input matInput placeholder="Enter here" class="input" type="text"
                             [formControlName]="form_cgpa">
-                            <div>Please convert your CGPA into percentage as per your College/University conversion and then enter the percentage above.</div>
-                          </div>
-                        </div>
-                          <div class="form-error"
+                            <div class="form-error"
                               *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
                               <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
                                   Percentage is Required</div>
@@ -440,6 +438,10 @@
                                   *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.maxlength">
                                   Number with 2 Decimal points only allowed</div>
                           </div>
+                          <div>Please convert your CGPA into percentage as per your College/University conversion and then enter the percentage above.</div>
+                          </div>
+                        </div>
+
                       </ng-container>
 
 

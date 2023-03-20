@@ -439,7 +439,7 @@ constructor(
           [this.form_startDate]: null,
           [this.form_endDate]: null,
           [this.form_yearpassing]: null,
-          [this.isHighLevelEdu]:'false',
+          [this.isHighLevelEdu]:false,
           // [this.form_backlog]: null,
           [this.form_historyOfbacklog]:null,
           [this.form_reasonForbacklog]: null,
@@ -623,6 +623,7 @@ validSelectedPost() {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Education details is updated');
+        this.msgData.sendMessage("saved",true)
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
       });
@@ -719,7 +720,7 @@ validSelectedPost() {
       [this.form_boardUniversity]: [null, [Validators.required]],
       [this.form_startDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_gap]:['false'],
-      [this.isHighLevelEdu]:['false'],
+      [this.isHighLevelEdu]:[false],
       [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
       //  [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],

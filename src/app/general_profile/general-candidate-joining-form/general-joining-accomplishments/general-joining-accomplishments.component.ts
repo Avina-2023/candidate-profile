@@ -17,6 +17,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -106,6 +107,8 @@ check: any;
     private glovbal_validators: GlobalValidatorService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
+    private msgData:InterComponentMessenger
+
   ) {
     this.dateValidation();
 
@@ -229,6 +232,7 @@ this.setAwardArrValidation();
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Accomplishments is updated');
+        this.msgData.sendMessage("saved",true)
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_UPLOAD);
       });
@@ -249,7 +253,7 @@ this.setAwardArrValidation();
   [this.form_certification_issuedFrom]: [data[this.form_certification_issuedFrom], [Validators.required]],
   [this.form_certification_description]: [data[this.form_certification_description], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
   [this.form_certification_validityFrom]: [this.dateConvertion(data[this.form_certification_validityFrom]), [ Validators.required, this.startTrue(true)]],
-  [this.form_certification_validityUpto]: [this.dateConvertion(data[this.form_certification_validityUpto]), [Validators.required, this.startTrue(true)]],
+  [this.form_certification_validityUpto]: [this.dateConvertion(data[this.form_certification_validityUpto]), [this.startTrue(true)]],
 [this.form_isexpire]:[data[this.form_isexpire]?data[this.form_isexpire]: false]
  })
   }
@@ -264,7 +268,7 @@ this.setAwardArrValidation();
       [this.form_journalEntity_title]: [data[this.form_journalEntity_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_journalEntity_url]: [data[this.form_journalEntity_url], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_journalEntity_publishedOn]: [this.dateConvertion(data[this.form_journalEntity_publishedOn]), [Validators.required]],
-      [this.form_journalEntity_description]: [data[this.form_journalEntity_description], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_journalEntity_description]: [data[this.form_journalEntity_description], [RemoveWhitespace.whitespace(),  this.glovbal_validators.alphaNum255()]],
     })
   }
 
@@ -395,7 +399,7 @@ this.setAwardArrValidation();
     return this.fb.group({
       [this.form_certification_name]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
       [this.form_certification_issuedFrom]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
-      [this.form_certification_description]:[null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+      [this.form_certification_description]:[null,[this.glovbal_validators.alphaNum255()]],
       [this.form_certification_validityFrom]: [null,[Validators.required]],
       [this.form_certification_validityUpto]: [null,[Validators.required]],
       [this.form_isexpire]:[false]
@@ -403,38 +407,33 @@ this.setAwardArrValidation();
   }
   setCertificationArrValidation(){
     this.getCertificationsArr.controls.forEach((data, index) => {
-    if(this.getCertificationsArr.length){
+      console.log(this.getCertificationsArr.controls[index]['controls'][this.form_isexpire]);
+
+    if(this.getCertificationsArr?.length && this.getCertificationsArr.controls[index]['controls'][this.form_isexpire]?.value == false){
+      console.log('false');
+
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      // this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValidators([Validators.required, this.startTrue(true)],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValidators([Validators.required, this.startTrue(true)],{ emitEvent: false });
 
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_issuedFrom].updateValueAndValidity();
-      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_description].updateValueAndValidity();
+      // this.getCertificationsArr['controls'][index]['controls'][this.form_certification_description].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityFrom].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
-    }else {
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValue(null);
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].setValue(null);
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValue(null);
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValue(null);
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValue(null);
+    }else if(this.getCertificationsArr?.length && this.getCertificationsArr.controls[index]['controls'][this.form_isexpire]?.value == true) {
+      console.log('tru');
 
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValue(null);
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].clearValidators();
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].clearValidators();
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].clearValidators();
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].clearValidators();
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].clearValidators();
-
-      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
-      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_issuedFrom].updateValueAndValidity();
-      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_description].updateValueAndValidity();
-      this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityFrom].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
+      console.log(this.getCertificationsArr.controls[index],'tru');
+
     } })
 }
+
 
   isCertificateExpire(e, i:number) {
     if (e.checked) {
