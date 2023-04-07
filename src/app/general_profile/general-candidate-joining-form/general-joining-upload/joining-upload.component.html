@@ -67,7 +67,7 @@
       </div> -->
 
        <div class="backgroundwhite_uploadresume">
-        <label class="head_upload">Upload Resume <span></span></label>
+        <label class="head_upload">Upload Resume <span class="redTxt">*</span></label>
         <div class="hr_line">
           <hr>
         </div>
@@ -90,7 +90,7 @@
                   <input  class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
                     (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" />
                   <label for="upload" class="uploadbutton">
-                    <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "NO file choosen"}}
+                    <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "No file choosen"}}
                   </label>
                 </div>
 

@@ -112,7 +112,7 @@
             font-size: 12px;
             .err{
               position: relative;
-              float: right;
+              // float: right;
             }
           }
           ::placeholder {
@@ -130,7 +130,7 @@
   font-size: 12px;
   .err{
     position: relative;
-    float: right;
+    // float: right;
   }
 }
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
@@ -507,10 +507,15 @@ padding: 0 2% 2% 0;
       }
       .form-grouping {
           // width: 80%;
+          // margin-bottom: 20px;
       }
+      // .divcard{
+      //   margin-bottom: 20px;
+      // }
       .remove-wrapper {
           // width: 20%;
           position: relative;
+          margin-top: 30px;
           .remove {
               position: absolute;
               cursor: pointer;

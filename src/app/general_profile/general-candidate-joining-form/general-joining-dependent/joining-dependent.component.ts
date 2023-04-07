@@ -182,6 +182,7 @@ export class GeneralJoiningDependentComponent implements OnInit, AfterViewInit, 
     });
   }
   removeData(i) {
+    this.currentDeleteIndex = i
     const data = {
       iconName: '',
       sharedData: {

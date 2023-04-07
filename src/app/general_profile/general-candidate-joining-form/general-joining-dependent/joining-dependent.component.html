@@ -1,6 +1,6 @@
 <div class="joining-personal-wrapper p-0">
   <div class="divcard m-0">
-    <h5 class="h mb-0" >Dependent Details</h5>
+    <h5 class="h mb-0">Dependent Details</h5>
   </div>
 
   <div class="grids-wrapper">
@@ -18,82 +18,102 @@
                     </div>
                   </div>
                 </div>
-                <ng-container >
+                <ng-container>
                   <div class="overall-input-wrapper width-32 mb-0">
-                    <label>Name of the Dependent<span class="redTxt">*</span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_dependent_name">
-                  </div>
+                    <label style="width:0%">Name of the Dependent<span class="redTxt">*</span></label>
+                    <div style="width:100%"><input matInput placeholder="Enter here" class="input" type="text"
+                        [formControlName]="form_dependent_name">
+
 
                       <div class="form-error"
-                      *ngIf="getDependentArr.controls[i].get(form_dependent_name).invalid && getDependentArr.controls[i].get(form_dependent_name).touched">
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.required">
-                        Name
-                        of the dependent is Required</div>
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.alphaNum255">
+                        *ngIf="getDependentArr.controls[i].get(form_dependent_name).invalid && getDependentArr.controls[i].get(form_dependent_name).touched">
+                        <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.required">
+                          Name
+                          of the dependent is Required</div>
+                        <div class="err"
+                          *ngIf="getDependentArr.controls[i].get(form_dependent_name).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="overall-input-wrapper width-32 mt-4">
+                    <label style="width:0%">Date of Birth<span class="redTxt">*</span></label>
+                    <div class="date-relative">
+                      <div style="width: 100%;"><input matInput class="input w-100 " [min]="minDate" [max]="maxDate"
+                          [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_dependent_dob">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+
+
+                        <div class="form-error"
+                          *ngIf="getDependentArr.controls[i].get(form_dependent_dob).invalid && getDependentArr.controls[i].get(form_dependent_dob).touched">
+                          <div class="err"
+                            *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.required">
+                            Date
+                            of Birth is Required</div>
+                          <div class="err"
+                            *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMax">
+                            {{getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMax?.max ?
+                            'Maximum
+                            date should be ' +
+                            momentForm(getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMax.max)
+                            :
+                            ''}}
+                          </div>
+                          <div class="err"
+                            *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMin">
+                            {{getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMin?.min ?
+                            'Minimum
+                            date should be ' +
+                            momentForm(getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMin.min)
+                            :
+                            ''}}
+                          </div>
+                          <div class="err"
+                            *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerParse">
+                            Invalid Date Format</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="overall-input-wrapper width-32 mt-4">
+                    <label>Relationship<span class="redTxt">*</span></label>
+                    <div
+                      [ngClass]="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')? 'dynamicclass' : ' width-100' ">
+                      <div style="display:flex;justify-content: space-between;"><nz-select class="input select w-100"
+                          (ngModelChange)="dependentChange(i)" [formControlName]="form_dependent_relationship"
+                          nzAllowClear nzShowSearch nzPlaceHolder="Select">
+                          <nz-option *ngFor="let relation of relationshipList" [nzLabel]="relation.label"
+                            [nzValue]="relation.value"></nz-option>
+                        </nz-select>
+                        <ng-container>
+                          <div class="otherinp"
+                            *ngIf="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')">
+                            <input matInput placeholder="Enter here" class="input" type="text"
+                              [formControlName]="form_dependent_other">
+                          </div>
+                        </ng-container>
+
+                      </div>
+                      <div class="form-error"
+                      *ngIf="getDependentArr.controls[i].get(form_dependent_other).invalid && getDependentArr.controls[i].get(form_dependent_other).touched">
+                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.required">
+                        Relationship is Required</div>
+                      <div class="err"
+                        *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.alphaNum255">
                         Alpha numeric with maximum of 255 characters only
                         allowed</div>
                     </div>
-                </ng-container>
-                <ng-container >
-                  <div class="overall-input-wrapper width-32 mt-4">
-                    <label>Date of Birth<span class="redTxt">*</span></label>
-                    <div class="date-relative">
-                      <input matInput class="input w-100 " [min]="minDate" [max]="maxDate" [matDatepicker]="picker"
-                        placeholder="DD-MM-YYYY" [formControlName]="form_dependent_dob">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
                     </div>
-                  </div>
-                    <div class="form-error"
-                      *ngIf="getDependentArr.controls[i].get(form_dependent_dob).invalid && getDependentArr.controls[i].get(form_dependent_dob).touched">
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.required">
-                        Date
-                        of Birth is Required</div>
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMax">
-                        {{getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMax?.max ? 'Maximum
-                        date should be ' +
-                        momentForm(getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMax.max) :
-                        ''}}
-                      </div>
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMin">
-                        {{getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMin?.min ? 'Minimum
-                        date should be ' +
-                        momentForm(getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerMin.min) :
-                        ''}}
-                      </div>
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_dob)?.errors?.matDatepickerParse">
-                        Invalid Date Format</div>
-                    </div>
-                </ng-container>
-                <ng-container >
-                  <div class="overall-input-wrapper width-32 mt-4">
-                    <label>Relationship<span class="redTxt">*</span></label>
-                    <div [ngClass]="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')? 'dynamicclass' : ' width-100' ">
-                      <nz-select  class="input select w-100" (ngModelChange)="dependentChange(i)" [formControlName]="form_dependent_relationship" nzAllowClear
-                      nzShowSearch nzPlaceHolder="Select">
-                      <nz-option *ngFor="let relation of relationshipList" [nzLabel]="relation.label"
-                        [nzValue]="relation.value"></nz-option>
-                    </nz-select>
-                    <ng-container >
-                      <div class="otherinp" *ngIf="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')" >
-                        <input matInput placeholder="Enter here" class="input" type="text"
-                        [formControlName]="form_dependent_other">
-                      </div>
-                    </ng-container>
 
-                    </div>
                   </div>
-                  <div class="form-error"
-                  *ngIf="getDependentArr.controls[i].get(form_dependent_other).invalid && getDependentArr.controls[i].get(form_dependent_other).touched">
-                  <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.required">
-                    Relationship is Required</div>
-                  <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.alphaNum255">
-                    Alpha numeric with maximum of 255 characters only
-                    allowed</div>
-                </div>
                 </ng-container>
-                <ng-container >
+                <ng-container>
                   <div class="overall-input-wrapper width-32 mt-4">
                     <label>Occupation<span></span></label>
                     <input matInput placeholder="Enter here" class="input" type="text"
@@ -115,7 +135,7 @@
           </div>
         </ng-container>
       </ng-container>
-              <!-- <div class="row-wrapper">
+      <!-- <div class="row-wrapper">
 
                 <ng-container *ngIf="candidateService.checkKycOrJoiningForm()">
                   <div class="overall-input-wrapper width-32 mt-4">

@@ -1,7 +1,7 @@
 <div class="joining-personal-wrapper">
   <div class="headcard pb-2">
     <h5 class="h">
-      Acadamic Project Details
+      Academic Project Details
     </h5>
     <label>
       It is important to highlight the academic projects that highlight transferable skills are relevant to the job
@@ -26,63 +26,76 @@
               <ng-container >
               <div class="overall-input-wrapper width-45">
                 <label>Project Type<span class="redTxt">*</span></label>
+                <div style="width: 100%;">
                 <nz-select class="input select" [formControlName]="form_typeList" nzAllowClear nzShowSearch
                   nzPlaceHolder="Select">
                   <nz-option *ngFor="let typeList of projectTypeList" [nzLabel]="typeList.label"
                     [nzValue]="typeList.value"></nz-option>
                 </nz-select>
-                </div>
+
                 <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_typeList).invalid && getprojectArr.controls[i].get(form_typeList).touched">
                   <div class="err"  *ngIf="getprojectArr.controls[i].get(form_typeList).errors?.required">Project Type is Required</div>
                   <!-- <div *ngIf="getprojectArr.controls[i].get(form_typeList).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div> -->
                 </div>
+              </div>
+            </div>
             </ng-container>
               <ng-container >
                 <div class="overall-input-wrapper width-45">
                   <label>Team Size<span class="redTxt">*</span></label>
+                  <div style="width: 100%;">
                   <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_teamSize">
-                </div>
+
                 <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_teamSize).invalid && getprojectArr.controls[i].get(form_teamSize).touched">
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.required">Team Size is Required</div>
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.numberOnly">Numbers only allowed</div>
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.maxlength">Maximum 5 digit only allowed</div>
-
                   </div>
+                  </div>
+                </div>
               </ng-container>
                 <ng-container >
                   <div class="overall-input-wrapper width-100">
                     <label>Title of the Project<span class="redTxt">*</span></label>
-                    <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                    <div style="width: 100%;">
+                    <input matInput class="input" placeholder="Enter here" type="text"
                       [formControlName]="form_projectTitle">
-                    </div>
+
                   <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectTitle).invalid && getprojectArr.controls[i].get(form_projectTitle).touched">
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectTitle).errors?.required">Title of the Project is Required</div>
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectTitle).errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
                       allowed</div>
                   </div>
+                </div>
+              </div>
                 </ng-container>
                 <ng-container >
                   <div class="overall-input-wrapper width-100">
                     <label>Organization<span class="redTxt">*</span></label>
-                    <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                    <div style="width: 100%;">
+                    <input matInput class="input" placeholder="Enter here" type="text"
                       [formControlName]="form_projectOrganization">
-                    </div>
+
                     <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectOrganization).invalid && getprojectArr.controls[i].get(form_projectOrganization).touched">
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectOrganization).errors?.required">Organization is Required</div>
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectOrganization).errors?.alphaNum255">Alpha numeric with maximum of 255 characters only
                         allowed</div>
                     </div>
+                  </div>
+                </div>
                 </ng-container>
               <ng-container >
                 <div class="overall-input-wrapper width-100">
                   <label>Period From<span class="redTxt">*</span></label>
                     <div class="date-relative">
-                      <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerProject"
-                        placeholder="DD-MM-YYYY" [formControlName]="form_periodFrom">
+                     <div style="width: 100%;">
+                      <input matInput class="input" [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="pickerProject" placeholder="DD-MM-YYYY" [formControlName]="form_periodFrom"(dateInput)="fromDateChange('input', $event)">
+
+                      <!-- <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerProject"
+                        placeholder="DD-MM-YYYY" [formControlName]="form_periodFrom"> -->
                       <mat-datepicker-toggle matSuffix [for]="pickerProject"></mat-datepicker-toggle>
                       <mat-datepicker #pickerProject></mat-datepicker>
-                    </div>
-                  </div>
+
                   <div class="form-error"
                       *ngIf="getprojectArr.controls[i].get(form_periodFrom).invalid && getprojectArr.controls[i].get(form_periodFrom).touched">
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodFrom)?.errors?.required">
@@ -102,17 +115,22 @@
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerParse">
                         Invalid Date Format</div>
                     </div>
+                  </div>
+                </div>
+              </div>
               </ng-container>
               <ng-container >
                 <div class="overall-input-wrapper width-100">
                   <label>Period To<span class="redTxt">*</span></label>
                     <div class="date-relative">
-                      <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerProject1"
-                        placeholder="DD-MM-YYYY" [formControlName]="form_periodTo">
+                      <div style="width: 100%;">
+                        <input matInput class="input" [min]="minToDate" [max]="maxToDate" [matDatepicker]="pickerProject1" placeholder="DD-MM-YYYY" [formControlName]="form_periodTo"(dateInput)="fromDateChange('input', $event)">
+
+                      <!-- <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerProject1"
+                        placeholder="DD-MM-YYYY" [formControlName]="form_periodTo"> -->
                       <mat-datepicker-toggle matSuffix [for]="pickerProject1"></mat-datepicker-toggle>
                       <mat-datepicker #pickerProject1></mat-datepicker>
-                    </div>
-                  </div>
+
                   <div class="form-error"
                       *ngIf="getprojectArr.controls[i].get(form_periodTo).invalid && getprojectArr.controls[i].get(form_periodTo).touched">
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodTo)?.errors?.required">
@@ -132,17 +150,23 @@
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerParse">
                         Invalid Date Format</div>
                     </div>
+                  </div>
+                </div>
+              </div>
               </ng-container>
               <ng-container >
                 <div class="overall-input-wrapper width-100">
                   <label>Description<span class="redTxt">*</span></label>
-                  <input matInput class="input" placeholder="Name (as per Aadhaar)" type="text"
+                  <div style="width: 100%;">
+                  <input matInput class="input" placeholder="Enter here" type="text"
                     [formControlName]="form_projectDescription">
-                  </div>
+
                   <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_projectDescription).invalid && getprojectArr.controls[i].get(form_projectDescription).touched">
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectDescription).errors?.required">Description is Required</div>
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_projectDescription).errors?.alphaNum255">Please enter a valid 10 digit mobile number</div>
                     </div>
+                  </div>
+                </div>
               </ng-container>
 
             </div>
@@ -152,7 +176,7 @@
           *ngIf="getprojectArr && getprojectArr.controls && getprojectArr.controls.length >= 0 "
           class="pt-3 row-wrapper flexEnd  justify-content-between  pb-3">
           <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
-            (click)="addMoreCertifications()">+ Add More Certifications</button>
+            (click)="addMoreCertifications()">+ Add more Project Details </button>
         </div>
         </ng-container>
 

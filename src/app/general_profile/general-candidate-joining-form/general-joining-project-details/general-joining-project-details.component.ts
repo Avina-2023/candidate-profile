@@ -17,6 +17,8 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
+import {MatDatepicker} from '@angular/material/datepicker';
+import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 
 export const MY_FORMATS = {
   parse: {
@@ -82,6 +84,10 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   customerName: any;
   projectDetailsAllData: any;
   projectDetails: any;
+  minFromDate: Date;
+  maxFromDate: Date | null;
+  minToDate: Date | null;
+  maxToDate: Date;
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -95,7 +101,51 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     private matDialog: MatDialog,
     public dialog: MatDialog,
     private msgData:InterComponentMessenger
-  ) { }
+  ) {this.minFromDate = new Date(1900, 0, 1);
+    this.maxFromDate = new Date();
+
+    this.minToDate = new Date(1900, 0, 1);
+    this.maxToDate = new Date();}
+
+  // {
+  //   this.dateValidation();
+
+  //   this.minFromDate = new Date(1900, 0, 1);
+  //   this.maxFromDate = new Date();
+
+  //   this.minToDate = new Date(1900, 0, 1);
+  //   this.maxToDate = new Date();
+
+  // }
+  // dateValidation() {
+  //   throw new Error('Method not implemented.');
+  // }
+
+
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    console.log(`${type}: ${event.value}`);
+    this.minToDate = event.value;
+
+    if (event.value !== null) {
+      this.maxToDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
+    }
+  }
+
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.maxFromDate = event.value;
+
+    if (event.value !== null) {
+      this.minFromDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() - 30
+      );
+    }
+  }
 
   ngOnInit(): void {
     // this.customerName = this.appConfig.getSelectedCustomerName();
@@ -161,6 +211,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     });
   }
   removeData(i) {
+    this.currentDeleteIndex = i
     const data = {
       iconName: '',
       sharedData: {

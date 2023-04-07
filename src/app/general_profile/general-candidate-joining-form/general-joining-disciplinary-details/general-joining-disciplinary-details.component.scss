@@ -21,7 +21,7 @@
   font-size: 12px;
   .err{
     position: relative;
-    float: right;
+    // float: right;
   }
 }
 .input {
@@ -43,3 +43,8 @@
   line-height: 1.3em !important;
   max-height: 80px !important;
 }
+
+:host  textarea.ng-invalid.ng-touched
+{
+    border: solid red 1px !important;
+ }

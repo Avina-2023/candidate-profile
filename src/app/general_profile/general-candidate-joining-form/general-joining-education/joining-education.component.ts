@@ -8,7 +8,7 @@ import { GlobalValidatorService } from 'src/app/custom-form-validators/globalval
 import { RemoveWhitespace } from 'src/app/custom-form-validators/removewhitespace';
 // import { AdminServiceService } from 'src/app/services/admin-service.service';
 import * as moment from 'moment'; //in your component
-import { MatDatepicker } from "@angular/material/datepicker";
+import { MatDatepicker, MatDatepickerInputEvent } from "@angular/material/datepicker";
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { Moment } from 'moment';
@@ -26,11 +26,11 @@ import { InterComponentMessenger } from 'src/app/service/interComponentMessenger
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'DD-MM-YYYY',
+    dateInput: 'MMM-YYYY',
   },
   display: {
     // dateInput: 'DD MMM YYYY', // output ->  01 May 1995
-    dateInput: 'DD-MM-YYYY', // output ->  01-10-1995
+    dateInput: 'MMM-YYYY', // output ->  01-10-1995
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -38,11 +38,11 @@ export const MY_FORMATS = {
 };
 export const MY_FORMATS_Month = {
   parse: {
-    dateInput: 'MM-YYYY',
+    dateInput: 'MMM-YYYY',
   },
   display: {
     // dateInput: 'DD MMM YYYY', // output ->  01 May 1995
-    dateInput: 'DD-MM', // output ->  01-10-1995
+    dateInput: 'MMM-YYYY', // output ->  01-10-1995
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -220,6 +220,10 @@ joiningFormDataPassingSubscription: Subscription;
   withoutCAeducationLevels: any;
   withCAeducationLevels: any;
   check: any;
+  minFromDate: Date;
+  maxFromDate: Date | null;
+  minToDate: Date | null;
+  maxToDate: Date;
 constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -234,14 +238,48 @@ constructor(
     public dialog: MatDialog,
     private msgData:InterComponentMessenger
 
-  ) {
-    this.dateValidation();
-    let mastersList = this.appConfig.getLocalData('masters') ? JSON.parse(this.appConfig.getLocalData('masters')) : [];
-    // Filter education details baised on customer code
-    this.mastersList = mastersList.lenght ? mastersList.education_master : [];
-    let positive_array = this.mastersList.filter(value => value.customer_code == '#LTTS');
-    this.mastersList = mastersList ? positive_array : [];
-  }
+  )
+
+  {this.minFromDate = new Date(1900, 0, 1);
+    this.maxFromDate = new Date();
+
+    this.minToDate = new Date(1900, 0, 1);
+    this.maxToDate = new Date();}
+
+
+    fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+      console.log(`${type}: ${event.value}`);
+      this.minToDate = event.value;
+
+      if (event.value !== null) {
+        this.maxToDate = new Date(
+          event!.value.getFullYear(),
+          event!.value.getMonth(),
+          event!.value.getDate() + 30
+        );
+      }
+    }
+
+    toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+      this.maxFromDate = event.value;
+
+      if (event.value !== null) {
+        this.minFromDate = new Date(
+          event!.value.getFullYear(),
+          event!.value.getMonth(),
+          event!.value.getDate() - 30
+        );
+      }
+    }
+
+  //  {
+  //   this.dateValidation();
+  //   let mastersList = this.appConfig.getLocalData('masters') ? JSON.parse(this.appConfig.getLocalData('masters')) : [];
+  //   // Filter education details baised on customer code
+  //   this.mastersList = mastersList.lenght ? mastersList.education_master : [];
+  //   let positive_array = this.mastersList.filter(value => value.customer_code == '#LTTS');
+  //   this.mastersList = mastersList ? positive_array : [];
+  // }
 
   ngOnInit() {
     this.formInitialize();
@@ -279,6 +317,7 @@ constructor(
     this.sharedService.joiningFormActiveSelector.next('education');
   }
 
+  date = new FormControl(moment());
 
   chosenYearHandler(normalizedYear: Moment, i) {
     const ctrlValue = this.getEducationArr['value'][i][this.form_yearpassing];
@@ -291,6 +330,7 @@ constructor(
   }
 
   chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, i) {
+    const ctrlValue = this.getEducationArr['value'][i][this.form_yearpassing];
     if (this.dateConvertion(normalizedMonth['_d'])) {
     this.getEducationArr.at(i).patchValue({
       [this.form_yearpassing]: this.dateConvertionMonth(normalizedMonth['_d']),
@@ -298,6 +338,48 @@ constructor(
   }
     datepicker.close();
   }
+
+  chosenYearHandlerpicker(normalizedYear: Moment, i) {
+    const ctrlValue = this.getEducationArr['value'][i][this.form_startDate];
+    if (ctrlValue) {
+      ctrlValue.year(normalizedYear.year());
+      this.getEducationArr.at(i).patchValue({
+        [this.form_startDate]: ctrlValue,
+      });
+    }
+  }
+
+  chosenMonthHandlerpicker(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, i) {
+    const ctrlValue = this.getEducationArr['value'][i][this.form_startDate];
+    if (this.dateConvertion(normalizedMonth['_d'])) {
+    this.getEducationArr.at(i).patchValue({
+      [this.form_startDate]: this.dateConvertionMonth(normalizedMonth['_d']),
+    });
+  }
+    datepicker.close();
+  }
+
+
+  chosenYearHandlerpicker1(normalizedYear: Moment, i) {
+    const ctrlValue = this.getEducationArr['value'][i][this.form_startDate];
+    if (ctrlValue) {
+      ctrlValue.year(normalizedYear.year());
+      this.getEducationArr.at(i).patchValue({
+        [this.form_startDate]: ctrlValue,
+      });
+    }
+  }
+
+  chosenMonthHandlerpicker1(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, i) {
+    const ctrlValue = this.getEducationArr['value'][i][this.form_endDate];
+    if (this.dateConvertion(normalizedMonth['_d'])) {
+    this.getEducationArr.at(i).patchValue({
+      [this.form_endDate]: this.dateConvertionMonth(normalizedMonth['_d']),
+    });
+  }
+    datepicker.close();
+  }
+
 
   getSelectedPost() {
     this.mastersList.forEach(element => {
@@ -354,6 +436,7 @@ constructor(
     });
   }
   removeData(i) {
+    this.currentDeleteIndex=i
     const data = {
       iconName: '',
       sharedData: {

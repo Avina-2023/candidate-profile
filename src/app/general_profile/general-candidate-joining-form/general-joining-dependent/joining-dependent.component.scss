@@ -88,7 +88,7 @@ padding: 4% 1% 1% 0%;                }
                         line-height: 35px;
                         padding: 4px 8px;
                         background-color: $white;
-                        width: 99%;
+                        // width: 99%;
                     }
                     .select {
                         display: flex;
@@ -105,7 +105,7 @@ padding: 4% 1% 1% 0%;                }
                       font-size: 12px;
                       .err{
                         position: relative;
-                        float: right;
+                        float: left;
                       }
                   }
                      ::placeholder {
@@ -372,9 +372,9 @@ padding: 4% 1% 1% 0%;                }
   color: red !important;
 }
 .dynamicclass{
-  display: flex;
+  //display: flex;
   width: 100%;
-  justify-content: space-between;
+  //justify-content: space-between;
   .select{
 width: 45% !important;
   }

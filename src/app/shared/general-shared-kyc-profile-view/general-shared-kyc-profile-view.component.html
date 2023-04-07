@@ -141,13 +141,7 @@
               </div>
             </div>
 
-            <div *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm"
-              class="overall-input-wrapper mt-3 width-32">
-              <label>Blood Group<span></span></label>
-              <div class="inpu-preview size-16 bold-700 color-black">
-                {{ personalDetailsMap[form_blood_group] ? personalDetailsMap[form_blood_group] : 'NA' }}
-              </div>
-            </div>
+
 
             <div *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm"
               class="overall-input-wrapper mt-3 width-32">
@@ -362,9 +356,16 @@
             <div class="overall-input-wrapper mt-3 width-32">
               <label>Blood Group<span></span></label>
               <div class="inpu-preview size-16 bold-700 color-black">
-                {{ personalDetailsMap[form_no_of_days] }}
+                {{ personalDetailsMap[form_blood_group] ? personalDetailsMap[form_blood_group] :  'NA' }}
               </div>
             </div>
+            <!-- <div *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm"
+              class="overall-input-wrapper mt-3 width-32">
+              <label>Blood Group<span></span></label>
+              <div class="inpu-preview size-16 bold-700 color-black">
+                {{ personalDetailsMap[form_blood_group] ? personalDetailsMap[form_blood_group] : 'NA' }}
+              </div>
+            </div> -->
             <!-- <div class="overall-input-wrapper mt-3 width-32">
               <label>No. of Days Ill<span></span></label>
               <div class="inpu-preview size-16 bold-700 color-black">
@@ -529,7 +530,7 @@
               <div class="overall-input-wrapper mt-3 width-24">
                 <label>Relationship</label>
                 <div class="inpu-preview size-16 bold-700 color-black">
-                  {{ dependent[form_isDependent] }}
+                  {{ dependent[form_dependent_relationship] }}
                 </div>
               </div>
 
@@ -542,7 +543,7 @@
                 </div>
               </div>
 
-              <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm">
+              <!-- <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && !currentForm">
                 <div class="overall-input-wrapper mt-3 width-24">
                   <label>Is Dependent</label>
                   <div class="inpu-preview size-16 bold-700 color-black">
@@ -561,7 +562,7 @@
                     {{ dependent[form_dependent_status] }}
                   </div>
                 </div>
-              </ng-container>
+              </ng-container> -->
             </div>
           </div>
         </ng-container>
@@ -1232,7 +1233,7 @@
   <!-- <label>Symposium - Technical Paper Design</label>
   <label>April 2013</label> -->
   <label>{{awards[form_award_title]}}</label><br>
-  <label>{{awards[form_award_date]}}</label>
+  <label>{{awards[form_award_date]?(dateConvertion(awards[form_award_date])| date : 'MMM y') :'NIL'}}</label>
 </div>
 </ng-container>
 </ng-container>
