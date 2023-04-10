@@ -107,19 +107,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     this.minToDate = new Date(1900, 0, 1);
     this.maxToDate = new Date();}
 
-  // {
-  //   this.dateValidation();
 
-  //   this.minFromDate = new Date(1900, 0, 1);
-  //   this.maxFromDate = new Date();
-
-  //   this.minToDate = new Date(1900, 0, 1);
-  //   this.maxToDate = new Date();
-
-  // }
-  // dateValidation() {
-  //   throw new Error('Method not implemented.');
-  // }
 
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {

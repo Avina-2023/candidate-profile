@@ -769,10 +769,12 @@ mat-expansion-panel-header {
                 flex-direction: column;
                 position: relative;
                 label {
-                    color: #565656;
                     padding: 0 0 2px 0;
                     margin: 0;
-                    font-size: 13px;
+                    color: #505358E6;
+                        font-size: 14px;
+                        font-family: "Lato";
+                        font-weight: bold;
                 }
                 .input {
                     position: relative;
