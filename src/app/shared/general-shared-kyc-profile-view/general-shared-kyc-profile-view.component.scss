@@ -31,11 +31,11 @@
                   margin-bottom: 10px !important;
 
                     h6 {
-                        color: #3F3F3F;
+                        color: #000000;
                         font-size: 20px;
                         font-weight: bold;
                         margin-bottom: 10px;
-                        margin-top: 10px;
+                        margin-top: 15px;
 
                     }
                     .icon {
@@ -64,6 +64,8 @@
                   flex-wrap: wrap;
                   margin-right: 8px;
                   width: 100%;
+                  font-size: 14px;
+                  // font-weight: 700;
                   // align-items: center;
                   label {
                       color: #808080;
@@ -124,11 +126,16 @@
                     width: 100%;
                     // align-items: center;
                     label {
-                        color: #808080;
+                        color: #505358E6;
                         // padding: 20px 0px 0px 1px;
                         margin: 0;
-                        font-size: 15.5px;
+                        font-size: 14px;
                         width: 50%;
+                        font-family: 'Lato';
+                        font-weight: bold;
+
+
+
 
                     }
                     .inpu-preview {
@@ -924,8 +931,9 @@
 }
 
 .d-head {
-    font-size: 14px;
-    font-weight: 600;
+    // font-size: 14px;
+    // font-weight: 600;
+    font: normal normal bold 16px/19px Lato;
 }
 
 .h6-sub-heading {
@@ -967,6 +975,7 @@
     background: #E9EDF2;
     border-radius: 5px;
     padding: 4px 8px;
+    color: #2A3038;
 }
 
 .edit-icon {
@@ -1001,6 +1010,8 @@
 
 .Profile-Summary{
   font-size: 14px;
+  color: black;
+  font-weight: 700;
   // padding: 1em;
 }
 .download-button{

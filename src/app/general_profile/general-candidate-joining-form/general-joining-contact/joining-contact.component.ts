@@ -151,8 +151,21 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
   matchangeYes(e) {
     if (e.checked) {
       this.updatePermanentAsPerPresent();
+      console.log(this.contactForm.controls[this.form_permanent_address_1]);
+
     } else {
-      this.updatePermanentAsPerPresent();
+      console.log(this.contactForm.controls[this.form_permanent_address_1]);
+
+      this.contactForm.controls[this.form_permanent_address_1].setValue(null);
+      this.contactForm.controls[this.form_permanent_address_2].setValue(null);
+      this.contactForm.controls[this.form_permanent_address_3].setValue(null);
+      this.contactForm.controls[this.form_permanent_state].setValue(null);
+      this.contactForm.controls[this.form_permanent_city].setValue(null);
+      this.contactForm.controls[this.form_permanent_zip_code].setValue(null);
+      this.contactForm.controls[this.form_permanent_region].setValue(null);
+
+
+      // this.updatePermanentAsPerPresent();
     }
   }
 
@@ -218,7 +231,11 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
           this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
           this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');
-          this.msgData.sendMessage("saved",true)
+          this.msgData.sendMessage("saved",true);
+          console.log(this.form_permanent_city,'c');
+
+          this.msgData.sendMessage("city",data.data.saved_data.permanent_city);
+
           this.sharedService.joiningFormStepperStatus.next();
           return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
       });

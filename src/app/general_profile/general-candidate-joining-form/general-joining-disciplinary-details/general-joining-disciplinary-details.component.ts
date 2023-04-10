@@ -41,6 +41,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   disciplinaryDetails: any;
   disciplinaryDetailsAllData: any;
   customerName: any;
+  customInput: any;
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -74,6 +75,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       [this.form_court_case_pending]: [null],
       [this.form_university_case_pending]: [null],
       [this.form_disciplinary_proceedings]: [null],
+       [this.form_full_particulars]: [null,[Validators.required]],
       [this.form_full_particulars]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]],
     })
   }
@@ -111,6 +113,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   }
 
   formSubmit(routeValue?: any) {
+    // console.log(this.discipilinaryForm);
     this.requiredDesc();
     let formValues = this.discipilinaryForm.getRawValue();
     if (this.discipilinaryForm.valid) {
@@ -147,9 +150,10 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       });
     } else {
       this.ngAfterViewInit();
+      // this.customInput.classList.add('border-err');
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the mandatory fields to proceed further');
-      // this.glovbal_validators.validateAllFields(this.discipilinaryForm);
+       this.glovbal_validators.validateAllFields(this.discipilinaryForm);
     }
   }
 

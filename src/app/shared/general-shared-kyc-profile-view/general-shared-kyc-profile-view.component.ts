@@ -882,8 +882,8 @@ form_projectDescription = 'projectDescription';
         element[this.form_typeList] = element?.[this.form_typeList] ? element[this.form_typeList] : 'NIL';
         element[this.form_teamSize] = element?.[this.form_teamSize] ? element[this.form_teamSize] : 'NIL';
         element[this.form_projectTitle] = element?.[this.form_projectTitle] ? element[this.form_projectTitle]  : 'NIL';
-        element[this.form_periodFrom] = element?.[this.form_periodFrom] ? element[this.form_periodFrom]  : 'NIL';
-        element[this.form_periodTo] = element?.[this.form_periodTo] ? element[this.form_periodTo]  : 'NIL';
+        element[this.form_periodFrom] = element?.[this.form_periodFrom] ? this.dateConvertion(element[this.form_periodFrom])  : 'NIL';
+        element[this.form_periodTo] = element?.[this.form_periodTo] ? this.dateConvertion(element[this.form_periodTo])  : 'NIL';
         element[this.form_projectDescription] = element?.[this.form_projectDescription] ? element[this.form_projectDescription] : 'NIL';
         element[this.form_projectOrganization] = element?.[this.form_projectOrganization] ? element[this.form_projectOrganization] : 'NIL';
         // element[this.form_periodTo] = element?.[this.form_dependent_occupation] ? element[this.form_dependent_occupation] : 'NA';
@@ -1196,6 +1196,8 @@ form_projectDescription = 'projectDescription';
       disableClose: true,
       panelClass: 'popupModalContainerForForms'
     });
+     this.formSubmit();
+
   }
   closeDialog(e) {
     if (e == 'save') {
@@ -1292,8 +1294,8 @@ form_projectDescription = 'projectDescription';
     this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
     this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
     this.appConfig.nzNotification('success', 'Saved','Profile form submitted successfully');
-    this.sharedService.joiningFormStepperStatus.next();
-    return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
+    // this.sharedService.joiningFormStepperStatus.next();
+    // return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
     });
   }
 
@@ -1356,32 +1358,36 @@ form_projectDescription = 'projectDescription';
 
 
   async uploadImage(file) {
-    try {
+     try {
 
       this.loadingService.setLoading(true);
       const data = await (await this.skillexService.uploadfile(file)).subscribe((data:any)=>{
+        console.log('data',data);
+        console.log('data.success',data.success);
+
         if (data && !data.success) {
                 this.loadingService.setLoading(false);
               return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
               }
               this.loadingService.setLoading(false);
-              if (data && data.data.file_path) {
+              if (data && data.data && data.success==true) {
                 this.signature = {
                   email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
                   name: 'Signature',
                   label: 'Signature',
                   // file_id: data.file_id,
-                  file_path: data.data.file_path,
-                  file_size: data.data.file_size,
-                  filename: data.data.file_name,
-                  filetype: data.data.type,
+                  file_path: data.data,
+                  // file_size: data.data.file_size,
+                  // filename: data.data.file_name,
+                  // filetype: data.data.type,
                 };
               }
 
               this.appConfig.nzNotification('success', 'Uploaded', 'Signature uploaded successfully');
       })
 
-    } catch (e) {
+     }
+    catch (e) {
       this.loadingService.setLoading(false);
       this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
 
@@ -1406,13 +1412,16 @@ form_projectDescription = 'projectDescription';
       if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
           let image = event.target.files[0];
 
-        fd.append('email',this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '');
+        fd.append('userEmail',this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '');
         fd.append('description', 'signature');
         // fd.append('label', 'signature');
         // fd.append('level', 'signature');
         fd.append('uploadFile', image);
         fd.append('uploadType', "signature");
         this.uploadImage(fd);
+        console.log('signature',this.signature);
+
+
        }
       } else {
         this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
