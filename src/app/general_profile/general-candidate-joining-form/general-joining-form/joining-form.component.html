@@ -2,7 +2,7 @@
 <app-general-join-interview
   *ngIf="role == 'candidate' && !showJoiningForm && isPermissionGranted()"></app-general-join-interview>
 
-<div class="joining-form-wrapper w-100">
+<div class="joining-form-wrapper w-100" style="font-family: lato;">
   <div *ngIf="!hideStepper" class="stepper">
     <div class="profileExpansion">
       <div class="exheader">
@@ -260,7 +260,7 @@
 </div>
 
 <ng-template #matDialog>
-  <div class="main-wrapper">
+  <div class="main-wrapper" style="font-family: lato;">
     <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
     <div>
       <div class="warning-icon">
