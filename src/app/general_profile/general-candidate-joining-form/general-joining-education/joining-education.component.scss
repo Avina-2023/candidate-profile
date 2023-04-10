@@ -99,10 +99,12 @@
                     flex-grow: .5;
                     align-items:center;
                     label {
-                        color: #565656;
                         padding: 0 0 2px 0;
                         margin: 0;
-                        font-size: 13px;
+                        color: #505358E6;
+                        font-size: 14px;
+                        font-family: "Lato";
+                        font-weight: bold;
                         width: 50%;
                     }
                     .input {
@@ -138,7 +140,7 @@
                       font-size: 12px;
                       .err{
                         position: relative;
-                        float: right;
+                        float: left;
                       }
                   }
                      ::placeholder {
@@ -152,7 +154,7 @@
                   font-size: 12px;
                   .err{
                     position: relative;
-                    float: right;
+                    float: left;
                   }
               }
             }

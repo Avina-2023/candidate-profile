@@ -67,10 +67,12 @@
                     position: relative;
                     margin-top: 2em !important;
                     label {
-                        color: #565656;
+                        color: #505358E6;
                         padding: 0 0 2px 0;
                         margin: 0;
-                        font-size: 13px;
+                        font-size: 14px;
+                        font-family: "Lato";
+                        font-weight: bold;
                         width: 45%;
                     }
                     .input {
@@ -85,7 +87,7 @@
                         line-height: 35px;
                         padding: 4px 8px;
                         background-color: $white;
-                        width: 55%;
+                        width: 100%;
                     }
                     .select {
                         display: flex;
@@ -104,7 +106,8 @@
     justify-content: flex-end;
                         .err{
                           position: relative;
-                          float: right;
+                          //float: right;
+                          text-align: left;
                         }
                     }
                      ::placeholder {
@@ -118,7 +121,7 @@
                   font-size: 12px;
                   .err{
                     position: relative;
-                    float: right;
+                    // float: right;
                   }
               }
             }
@@ -172,6 +175,9 @@
     }
 }
 
+.err_left{
+  // width: 98.7%;
+}
 // Common nz-select wrapper
 :host ::ng-deep .mat-autocomplete-panel {
     border: 1px solid #BEBEBE !important;

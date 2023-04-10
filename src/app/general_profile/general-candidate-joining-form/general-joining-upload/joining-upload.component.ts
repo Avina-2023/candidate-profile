@@ -322,7 +322,11 @@ export class GeneralJoiningUploadComponent
   onFileSelected(event: any,isDragged:boolean) {
     let files = isDragged ? event[0] : event.target.files[0];
     const fd = new FormData();
-    if (files && files.type.includes('pdf')) {
+    if(!files){
+      return this.appConfig.nzNotification('error', 'File not Found', 'Please upload a file');
+
+    }
+    else if (files && files.type.includes('pdf')) {
       if (files.size < 2000000){
         if (this.appConfig.minImageSizeValidation(files.size)) {
           let doc = files;
@@ -337,7 +341,7 @@ export class GeneralJoiningUploadComponent
      this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
       }
      } else {
-      return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PNG/JPEG files only');
+      return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PDF file only');
     }
   }
   async uploadPdf(file) {
@@ -410,7 +414,7 @@ export class GeneralJoiningUploadComponent
           // console.log(this.pdfFormControl,'this.pdfFormControl');
           this.pdfFormControl.markAsTouched();
           // console.log(this.pdfFormControl,'this.pdfFormControl');
-          this.appConfig.nzNotification('error', 'Not Saved', 'Please upload the resume to proceed further');
+          this.appConfig.nzNotification('error', 'please upload the resume', 'Please upload the resume to proceed further');
           this.loadingService.setLoading(false)
           this.glovbal_validators.validateAllFields(this.uploadForm);
         }

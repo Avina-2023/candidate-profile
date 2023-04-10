@@ -384,6 +384,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     });
   }
   removeData(i) {
+    this.currentDeleteIndex = i
     const data = {
       iconName: '',
       sharedData: {
@@ -800,7 +801,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_name]: [{value: this.appConfig.getLocalData('username'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
       [this.form_gender]: [null, [Validators.required]],
-      [this.form_hobbies_intrest]: [null,[Validators.required]],
+      // [this.form_hobbies_intrest]: [null,[Validators.required]],
       // [this.hobbiesAndIntrest]: [[null], [Validators.required]],
       // [this.form_place_of_birth]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_state_of_birth]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],

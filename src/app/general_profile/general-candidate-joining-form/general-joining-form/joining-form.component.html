@@ -2,21 +2,25 @@
 <app-general-join-interview
   *ngIf="role == 'candidate' && !showJoiningForm && isPermissionGranted()"></app-general-join-interview>
 
-<div class="joining-form-wrapper w-100">
+<div class="joining-form-wrapper w-100" style="font-family: lato;">
   <div *ngIf="!hideStepper" class="stepper">
     <div class="profileExpansion">
       <div class="exheader">
-        <div [ngClass]="!expand? 'profileStatus' : 'profileStatusexp'" > <p>Active</p> </div>
-        <button [ngClass]="!expand? 'rotate' : 'rotate.down '" [disableRipple]="true"  mat-icon-button (click)="expand = !expand"><mat-icon  [ngClass]="!expand? 'rotate' : 'rotate down '" >keyboard_arrow_down</mat-icon></button>
+        <div [ngClass]="!expand? 'profileStatus' : 'profileStatusexp'">
+          <p>Active</p>
+        </div>
+        <button [ngClass]="!expand? 'rotate' : 'rotate.down '" [disableRipple]="true" mat-icon-button
+          (click)="expand = !expand"><mat-icon
+            [ngClass]="!expand? 'rotate' : 'rotate down '">keyboard_arrow_down</mat-icon></button>
       </div>
-      <div  >
+      <div>
         <div class="notexpand" *ngIf="!expand">
           <div class="photo-wrapper">
             <div class="avatar">
               <div class="photo">
-                <div *ngIf="!profilePicture.file_path && !cadidatefinalimage" >
+                <div *ngIf="!profilePicture.file_path && !cadidatefinalimage">
                   <img class="maskGroup" src="assets/images/candidateprofile/MaskGroup.png" alt="">
-              </div>
+                </div>
                 <div *ngIf="profilePicture && profilePicture.file_path" matTooltip="Remove Photo"
                   matTooltipPostion="after" (click)="delete()" class="remove">
                   <img src="assets/images/cancel-black-36dp.svg" alt="" srcset="">
@@ -32,13 +36,14 @@
                     </div>
                   </ng-container>
                   <ng-container *ngIf="cadidatefinalimage ">
-                    <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="removeData($event)" class="remove">
+                    <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="removeData($event)"
+                      class="remove">
                       <i class="icon-BinDelete pointer binIcon ag-icon-font-size"></i>
                     </div>
-                    <div  matTooltip="Change profile image"
-                  matTooltipPostion="after" (click)="open()"  class="changeprofile">
-                  <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
-                </div>
+                    <div matTooltip="Change profile image" matTooltipPostion="after" (click)="open()"
+                      class="changeprofile">
+                      <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
+                    </div>
                     <div class="urlExist">
                       <img [src]="cadidatefinalimage" alt="">
                     </div>
@@ -55,10 +60,10 @@
                           <img class="noPrflImg" src="assets/images/candidateprofile/noProfile.png" alt="">
                         </div>
                         <div *ngIf="imageChangedEvent">
-                          <image-cropper class="backgim" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                          [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
-                          (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
-                          (loadImageFailed)="loadImageFailed()"></image-cropper>
+                          <image-cropper class="backgim" [imageChangedEvent]="imageChangedEvent"
+                            [maintainAspectRatio]="true" [aspectRatio]="4 / 3" format="png"
+                            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
                         </div>
                       </div>
                     </mat-dialog-content>
@@ -68,12 +73,13 @@
                           class="upload p-1 mb-0"> Upload New Image </label>
                         <input class="file-input"
                           [matTooltip]="profilePicture && profilePicture.file_path ? 'Click to Change Photo' : 'No File Chosen'"
-                           matTooltipPostion="left" title="" id="upload" #files type='file'
-                          name="profile" accept="image/*" (change)="fileChangeEvent($event)" /></span>
+                          matTooltipPostion="left" title="" id="upload" #files type='file' name="profile"
+                          accept="image/*" (change)="fileChangeEvent($event)" /></span>
                     </div>
                     <div class="action" mat-dialog-actions>
-                      <button class="confirm btn" mat-button [disabled]="IsToFeildEnable" (click)="onSelectFile(croppedImage)">save </button>
-                      <button class="cancel" mat-button  [mat-dialog-close]="true">Cancel </button>
+                      <button class="confirm btn" mat-button [disabled]="IsToFeildEnable"
+                        (click)="onSelectFile(croppedImage)">save </button>
+                      <button class="cancel" mat-button [mat-dialog-close]="true">Cancel </button>
 
                     </div>
                     <div class="note">
@@ -87,16 +93,18 @@
           <div class="notexpanddetails">
             <div class="name">{{this.name}}</div>
             <div class="email">{{this.email}}</div>
-            <div class="loc">{{this.addressCity?this.addressCity +',' : 'NIL'}} {{this.addressState? this.addressState +',':'NIL'}} India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
+            <div class="loc">{{this.adrsCity?this.adrsCity +',' : 'NIL'}} {{this.addressState? this.addressState
+              +',':'NIL'}} India<span class="countryimg">&nbsp;<img
+                  src="assets/images/candidateprofile/india_flag.svg"></span></div>
           </div>
         </div>
         <div class="expand" *ngIf="expand">
           <div class="photo-wrapper">
             <div class="avatar">
               <div class="photo">
-                <div *ngIf="!profilePicture.file_path && !cadidatefinalimage" >
+                <div *ngIf="!profilePicture.file_path && !cadidatefinalimage">
                   <img class="maskGroup" src="assets/images/candidateprofile/MaskGroup.png" alt="">
-              </div>
+                </div>
                 <div *ngIf="profilePicture && profilePicture.file_path" matTooltip="Remove Photo"
                   matTooltipPostion="after" (click)="delete()" class="remove">
                   <img src="assets/images/cancel-black-36dp.svg" alt="" srcset="">
@@ -112,13 +120,14 @@
                     </div>
                   </ng-container>
                   <ng-container *ngIf="cadidatefinalimage ">
-                    <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="removeData($event)" class="remove">
+                    <div matTooltip="Remove Photo" matTooltipPostion="after" (click)="removeData($event)"
+                      class="remove">
                       <i class="icon-BinDelete pointer binIcon ag-icon-font-size"></i>
                     </div>
-                    <div  matTooltip="Change profile image"
-                  matTooltipPostion="after" (click)="open()"  class="changeprofile">
-                  <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
-                </div>
+                    <div matTooltip="Change profile image" matTooltipPostion="after" (click)="open()"
+                      class="changeprofile">
+                      <img class="prfselect" src="assets/images/candidateprofile/profileSelectIcon.svg" alt="">
+                    </div>
                     <div class="urlExist">
                       <img [src]="cadidatefinalimage" alt="">
                     </div>
@@ -136,10 +145,10 @@
                           <img class="noPrflImg" src="assets/images/candidateprofile/noProfile.png" alt="">
                         </div>
                         <div *ngIf="imageChangedEvent">
-                          <image-cropper class="backgim" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
-                          [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
-                          (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
-                          (loadImageFailed)="loadImageFailed()"></image-cropper>
+                          <image-cropper class="backgim" [imageChangedEvent]="imageChangedEvent"
+                            [maintainAspectRatio]="true" [aspectRatio]="4 / 3" format="png"
+                            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+                            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
                         </div>
                       </div>
                     </mat-dialog-content>
@@ -149,12 +158,13 @@
                           class="upload p-1 mb-0"> Upload New Image </label>
                         <input class="file-input"
                           [matTooltip]="profilePicture && profilePicture.file_path ? 'Click to Change Photo' : 'No File Chosen'"
-                           matTooltipPostion="left" title="" id="upload" #files type='file'
-                          name="profile" accept="image/*" (change)="fileChangeEvent($event)" /></span>
+                          matTooltipPostion="left" title="" id="upload" #files type='file' name="profile"
+                          accept="image/*" (change)="fileChangeEvent($event)" /></span>
                     </div>
                     <div class="action" mat-dialog-actions>
-                      <button class="confirm btn" mat-button [disabled]="IsToFeildEnable" (click)="onSelectFile(croppedImage)">save </button>
-                      <button class="cancel" mat-button  [mat-dialog-close]="true">Cancel </button>
+                      <button class="confirm btn" mat-button [disabled]="IsToFeildEnable"
+                        (click)="onSelectFile(croppedImage)">save </button>
+                      <button class="cancel" mat-button [mat-dialog-close]="true">Cancel </button>
                     </div>
                     <div class="note">
                       <label>Note:&nbsp;</label>.JPEG and .PNG format only supported. Maximum upload size is 2MB
@@ -167,13 +177,15 @@
           <div class="notexpanddetails">
             <div class="name mt-1">{{this.name}}</div>
             <div class="email mt-1">{{this.email}}</div>
-            <div class="loc mt-1">{{this.addressCity}}, {{this.addressState}}, India<span class="countryimg">&nbsp;<img src="assets/images/candidateprofile/india_flag.svg"></span></div>
+            <div class="loc mt-1">{{this.addressCity?this.addressCity +',' : 'NIL'}} {{this.addressState? this.addressState
+              +',':'NIL'}}  India<span class="countryimg">&nbsp;<img
+                  src="assets/images/candidateprofile/india_flag.svg"></span></div>
             <div>
               <div class="gender mt-1 mb-1 ">{{this.gender}}</div>
             </div>
             <div class="email mt-1">Member Since {{this.createdOn | date: "MMM dd, yyy"}} </div>
             <div class="email mt-1">Profile Last Updated on</div>
-            <div class="date">{{this.updatedOn | date: "MMM dd, yyy" }}</div>
+            <div class="date" >{{this.updatedOn | date: "MMM dd, yyy" }}</div>
           </div>
         </div>
       </div>
@@ -248,7 +260,7 @@
 </div>
 
 <ng-template #matDialog>
-  <div class="main-wrapper">
+  <div class="main-wrapper" style="font-family: lato;">
     <div class="closeIcon"><mat-icon mat-dialog-close>close</mat-icon></div>
     <div>
       <div class="warning-icon">

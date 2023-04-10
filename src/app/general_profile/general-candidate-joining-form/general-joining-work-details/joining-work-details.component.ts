@@ -18,12 +18,15 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
+import { Moment } from 'moment';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 // import { AdminServiceService } from 'src/app/services/admin-service.service';
 
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'DD-MM-YYYY',
+    dateInput: 'DD-MMM-YYYY',
   },
   display: {
     // dateInput: 'DD MMM YYYY', // output ->  01 May 1995
@@ -59,7 +62,6 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
   removeArr1: boolean = false;
   removeArr2: boolean = false;
   removeArr3: boolean = false;
-
 
   // getSkillSelection='noviceselected';
   panelOpenState = false;
@@ -165,6 +167,13 @@ export class GeneralJoiningWorkDetailsComponent implements OnInit, AfterViewInit
 check: any;
   workSkill: any;
   expChange: boolean;
+  dateConvertionMonth: any;
+
+
+  minFromDate: Date;
+  maxFromDate: Date | null;
+  minToDate: Date | null;
+  maxToDate: Date;
 
   constructor(
     private appConfig: AppConfigService,
@@ -181,7 +190,42 @@ check: any;
     private msgData:InterComponentMessenger
   ) {
     this.dateValidation();
+
+    this.minFromDate = new Date(1900, 0, 1);
+    this.maxFromDate = new Date();
+
+    this.minToDate = new Date(1900, 0, 1);
+    this.maxToDate = new Date();
+
   }
+
+
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    console.log(`${type}: ${event.value}`);
+    this.minToDate = event.value;
+
+    if (event.value !== null) {
+      this.maxToDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
+    }
+  }
+
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.maxFromDate = event.value;
+
+    if (event.value !== null) {
+      this.minFromDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() - 30
+      );
+    }
+  }
+
+
 
   ngOnInit() {
     this.customerName = this.appConfig.getSelectedCustomerName();
@@ -191,6 +235,9 @@ check: any;
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.check = this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1].value.is_working_here
+
+    console.log(this.getEmploymentArr.controls[0].get(this.form_duration_from), 'fromdate');
+    console.log(this.getEmploymentArr.controls[0].get(this.form_duration_to), 'fromdate');
 
   }
 
@@ -278,9 +325,9 @@ check: any;
   dateValidation() {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 50, 0, 1);
-    this.maxDate = new Date();
-    this.maxDate.setDate(this.maxDate.getDate() + 1);
+    this.minDate = new Date(this.form_duration_from);
+    this.maxDate = new Date(this.form_duration_to);
+    // this.maxDate.setDate(this.maxDate.getDate() + 1);
   }
 
   momentForm(date) {
@@ -844,7 +891,7 @@ changeInIsArticleship(event){
             this.getEmploymentArr.removeAt(this.currentDeleteIndex);
           }
           if(this.getTrainingArr.length && this.removeArr3){
-            this.getSkillsArr.removeAt(this.currentDeleteIndex);
+            this.getTrainingArr.removeAt(this.currentDeleteIndex);
           }
         }
       });
@@ -1025,15 +1072,19 @@ changeInIsArticleship(event){
         section_name: "experience_details",
         saving_data: apiData
       }
+
       this.loadingService.setLoading(true)
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(WorkExperienceApiRequestDetails).subscribe((data: any) => {
       this.loadingService.setLoading(false)
+      console.log(data,'data.data');
+      if(data?.success) {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
         this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Work Experience details is updated');
         this.msgData.sendMessage("saved",true)
         this.sharedService.joiningFormStepperStatus.next();
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_PROJECT);
+      }
       });
     } else {
       this.ngAfterViewInit();
@@ -1291,4 +1342,36 @@ choosenBorder(i):String{
   }
   return choosenborder;
 }
+
+// chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>, i) {
+//   if (this.dateConvertion(normalizedMonth['_d'])) {
+//   this.getEmploymentArr.at(i).patchValue({
+//     [this.form_duration_from]: this.dateConvertionMonth(normalizedMonth['_d']),
+//   });
+// }
+//   datepicker.close();
+// }
+
+// yearRangeValidator(control) {
+//   const durationFrom = control.get('form_duration_from').value;
+//   const durationTo = control.get('form_duration_to').value;
+
+//   if (durationFrom && durationTo) {
+//     const yearFrom = new Date(durationFrom).getFullYear();
+//     const yearTo = new Date(durationTo).getFullYear();
+
+//     if (yearTo < yearFrom) {
+//       return { yearRangeError: true };
+//     }
+
+//     if (yearTo > yearFrom) {
+//       return { yearRangeError: false };
+//     }
+
+//   }
+
+//   return null;
+// }
+
+
 }

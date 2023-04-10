@@ -86,7 +86,8 @@ form_certification_issuedFrom = 'certificationIssuedFrom';
 form_certification_description = 'certificationDescription';
 form_certification_validityFrom = 'certificationValidityFrom';
 form_certification_validityUpto = 'certificationValidityUpto';
-form_isexpire = 'isexpire'
+form_isexpire = 'isexpire';
+form_isjourney = 'isJourney';
 form_award_date = 'awardDate';
 form_award_title = 'awardTitle';
 form_journalEntity_title = 'journalEntityTitle';
@@ -267,37 +268,37 @@ this.setAwardArrValidation();
     return this.fb.group({
       [this.form_journalEntity_title]: [data[this.form_journalEntity_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_journalEntity_url]: [data[this.form_journalEntity_url], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
-      [this.form_journalEntity_publishedOn]: [this.dateConvertion(data[this.form_journalEntity_publishedOn]), [Validators.required]],
+      [this.form_journalEntity_publishedOn]: [this.dateConvertion(data[this.form_journalEntity_publishedOn])],
       [this.form_journalEntity_description]: [data[this.form_journalEntity_description], [RemoveWhitespace.whitespace(),  this.glovbal_validators.alphaNum255()]],
     })
   }
 
-  regexValidator(error: ValidationErrors, param): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} => {
-      if (!control.value) {
-        return null;
-      }
-      let check;
-      // let yearofPassing = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_yearpassing]['value'] ? control['_parent']['controls'][this.form_yearpassing]['value'] : null;
-      let startDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_certification_validityFrom]['value'] ? control['_parent']['controls'][this.form_certification_validityFrom]['value'] : null;
-      let endDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_certification_validityUpto]['value'] ? control['_parent']['controls'][this.form_certification_validityUpto]['value'] : null;
-      // if (yearofPassing) {
-        let start = moment(control.value).format('YYYY-MM-DD');
-        // let yearofPassing1 = moment(yearofPassing).format('YYYY-MM-DD');
-        // error.notValid = this.momentFormMonth(yearofPassing);
-        // check = moment(start).isSameOrBefore(yearofPassing1, 'month');
-        // check = !check;
-      // }
-      if (!param) {
-        return check ? error : null;
-      } else {
-        // this.detectStartDateCalc(startDate, endDate, control);
-        return null;
-      }
-    };
-  }
+  // regexValidator(error: ValidationErrors, param): ValidatorFn {
+  //   return (control: AbstractControl): {[key: string]: any} => {
+  //     if (!control.value) {
+  //       return null;
+  //     }
+  //     let check;
+  //     let yearofPassing = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_yearpassing]['value'] ? control['_parent']['controls'][this.form_yearpassing]['value'] : null;
+  //     let startDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_certification_validityFrom]['value'] ? control['_parent']['controls'][this.form_certification_validityFrom]['value'] : null;
+  //     let endDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_certification_validityUpto]['value'] ? control['_parent']['controls'][this.form_certification_validityUpto]['value'] : null;
+  //     // if (yearofPassing) {
+  //       let start = moment(control.value).format('YYYY-MM-DD');
+  //       // let yearofPassing1 = moment(yearofPassing).format('YYYY-MM-DD');
+  //       // error.notValid = this.momentFormMonth(yearofPassing);
+  //       // check = moment(start).isSameOrBefore(yearofPassing1, 'month');
+  //       // check = !check;
+  //     // }
+  //     if (!param) {
+  //       return check ? error : null;
+  //     } else {
+  //       // this.detectStartDateCalc(startDate, endDate, control);
+  //       return null;
+  //     }
+  //   };
+  // }
   startTrue(param) {
-    return this.regexValidator({notValid: true}, param);
+    // return this.regexValidator({notValid: true}, param);
   }
   formInitialize() {
     this.accomplishmentsForm = this.fb.group({
@@ -415,8 +416,8 @@ this.setAwardArrValidation();
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       // this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValidators([Validators.required, this.startTrue(true)],{ emitEvent: false });
-      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValidators([Validators.required, this.startTrue(true)],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValidators([Validators.required,],{ emitEvent: false });
+      this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValidators([Validators.required],{ emitEvent: false });
 
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_issuedFrom].updateValueAndValidity();
@@ -451,7 +452,7 @@ this.setAwardArrValidation();
   initawardsArray(){
     return this.fb.group({
       [this.form_award_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
-      [this.form_award_date]: [null,[Validators.required,  this.startTrue(true)]],
+      [this.form_award_date]: [null,[Validators.required]],
     })
   }
   setAwardArrValidation(){
@@ -477,13 +478,16 @@ this.setAwardArrValidation();
     return this.fb.group({
       [this.form_journalEntity_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
       [this.form_journalEntity_url]: [null,[Validators.required,this.glovbal_validators.urlRegex()]],
-      [this.form_journalEntity_publishedOn]: [null],
+      [this.form_journalEntity_publishedOn]: [null,[Validators.required]],
       [this.form_journalEntity_description]: [null],
+      [this.form_isjourney]:[false]
     })
   }
   setjournalArrValidation(){
     this.getJournalEntryArr.controls.forEach((data, index) => {
-    if(this.getJournalEntryArr.length){
+      console.log(this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney]);
+    //if(this.getJournalEntryArr.length){
+      if(this.getJournalEntryArr?.length && this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney]?.value == false){
       this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].setValidators([Validators.required,this.glovbal_validators.urlRegex()],{ emitEvent: false });
 
@@ -619,8 +623,8 @@ addToJournalEntry() {
 }
 
 addMoreJournalEntry() {
-  if (this.getJournalEntryArr.valid  ) {
-    this.setjournalArrValidation()
+  if (this.getJournalEntryArr.valid  && this.getJournalEntryArr.length > 0 ) {
+   this.setjournalArrValidation();
    return this.getJournalEntryArr.push(this.initJournalEntryArray());
   }
   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
