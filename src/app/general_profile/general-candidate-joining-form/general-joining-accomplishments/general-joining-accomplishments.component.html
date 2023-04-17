@@ -81,7 +81,7 @@
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
                             <div class="err"
                               *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
-                              Certification Name is Required</div>
+                              Certification issued From</div>
                             <div class="err"
                               *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
                               Alpha numeric with maximum of 255 characters only
@@ -369,7 +369,7 @@
             <div class="value">Contact Details</div>
           </div>
         </div> -->
-        <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+        <button style="font-family: lato;"  class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
           Continue</button>
         <!-- <div (click)="routeNext('education')"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"

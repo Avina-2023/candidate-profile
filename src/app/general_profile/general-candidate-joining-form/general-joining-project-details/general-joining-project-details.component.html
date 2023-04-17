@@ -28,7 +28,7 @@
                 <label>Project Type<span class="redTxt">*</span></label>
                 <div style="width: 100%;">
                 <nz-select class="input select" [formControlName]="form_typeList" nzAllowClear nzShowSearch
-                  nzPlaceHolder="Select">
+                  nzPlaceHolder="<--Select-->">
                   <nz-option *ngFor="let typeList of projectTypeList" [nzLabel]="typeList.label"
                     [nzValue]="typeList.value"></nz-option>
                 </nz-select>
@@ -189,7 +189,7 @@
               <div class="value">Work Experience Details</div>
             </div>
           </div> -->
-          <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+          <button style="font-family: lato;"  class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
             Continue</button>
           <!-- <div (click)="routeNext('accomplishments')"
             class="d-flex align-content-center align-items-center text-right position-relative pointer"

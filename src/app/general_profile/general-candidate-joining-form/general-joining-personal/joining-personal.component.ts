@@ -16,7 +16,7 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ENTER } from '@angular/cdk/keycodes';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
@@ -67,7 +67,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   selectable = true;
   removable = true;
   addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER];
   hobbies: Hobbie[] = [];
 
   marital_list = [
@@ -301,10 +301,10 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     }
   }
 
- 
-  
-  
-  
+
+
+
+
 
   add(event: MatChipInputEvent): void {
     const input = event.input;

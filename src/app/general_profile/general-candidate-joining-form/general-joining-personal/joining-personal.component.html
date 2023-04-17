@@ -58,7 +58,7 @@
                   [formControlName]="form_mobile">
                 <div class="form-error" *ngIf="mobile?.invalid && mobile?.touched">
                   <div class="err" *ngIf="mobile?.errors?.required">Mobile No. is Required</div>
-                  <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digit mobile number</div>
+                  <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digits mobile number</div>
                 </div>
               </div>
             </div>
@@ -294,7 +294,7 @@
               [formControlName]="form_emergency_contact">
             <div class="form-error" *ngIf="emergency_contact?.invalid && emergency_contact?.touched">
               <div *ngIf="emergency_contact?.errors?.required">Emergency Contact No. is Required</div>
-              <div *ngIf="emergency_contact?.errors?.mobileRegex">Please enter a valid 10 digit mobile number
+              <div *ngIf="emergency_contact?.errors?.mobileRegex">Please enter a valid 10 digits mobile number
               </div>
             </div>
           </div>
@@ -746,7 +746,7 @@
             <div class="value">Personal Details</div>
           </div>
         </div> -->
-        <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button>Save &
+        <button style="font-family: lato;" class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button>Save &
           Continue</button>
         <!-- <div (click)="routeNext()"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"
