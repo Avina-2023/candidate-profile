@@ -312,8 +312,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 
     this.getprofileimageFromLocal();
     this.getStateAPI();
-    // console.log(this.getAllStates , 'venkattesting');
-    
+
   }
 
   activeSelectorRxJs() {
@@ -399,7 +398,6 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       );
   }
 
-
   getStateAPI() {
     const datas = {
       country_id: '101',
@@ -409,11 +407,9 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.candidateService.updatedState(datas).subscribe(
       (data: any) => {
         this.getAllStates = data[0];
-        console.log(this.getAllStates);
         this.getAllStates.forEach((element) => {
           if (element.id == this.addressState) {
             this.addressState = element.name;
-            console.log(this.addressState, 'AddressState');
             this.getAllPermanentCities(
               element.id,
               this.addressCity,

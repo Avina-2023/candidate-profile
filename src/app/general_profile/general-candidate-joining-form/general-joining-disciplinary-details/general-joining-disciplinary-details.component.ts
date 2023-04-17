@@ -25,6 +25,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
 
+
   // form_disciplinaryDetails = "bgv_details";
   form_convicted_by_Court = "convicted_by_Court";
   form_arrested = "arrested";
@@ -81,7 +82,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
 
 
   requiredDesc() {
-    console.log('Checkbox checked');
     let formValues = this.discipilinaryForm.getRawValue();
     const bgvDetails = {
       [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',

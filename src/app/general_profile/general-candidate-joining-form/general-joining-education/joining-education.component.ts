@@ -70,7 +70,6 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
 
   showWorkExp: any = '0';
-  mastersList: any;
   educationForm: FormGroup;
   minDate: Date;
   currentDeleteIndex:number  ;
@@ -206,6 +205,7 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   ugInstitutesList: any;
 
 educationDetails: any;
+mastersList: any;
 selectedPost: any;
 selectedPostLabel: any;
 educationLength: any;
@@ -382,13 +382,11 @@ constructor(
 
 
   getSelectedPost() {
-    if (this.mastersList) {
     this.mastersList.forEach(element => {
       if (element.value == this.selectedPost) {
         this.selectedPostLabel = element.value;
       }
     });
-  }
   }
 
   profileChanged() {
@@ -913,41 +911,8 @@ validSelectedPost() {
   formInitialize() {
     this.educationForm = this.fb.group({
       [this.form_educationArray]: this.fb.array([])
-    }
-    )
-
-   // Get the input values
-// const startDateInput = document.querySelector('[formControlName="form_startDate"]') as HTMLInputElement;
-// const endDateInput = document.querySelector('[formControlName="form_endDate"]') as HTMLInputElement;
-
-// const startDateValue = startDateInput.textContent;
-// const endDateValue = endDateInput.textContent;
-// console.log(startDateValue, 'startdateinput');
-// console.log(endDateValue, 'enddateinput');
-
-// Convert the input values to Date objectsk
-// const startDate = new Date(`01-${startDateInput}`);
-// const endDate = new Date(`01-${endDateInput}`);
-
-// // Compare the dates
-// if (startDate.getTime() < endDate.getTime()) {
-//   console.log('Start date is earlier than end date');
-// } else if (startDate.getTime() > endDate.getTime()) {
-//   console.log('End date is earlier than start date');
-// } else {
-//   console.log('Start date and end date are the same');
-// }
-
-
-
-    
-
-
+    })
   }
-
-
-
-  
 
   addToEducationArray() {
     if (this.educationForm.valid) {
