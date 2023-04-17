@@ -361,7 +361,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         this.appConfig.nzNotification(
           'error',
           'Not Uploaded',
-          'Maximum file size is 2 MB'
+          'Maximum file size is 2MB'
         );
       }
     } else {
@@ -449,7 +449,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.addressCity = candyprofileimage.contact_details.permanent_city;
     this.addressState = candyprofileimage.contact_details.permanent_state;
     this.addressCountry = candyprofileimage.contact_details.permanent_country;
-    this.updatedOn = new Date();
+    this.updatedOn = candyprofileimage.acknowledgement.acknowledgement.ack_date;
     this.createdOn = candyprofileimage.createdAt;
   }
 
@@ -592,7 +592,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         this.appConfig.nzNotification(
           'error',
           'Not Uploaded',
-          'Maximum file size is 2 MB'
+          'Maximum file size is 2MB'
         );
       }
     } else {

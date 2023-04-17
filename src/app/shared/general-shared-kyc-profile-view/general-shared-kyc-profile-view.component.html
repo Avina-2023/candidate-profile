@@ -262,7 +262,7 @@
               </ng-container>
               <ng-template #noLanguage>
                 <div class="inpu-preview size-16 bold-700 color-black">
-                  {{ "NIL" }}
+                  {{ "No Language details available" }}
                 </div>
               </ng-template>
             </div>
@@ -419,7 +419,7 @@
               <div class="inpu-preview"style="font-size: 14px; color: black;">
                 {{ contactDetailsMap["presentAddress"] }},
                 <br>
-                {{ contactDetailsMap[form_present_city] ? contactDetailsMap[form_present_city] : '' }}
+                {{ contactDetailsMap[form_present_city] ? contactDetailsMap[form_present_city] : '' }},
                 {{ contactDetailsMap[form_present_state] ? contactDetailsMap[form_present_state] : '' }},
                 {{ contactDetailsMap[form_present_region] }} - {{ contactDetailsMap[form_present_zip_code] }}
               </div>
@@ -460,7 +460,7 @@
                 <label>Permanent Address</label>
                 <div class="inpu-preview"style="font-size: 14px; color: black;">
                   {{ contactDetailsMap["permanentAddress"] }},<br>
-                  {{ contactDetailsMap[form_permanent_city] ? contactDetailsMap[form_permanent_city] : '' }}
+                  {{ contactDetailsMap[form_permanent_city] ? contactDetailsMap[form_permanent_city] : '' }},
                   {{ contactDetailsMap[form_permanent_state] ? contactDetailsMap[form_permanent_state] : '' }},
                   {{ contactDetailsMap[form_permanent_region] }} - {{ contactDetailsMap[form_permanent_zip_code] }}
                 </div>
@@ -808,7 +808,7 @@
 
                 <div class="row-wrapper mt-0">
                   <div class="overall-input-wrapper mt-3 width-40">
-                    <label>Achievements/Responsibility/Tasks *</label>
+                    <label>Achievements/Responsibility/Tasks</label>
                     <div class="inpu-preview"style="font-size: 14px; color: black;">
                        {{ work[form_achievement] }}
                     </div>
@@ -996,7 +996,7 @@
 
               <div class="row-wrapper mt-0">
                 <div class="overall-input-wrapper mt-3 width-40">
-                  <label>Achievements/Responsibility/Tasks *</label>
+                  <label>Achievements/Responsibility/Tasks</label>
                   <div class="inpu-preview"style="font-size: 14px; color: black;">
                     {{ training[form_training_work_responsiability] }}
                   </div>
@@ -1183,7 +1183,7 @@
 </div>
 <ng-container *ngIf="accomplishmentsMap[form_certificationsArray] && accomplishmentsMap[form_certificationsArray].length > 0;else noCertification">
  <ng-container *ngFor="let certification of accomplishmentsMap[form_certificationsArray];let i = index">
-<h6 class="mt-4">Certifications  1</h6>
+<h6 class="mt-4">Certifications {{i+1}}</h6>
 <div class="row-wrapper mt-0">
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Certification Name</label>
@@ -1244,7 +1244,7 @@
   </div>
   <ng-container *ngIf="accomplishmentsMap[form_journalEntryArray] && accomplishmentsMap[form_journalEntryArray].length > 0;else noJournalEntry">
     <ng-container *ngFor="let journalEntry of accomplishmentsMap[form_journalEntryArray];let i = index">
-  <h6>Journal 1</h6>
+  <h6>Journal{{i+1}}</h6>
   <div class="row-wrapper mt-0">
 <div class="overall-input-wrapper mt-3 width-32">
   <label>Title</label>
@@ -1292,7 +1292,7 @@
             </div>
             <div class="Profile-Summary pt-2 mb-2">{{documentDetails.preWrittenPhrase}}</div>
 
-            <div class="subDocumentTitle p-0 mt-5">Upload Resume</div>
+            <div class="subDocumentTitle p-0 mt-5">Resume Upload</div>
             <div class="row-wrapper mt-0 pb-4" [ngClass]="i == 0 ? 'padding-0' : 'border-wrapper'"
               *ngFor="let document of documentDetails.resume; let i = index">
               <div class="row-wrapper mt-0" style="align-items: flex-end;">
@@ -1300,7 +1300,7 @@
                   <label style="font-size: 14px;color: #505358E6;">Uploaded Resume</label>
                   <div class="inpu-preview d-flex  width-50 size-14  color-black" style="">
                     <div class="inpu-preview d-flex bgupload width-20 size-14 bold-700 color-black" style="">
-                      <div >{{  trimFilename(fileName)  || "NO file choosen"}}</div>
+                      <div >{{  trimFilename(fileName)  || "no file choosen"}}</div>
                     <span *ngIf="document && document[form_file_path]" class="overall-input-wrapper mt-0 width-19">
                       <button class="download-button" matTooltip="Download" style="width: 50px" (click)="
                               downloadFile(
@@ -1963,7 +1963,7 @@
                   </div>
                 </ng-container>
                 <div class="row-wrapper mt-2 w-100 justify-content-start hanging flex-column">
-                  <h6 class="d-head">Terms and Conditions Declaration</h6>
+                  <h6 class="d-head">Terms & Conditions Declaration</h6>
                   <div style="width: 93%;">
                     <mat-checkbox [formControlName]="form_terms_conditions" class="mr-2">
                     </mat-checkbox>

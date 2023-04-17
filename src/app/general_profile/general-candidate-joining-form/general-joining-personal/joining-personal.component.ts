@@ -15,8 +15,8 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent, MatChipList} from '@angular/material/chips';
+import {ENTER} from '@angular/cdk/keycodes';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
@@ -59,16 +59,18 @@ export const MY_FORMATS = {
 
 export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
-
+  @ViewChild('hobbiesInput', { static: false }) hobbiesInput;
    public selection: string;
 
   public customOption: string = 'customOption';
   visible = true;
   selectable = true;
   removable = true;
+  inputText=''
   addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER];
   hobbies: Hobbie[] = [ ];
+  chips: string[] = ['Apple', 'Banana', 'Cherry'];
 
   marital_list = [
 
@@ -293,7 +295,23 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       top.scrollIntoView();
       top = null;
     }
+
+    this.hobbiesInput.nativeElement.addEventListener('keydown', (event) => {
+      if (event.keyCode === 8) { // Backspace key
+        event.preventDefault(); // Prevent default action
+      }
+    });
+
   }
+
+  // ngAfterViewInit() {
+  //   this.hobbiesInput.nativeElement.addEventListener('keydown', (event) => {
+  //     if (event.keyCode === 8) { // Backspace key
+  //       event.preventDefault(); // Prevent default action
+  //     }
+  //   });
+  // }
+// }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -343,7 +361,57 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
         this.personalForm.controls[this.form_hobbies_intrest].updateValueAndValidity();
       }
+
   }
+  changechip(event: Event) {
+    console.log('test');
+
+    const newValue = (event.target as HTMLInputElement).value;
+    console.log(`New value: ${newValue}`);
+    // if (this.inputText.length === 0) {
+    //   // The text length is 0, prevent the backspace key from being pressed
+    //   event.preventDefault();
+    // }
+    // Get the key code of the pressed key
+    // const keyCode = event.keyCode || event.which;
+
+    // // Check if the pressed key is the backspace key
+    // if (keyCode === 8) {
+    //   // The key is the backspace key
+    //   if (this.inputText.length === 0) {
+    //     // The text length is 0, prevent the backspace key from being pressed
+    //     event.preventDefault();
+    //   }
+    // }
+  }
+
+  onBackspaceKeyDown(event: KeyboardEvent) {
+    if (this.inputText.length === 0) {
+      event.preventDefault();
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Backspace') {
+      event.preventDefault();
+    }
+  }
+
+  onMatChipKeyPress(event) {
+    event.stopImmediatePropagation();
+ }
+
+  // onKeyDown(event: KeyboardEvent): void {
+  //   const chipList = event.target as unknown as MatChipList;
+  //   if (event.key === 'Backspace' && chipList.chips.last?.selected) {
+  //     event.preventDefault();
+  //   }
+  // }
+  // onChipListKeyDown(event: KeyboardEvent) {
+  //   if (event.key === 'Backspace' && !document.activeElement?.classList.contains('mat-chip')) {
+  //     event.preventDefault();
+  //   }
+  // }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
     this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any)=> {

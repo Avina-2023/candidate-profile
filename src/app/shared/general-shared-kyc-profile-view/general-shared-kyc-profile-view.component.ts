@@ -1201,6 +1201,7 @@ form_projectDescription = 'projectDescription';
   }
   closeDialog(e) {
     if (e == 'save') {
+       console.log(new Date,'Final Updated date');
       this.dialog.closeAll();
  return this.matSuccessMsgOpen()
       // this.formSubmit();
@@ -1293,7 +1294,7 @@ form_projectDescription = 'projectDescription';
    this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ProfileSubmitApiRequestDetails).subscribe((data: any) => {
     this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
     this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-    this.appConfig.nzNotification('success', 'Saved','Profile form submitted successfully');
+    //this.appConfig.nzNotification('success', 'Saved','Profile form submitted successfully');
     // this.sharedService.joiningFormStepperStatus.next();
     // return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_SUBMIT);
     });

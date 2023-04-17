@@ -101,7 +101,7 @@
               </div>
             </div>
 
-            <span class="ml-2 inpu-preview f_size_16 bold-700 color-black">
+            <span class="ml-2 inpu-preview f_size_16 bold-700 color-black ">
               <input class="in width-20 p-1 mr-2" [formControlName]="form_total_exp_months"  style="border: 0.5px solid #707070;border-radius: 3px;" >
               <div class="form-error"
               *ngIf="total_exp_months?.invalid && total_exp_months?.touched">
@@ -136,7 +136,7 @@
                       <div class="form-error"
                         *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).invalid && getEmploymentArr.controls[i].get(form_employment_name_address).touched">
                         <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.required">
-                          Employer's Name and Address is Required</div>
+                          Employer's Name is Required</div>
                           <div class="err"
                           *ngIf="getEmploymentArr.controls[i].get(form_employment_name_address).errors?.alphaNum255">
                           Alpha numeric with maximum of 255 characters only
@@ -206,42 +206,47 @@
                     <label>HR Name<span></span></label>
                     <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_hr_name">
                   </div>
-                    <!-- <div class="form-error"
+                    <div class="form-error"
                       *ngIf="getEmploymentArr.controls[i].get(form_hr_name).invalid && getEmploymentArr.controls[i].get(form_hr_name).touched">
                       <div *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.required">
                         HR Name is Required</div>
                       <div *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.alphaNum255">
                         Alpha numeric with maximum of 255 characters only
                         allowed</div>
-                    </div> -->
+                    </div>
                 </ng-container>
                   <ng-container >
                     <div class="overall-input-wrapper width-100">
                       <label>HR Email<span></span></label>
+                      <div style="width:100%">
                       <input matInput placeholder="Enter here" class="input" type="text"
                         [formControlName]="form_hr_email">
-                      </div>
-                        <!-- <div class="form-error"
+
+                        <div class="form-error"
                         *ngIf="getEmploymentArr.controls[i].get(form_hr_email).invalid && getEmploymentArr.controls[i].get(form_hr_email).touched">
                         <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_email)?.errors?.required">
                           HR Email ID is Required</div>
                         <div class="err"  *ngIf="getEmploymentArr.controls[i].get(form_hr_email).errors?.email">
                           Not an Valid Email ID</div>
-                      </div> -->
+                      </div>
+                    </div>
+                    </div>
                   </ng-container>
                     <ng-container >
                       <div class="overall-input-wrapper width-100">
                         <label>HR Contact<span></span></label>
+                        <div style="width:100%">
                         <input matInput placeholder="Enter here" class="input" type="text"
                           [formControlName]="form_hr_contact_no">
-                        </div>
-                        <!-- <div class="form-error"
+                        <div class="form-error"
                           *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no).invalid && getEmploymentArr.controls[i].get(form_hr_contact_no).touched">
                           <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no)?.errors?.required">
                             HR Contact Number is Required</div>
                           <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_contact_no).errors?.mobileRegex">
                             Please enter a valid 10 digit mobile number</div>
-                        </div> -->
+                        </div>
+                      </div>
+                    </div>
                     </ng-container>
                   <ng-container >
                     <div class="overall-input-wrapper width-100">
@@ -1029,7 +1034,7 @@
             <div class="value">Education Details</div>
           </div>
         </div> -->
-        <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+        <button style="font-family: lato;"  class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
           Continue</button>
         <!-- <div (click)="routeNext('project')"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"

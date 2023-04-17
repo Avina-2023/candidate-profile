@@ -54,7 +54,7 @@
     <div class="err_left"><input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_mobile">
       <div class="form-error" *ngIf="mobile?.invalid && mobile?.touched">
         <div class="err" *ngIf="mobile?.errors?.required">Mobile No. is Required</div>
-        <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digit mobile number</div>
+        <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digits mobile number</div>
       </div>
     </div>
     </div>
@@ -281,7 +281,7 @@
               [formControlName]="form_emergency_contact">
             <div class="form-error" *ngIf="emergency_contact?.invalid && emergency_contact?.touched">
               <div *ngIf="emergency_contact?.errors?.required">Emergency Contact No. is Required</div>
-              <div *ngIf="emergency_contact?.errors?.mobileRegex">Please enter a valid 10 digit mobile number
+              <div *ngIf="emergency_contact?.errors?.mobileRegex">Please enter a valid 10 digits mobile number
               </div>
             </div>
           </div>
@@ -419,7 +419,7 @@
                 <div class="overall-input-wrapper width-45 list" style="margin-top: 0;">
                   <mat-form-field style="width: 99.5% !important;padding: 0.6px !important;" >
                     <div class="d-flex chip-list">
-                      <input [formControlName]="form_hobbies_intrest" class="chipinput " style="border: 1px solid #707070; padding: 10px;   width: 100% !important; margin: 0px !important;"
+                      <input [formControlName]="form_hobbies_intrest" class="chipinput " [(ngModel)]="inputText" (change)="changechip($event)" style="border: 1px solid #707070; padding: 10px;   width: 100% !important; margin: 0px !important;"
                       [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                       [matChipInputAddOnBlur]="addOnBlur" id="chip" (matChipInputTokenEnd)="add($event)">
                       <span class="chipadd" >  <label class="chipclass" for="chip" (click)="add($event)">Add</label></span>
@@ -432,13 +432,22 @@
                           characters only allowed</div>
                       </div>
                     </ng-container>
-                    <mat-chip-list  #chipList class=" width-100 mt-2">
+                    <!-- <mat-chip-list  #chipList (keydown)="onKeyDown($event)" class=" width-100 mt-2"  >
                       <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
                         (removed)="remove(hobbie)">
                         {{hobbie.hobbiesAndInterests}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                       </mat-chip>
-                    </mat-chip-list>
+                    </mat-chip-list> -->
+<!--  -->
+<mat-chip-list #chipList  class="width-100 mt-2">
+  <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(hobbie)">
+    {{hobbie.hobbiesAndInterests}}
+    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+  </mat-chip>
+</mat-chip-list>
+
                   </mat-form-field>
 
                 </div>
@@ -723,7 +732,7 @@
             <div class="value">Personal Details</div>
           </div>
         </div> -->
-        <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button
+        <button style="font-family: lato;" class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button
           (click)="formSubmit()">Save &
           Continue</button>
         <!-- <div (click)="routeNext()"

@@ -161,7 +161,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     this.discipilinaryForm.patchValue({
       [this.form_convicted_by_Court]: data[this.form_convicted_by_Court] && data[this.form_convicted_by_Court] == '1' ? true : false,
       [this.form_arrested]: data[this.form_arrested] && data[this.form_arrested] == '1' ? true : false,
-      [this.form_prosecuted]: data[this.form_prosecuted] && data[this.form_prosecuted] == '1' ? 'true' : 'false',
+      [this.form_prosecuted]: data[this.form_prosecuted] && data[this.form_prosecuted] == '1' ? true : false,
       [this.form_detention]: data[this.form_detention] && data[this.form_detention] == '1' ? true : false,
       [this.form_fined_by_court]: data[this.form_fined_by_court] && data[this.form_fined_by_court] == '1' ? true : false,
       [this.form_debarred_exam_university]: data[this.form_debarred_exam_university] && data[this.form_debarred_exam_university] == '1' ? true : false,
