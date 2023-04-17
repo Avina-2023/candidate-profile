@@ -108,7 +108,7 @@ export class GeneralSharedKycProfileViewComponent implements OnInit, AfterViewIn
     minsize: ''
   };
   signature:any;
-
+  isDisabled: boolean = false;
   selectedImage: any;
   // Title Dropdown list
   bloodGroupDropdownList: any;
@@ -1203,6 +1203,7 @@ form_projectDescription = 'projectDescription';
     if (e == 'save') {
        console.log(new Date,'Final Updated date');
       this.dialog.closeAll();
+      this.isDisabled = true;
  return this.matSuccessMsgOpen()
       // this.formSubmit();
     } else {

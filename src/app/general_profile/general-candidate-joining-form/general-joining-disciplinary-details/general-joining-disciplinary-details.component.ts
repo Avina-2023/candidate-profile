@@ -1,4 +1,4 @@
-import { Component, OnInit ,AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit ,AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -18,13 +18,15 @@ import { LoaderService } from 'src/app/service/loader-service.service';
   styleUrls: ['./general-joining-disciplinary-details.component.scss']
 })
 export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('myTextarea') myTextarea: ElementRef;
+
+  checkbtn:any=true;
 
   discipilinaryForm: FormGroup;
   joiningFormDataPassingSubscription: Subscription;
   newSaveProfileDataSubscription: Subscription;
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
-
 
   // form_disciplinaryDetails = "bgv_details";
   form_convicted_by_Court = "convicted_by_Court";
@@ -80,8 +82,38 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     })
   }
 
+//orginal
 
-  requiredDesc() {
+  // requiredDesc(event) {
+  //   console.log(event,'aaa')
+  //   // console.log('Checkbox checked');
+  //   if(event.checked == true){
+  //     this.checkbtn = false
+  //   }else{
+  //     this.checkbtn = true
+  //   }
+
+  //to clear textbox on uncheck
+  // requiredDesc(event) {
+  //   console.log(event, 'aaa');
+  //   if (event.checked == true) {
+  //     this.checkbtn = false;
+  //   } else {
+  //     this.checkbtn = true;
+  //     this.discipilinaryForm.get(this.form_full_particulars).setValue(''); // add this line to clear the text area
+  //   }
+
+
+  requiredDesc(event) {
+    console.log(event, 'aaa');
+    if (event.checked == true) {
+      this.checkbtn = false;
+    }
+      if (event.checked == false){
+      this.checkbtn = true;
+      this.discipilinaryForm.get(this.form_full_particulars).setValue(''); // add this line to clear the text area
+    }
+
     let formValues = this.discipilinaryForm.getRawValue();
     const bgvDetails = {
       [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
@@ -103,6 +135,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     }
     this.discipilinaryForm.get(this.form_full_particulars).updateValueAndValidity(), { emitEvent: false };
   }
+
   saveRequestRxJs() {
     this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
 
@@ -114,7 +147,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
 
   formSubmit(routeValue?: any) {
     // console.log(this.discipilinaryForm);
-    this.requiredDesc();
+    // this.requiredDesc();
     let formValues = this.discipilinaryForm.getRawValue();
     if (this.discipilinaryForm.valid) {
       const bgv_details = {
@@ -171,7 +204,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
       [this.form_disciplinary_proceedings]: data[this.form_disciplinary_proceedings] && data[this.form_disciplinary_proceedings] == '1' ? true : false,
       [this.form_full_particulars]: data[this.form_full_particulars]
     });
-    this.requiredDesc();
+    // this.requiredDesc();
   }
   get convicted_by_Court() {
     return this.discipilinaryForm.get(this.form_convicted_by_Court);
