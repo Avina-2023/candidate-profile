@@ -3,63 +3,63 @@
     <div class="divcard">
     <h5 class=" h ">Disciplinary Details</h5>
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox class="mr-2" (change)="requiredDesc()" [formControlName]="form_convicted_by_Court"></mat-checkbox>
+      <mat-checkbox class="mr-2" (change)="requiredDesc($event)" [formControlName]="form_convicted_by_Court"></mat-checkbox>
       Have you ever
       been convicted by a Court of Law?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_debarred_exam_university"
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_debarred_exam_university"
         class="mr-2"></mat-checkbox> Have you
       ever been debarred/disqualified from any examination or restricted by any University or any other
       educational institute?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_arrested" class="mr-2"></mat-checkbox> Have you
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_arrested" class="mr-2"></mat-checkbox> Have you
       ever been
       arrested?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_debarred_psc_company"
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_debarred_psc_company"
         class="mr-2"></mat-checkbox> Have you ever
       been debarred/disqualified from any Public Service Commission or any other recruiting company for
       appearing at its examination / selection?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_prosecuted" class="mr-2"></mat-checkbox> Have
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_prosecuted" class="mr-2"></mat-checkbox> Have
       you ever been
       prosecuted?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_court_case_pending" class="mr-2"></mat-checkbox>
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_court_case_pending" class="mr-2"></mat-checkbox>
       Is any case
       pending against you in any Court of Law at the time of filling this form?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_detention" class="mr-2"></mat-checkbox> Have you
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_detention" class="mr-2"></mat-checkbox> Have you
       ever been kept
       under detention?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_university_case_pending"
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_university_case_pending"
         class="mr-2"></mat-checkbox> Is any case
       pending against you in any University or Educational Institute at the time of filling this form?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_fined_by_court" class="mr-2"></mat-checkbox>
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_fined_by_court" class="mr-2"></mat-checkbox>
       Have you ever been
       fined by a Court of Law?
     </div>
 
     <div class="row-wrappper mt-2 hanging">
-      <mat-checkbox (change)="requiredDesc()" [formControlName]="form_disciplinary_proceedings"
+      <mat-checkbox (change)="requiredDesc($event)" [formControlName]="form_disciplinary_proceedings"
         class="mr-2"></mat-checkbox> In the
       previous employment, were any disciplinary proceedings framed against you or had you been called upon to
       explain your conduct in any matter at the time you served notice for resignation?
@@ -71,7 +71,7 @@
           nature of the case pending in the Court/University/Educational Authority at the time of filling
           this form?<span></span></label>
         <div><textarea #customInput matInput placeholder="Enter here" [formControlName]="form_full_particulars" class="input text-area mb-2"
-          style="width: 100% !important; height: 200px !important;" type="text"></textarea>
+          style="width: 100% !important; height: 200px !important;" type="text" [readonly]="checkbtn" ></textarea>
         <div class="form-error" *ngIf="full_particulars?.invalid && full_particulars?.touched">
           <div class="err" *ngIf="full_particulars?.errors?.required">
             Particulars is Required</div>
@@ -93,7 +93,7 @@
           <div class="value">Education Details</div>
         </div>
       </div> -->
-      <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+      <button style="font-family: lato;"  class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
         Continue</button>
       <!-- <div (click)="routeNext('preview')"
         class="d-flex align-content-center align-items-center text-right position-relative pointer"

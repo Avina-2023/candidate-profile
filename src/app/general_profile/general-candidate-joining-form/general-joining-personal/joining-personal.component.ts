@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, TemplateRef  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -15,8 +15,8 @@ import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { ENTER } from '@angular/cdk/keycodes';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
@@ -60,15 +60,15 @@ export const MY_FORMATS = {
 export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
 
-   public selection: string;
+  public selection: string;
 
   public customOption: string = 'customOption';
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  hobbies: Hobbie[] = [ ];
+  readonly separatorKeysCodes: number[] = [ENTER];
+  hobbies: Hobbie[] = [];
 
   marital_list = [
 
@@ -220,18 +220,18 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   form_left_eyepower_glass = 'left_eyepower_glass';
   // form_right_eye_power_glass = 'right_eye_power_glass';
 
-// Profile
-form_file_id = 'file_id';
-form_file_label_name = 'name';
-form_file_path = 'file_path';
-form_file_size = 'file_size';
-form_filename = 'filename';
-form_filetype = 'filetype';
-form_id = 'id';
-form_label = 'label';
+  // Profile
+  form_file_id = 'file_id';
+  form_file_label_name = 'name';
+  form_file_path = 'file_path';
+  form_file_size = 'file_size';
+  form_filename = 'filename';
+  form_filetype = 'filetype';
+  form_id = 'id';
+  form_label = 'label';
 
-profilePictureFormControl = new FormControl(null, [Validators.required]);
-// Form control name declaration end
+  profilePictureFormControl = new FormControl(null, [Validators.required]);
+  // Form control name declaration end
 
   personalDetails: any;
   getAllStates: any;
@@ -247,7 +247,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   };
 
   isKYCNotExempted = this.appConfig.getLocalData('isKYCNotExempted') == 'false' ? false : true;
-  currentDeleteIndex:number  ;
+  currentDeleteIndex: number;
 
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
@@ -268,7 +268,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     private loadingService: LoaderService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
-    private msgData:InterComponentMessenger
+    private msgData: InterComponentMessenger
   ) {
     this.dateValidation();
   }
@@ -285,6 +285,12 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
 
   }
 
+  // onKeyDown(event: KeyboardEvent) {
+  //   if ((event.key === 'Backspace')) {
+  //     event.preventDefault();
+  //     //console.log('Backspace key was pressed');
+  //   }
+  // }
   ngAfterViewInit() {
     this.showStepper();
     // Hack: Scrolls to top of Page after page view initialized
@@ -295,33 +301,38 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     }
   }
 
+
+
+
+
+
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
     // Add our hobbie
     if ((value || '').trim()) {
-      this.hobbies.push({hobbiesAndInterests: value.trim()});
+      this.hobbies.push({ hobbiesAndInterests: value.trim() });
     }
     // Reset the input value
     if (input) {
       input.value = '';
     }
   }
-  physicalDisabilityChange(event){
-    console.log(this.personalForm.controls[this.form_physical_disability].value );
+  physicalDisabilityChange(event) {
+    console.log(this.personalForm.controls[this.form_physical_disability].value);
 
     // this.form_Employment_Array['controls'][this.isWorkExp].setValue('1');
-       if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true')) {
+    if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true')) {
       this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-      console.log(this.personalForm.controls[this.form_physical_disability_rsn],'true');
+      console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'true');
     }
-    if(this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'false')) {
+    if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'false')) {
 
       this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
       this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-      console.log(this.personalForm.controls[this.form_physical_disability_rsn],'false');
+      console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'false');
 
     }
     // if(event.value == 'true'){
@@ -338,18 +349,18 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     if (index >= 0) {
       this.hobbies.splice(index, 1);
     }
-    if(this.hobbies && this.hobbies.length == 0){
-         this.personalForm.controls[this.form_hobbies_intrest].reset();
-        this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
-        this.personalForm.controls[this.form_hobbies_intrest].updateValueAndValidity();
-      }
+    if (this.hobbies && this.hobbies.length == 0) {
+      this.personalForm.controls[this.form_hobbies_intrest].reset();
+      this.personalForm.controls[this.form_hobbies_intrest].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+      this.personalForm.controls[this.form_hobbies_intrest].updateValueAndValidity();
+    }
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
-    this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any)=> {
-       this.getPersonalData();
-     });
-   }
+    this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any) => {
+      this.getPersonalData();
+    });
+  }
 
   showStepper() {
     this.sharedService.joiningFormActiveSelector.next('personal');
@@ -404,18 +415,18 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
 
     if (this.candidateService.getLocalProfileData()) {
       this.personalDetails = this.candidateService.getLocalpersonal_details();
-      this.personalDetails.email = this.personalDetails.email?this.personalDetails.email:this.appConfig.getLocalData('userEmail');
+      this.personalDetails.email = this.personalDetails.email ? this.personalDetails.email : this.appConfig.getLocalData('userEmail');
       this.personalDetails ? this.patchPersonalForm() : '';
     } else {
-    //   let apiData = {
-    //     form_name: 'joining',
-    //     section_name: ''
-    //   }
-    //  this.newGetProfileDataSubscription = this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
-    //     this.candidateService.saveAllProfileToLocal(data);
-    //     this.personalDetails = this.candidateService.getLocalpersonal_details();
-    //     this.personalDetails ? this.patchPersonalForm() : '';
-    //   });
+      //   let apiData = {
+      //     form_name: 'joining',
+      //     section_name: ''
+      //   }
+      //  this.newGetProfileDataSubscription = this.candidateService.newGetProfileData(apiData).subscribe((data: any)=> {
+      //     this.candidateService.saveAllProfileToLocal(data);
+      //     this.personalDetails = this.candidateService.getLocalpersonal_details();
+      //     this.personalDetails ? this.patchPersonalForm() : '';
+      //   });
     }
   }
 
@@ -434,7 +445,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     if (this.appConfig.getLocalData('bloodgroup')) {
       this.bloodGroupDropdownList = JSON.parse(this.appConfig.getLocalData('bloodgroup'));
     } else {
-     this.getBloodGroupsSubscription = this.candidateService.getBloodGroups().subscribe((data: any) => {
+      this.getBloodGroupsSubscription = this.candidateService.getBloodGroups().subscribe((data: any) => {
         this.bloodGroupDropdownList = data;
         this.bloodGroupDropdownList && this.bloodGroupDropdownList.length > 0 ? this.appConfig.setLocalData('bloodgroup', JSON.stringify(this.bloodGroupDropdownList)) : '';
       }, (err) => {
@@ -444,20 +455,20 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   }
 
   dateValidation() {
-        // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
-        const currentYear = new Date().getFullYear();
-        this.minDate = new Date(currentYear - 50, 0, 1);
-        this.minDateDOB = new Date(currentYear - 90, 0, 1);
-        this.maxDate = new Date(currentYear + 20, 11, 31);
-        this.passportDateOfIssueMaxDate = new Date();
-        this.passportValidminDate = new Date(currentYear - 15, 0, 1);
-        this.passportValidmaxDate = new Date(currentYear + 40, 0, 1);
+    // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 50, 0, 1);
+    this.minDateDOB = new Date(currentYear - 90, 0, 1);
+    this.maxDate = new Date(currentYear + 20, 11, 31);
+    this.passportDateOfIssueMaxDate = new Date();
+    this.passportValidminDate = new Date(currentYear - 15, 0, 1);
+    this.passportValidmaxDate = new Date(currentYear + 40, 0, 1);
   }
 
   momentForm(date) {
     if (date) {
       const split = moment(date).format('DD-MM-YYYY');
-     return split;
+      return split;
     }
   }
 
@@ -468,7 +479,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
         const ddFormat = moment(date, 'DD-MM-YYYY').format();
         return ddFormat == 'Invalid date' ? null : ddFormat;
       }
-     return split == 'Invalid date' ? null : split;
+      return split == 'Invalid date' ? null : split;
     }
   }
 
@@ -485,19 +496,19 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     return FilteredLanArray;
   }
 
-  formSubmit(routeValue?:any) {
-    this.loadingService.setLoading(true)
+  formSubmit(routeValue?: any) {
+    this.loadingService.setLoading(true);
+    let rawPersonalFormValue = this.personalForm.getRawValue();
     if (this.personalForm.valid) {
-      let rawPersonalFormValue = this.personalForm.getRawValue();
-      const apiData = {
-        "basicinfo":{
+      const personalapiData = {
+        "basicinfo": {
           // profileImage:this.profilePicture.file_path,
           // [this.form_name]: rawPersonalFormValue[this.form_name],
           [this.form_aadhar]: rawPersonalFormValue[this.form_aadhar],
           [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
           // [this.form_email]: rawPersonalFormValue[this.form_email],
           [this.form_gender]: rawPersonalFormValue[this.form_gender],
-          [this.form_hobbies_intrest]:this.hobbies,
+          [this.form_hobbies_intrest]: this.hobbies,
           [this.form_mobile]: rawPersonalFormValue[this.form_mobile],
           // [this.form_nationality]: rawPersonalFormValue[this.form_nationality],
           // [this.form_caste]: rawPersonalFormValue[this.form_caste],
@@ -519,7 +530,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           [this.form_no_of_children]: rawPersonalFormValue[this.form_no_of_children],
         },
         [this.form_language_array]: this.languageArrRequestJsonConversion(rawPersonalFormValue[this.form_language_array]),
-        "passportinfo":{
+        "passportinfo": {
           [this.form_passport_number]: rawPersonalFormValue[this.form_passport_number],
           [this.form_name_as_in_passport]: rawPersonalFormValue[this.form_name_as_in_passport],
           [this.form_profession_as_in_passport]: rawPersonalFormValue[this.form_profession_as_in_passport],
@@ -528,46 +539,46 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
           [this.form_place_of_issue]: rawPersonalFormValue[this.form_place_of_issue],
           [this.form_country_valid_for]: rawPersonalFormValue[this.form_country_valid_for],
         },
-        "healthrelatedInfo":{
+        "healthrelatedInfo": {
           [this.form_serious_illness]: rawPersonalFormValue[this.form_serious_illness],
-       [this.form_no_of_days]: rawPersonalFormValue[this.form_no_of_days],
-       [this.form_nature_of_illness]: rawPersonalFormValue[this.form_nature_of_illness],
-       [this.form_physical_disability]: rawPersonalFormValue[this.form_physical_disability],
-      [this.form_physical_disability_rsn]: rawPersonalFormValue[this.form_physical_disability_rsn],
-      //  [this.form_left_eyepower_glass]: rawPersonalFormValue[this.form_left_eyepower_glass],
-      //  [this.form_right_eye_power_glass]: rawPersonalFormValue[this.form_right_eye_power_glass],
-       [this.form_height]: rawPersonalFormValue[this.form_height],
-       [this.form_weight]: rawPersonalFormValue[this.form_weight],
-       [this.form_blood_group]: rawPersonalFormValue[this.form_blood_group],
+          [this.form_no_of_days]: rawPersonalFormValue[this.form_no_of_days],
+          [this.form_nature_of_illness]: rawPersonalFormValue[this.form_nature_of_illness],
+          [this.form_physical_disability]: rawPersonalFormValue[this.form_physical_disability],
+          [this.form_physical_disability_rsn]: rawPersonalFormValue[this.form_physical_disability_rsn],
+          //  [this.form_left_eyepower_glass]: rawPersonalFormValue[this.form_left_eyepower_glass],
+          //  [this.form_right_eye_power_glass]: rawPersonalFormValue[this.form_right_eye_power_glass],
+          [this.form_height]: rawPersonalFormValue[this.form_height],
+          [this.form_weight]: rawPersonalFormValue[this.form_weight],
+          [this.form_blood_group]: rawPersonalFormValue[this.form_blood_group],
 
         }
 
       };
 
       const PersonalApiRequestDetails = {
-        email:rawPersonalFormValue[this.form_email],
-        profileImage:this.profilePicture.file_path,
+        //email: rawPersonalFormValue[this.form_email],
+        email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
+        profileImage: this.profilePicture.file_path,
         section_name: "personal_details",
-        saving_data: apiData
+        saving_data: personalapiData
       }
-    this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(PersonalApiRequestDetails).subscribe((data: any)=> {
-      setTimeout(() => {
-        this.loadingService.setLoading(false)
+      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(PersonalApiRequestDetails).subscribe((data: any) => {
+        // setTimeout(() => {
+          this.loadingService.setLoading(false)
 
-      }, 2000);
-      if(data && data.success)
-        {
-        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
-        this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-        this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Personal details is updated');
-        this.msgData.sendMessage("gender",data.data.saved_data.gender)
-        this.msgData.sendMessage("saved",true)
-        this.sharedService.joiningFormStepperStatus.next();
-        return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
-      }else{
-        this.appConfig.nzNotification('error', 'Not Saved', data && data.message ? data.message : 'Personal details not updated');
-        return false
-      }
+        // }, 2000);
+        // if (data && data.success) {
+          this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
+          this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
+          this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Personal details is updated');
+          this.msgData.sendMessage("gender", data.data.saved_data.gender)
+          this.msgData.sendMessage("saved", true)
+          this.sharedService.joiningFormStepperStatus.next();
+          return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
+        // } else {
+        //   this.appConfig.nzNotification('error', 'Not Saved', data && data.message ? data.message : 'Personal details not updated');
+        //   return false
+        // }
       });
     } else {
       this.ngAfterViewInit();
@@ -580,16 +591,16 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
 
 
   saveRequestRxJs() {
-    this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any)=> {
+    this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
       if (result.result == 'save') {
-      this.formSubmit(result.route);
+        this.formSubmit(result.route);
       }
     });
   }
 
   checkFormValidRequestFromRxjs() {
-    this.checkFormValidRequest = this.sharedService.StepperNavigationCheck.subscribe((data: any)=> {
-      if(data.current == 'personal') {
+    this.checkFormValidRequest = this.sharedService.StepperNavigationCheck.subscribe((data: any) => {
+      if (data.current == 'personal') {
         if (!this.personalForm.dirty) {
           return this.appConfig.routeNavigation(data.goto);
         } else {
@@ -601,10 +612,10 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
 
   routeNext() {
     if (!this.personalForm.dirty) {
-      if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().personal_details == '1') {
+      if (this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().personal_details == '1') {
         return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
       } else {
-        if(this.personalForm.valid) {
+        if (this.personalForm.valid) {
           return this.sharedService.openJoiningRoutePopUp.next(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
         }
         this.glovbal_validators.validateAllFields(this.personalForm);
@@ -613,20 +624,20 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       }
     } else {
       return this.sharedService.openJoiningRoutePopUp.next(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_CONTACT);
-      }
     }
+  }
 
   async uploadImage(file) {
     try {
       this.profilePictureFormControl.markAsUntouched();
       this.loadingService.setLoading(true);
-      this.skillexService.uploadfile(file).subscribe((data:any) => {
+      this.skillexService.uploadfile(file).subscribe((data: any) => {
         // if (data && !data.succes) {
         //   this.loadingService.setLoading(false);
         //   return this.appConfig.nzNotification('error', 'Not Uploaded', 'Please try again');
         // }
         this.loadingService.setLoading(false);
-        if (data ) {
+        if (data) {
           this.profilePicture = {
 
             file_path: data.data.file_path,
@@ -647,47 +658,48 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
     }
   }
 
-    public delete() {
-      this.profilePicture = {
-        file_path: null,
-      };
-      this.profilePictureFormControl.setValue(null);
-      this.profilePictureFormControl.markAsTouched();
-    }
-    onSelectFile(event) {
-      const fd = new FormData();
-      this.profilePictureFormControl.markAsTouched();
-      if (event.target.files && (event.target.files[0].type.includes('image/png') || event.target.files[0].type.includes('image/jp')) && !event.target.files[0].type.includes('svg')) {
-        if (event.target.files[0].size < 2000000) {
-          if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
+  public delete() {
+    this.profilePicture = {
+      file_path: null,
+    };
+    this.profilePictureFormControl.setValue(null);
+    this.profilePictureFormControl.markAsTouched();
+  }
+  onSelectFile(event) {
+    const fd = new FormData();
+    this.profilePictureFormControl.markAsTouched();
+    if (event.target.files && (event.target.files[0].type.includes('image/png') || event.target.files[0].type.includes('image/jp')) && !event.target.files[0].type.includes('svg')) {
+      if (event.target.files[0].size < 2000000) {
+        if (this.appConfig.minImageSizeValidation(event.target.files[0].size)) {
           let image = event.target.files[0];
 
           fd.append('email', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
           fd.append('uploadFile', image);
-          fd.append('uploadType',"profileImage");
+          fd.append('uploadType', "profileImage");
           this.uploadImage(fd);
         }
-       } else {
-        this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
-       }
       } else {
-        return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PNG/JPEG files only');
+        this.appConfig.nzNotification('error', 'Not Uploaded', 'Maximum file size is 2 MB');
       }
+    } else {
+      return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PNG/JPEG files only');
     }
+  }
 
-    //  changeInphysicalDisability(e){
-    //   console.log(e,'ra')
-    //   if (e.checked) {
+  //  changeInphysicalDisability(e){
+  //   console.log(e,'ra')
+  //   if (e.checked) {
 
-    //   }else{
-    //     this.personalForm['controls'][this.form_physical_disability].setValue('1');
-    //   }
-    // }
+  //   }else{
+  //     this.personalForm['controls'][this.form_physical_disability].setValue('1');
+  //   }
+  // }
   patchPersonalForm() {
-    if(this.personalDetails[this.form_hobbies_intrest]?.length) {
+    if (this.personalDetails[this.form_hobbies_intrest]?.length) {
       this.hobbies = this.personalDetails[this.form_hobbies_intrest];
-      if(this.personalDetails[this.form_hobbies_intrest].length > 0){
-        this.personalForm.controls[this.form_hobbies_intrest].clearValidators();
+      if (this.personalDetails[this.form_hobbies_intrest].length > 0) {
+        this.personalForm.controls[this.form_hobbies_intrest];
+        //this.personalForm.controls[this.form_hobbies_intrest].clearValidators();
       }
     }
 
@@ -734,9 +746,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       [this.form_no_of_days]: this.personalDetails[this.form_no_of_days] ? this.personalDetails[this.form_no_of_days].toString() : null,
       [this.form_nature_of_illness]: this.personalDetails[this.form_nature_of_illness],
       [this.form_physical_disability_rsn]: this.personalDetails[this.form_physical_disability_rsn],
-  // [this.form_physical_disability_rsn]: (this.personalDetails[this.form_physical_disability_rsn],(this.personalDetails[this.form_physical_disability_rsn] && (this.personalDetails[this.form_physical_disability] == 'true'))  ? [Validators.required] : this.personalDetails[this.form_physical_disability_rsn],(this.personalDetails[this.form_physical_disability_rsn] && (this.personalDetails[this.form_physical_disability] == 'false'))  ? [] : []) ,
+      // [this.form_physical_disability_rsn]: (this.personalDetails[this.form_physical_disability_rsn],(this.personalDetails[this.form_physical_disability_rsn] && (this.personalDetails[this.form_physical_disability] == 'true'))  ? [Validators.required] : this.personalDetails[this.form_physical_disability_rsn],(this.personalDetails[this.form_physical_disability_rsn] && (this.personalDetails[this.form_physical_disability] == 'false'))  ? [] : []) ,
 
-       [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == 'true') ? 'true' : 'false',
+      [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] && (this.personalDetails[this.form_physical_disability] == 'true') ? 'true' : 'false',
       // [this.form_physical_disability]: this.personalDetails[this.form_physical_disability] == 0 ? '0' : '1',
       // [this.form_left_eyepower_glass]: this.personalDetails[this.form_left_eyepower_glass],
       // [this.form_right_eye_power_glass]: this.personalDetails[this.form_right_eye_power_glass]
@@ -798,7 +810,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   formInitialize() {
     this.personalForm = this.fb.group({
       // [this.form_title]: [null, [Validators.required]],
-      [this.form_name]: [{value: this.appConfig.getLocalData('username'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+      [this.form_name]: [{ value: this.appConfig.getLocalData('username'), disabled: true }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
       [this.form_gender]: [null, [Validators.required]],
       // [this.form_hobbies_intrest]: [null,[Validators.required]],
@@ -814,13 +826,13 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
       // [this.form_father_name]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
       // [this.form_emergency_contact]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.mobileRegex()]],
       [this.form_mobile]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.mobileRegex()]],
-      [this.form_email]: [{value: this.appConfig.getLocalData('userEmail'), disabled: true}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.email()]],
+      [this.form_email]: [{ value: this.appConfig.getLocalData('userEmail'), disabled: true }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.email()]],
       [this.form_aadhar]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.aadhaar()]],
       // [this.form_pan]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.panNo()]],
       // [this.form_offer_reference]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.offer()]],
       // [this.form_offer_date]: [null, [this.candidateService.checkKycOrJoiningForm()?Validators.required:'']],
-      [this.form_height]: [null, [RemoveWhitespace.whitespace(),, this.glovbal_validators.numberDecimals()]],
-      [this.form_weight]: [null, [RemoveWhitespace.whitespace(),, this.glovbal_validators.numberDecimals()]],
+      [this.form_height]: [null, [RemoveWhitespace.whitespace(), , this.glovbal_validators.numberDecimals()]],
+      [this.form_weight]: [null, [RemoveWhitespace.whitespace(), , this.glovbal_validators.numberDecimals()]],
       // [this.form_identification_mark1]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       // [this.form_identification_mark2]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       // [this.form_emergency_contact_name]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
@@ -887,7 +899,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   //   this.personalForm.controls[this.form_mother_tongue].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_religion].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_caste].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
-    // this.personalForm.controls[this.form_category].setValidators([Validators.required]);
+  // this.personalForm.controls[this.form_category].setValidators([Validators.required]);
   //   // this.personalForm.controls[this.form_blood_group].setValidators([Validators.required]);
   //   // this.personalForm.controls[this.form_father_name].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_emergency_contact].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.mobileRegex()]);
@@ -904,7 +916,7 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   //   // this.personalForm.controls[this.form_emergency_contact_name].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   // this.personalForm.controls[this.form_emergency_contact_relation].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]);
   //   this.personalForm.controls[this.form_personal_email].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.email()]);
-    // this.personalForm.controls[this.form_domicile_state].setValidators([Validators.required]);
+  // this.personalForm.controls[this.form_domicile_state].setValidators([Validators.required]);
   //   this.personalForm.controls[this.form_marital_status].setValidators([Validators.required]);
   //   this.personalForm.controls[this.form_passport_number].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
   //   this.personalForm.controls[this.form_name_as_in_passport].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]);
@@ -941,9 +953,9 @@ profilePictureFormControl = new FormControl(null, [Validators.required]);
   get gender() {
     return this.personalForm.get(this.form_gender);
   }
-get hobbies_intrest(){
-  return this.personalForm.get(this.form_hobbies_intrest);
-}
+  get hobbies_intrest() {
+    return this.personalForm.get(this.form_hobbies_intrest);
+  }
   // get chips() {
   //   return this.personalForm.get('hobbiesandintrest');
   // }
@@ -1088,12 +1100,12 @@ get hobbies_intrest(){
   // }
 
 
-ngOnDestroy() {
-  this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';
-  this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';
-  this.joiningFormDataPassingSubscription ? this.joiningFormDataPassingSubscription.unsubscribe() : '';
-  this.newGetProfileDataSubscription ? this.newGetProfileDataSubscription.unsubscribe() : '';
-  this.getBloodGroupsSubscription ? this.getBloodGroupsSubscription.unsubscribe() : '';
-  this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
-}
+  ngOnDestroy() {
+    this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';
+    this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';
+    this.joiningFormDataPassingSubscription ? this.joiningFormDataPassingSubscription.unsubscribe() : '';
+    this.newGetProfileDataSubscription ? this.newGetProfileDataSubscription.unsubscribe() : '';
+    this.getBloodGroupsSubscription ? this.getBloodGroupsSubscription.unsubscribe() : '';
+    this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
+  }
 }

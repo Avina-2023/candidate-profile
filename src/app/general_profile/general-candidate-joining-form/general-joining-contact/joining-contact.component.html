@@ -59,7 +59,7 @@
               <div class="overall-input-wrapper mt-3 width-100">
                 <label style="width:30%">Present State/Province<span class="redTxt">*</span></label>
                 <div style="width:71%"><nz-select class="input select" (ngModelChange)="disableOrEnableState(form_present_state)"
-                  [formControlName]="form_present_state" nzAllowClear nzShowSearch nzPlaceHolder="Select">
+                  [formControlName]="form_present_state" nzAllowClear nzShowSearch nzPlaceHolder="<--Select-->">
                   <nz-option *ngFor="let state of allStatesList" [nzLabel]="state.name"
                     [nzValue]="state.id"></nz-option>
                 </nz-select>
@@ -76,7 +76,7 @@
                 class="overall-input-wrapper mt-3 width-100">
                 <label style="width:30%">Present District<span class="redTxt">*</span></label>
                 <div style="width:71%"><nz-select class="input select" [formControlName]="form_present_city" nzAllowClear nzShowSearch
-                  nzPlaceHolder="Select">
+                  nzPlaceHolder="<--Select-->">
                   <nz-option *ngFor="let city of allPresentCityList" [nzLabel]="city.name"
                     [nzValue]="city.id"></nz-option>
                 </nz-select>
@@ -167,7 +167,7 @@
               <div class="overall-input-wrapper mt-3 width-100">
                 <label style="width:30%">Permanent State/Province<span class="redTxt">*</span></label>
                 <div style="width:71%"><nz-select class="input select" (ngModelChange)="disableOrEnableState(form_permanent_state)"
-                  [formControlName]="form_permanent_state" nzAllowClear nzShowSearch nzPlaceHolder="Select">
+                  [formControlName]="form_permanent_state" nzAllowClear nzShowSearch nzPlaceHolder="<--Select-->">
                   <nz-option *ngFor="let state of allStatesList" [nzLabel]="state.name"
                     [nzValue]="state.id"></nz-option>
                 </nz-select>
@@ -183,7 +183,7 @@
                 class="overall-input-wrapper mt-3 width-100">
                 <label style="width:30%">Permanent District<span class="redTxt">*</span></label>
                 <div style="width:71%"><nz-select class="input select" [formControlName]="form_permanent_city" nzAllowClear nzShowSearch
-                  nzPlaceHolder="Select">
+                  nzPlaceHolder="<--Select-->">
                   <nz-option *ngFor="let city of allPermanentCityList" [nzLabel]="city.name"
                     [nzValue]="city.id"></nz-option>
                 </nz-select>
@@ -235,7 +235,7 @@
                         <div class="value">Personal Details</div>
                     </div>
                 </div> -->
-      <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+      <button  style="font-family: lato;" class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
         Continue</button>
       <!-- <div (click)="routeNext('dependent')" class="d-flex align-content-center align-items-center text-right position-relative pointer" style="cursor: pointer;">
                     <div class="right-arrow position-absolute"></div>

@@ -96,9 +96,6 @@ export class GeneralJoiningUploadComponent
 
 
 
-
-
-
 // fileDropped(files: NgxFileDropEntry[]): void {
 //   this.files = files;
 //     for (const droppedFile of files)

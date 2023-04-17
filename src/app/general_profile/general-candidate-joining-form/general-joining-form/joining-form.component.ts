@@ -312,6 +312,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 
     this.getprofileimageFromLocal();
     this.getStateAPI();
+    // console.log(this.getAllStates , 'venkattesting');
 
   }
 
@@ -361,7 +362,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         this.appConfig.nzNotification(
           'error',
           'Not Uploaded',
-          'Maximum file size is 2 MB'
+          'Maximum file size is 2MB'
         );
       }
     } else {
@@ -398,6 +399,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
       );
   }
 
+
   getStateAPI() {
     const datas = {
       country_id: '101',
@@ -407,9 +409,11 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.candidateService.updatedState(datas).subscribe(
       (data: any) => {
         this.getAllStates = data[0];
+        console.log(this.getAllStates);
         this.getAllStates.forEach((element) => {
           if (element.id == this.addressState) {
             this.addressState = element.name;
+            console.log(this.addressState, 'AddressState');
             this.getAllPermanentCities(
               element.id,
               this.addressCity,
@@ -449,7 +453,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.addressCity = candyprofileimage.contact_details.permanent_city;
     this.addressState = candyprofileimage.contact_details.permanent_state;
     this.addressCountry = candyprofileimage.contact_details.permanent_country;
-    this.updatedOn = new Date();
+    this.updatedOn = candyprofileimage.acknowledgement.acknowledgement.ack_date;
     this.createdOn = candyprofileimage.createdAt;
   }
 

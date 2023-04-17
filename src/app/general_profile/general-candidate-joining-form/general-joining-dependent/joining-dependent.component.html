@@ -87,7 +87,7 @@
                       [ngClass]="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')? 'dynamicclass' : ' width-100' ">
                       <div style="display:flex;justify-content: space-between;"><nz-select class="input select w-100"
                           (ngModelChange)="dependentChange(i)" [formControlName]="form_dependent_relationship"
-                          nzAllowClear nzShowSearch nzPlaceHolder="Select">
+                          nzAllowClear nzShowSearch nzPlaceHolder="<--Select-->">
                           <nz-option *ngFor="let relation of relationshipList" [nzLabel]="relation.label"
                             [nzValue]="relation.value"></nz-option>
                         </nz-select>
@@ -116,8 +116,9 @@
                 <ng-container>
                   <div class="overall-input-wrapper width-32 mt-4">
                     <label>Occupation<span></span></label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
+                    <div style="width:100%"><input matInput placeholder="Enter here" class="input" type="text"
                       [formControlName]="form_dependent_occupation">
+
                     <div class="form-error"
                       *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).invalid && getDependentArr.controls[i].get(form_dependent_occupation).touched">
                       <div *ngIf="getDependentArr.controls[i].get(form_dependent_occupation).errors?.required">
@@ -127,6 +128,7 @@
                         allowed</div>
                     </div>
                   </div>
+                </div>
                 </ng-container>
               </div>
 
@@ -201,7 +203,7 @@
             <div class="value">Contact Details</div>
           </div>
         </div> -->
-        <button class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+        <button style="font-family: lato;"  class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
           Continue</button>
         <!-- <div (click)="routeNext('education')"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"
