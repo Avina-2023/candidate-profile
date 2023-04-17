@@ -181,11 +181,15 @@
               +',':'NIL'}}<span class="countryimg">&nbsp;<img
                   src="assets/images/candidateprofile/india_flag.svg"></span></div>
             <div>
+            <div class="loc mt-1">{{this.adrsCity?this.adrsCity +',' : 'NIL'}} {{this.addressState? this.addressState
+              +',':'NIL'}} India<span class="countryimg">&nbsp;<img
+                  src="assets/images/candidateprofile/india_flag.svg"></span></div>
+            <div>
               <div class="gender mt-1 mb-1 ">{{this.gender}}</div>
             </div>
             <div class="email mt-1">Member Since {{this.createdOn | date: "MMM dd, yyy"}} </div>
             <div class="email mt-1">Profile Last Updated on</div>
-            <div class="date" >{{this.updatedOn | date: "MMM dd, yyy" }}</div>
+            <div class="date">{{this.updatedOn | date: "MMM dd, yyy" }}</div>
           </div>
         </div>
       </div>

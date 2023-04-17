@@ -304,6 +304,10 @@
 
                                 </div>
 
+                                <!-- <mat-error *ngIf="educationForm.hasError('invalidYearPassing')">
+                                  Year of Passing Should not be greater than year of completion
+                                </mat-error> -->
+
                                 <div class="form-error"
                                     *ngIf="getEducationArr.controls[i].get(form_startDate).invalid && getEducationArr.controls[i].get(form_startDate).touched">
                                     <div class="err" *ngIf="getEducationArr.controls[i].get(form_startDate)?.errors?.required">
@@ -356,6 +360,7 @@
                                       *ngIf="getEducationArr.controls[i].get(form_endDate).invalid && getEducationArr.controls[i].get(form_endDate).touched">
                                       <div class="err" *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.required">
                                         Year of Completion is Required</div>
+                                        <!-- <div class="err" *ngIf="getEducationArr.controls[i].get(form_startDate).value < getEducationArr.controls[i].get(form_endDate).value"> Year of Completion Should be less than Year of Commencement</div> -->
                                       <div class="err"
                                           *ngIf="getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax">
                                           {{getEducationArr.controls[i].get(form_endDate)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(getEducationArr.controls[i].get(form_yearpassing)?.errors?.matDatepickerMax.max) : ''}}
