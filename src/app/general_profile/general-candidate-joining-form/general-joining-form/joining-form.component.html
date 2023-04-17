@@ -163,7 +163,7 @@
                     </div>
                     <div class="action" mat-dialog-actions>
                       <button class="confirm btn" mat-button [disabled]="IsToFeildEnable"
-                        (click)="onSelectFile(croppedImage)">save </button>
+                        (click)="onSelectFile(croppedImage)">Save </button>
                       <button class="cancel" mat-button [mat-dialog-close]="true">Cancel </button>
                     </div>
                     <div class="note">
@@ -177,7 +177,11 @@
           <div class="notexpanddetails">
             <div class="name mt-1">{{this.name}}</div>
             <div class="email mt-1">{{this.email}}</div>
-            <div class="loc mt-1">{{this.addressCity?this.addressCity +',' : 'NIL'}} {{this.addressState? this.addressState
+            <!-- <div class="loc mt-1">{{this.addressCity?this.addressCity +',' : 'NIL'}} {{this.addressState? this.addressState
+              +',':'NIL'}}  India<span class="countryimg">&nbsp;<img
+                  src="assets/images/candidateprofile/india_flag.svg"></span></div>
+            <div> -->
+            <div class="loc mt-1">{{this.adrsCity?this.adrsCity +',' : 'NIL'}} {{this.addressState? this.addressState
               +',':'NIL'}}<span class="countryimg">&nbsp;<img
                   src="assets/images/candidateprofile/india_flag.svg"></span></div>
             <div>
@@ -185,7 +189,7 @@
             </div>
             <div class="email mt-1">Member Since {{this.createdOn | date: "MMM dd, yyy"}} </div>
             <div class="email mt-1">Profile Last Updated on</div>
-            <div class="date" >{{this.updatedOn | date: "MMM dd, yyy" }}</div>
+            <div class="date">{{this.updatedOn | date: "MMM dd, yyy" }}</div>
           </div>
         </div>
       </div>
