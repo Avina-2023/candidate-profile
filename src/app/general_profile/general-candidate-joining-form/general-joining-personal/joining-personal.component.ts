@@ -258,7 +258,6 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   getBloodGroupsSubscription: Subscription;
   newSaveProfileDataSubscription: Subscription;
   hobbiesAndIntrest: Hobbie[];
-  hobbiesInput: any;
   constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
