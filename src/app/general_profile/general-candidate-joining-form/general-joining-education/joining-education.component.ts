@@ -224,6 +224,7 @@ joiningFormDataPassingSubscription: Subscription;
   maxFromDate: Date | null;
   minToDate: Date | null;
   maxToDate: Date;
+  clgList: any;
 constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -1153,14 +1154,17 @@ validSelectedPost() {
       this.ugDisciplineList = data && data.data.ug_disciplines ? data.data.ug_disciplines : [];
       this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
       this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
-      const list = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
-      this.ugInstitutesList = list;
-      // const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
-      this.pgInstitutesList =  list;
-      this.diplomaInstitutesList = list;
+      this.clgList = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
+      // this.ugInstitutesList = list;
+      // // const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
+      // this.pgInstitutesList =  list;
+      //  this.diplomaInstitutesList = list;
     }, (err) => {
 
     });
+  }
+  list(list: any) {
+    throw new Error('Method not implemented.');
   }
 
   checkLastIndexOfCA() {

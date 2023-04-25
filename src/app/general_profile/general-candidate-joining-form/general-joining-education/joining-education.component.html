@@ -194,19 +194,19 @@
                             nzPlaceHolder="Select">
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma')">
-                              <nz-option *ngFor="let institute of diplomaInstitutesList"
+                              <nz-option *ngFor="let institute of clgList"
                                 [nzLabel]="institute.college_name" [nzValue]="institute.college_name">
                               </nz-option>
                             </ng-container>
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'UG')">
-                              <nz-option *ngFor="let institute of ugInstitutesList" [nzLabel]="institute.college_name"
+                              <nz-option *ngFor="let institute of clgList" [nzLabel]="institute.college_name"
                                 [nzValue]="institute.college_name">
                               </nz-option>
                             </ng-container>
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'PG')">
-                              <nz-option *ngFor="let institute of pgInstitutesList" [nzLabel]="institute.college_name"
+                              <nz-option *ngFor="let institute of clgList" [nzLabel]="institute.college_name"
                                 [nzValue]="institute.college_name">
                               </nz-option>
                             </ng-container>
