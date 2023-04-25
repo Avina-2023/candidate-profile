@@ -64,8 +64,16 @@
                     <ng-container>
                       <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC')"
                         class="overall-input-wrapper mb-0 width-100">
-                        <label>Qualification<!-- Asterick --><span
+                        <label>Qualification<!-- Asterick -->
+
+                          <!-- <span
                             *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC' && getEducationArr.controls[i].get(form_qualification_type).value != 'Diploma')"
+
+                            class="redTxt">*</span> -->
+
+                            <span
+                            *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC')"
+
                             class="redTxt">*</span>
                         </label>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'HSC')">
@@ -194,19 +202,19 @@
                             nzPlaceHolder="Select">
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma')">
-                              <nz-option *ngFor="let institute of diplomaInstitutesList"
+                              <nz-option *ngFor="let institute of clgList"
                                 [nzLabel]="institute.college_name" [nzValue]="institute.college_name">
                               </nz-option>
                             </ng-container>
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'UG')">
-                              <nz-option *ngFor="let institute of ugInstitutesList" [nzLabel]="institute.college_name"
+                              <nz-option *ngFor="let institute of clgList" [nzLabel]="institute.college_name"
                                 [nzValue]="institute.college_name">
                               </nz-option>
                             </ng-container>
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'PG')">
-                              <nz-option *ngFor="let institute of pgInstitutesList" [nzLabel]="institute.college_name"
+                              <nz-option *ngFor="let institute of clgList" [nzLabel]="institute.college_name"
                                 [nzValue]="institute.college_name">
                               </nz-option>
                             </ng-container>
@@ -310,7 +318,7 @@
                   <ng-container>
                     <ng-container>
                       <div class="overall-input-wrapper mb-0 width-100">
-                        <label style="width:35%">Year of Commencement <span class="redTxt">*</span></label>
+                        <label style="width:35%">Year of Commencement<span class="redTxt">*</span></label>
                         <div style="width:70%">
                           <div class="date-relative">
 
@@ -372,7 +380,7 @@
                     </ng-container>
                     <ng-container>
                       <div class="overall-input-wrapper mb-0 width-100">
-                        <label style="width:35%">Year of Completion <span class="redTxt">*</span></label>
+                        <label style="width:35%">Year of Completion<span class="redTxt">*</span></label>
                         <div style="width:70%">
                           <div class="date-relative">
                             <input matInput class="input" [min]="minToDate" [max]="maxToDate" [matDatepicker]="picker1"
@@ -568,6 +576,62 @@
 
                   </ng-container>
 
+                  <!-- history of backlogs -->
+                  <!-- <ng-container>
+                    <div class="overall-input-wrapper width-100 mb-0"
+                      [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
+                      <label style="width:35%">History of Backlogs<span class="redTxt">*</span></label>
+                      <div style="width:70%">
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_historyOfbacklog">
+
+                        <div class="form-error"
+                          *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).invalid && getEducationArr.controls[i].get(form_historyOfbacklog).touched">
+                          <div class="err"
+                            *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog)?.errors?.required">
+                            {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&
+                            getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&
+                            getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'History of Backlogs' : 'No. of Attempts Required'}}</div>
+                          <div class="err"
+                            *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).errors?.maxlength">
+                            Accept Numbers only and Maximum of 2 digits only Allowed </div>
+                          <div class="err"
+                            *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).errors?.numberOnly">Numerics
+                            only Allowed</div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container>
+                    <div class="overall-input-wrapper width-100 mb-0"
+                      [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
+                      <label style="width:35%">No. of Active Backlogs (if any)<span class="redTxt">*</span></label>
+                      <div style="width:70%">
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_noActivebacklog">
+
+                        <div class="form-error"
+                          *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).invalid && getEducationArr.controls[i].get(form_noActivebacklog).touched">
+                          <div class="err"
+                            *ngIf="getEducationArr.controls[i].get(form_noActivebacklog)?.errors?.required">
+                            {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&
+                            getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&
+                            getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. of Active
+                            Backlogs' : 'No. of Attempts Required'}}
+                          </div>
+                          <div class="err"
+                            *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).errors?.maxlength">
+                            Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                          <div class="err"
+                            *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).errors?.numberOnly">Numerics
+                            only Allowed</div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container> -->
+
+                  <!--  -->
 
                   <!-- <ng-container *ngIf="candidateService.checkKycOrJoiningForm() && ((getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma') || (getEducationArr.controls[i].get(form_qualification_type).value == 'UG') || (getEducationArr.controls[i].get(form_qualification_type).value == 'PG'))">
                             <div class="overall-input-wrapper mb-3 width-100">
@@ -608,10 +672,10 @@
                                     {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'No. Backlogs is Required' : 'No. of Attempts Required'}}</div>
                                     <div
                                         *ngIf="getEducationArr.controls[i].get(form_backlog).errors?.backlog">
-                                        Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                                        Accept Numbers only and Maximum of 2 digits only Allowed </div>
                             </div>
                         </div> -->
-                    <ng-container>
+                     <ng-container>
                       <div class="overall-input-wrapper width-100 mb-0"
                         [ngClass]="candidateService.checkKycOrJoiningForm() ? 'width-100' : 'width-100'">
                         <label style="width:35%">History of Backlogs<span class="redTxt">*</span></label>
@@ -629,7 +693,7 @@
                               Backlogs' : 'No. of Attempts Required'}}</div>
                             <div class="err"
                               *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).errors?.maxlength">
-                              Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                              Accept Numbers only and Maximum of 2 digits only Allowed </div>
                             <div class="err"
                               *ngIf="getEducationArr.controls[i].get(form_historyOfbacklog).errors?.numberOnly">Numerics
                               only Allowed</div>
@@ -656,7 +720,7 @@
                             </div>
                             <div class="err"
                               *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).errors?.maxlength">
-                              Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                              Accept Numbers only and Maximum of 2 digits only Allowed </div>
                             <div class="err"
                               *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).errors?.numberOnly">Numerics
                               only Allowed</div>
@@ -683,7 +747,7 @@
                               gap' : 'No. of Attempts Required'}}</div>
                             <div class="err"
                               *ngIf="getEducationArr.controls[i].get(form_reasonForbacklog).errors?.backlog">
-                              Accept Numbers only and Maximum of 2 digits only Allowed</div>
+                              Accept Numbers only and Maximum of 2 digits only Allowed </div>
                           </div>
                         </div>
                       </div>
