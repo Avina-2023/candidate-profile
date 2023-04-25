@@ -1156,7 +1156,8 @@ validSelectedPost() {
       const list = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
       this.ugInstitutesList = list;
       const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
-      this.pgInstitutesList = exceptOthers;
+      this.pgInstitutesList =  list;
+      this.diplomaInstitutesList = list;
     }, (err) => {
 
     });

@@ -629,13 +629,13 @@ check: any;
     }
     if(this.workDetailsForm.controls[this.form_isWorkExp].value == 'false' ){
 
-      this.workDetailsForm.controls[this.form_total_exp_years].setValue(null);
-      this.workDetailsForm.controls[this.form_total_exp_months].setValue(null);
-      this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValue(null);
-      this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValue(null);
-      this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValue(null);
-      this.getEmploymentArr.controls[i]['controls'][this.form_duration_from].setValue(null);
-      this.getEmploymentArr.controls[i]['controls'][this.form_duration_to].setValue(null);
+      // this.workDetailsForm.controls[this.form_total_exp_years].setValue(null);
+      // this.workDetailsForm.controls[this.form_total_exp_months].setValue(null);
+      // this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValue(null);
+      // this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValue(null);
+      // this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValue(null);
+      // this.getEmploymentArr.controls[i]['controls'][this.form_duration_from].setValue(null);
+      // this.getEmploymentArr.controls[i]['controls'][this.form_duration_to].setValue(null);
 
       this.workDetailsForm.controls[this.form_total_exp_years].clearValidators();
       this.workDetailsForm.controls[this.form_total_exp_months].clearValidators();

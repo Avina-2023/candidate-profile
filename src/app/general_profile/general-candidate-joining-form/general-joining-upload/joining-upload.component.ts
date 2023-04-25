@@ -96,6 +96,9 @@ export class GeneralJoiningUploadComponent
 
 
 
+
+
+
 // fileDropped(files: NgxFileDropEntry[]): void {
 //   this.files = files;
 //     for (const droppedFile of files)
@@ -317,16 +320,16 @@ export class GeneralJoiningUploadComponent
   }
 
   onFileSelected(event: any,isDragged:boolean) {
-    let files = isDragged ? event[0] : event.target.files[0];
+     let files = isDragged ? event[0] : event.target.files[0];
+    console.log(files,'resume file')
     const fd = new FormData();
     if(!files){
       return this.appConfig.nzNotification('error', 'File not Found', 'Please upload a file');
-
     }
     else if (files && files.type.includes('pdf')) {
       if (files.size < 2000000){
         if (this.appConfig.minImageSizeValidation(files.size)) {
-          let doc = files;
+           let doc = files;
           // this.pdfFileName = doc.name;
           // console.log(doc,'doc');
           fd.append('userEmail', this.appConfig.getLocalData('userEmail') ? this.appConfig.getLocalData('userEmail') : '');
@@ -341,6 +344,7 @@ export class GeneralJoiningUploadComponent
       return this.appConfig.nzNotification('error', 'Invalid Format', 'Please upload PDF file only');
     }
   }
+
   async uploadPdf(file) {
     try {
       this.pdfFormControl.markAsUntouched();
@@ -348,7 +352,8 @@ export class GeneralJoiningUploadComponent
       this.skillexService.pdfFileUpload(file).subscribe((data:any) => {
         this.loadingService.setLoading(false);
         if (data) {
-          this.pdfdoc = data.data;
+           this.pdfdoc = data.data;
+          console.log(data.data,'data');
           this.pdfFormControl.setValue(this.pdfdoc);
         }
         this.appConfig.nzNotification('success', 'Uploaded', 'Resume uploaded successfully');
@@ -374,7 +379,7 @@ export class GeneralJoiningUploadComponent
   //   }
   // }
        formSubmit(routeValue?: any){
-          if(this.uploadForm.valid){
+          if(this.uploadForm.valid && this.pdfdoc!= null){
             const apiData = {
               preWrittenPhrase: this.Pre_written_phrase,
               resume:[{
@@ -403,7 +408,6 @@ export class GeneralJoiningUploadComponent
             }
             });
           }
-
           else{
           this.ngAfterViewInit();
           // this.pdfFormControl.setValue(this.pdfdoc);

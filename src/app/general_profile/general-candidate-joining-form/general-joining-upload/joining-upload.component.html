@@ -66,6 +66,7 @@
         </div>
       </div> -->
 
+
        <div class="backgroundwhite_uploadresume">
         <label class="head_upload">Upload Resume <span class="redTxt">*</span></label>
         <div class="hr_line">
@@ -87,10 +88,15 @@
             <div class="alig">
               <div class="alignment">
                 <div appFiledrag (fileEmitter)="onFileSelected($event,true)">
-                  <input class="file-input" type="file"  id="upload" name="image" accept="application/pdf" [formControlName]="form_resumeArray"
-                    (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" />
+
+                  <!-- <input  class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
+                    (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" /> -->
+
+                  <input  class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
+                  (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" required />
+
                   <label for="upload" class="uploadbutton">
-                    <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "No file choosen"}}
+                    <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "No file chosen"}}
                   </label>
                 </div>
 
@@ -109,7 +115,7 @@
           </div>
         </div>
       </div>
-      <div (click)="formSubmit()" class="Save_nd_cntnu mt-1 animation-zoom">
+      <div (click)="formSubmit()" class="Save_nd_cntnu  mt-1 animation-zoom">
         <button type="submit">Save & Continue</button>
       </div>
     </div>
