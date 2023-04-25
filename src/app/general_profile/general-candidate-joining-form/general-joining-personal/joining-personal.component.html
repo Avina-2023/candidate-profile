@@ -631,11 +631,33 @@
                     <mat-radio-button style="width: 50% !important;" value="false">No</mat-radio-button>
                   </mat-radio-group>
                 </div>
-                <div class="physicaldisability"
+                <!-- <div class="physicaldisability"
                   *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
                   <input matInput placeholder="Enter Physical Disability" class="input" type="text"
                     [formControlName]="form_physical_disability_rsn">
-                </div>
+                </div> -->
+                <div class="physicaldisability"
+                  *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
+
+                   <input matInput placeholder="Enter Physical Disability" class="input" type="text"
+                     [formControlName]="form_physical_disability_rsn">
+
+                   <div class="form-error"
+                    *ngIf="physical_disability_rsn?.invalid && physical_disability_rsn?.touched">
+
+                     <div class="err" *ngIf="physical_disability_rsn?.errors?.required">Physical Disability is
+                      Required</div>
+
+                     <div class="err" *ngIf="physical_disability_rsn?.errors?.alphaNum255">Alpha numeric with
+                      maximum of 255
+
+                       characters only allowed
+
+                       </div>
+
+                     </div>
+
+                   </div>
               </div>
               <!-- <input matInput placeholder="Enter here" class="input" type="text"
   [formControlName]="form_physical_disability">
@@ -645,35 +667,35 @@
       allowed</div>
 </div> -->
             </div>
-            <div class="form-error" *ngIf="physical_disability_rsn?.invalid && physical_disability_rsn?.touched">
+            <!-- <div class="form-error" *ngIf="physical_disability_rsn?.invalid && physical_disability_rsn?.touched">
               <div class="err" *ngIf="physical_disability_rsn?.errors?.required">Physical Disability is Required</div>
               <div class="err" *ngIf="physical_disability_rsn?.errors?.alphaNum255">Alpha numeric with maximum of 255
                 characters only allowed
               </div>
-            </div>
+            </div> -->
           </ng-container>
 
           <ng-container>
             <div class="overall-input-wrapper width-45">
-              <label>Height (in Cms)<span *ngIf="candidateService.checkKycOrJoiningForm()"
+              <label>Height (in cms)<span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
               <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_height">
             </div>
             <div class="form-error" *ngIf="height?.invalid && height?.touched">
-              <div class="err" *ngIf="height?.errors?.required">Height (in Cms) is Required</div>
+              <div class="err" *ngIf="height?.errors?.required">Height (in cms) is Required</div>
               <div class="err" *ngIf="height?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
               </div>
             </div>
           </ng-container>
           <ng-container>
             <div class="overall-input-wrapper width-45">
-              <label>Weight (in Kgs)<span *ngIf="candidateService.checkKycOrJoiningForm()"
+              <label>Weight (in kgs)<span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
               <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_weight">
 
             </div>
             <div class="form-error" *ngIf="weight?.invalid && weight?.touched">
-              <div class="err" *ngIf="weight?.errors?.required">Weight (in Kgs) is Required</div>
+              <div class="err" *ngIf="weight?.errors?.required">Weight (in kgs) is Required</div>
               <div class="err" *ngIf="weight?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
               </div>
             </div>

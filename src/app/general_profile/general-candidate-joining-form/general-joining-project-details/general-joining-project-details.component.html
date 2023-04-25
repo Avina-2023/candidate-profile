@@ -16,7 +16,7 @@
           <ng-container *ngFor="let item of getprojectArr.controls; let i = index;" [formGroupName]="i">
             <div class="carddiv pt-0 pb-4">
               <div class="d-flex justify-content-between">
-                <h6>Project{{i+1}}</h6>
+                <h6>Project {{i+1}}</h6>
                 <div class="remove-wrapper">
                   <div (click)="removeData(i)" *ngIf="i >= 0" matTooltip="Remove" class="remove">
                     <i class="icon-BinDelete pointer ag-icon-font-size"></i>
@@ -49,7 +49,7 @@
                 <div class="form-error"*ngIf="getprojectArr.controls[i].get(form_teamSize).invalid && getprojectArr.controls[i].get(form_teamSize).touched">
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.required">Team Size is Required</div>
                     <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.numberOnly">Numbers only allowed</div>
-                    <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.maxlength">Maximum 5 digit only allowed</div>
+                    <div class="err"  *ngIf="getprojectArr.controls[i].get(form_teamSize).errors?.maxlength">Maximum 5 digits only allowed</div>
                   </div>
                   </div>
                 </div>

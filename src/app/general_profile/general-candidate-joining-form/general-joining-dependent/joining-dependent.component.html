@@ -42,7 +42,8 @@
                   <div class="overall-input-wrapper width-32 mt-4">
                     <label style="width:0%">Date of Birth<span class="redTxt">*</span></label>
                     <div class="date-relative">
-                      <div style="width: 100%;"><input matInput class="input w-100 " [min]="minDate" [max]="maxDate"
+                      <div style="width: 100%;">
+                        <input matInput class="input w-100 " [min]="minDate" [max]="maxDate"
                           [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_dependent_dob">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
