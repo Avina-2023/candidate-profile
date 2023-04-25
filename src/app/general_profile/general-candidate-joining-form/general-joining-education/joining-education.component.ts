@@ -1155,7 +1155,7 @@ validSelectedPost() {
       this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
       const list = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
       this.ugInstitutesList = list;
-      const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
+      // const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
       this.pgInstitutesList =  list;
       this.diplomaInstitutesList = list;
     }, (err) => {
