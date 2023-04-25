@@ -327,7 +327,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
       console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'true');
     }
-    if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'false')) {
+    else if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'false')) {
 
       this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
       this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
@@ -335,10 +335,19 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
       console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'false');
 
     }
-    // if(event.value == 'true'){
+    else{
+      this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
+    }
+
+
+    // else(event.value == 'true')
+    // {
     //   this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
     //   this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-    // }if(event.value == 'false'){
+    // }
+    // if(event.value == 'false')
+    // {
     //   this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
     //   this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
     //   this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();

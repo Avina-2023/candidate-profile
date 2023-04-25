@@ -13,7 +13,7 @@
                 <div class="dependent-head">
                   <h6 (click)="check(i)">Dependent{{i+1}}</h6>
                   <div class="remove-wrapper">
-                    <div (click)="removeData(i)" *ngIf="i >=0  " matTooltip="Remove" class="remove">
+                    <div (click)="removeData(i)" *ngIf="i > 0  " matTooltip="Remove" class="remove">
                       <i class="icon-BinDelete pointer ag-icon-font-size"></i>
                     </div>
                   </div>
