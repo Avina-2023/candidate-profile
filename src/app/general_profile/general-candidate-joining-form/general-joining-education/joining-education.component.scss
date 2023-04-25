@@ -18,7 +18,7 @@
       border-bottom: 1px solid #BBC2CB99;
     }
     .onFocusButton{
-      color: #1b4e9b;
+      // color: #1b4e9b;
     border: 1px solid #1b4e9b !important;
     min-width: 100px !important;
     }
@@ -292,13 +292,47 @@
     box-shadow: none !important;
 }
 
+// :host ::ng-deep input.ng-invalid.ng-touched,
+// .custom-input-error-border,
+// :host ::ng-deep nz-select.ng-invalid.ng-touched {
+//     border: solid $primary-error-text 1px !important;
+//     .ant-select-selection {
+//         border: solid $primary-error-text 1px !important;
+//     }
+// }
+
+// :host ::ng-deep input.ng-invalid.ng-touched,
+
+// .custom-input-error-border,
+
+// :host ::ng-deep nz-select.input.select.ant-select-single.ng-dirty.ng-invalid .ng-touched nz-select-top-control.ant-select-selector {
+
+//     border: 1px solid red !important;
+
+// }
+
+
+
+
+// :host ::ng-deep nz-select.ng-invalid.ng-dirty,
+
+// :host ::ng-deep nz-select.input.select.ant-select-single.ng-dirty.ng-invalid.ng-touched
+
+//  nz-select-top-control.ant-select-selector  {
+
+//     border: 1px solid red !important;
+
+// }
+
+
+
+
 :host ::ng-deep input.ng-invalid.ng-touched,
-.custom-input-error-border,
-:host ::ng-deep nz-select.ng-invalid.ng-touched {
-    border: solid $primary-error-text 1px !important;
-    .ant-select-selection {
-        border: solid $primary-error-text 1px !important;
-    }
+
+:host ::ng-deep nz-select.input.select.ant-select-single.ng-dirty.ng-invalid.ng-touched nz-select-top-control.ant-select-selector {
+
+border: 1px solid red !important;
+
 }
 
 :host ::ng-deep .ant-select-selection__placeholder,

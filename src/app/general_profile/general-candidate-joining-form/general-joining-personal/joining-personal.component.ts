@@ -822,6 +822,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
       [this.form_name]: [{ value: this.appConfig.getLocalData('username'), disabled: true }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
       [this.form_dob]: [null, [Validators.required]],
       [this.form_gender]: [null, [Validators.required]],
+      // [this.form_gender]: [null, Validators.compose([Validators.required])],
       // [this.form_hobbies_intrest]: [null,[Validators.required]],
       // [this.hobbiesAndIntrest]: [[null], [Validators.required]],
       // [this.form_place_of_birth]: [null, [RemoveWhitespace.whitespace(), this.candidateService.checkKycOrJoiningForm()?Validators.required:'', this.glovbal_validators.alphaNum255()]],
