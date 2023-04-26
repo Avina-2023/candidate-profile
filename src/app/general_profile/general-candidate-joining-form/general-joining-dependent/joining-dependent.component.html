@@ -102,11 +102,11 @@
 
                       </div>
                       <div class="form-error"
-                      *ngIf="getDependentArr.controls[i].get(form_dependent_other).invalid && getDependentArr.controls[i].get(form_dependent_other).touched">
-                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.required">
+                      *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).invalid && getDependentArr.controls[i].get(form_dependent_other).touched">
+                      <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).errors?.required">
                         Relationship is Required</div>
                       <div class="err"
-                        *ngIf="getDependentArr.controls[i].get(form_dependent_other).errors?.alphaNum255">
+                        *ngIf="getDependentArr.controls[i].get(form_dependent_relationship).errors?.alphaNum255">
                         Alpha numeric with maximum of 255 characters only
                         allowed</div>
                     </div>
