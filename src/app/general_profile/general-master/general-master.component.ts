@@ -43,7 +43,7 @@ export class GeneralMasterComponent implements OnInit {
     // this.setprofileimageToLocal()
     this.username = localStorage.getItem('username');
     this.email = localStorage.getItem('userEmail');
-    this.CandidateDetails()
+    this.CandidateDetails();
     this.msgData.getMessage().subscribe((data)=>{
       console.log(data,'data');
       if(data.head=='saved'&& data.value !="" && data.value != undefined){
@@ -82,6 +82,7 @@ export class GeneralMasterComponent implements OnInit {
           let ProfileUpdated = JSON.parse(localStorage.getItem("profileData"))  ;
           ProfileUpdated.updatedAt = this.Details.updatedAt ;
           ProfileUpdated.createdAt = this.Details.createdAt ;
+          localStorage.setItem("createdAt",ProfileUpdated.createdAt); // on init load member since date
           localStorage.setItem("profileData",JSON.stringify(ProfileUpdated));
 
       }

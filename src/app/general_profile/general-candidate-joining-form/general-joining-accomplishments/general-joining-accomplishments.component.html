@@ -94,16 +94,26 @@
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Description</label>
 
-                      <input matInput placeholder="Enter here" class="input" type="text"
+                      <div style="width:100%"><input matInput placeholder="Enter here" class="input" type="text"
                         [formControlName]="form_certification_description">
+                        <div class="form-error"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_description).invalid && getCertificationsArr.controls[i].get(form_certification_description).touched">
+                            
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_description).errors?.alphaNum255">
+                              Alpha numeric with maximum of 255 characters only
+                              allowed</div>
+                          </div>
+                        </div>
                     </div>
+                    
                     <ng-container>
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Certification Validity From<span class="redTxt">*</span></label>
                         <div class="date-relative">
                           <div style="width: 100%;">
-                            <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker"
-                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityFrom">
+                            <input matInput class="input" [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="picker"
+                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityFrom" (dateInput)="fromDateChange('input', $event)">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
 
@@ -141,8 +151,8 @@
                         <label>Certification Validity Upto<span class="redTxt">*</span></label>
                         <div class="date-relative">
                           <div style="width: 100%;">
-                            <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker1"
-                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto">
+                            <input matInput class="input" [min]="minToDate" [max]="maxToDate" [matDatepicker]="picker1"
+                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto" (dateInput)="toDateChange('input', $event)">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
 
@@ -233,7 +243,7 @@
 
                       <div class="date-relative">
                         <div style="width: 100%;">
-                          <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker1"
+                          <input matInput class="input" [min]="minAwardDate" [max]="maxAwardDate" [matDatepicker]="picker1"
                             placeholder="DD-MM-YYYY" [formControlName]="form_award_date">
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -337,16 +347,36 @@
                   <div class="overall-input-wrapper width-32 mb-0">
                     <label>Published On<span class="redTxt">*</span></label>
                     <div class="date-relative">
-                      <input matInput class="input" style="width:100% !important" [matDatepicker]="picker_dateofIssue"
+                      <input matInput class="input" style="width:100% !important" [min]="minJournalDate" [max]="maxJournalDate" [matDatepicker]="picker_dateofIssue"
                         placeholder="DD-MM-YYYY" [formControlName]="form_journalEntity_publishedOn">
                       <mat-datepicker-toggle matSuffix [for]="picker_dateofIssue"></mat-datepicker-toggle>
                       <mat-datepicker #picker_dateofIssue></mat-datepicker>
+
+                      <div class="form-error"
+                          *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).touched">
+                          <div class="err"
+                            *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).errors?.required">
+                            Published on Date is Required</div>
+                        </div>
+
+
+
                     </div>
                   </div>
                   <div class="overall-input-wrapper width-32 mb-0">
                     <label>Description</label>
-                    <input matInput placeholder="Enter here" class="input" type="text"
+                    <div style="width:100%;"><input matInput placeholder="Enter here" class="input" type="text"
                       [formControlName]="form_journalEntity_description">
+                      <div class="form-error"
+                            *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_description).touched">
+                            
+                            <div class="err"
+                              *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).errors?.alphaNum255">
+                              Alpha numeric with maximum of 255 characters only
+                              allowed</div>
+                          </div>
+                        
+                      </div>
                   </div>
                 </ng-container>
 

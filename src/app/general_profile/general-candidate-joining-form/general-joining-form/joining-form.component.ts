@@ -7,6 +7,7 @@ import {
   TemplateRef,
   ViewChild,
   OnDestroy,
+  AfterViewChecked,
 } from '@angular/core';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { delay } from 'rxjs/operators';
@@ -43,7 +44,7 @@ import { InterComponentMessenger } from 'src/app/service/interComponentMessenger
   templateUrl: './joining-form.component.html',
   styleUrls: ['./joining-form.component.scss'],
 })
-export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
+export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, OnDestroy {
   productionUrl =
     environment.SKILLEX_BASE_URL == 'https://skilledge.lntedutech.com'
       ? true
@@ -264,6 +265,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
   profiledetails: any;
   addressCityonChange: any;
   adrsCity: any;
+  stateName: any;
+  candycreateddate: any;
   constructor(
     private skillexService: SkillexService,
     private loadingService: LoaderService,
@@ -278,6 +281,11 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     const subWrapperMenus = null;
     this.sharedService.subMenuSubject.next(subWrapperMenus);
     this.toggoleShowHide = true;
+  }
+  ngAfterViewChecked(){
+    if (this.candycreateddate == null){
+    this.candycreateddate = localStorage.getItem('createdAt');
+    }
   }
 
   ngOnInit() {
@@ -412,8 +420,8 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
         console.log(this.getAllStates);
         this.getAllStates.forEach((element) => {
           if (element.id == this.addressState) {
-            this.addressState = element.name;
-            console.log(this.addressState, 'AddressState');
+            this.stateName = element.name;
+            console.log(this.stateName, 'AddressState');
             this.getAllPermanentCities(
               element.id,
               this.addressCity,
@@ -439,8 +447,11 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
 
   getprofileimageFromLocal() {
     let candyprofileimage = JSON.parse(localStorage.getItem('profileData'));
+    //this.candycreateddate = localStorage.getItem('createdAt');
+    //console.log(this.candycreateddate, 'createddatefinal');
     // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
-
+    this.createdOn = candyprofileimage;
+    console.log(this.createdOn, 'abovecreated');
     this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
     if (this.cadidatefinalimage && this.productionUrl == true) {
       this.cadidatefinalimage = this.cadidatefinalimage + environment.blobToken;
@@ -454,7 +465,7 @@ export class GeneralJoiningFormComponent implements OnInit, OnDestroy {
     this.addressState = candyprofileimage.contact_details.permanent_state;
     this.addressCountry = candyprofileimage.contact_details.permanent_country;
     this.updatedOn = candyprofileimage.acknowledgement.acknowledgement.ack_date;
-    this.createdOn = candyprofileimage.createdAt;
+    console.log(this.updatedOn, 'profile updated');
   }
 
   imageCropped(event: ImageCroppedEvent) {

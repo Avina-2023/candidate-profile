@@ -862,7 +862,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
       [this.form_no_of_days]: [null, [RemoveWhitespace.whitespace(), Validators.maxLength(5), this.glovbal_validators.numberOnly()]],
       [this.form_nature_of_illness]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_physical_disability]: ['false'],
-      [this.form_physical_disability_rsn]: [null],
+      [this.form_physical_disability_rsn]: [null, Validators.required],
       // [this.form_left_eyepower_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       // [this.form_right_eye_power_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       [this.form_language_array]: this.fb.array([this.initLanguageArray()])
