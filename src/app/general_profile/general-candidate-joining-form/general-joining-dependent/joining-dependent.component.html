@@ -97,6 +97,10 @@
                             *ngIf="(getDependentArr.controls[i].get(form_dependent_relationship).value == 'Others')">
                             <input matInput placeholder="Enter here" class="input" type="text"
                               [formControlName]="form_dependent_other">
+                              <div class="form-error">
+                                  <div class="err" *ngIf="getDependentArr.controls[i].get(form_dependent_other).invalid && getDependentArr.controls[i].get(form_dependent_other).touched">
+                                   Relationship is Required</div>
+                                    </div>
                           </div>
                         </ng-container>
 

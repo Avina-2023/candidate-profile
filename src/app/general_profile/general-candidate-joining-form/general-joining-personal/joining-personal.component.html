@@ -154,7 +154,7 @@
             <div
               *ngIf="(personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Married' || personalForm && personalForm.value && personalForm.value[form_marital_status] && personalForm.value[form_marital_status]=='Widow')"
               class="overall-input-wrapper width-22">
-              <label>No. of Children<span *ngIf="candidateService.checkKycOrJoiningForm()"
+              <label>No. of Children<span class="redTxt">*</span><span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
               <div class="err_left"><nz-select class="input select" [formControlName]="form_no_of_children" nzAllowClear
                   nzShowSearch nzPlaceHolder="<--Select-->">

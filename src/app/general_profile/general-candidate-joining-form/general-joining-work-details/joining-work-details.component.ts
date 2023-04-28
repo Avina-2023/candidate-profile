@@ -806,7 +806,7 @@ check: any;
        this.setEmploymentArrValidation()
       }else{
         this.appConfig.nzNotification('error', 'Not added', 'Please fill all the red highlighted fields to proceed further');
-       // this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
+        this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
       }
     }
 
