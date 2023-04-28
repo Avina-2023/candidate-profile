@@ -1228,10 +1228,8 @@
               </div>
               <div *ngIf="certification[form_isexpire] != true" class="overall-input-wrapper mt-3 width-32">
                 <label>Certification Validity upto</label>
-                <div class="inpu-preview " style="font-size: 14px; color: black;">
-                  {{
-                  dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto])|
-                  date : 'MMM y' ):'NIL'}}
+            <div class="inpu-preview " style="font-size: 14px; color: black;">
+                  {{ dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto]) | date : 'MMM y' ):'NIL'}}
                 </div>
               </div>
               <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
