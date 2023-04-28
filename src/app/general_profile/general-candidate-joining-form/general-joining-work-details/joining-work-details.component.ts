@@ -806,7 +806,7 @@ check: any;
        this.setEmploymentArrValidation()
       }else{
         this.appConfig.nzNotification('error', 'Not added', 'Please fill all the red highlighted fields to proceed further');
-       // this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
+        this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
       }
     }
 
@@ -817,7 +817,7 @@ check: any;
       }
       else{
         this.appConfig.nzNotification('error', 'Not Saved', 'Please evaluate the red highlighted fields in the Training Details');
-        //this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_training_Array]) as FormArray);
+        this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_training_Array]) as FormArray);
 
       }
         }
@@ -1199,6 +1199,7 @@ changeInIsArticleship(event){
       this.glovbal_validators.validateAllFields(this.workDetailsForm);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Skills_Array]) as FormArray);
+      this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_training_Array]) as FormArray);
     }
   }
 

@@ -409,7 +409,7 @@ dateConvertion(date) {
      return this.getDependentArr.push(this.initDependentArray());
     }
     this.setValidations()
-    // this.glovbal_validators.validateAllFormArrays(this.dependentForm.get([this.form_dependentArray]) as FormArray);
+    this.glovbal_validators.validateAllFormArrays(this.dependentForm.get([this.form_dependentArray]) as FormArray);
   }
 
   removeDependentArray(i) {

@@ -50,14 +50,7 @@
                       </div>
                   </div>
                 </mat-expansion-panel>
-              </mat-accordion>
-            </div>
-            <div class="remove-wrapper">
-              <div (click)="removeData(i,'skill')" *ngIf="i !==0" matTooltip="Remove" class="remove">
-                <i class="icon-BinDelete pointer ag-icon-font-size"></i>
-              </div>
-            </div>
-            <div class="form-error"
+                <div class="form-error"
               *ngIf="getSkillsArr.controls[i].get(form_Skill).invalid && getSkillsArr.controls[i].get(form_Skill).touched">
               <div *ngIf="getSkillsArr.controls[i].get(form_Skill).errors?.required">
                 Skill Name is Required</div>
@@ -65,6 +58,21 @@
                 Alpha numeric and Special characters (- , . : & / + # *) with maximum of 255 characters only allowed
               </div>
             </div>
+              </mat-accordion>
+            </div>
+            <div class="remove-wrapper">
+              <div (click)="removeData(i,'skill')" *ngIf="i !==0" matTooltip="Remove" class="remove">
+                <i class="icon-BinDelete pointer ag-icon-font-size"></i>
+              </div>
+            </div>
+            <!-- <div class="form-error"
+              *ngIf="getSkillsArr.controls[i].get(form_Skill).invalid && getSkillsArr.controls[i].get(form_Skill).touched">
+              <div *ngIf="getSkillsArr.controls[i].get(form_Skill).errors?.required">
+                Skill Name is Required</div>
+              <div *ngIf="getSkillsArr.controls[i].get(form_Skill).errors?.skills255">
+                Alpha numeric and Special characters (- , . : & / + # *) with maximum of 255 characters only allowed
+              </div>
+            </div> -->
           </div>
           </div>
         </div>
@@ -258,7 +266,7 @@
                         <div class="form-error"
                         *ngIf="getEmploymentArr.controls[i].get(form_achievement).invalid && getEmploymentArr.controls[i].get(form_achievement).touched">
                         <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.required">
-                          Achievements/Responsibility/Task's is Required</div>
+                          Achievements/Responsibility/Tasks is Required</div>
                         <div class="err"  *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.address255">
                           Alpha numeric with maximum of 255 characters only
                           allowed</div>
@@ -600,7 +608,7 @@
                   <div class="form-error"
                     *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).invalid && getTrainingArr.controls[i].get(form_training_work_responsiability).touched">
                     <div class="err" *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability)?.errors?.required">
-                      Achievements/Responsibility/Tasks * is Required</div>
+                      Achievements/Responsibility/Tasks is Required</div>
                     <div class="err"
                       *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).errors?.address255">
                       Alpha numeric with maximum of 255 characters only
@@ -618,16 +626,24 @@
                 </div>
               </div> -->
             </div>
-            <div *ngIf="getTrainingArr && getTrainingArr.controls && getTrainingArr.controls.length < 4" class="row-wrapper mt-3">
-              <div class="skills-add">
-                <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
-                  (click)="addToTrainingArray()">+ Add More Articleship</button>
-              </div>
-            </div>
+
+            <div *ngIf="getTrainingArr && getTrainingArr.controls && getTrainingArr.controls.length < 4 "
+          class="row-wrapper mt-3">
+          <div class="skills-add ">
+            <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
+              (click)="addToTrainingArray()">+ Add More Articleship</button>
+          </div>
+        </div>
           </ng-container>
         </ng-container>
 
-        
+        <!-- <div *ngIf="getTrainingArr && getTrainingArr.controls && getTrainingArr.controls.length < 4 "
+          class="row-wrapper mt-3">
+          <div class="skills-add ">
+            <button class="onFocusButton common-button-height-35 ml-3" mat-raised-button type="button"
+              (click)="addToTrainingArray()">+ Add More Articleship</button>
+          </div>
+        </div> -->
 
         <!-- <div class="row-wrapper mt-3">
             <div class="overall-input-wrapper width-50">

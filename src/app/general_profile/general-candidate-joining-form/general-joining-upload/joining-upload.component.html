@@ -100,7 +100,7 @@
                   </label>
                 </div>
 
-                <div (click)="downloadFile(pdfdoc)" class="download_btn">
+                <div (click)="downloadFile(pdfdoc)" matTooltip="Download" class="download_btn">
                   <span class="icon-download_icon dwlnd_icon"></span>
                 </div>
                 <div *ngFor="let item of files; let i=index">
