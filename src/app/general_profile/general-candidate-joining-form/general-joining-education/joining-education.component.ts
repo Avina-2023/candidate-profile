@@ -781,7 +781,7 @@ validSelectedPost() {
       [this.form_yearpassing]: [{ value: this.dateConvertionMonth(data[this.form_yearpassing]), disabled: false }, [Validators.required, this.startTrue(true)]],
       //  [this.form_backlog]: [{ value: data[this.form_backlog], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? (data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? true : false) : false}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
       // [this.form_reasonForbacklog]: [data[this.form_reasonForbacklog],( data[this.form_reasonForbacklog] && (data[this.form_gap] == 'true'))  ? [Validators.required] : data[this.form_reasonForbacklog],(data[this.form_reasonForbacklog] && (data[this.form_gap] == 'false'))  ? [] : [] ],
-
+      [this.isHighLevelEdu]:[data[this.isHighLevelEdu] ? data[this.isHighLevelEdu]:false],
       [this.form_reasonForbacklog]: [{ value: data[this.form_reasonForbacklog], disabled: false },[Validators.required] ],
       [this.form_historyOfbacklog]: [ data[this.form_historyOfbacklog], [Validators.required]],
 
@@ -792,7 +792,8 @@ validSelectedPost() {
       [this.form_cgpercentage]: [{ value: data[this.form_cgpercentage], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
       [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_gap]:[ (data[this.form_gap] && data[this.form_gap] == 'true')  ? 'true' : 'false' ],
-      [this.isHighLevelEdu]:[  data[this.isHighLevelEdu] ],
+      //[this.isHighLevelEdu]:[data[this.isHighLevelEdu] ],
+
 
     })
   }
@@ -822,11 +823,18 @@ validSelectedPost() {
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }
-  eduLevel(e, i) {
+  eduLevel(e, i:number) {
     if (e.checked) {
       this.check = true
+      // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValue(null);
+      // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].clearValidators();
+      // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].updateValueAndValidity();
+
     } else {
       this.check = false
+      // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
+      // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].updateValueAndValidity();
+
     }
   }
   anyGap(event,i){
@@ -1006,7 +1014,8 @@ validSelectedPost() {
         element['controls'][this.form_collegeName].clearValidators({ emitEvent: false });
         element['controls'][this.form_boardUniversity].clearValidators({ emitEvent: false });
 
-        element['controls'][this.form_collegeName].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        // element['controls'][this.form_collegeName].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        element['controls'][this.form_collegeName].setValidators([RemoveWhitespace.whitespace(), Validators.required],{ emitEvent: false });
         element['controls'][this.form_boardUniversity].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
 
         element['controls'][this.form_qualification].updateValueAndValidity({ emitEvent: false });
@@ -1038,6 +1047,7 @@ validSelectedPost() {
         element['controls'][this.form_collegeName].clearValidators({ emitEvent: false });
         element['controls'][this.form_boardUniversity].clearValidators({ emitEvent: false });
 
+        element['controls'][this.form_qualification].setValidators([Validators.required],{ emitEvent: false });
         element['controls'][this.form_specialization].setValidators([Validators.required],{ emitEvent: false });
         element['controls'][this.form_collegeName].setValidators([Validators.required],{ emitEvent: false });
         element['controls'][this.form_boardUniversity].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()],{ emitEvent: false });

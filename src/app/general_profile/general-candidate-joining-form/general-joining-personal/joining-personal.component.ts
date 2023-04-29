@@ -20,6 +20,7 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 export interface Hobbie {
   hobbiesAndInterests: string;
@@ -138,6 +139,12 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   passportValidminDate: Date;
   passportValidmaxDate: Date;
   passportDateOfIssueMaxDate: Date;
+
+  minFromDate: Date;
+  maxFromDate: Date | null;
+  minToDate: Date | null;
+  maxToDate: Date;
+
   url: '';
   // url = 'assets/images/img_avatar2.jpg';
   selectedImage: any;
@@ -271,6 +278,37 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     private msgData: InterComponentMessenger
   ) {
     this.dateValidation();
+
+    this.minFromDate = new Date(1900, 0, 1);
+    this.maxFromDate = new Date();
+
+    this.minToDate = new Date(1900, 0, 1);
+    this.maxToDate = new Date();
+  }
+
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    console.log(`${type}: ${event.value}`);
+    this.minToDate = event.value;
+
+    if (event.value !== null) {
+      this.maxToDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
+    }
+  }
+
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.maxFromDate = event.value;
+
+    if (event.value !== null) {
+      this.minFromDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() - 30
+      );
+    }
   }
 
   ngOnInit() {
@@ -514,7 +552,8 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
           // profileImage:this.profilePicture.file_path,
           // [this.form_name]: rawPersonalFormValue[this.form_name],
           [this.form_aadhar]: rawPersonalFormValue[this.form_aadhar],
-          [this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
+          //[this.form_dob]: this.momentForm(rawPersonalFormValue[this.form_dob]),
+          [this.form_dob]: this.dateConvertion(rawPersonalFormValue[this.form_dob]),
           // [this.form_email]: rawPersonalFormValue[this.form_email],
           [this.form_gender]: rawPersonalFormValue[this.form_gender],
           [this.form_hobbies_intrest]: this.hobbies,
@@ -862,7 +901,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
       [this.form_no_of_days]: [null, [RemoveWhitespace.whitespace(), Validators.maxLength(5), this.glovbal_validators.numberOnly()]],
       [this.form_nature_of_illness]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_physical_disability]: ['false'],
-      [this.form_physical_disability_rsn]: [null],
+      [this.form_physical_disability_rsn]: [null, Validators.required],
       // [this.form_left_eyepower_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       // [this.form_right_eye_power_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       [this.form_language_array]: this.fb.array([this.initLanguageArray()])

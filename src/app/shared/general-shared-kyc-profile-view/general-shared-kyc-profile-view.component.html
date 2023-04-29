@@ -262,7 +262,10 @@
                 </ng-container>
               </ng-container>
               <ng-template #noLanguage>
-                <div class="inpu-preview size-16 bold-700 color-black">
+                <div class="inpu-preview size-16 bold-700 color-black" style="font-size: 16px;
+                 width: 100%;
+                 font-weight: 600;
+                 text-align: center;">
                   {{ "No Language details available" }}
                 </div>
               </ng-template>
@@ -1225,10 +1228,8 @@
               </div>
               <div *ngIf="certification[form_isexpire] != true" class="overall-input-wrapper mt-3 width-32">
                 <label>Certification Validity upto</label>
-                <div class="inpu-preview " style="font-size: 14px; color: black;">
-                  {{
-                  dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto])|
-                  date : 'MMM y' ):'NIL'}}
+            <div class="inpu-preview " style="font-size: 14px; color: black;">
+                  {{ dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto]) | date : 'MMM y' ):'NIL'}}
                 </div>
               </div>
               <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
@@ -1327,7 +1328,7 @@
                                 document[form_file_type]
                               )
                             " mat-raised-button type="button">
-                          <span class="icon-get_app_black_24dp ag-icon-font-size"></span>
+                          <span class="icon-download_icon dwlnd_icon"></span>
                         </button>
                       </span>
                     </div>
@@ -2168,7 +2169,7 @@
   <div class="nodata mt-4">No Awards Details Available</div>
 </ng-template>
 <ng-template #noJournalEntry>
-  <div class="nodata mt-4">No Journal Entry Details Available</div>
+  <div class="nodata mt-4">No Research Publication/Journal Entry Details Available</div>
 </ng-template>
 <ng-template #noCertification>
   <div class="nodata mt-4">No Certification Details Available</div>
