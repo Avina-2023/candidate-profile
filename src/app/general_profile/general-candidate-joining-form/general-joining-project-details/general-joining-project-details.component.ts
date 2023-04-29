@@ -163,7 +163,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   }
   ifNotProjectDetails() {
     this.projectDetails = [];
-      this.getprojectArr.push(this.initProjectArray());
+    //this.getprojectArr.push(this.initProjectArray()); // Show the form by default
     }
 
   // removeProjectArray(i) {
@@ -194,11 +194,16 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getprojectArr.removeAt(this.currentDeleteIndex );
+        this.getprojectArr.removeAt(this.currentDeleteIndex);
       }
     });
   }
   removeData(i) {
+   // console.log(i);
+   // 
+   /*this.getprojectArr.removeAt(i);
+    console.log(this.getprojectArr.controls[i]);
+    this.getprojectArr.push(this.initProjectArray());*/
     this.currentDeleteIndex = i
     const data = {
       iconName: '',
