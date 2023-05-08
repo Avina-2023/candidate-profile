@@ -241,7 +241,8 @@ constructor(
 
   )
 
-  {this.minFromDate = new Date(1900, 0, 1);
+  {
+    this.minFromDate = new Date(1900, 0, 1);
     this.maxFromDate = new Date();
 
     this.minToDate = new Date(1900, 0, 1);
@@ -668,7 +669,9 @@ validSelectedPost() {
         this.getEducationArr.at(j).patchValue({
           [this.form_Finalcgpa]: element['controls'][this.form_Finalcgpa]['value'],
           [this.form_cgpa]: element['controls'][this.form_cgpa]['value'],
-          [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value']
+          [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value'],
+          [this.form_noActivebacklog]: element['controls'][this.form_noActivebacklog]['value'],
+          [this.form_historyOfbacklog]: element['controls'][this.form_historyOfbacklog]['value']
 
         })
       }
@@ -676,7 +679,9 @@ validSelectedPost() {
         this.getEducationArr.at(j).patchValue({
           [this.form_Finalcgpa]: element['controls'][this.form_Finalcgpa]['value'],
           [this.form_cgpa]: element['controls'][this.form_cgpa]['value'],
-          [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value']
+          [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value'],
+          [this.form_noActivebacklog]: element['controls'][this.form_noActivebacklog]['value'],
+          [this.form_historyOfbacklog]: element['controls'][this.form_historyOfbacklog]['value']
 
         })
       }
@@ -685,6 +690,8 @@ validSelectedPost() {
           [this.form_Finalcgpa]: element['controls'][this.form_Finalcgpa]['value'],
           [this.form_cgpa]: element['controls'][this.form_cgpa]['value'],
           [this.form_cgpercentage]: element['controls'][this.form_cgpercentage]['value'],
+          [this.form_noActivebacklog]: element['controls'][this.form_noActivebacklog]['value'],
+          [this.form_historyOfbacklog]: element['controls'][this.form_historyOfbacklog]['value']
 
         })
       }
@@ -783,11 +790,13 @@ validSelectedPost() {
       // [this.form_reasonForbacklog]: [data[this.form_reasonForbacklog],( data[this.form_reasonForbacklog] && (data[this.form_gap] == 'true'))  ? [Validators.required] : data[this.form_reasonForbacklog],(data[this.form_reasonForbacklog] && (data[this.form_gap] == 'false'))  ? [] : [] ],
       [this.isHighLevelEdu]:[data[this.isHighLevelEdu] ? data[this.isHighLevelEdu]:false],
       [this.form_reasonForbacklog]: [{ value: data[this.form_reasonForbacklog], disabled: false },[Validators.required] ],
-      [this.form_historyOfbacklog]: [ data[this.form_historyOfbacklog], [Validators.required]],
-
-      [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false },[Validators.required]],
-      // [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+      // [this.form_historyOfbacklog]: [ data[this.form_historyOfbacklog], [Validators.required]],
+     // [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false },[Validators.required]],
+     // [this.form_mode]: [{ value: data[this.form_mode], disabled: false }, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
+      [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled : false  },[Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2) ]],
+      [this.form_historyOfbacklog]: [{ value: data[this.form_historyOfbacklog], disabled : false  },[Validators.required, this.glovbal_validators.numberOnly(),Validators.maxLength(2)]],
       [this.form_cgpa]: [{ value: data[this.form_cgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
+      
       [this.form_Finalcgpa]: [{ value: data[this.form_Finalcgpa], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
       [this.form_cgpercentage]: [{ value: data[this.form_cgpercentage], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
       [this.form_CARanks] : [data[this.form_CARanks], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
@@ -811,10 +820,12 @@ validSelectedPost() {
       [this.form_endDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_yearpassing]: [null, [Validators.required, this.startTrue(true)]],
       //  [this.form_backlog]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
-      [this.form_historyOfbacklog]: [null ],
+      // [this.form_historyOfbacklog]: [null ],
 
       [this.form_reasonForbacklog]: [null],
-      [this.form_noActivebacklog]: [null],
+      // [this.form_noActivebacklog]: [null],
+      [this.form_noActivebacklog] : [null, [RemoveWhitespace.whitespace(), Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)]],
+      [this.form_historyOfbacklog] : [null, [RemoveWhitespace.whitespace(), Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)]],
       // [this.form_mode]: [null, this.candidateService.checkKycOrJoiningForm() ? [Validators.required] : []],
       [this.form_cgpa]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
       [this.form_Finalcgpa]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.percentageNew(), this.glovbal_validators.percentage(), Validators.maxLength(3)]],
@@ -839,20 +850,20 @@ validSelectedPost() {
   }
   anyGap(event,i){
     if(event.value == 'true'){
-  this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
-  this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
+  //this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
+  //this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
   this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].setValidators([Validators.required,this.glovbal_validators.alphaNum255() ],{ emitEvent: false });
     }if(event.value == 'false'){
-        this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValue(null);
-        this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValue(null);
+        //this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValue(null);
+        //this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].setValue(null);
         this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].setValue(null);
 
-        this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].clearValidators();
-        this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].clearValidators();
+        //this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].clearValidators();
+       // this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].clearValidators();
         this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].clearValidators();
 
-        this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].updateValueAndValidity();
-        this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].updateValueAndValidity();
+        //this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].updateValueAndValidity();
+        //this.getEducationArr.controls[i]['controls'][this.form_noActivebacklog].updateValueAndValidity();
         this.getEducationArr.controls[i]['controls'][this.form_reasonForbacklog].updateValueAndValidity();
       }
   }
@@ -878,8 +889,8 @@ validSelectedPost() {
         let startDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_startDate]['value'] ? control['_parent']['controls'][this.form_startDate]['value'] : null;
         let endDate = control && control['_parent'] && control['_parent']['controls'] && control['_parent']['controls'][this.form_endDate]['value'] ? control['_parent']['controls'][this.form_endDate]['value'] : null;
         if (yearofPassing) {
-          let start = moment(control.value).format('YYYY-MM-DD');
-          let yearofPassing1 = moment(yearofPassing).format('YYYY-MM-DD');
+          let start = moment(control.value).format('MMM-YYYY');
+          let yearofPassing1 = moment(yearofPassing).format('MMM-YYYY');
           error.notValid = this.momentFormMonth(yearofPassing);
           check = moment(start).isSameOrBefore(yearofPassing1, 'month');
           check = !check;
@@ -897,16 +908,16 @@ validSelectedPost() {
       let startCheck;
       let endCheck;
       if (yearofPassing && startDate) {
-        let start = moment(startDate).format('YYYY-MM-DD');
-        let yearofPassing1 = moment(yearofPassing).format('YYYY-MM-DD');
+        let start = moment(startDate).format('MMM-YYYY');
+        let yearofPassing1 = moment(yearofPassing).format('MMM-YYYY');
         // error.notValid = this.momentFormMonth(yearofPassing);
         startCheck = moment(start).isSameOrBefore(yearofPassing1, 'month');
         startCheck = !startCheck;
         startCheck ? control['_parent']['controls'][this.form_startDate].setErrors({notValid: this.momentFormMonth(yearofPassing)}) : control['_parent']['controls'][this.form_startDate].setErrors(null);
       }
       if (yearofPassing && endDate) {
-        let end = moment(endDate).format('YYYY-MM-DD');
-        let yearofPassing1 = moment(yearofPassing).format('YYYY-MM-DD');
+        let end = moment(endDate).format('MMM-YYYY');
+        let yearofPassing1 = moment(yearofPassing).format('MMM-YYYY');
         // error.notValid = this.momentFormMonth(yearofPassing);
         endCheck = moment(end).isSameOrBefore(yearofPassing1, 'month');
         endCheck = !endCheck;
@@ -977,8 +988,8 @@ validSelectedPost() {
     this.getEducationArr.controls.forEach((element: any, j) => {
 
     if(element['controls'][this.form_gap]['value'] == 'true'){
-      element['controls'][this.form_historyOfbacklog].clearValidators({ emitEvent: false });
-      element['controls'][this.form_noActivebacklog].clearValidators({ emitEvent: false });
+      //element['controls'][this.form_historyOfbacklog].clearValidators({ emitEvent: false });
+      //element['controls'][this.form_noActivebacklog].clearValidators({ emitEvent: false });
       element['controls'][this.form_reasonForbacklog].clearValidators({ emitEvent: false });
 
       element['controls'][this.form_historyOfbacklog].setValidators([RemoveWhitespace.whitespace(), Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
@@ -988,16 +999,16 @@ validSelectedPost() {
     }
     if(element['controls'][this.form_gap]['value'] == 'false'){
 
-      element['controls'][this.form_historyOfbacklog].setValue(null);
-      element['controls'][this.form_noActivebacklog].setValue(null);
+      //element['controls'][this.form_historyOfbacklog].setValue(null);
+      //element['controls'][this.form_noActivebacklog].setValue(null);
       element['controls'][this.form_reasonForbacklog].setValue(null);
 
-      element['controls'][this.form_historyOfbacklog].clearValidators({ emitEvent: false });
-      element['controls'][this.form_noActivebacklog].clearValidators({ emitEvent: false });
+      //element['controls'][this.form_historyOfbacklog].clearValidators({ emitEvent: false });
+      //element['controls'][this.form_noActivebacklog].clearValidators({ emitEvent: false });
       element['controls'][this.form_reasonForbacklog].clearValidators({ emitEvent: false });
 
-      element['controls'][this.form_historyOfbacklog].updateValueAndValidity({ emitEvent: false });
-      element['controls'][this.form_noActivebacklog].updateValueAndValidity({ emitEvent: false });
+      //element['controls'][this.form_historyOfbacklog].updateValueAndValidity({ emitEvent: false });
+      //element['controls'][this.form_noActivebacklog].updateValueAndValidity({ emitEvent: false });
       element['controls'][this.form_reasonForbacklog].updateValueAndValidity({ emitEvent: false });
 
     }
