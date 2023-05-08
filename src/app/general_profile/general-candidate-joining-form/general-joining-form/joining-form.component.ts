@@ -267,6 +267,7 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
   adrsCity: any;
   stateName: any;
   candycreateddate: any;
+  candyupdateddate: any;
   constructor(
     private skillexService: SkillexService,
     private loadingService: LoaderService,
@@ -285,6 +286,9 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
   ngAfterViewChecked(){
     if (this.candycreateddate == null){
     this.candycreateddate = localStorage.getItem('createdAt');
+    }
+    if(this.candyupdateddate == null){
+      this.candyupdateddate = localStorage.getItem('updatedAt');
     }
   }
 
@@ -320,10 +324,9 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
 
     this.getprofileimageFromLocal();
     this.getStateAPI();
-    // console.log(this.getAllStates , 'venkattesting');
-
   }
 
+  
   activeSelectorRxJs() {
     this.joiningFormActiveSelectorSubscribe =
       this.sharedService.joiningFormActiveSelector
@@ -464,7 +467,9 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
     this.addressCity = candyprofileimage.contact_details.permanent_city;
     this.addressState = candyprofileimage.contact_details.permanent_state;
     this.addressCountry = candyprofileimage.contact_details.permanent_country;
+    if (this.updatedOn){
     this.updatedOn = candyprofileimage.acknowledgement.acknowledgement.ack_date;
+    }
     console.log(this.updatedOn, 'profile updated');
   }
 

@@ -112,8 +112,8 @@
                         <label>Certification Validity From<span class="redTxt">*</span></label>
                         <div class="date-relative">
                           <div style="width: 100%;">
-                            <input matInput class="input" [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="picker"
-                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityFrom" (dateInput)="fromDateChange('input', $event)">
+                            <input matInput class="input" [min]="minFromDate[i]" [max]="maxFromDate[i]" [matDatepicker]="picker"
+                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityFrom" (dateInput)="fromDateChange('input', $event, i)">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
 
@@ -124,11 +124,15 @@
                                 Validity From is Required</div>
                               <div class="err"
                                 *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMax">
-                                {{getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMax?.max
+                                <!-- {{getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMax?.max
                                 ?
-                                'Maximum date should be ' +
+                                'Valid From should be less than Valid upto date: ' +
                                 momentForm(getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMax.max)
-                                : ''}}
+                                : ''}} -->
+
+                                {{getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMax?.max
+                                  ?
+                                  'Valid From should be less than Valid upto date': ''}}
                               </div>
                               <div class="err"
                                 *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMin">
@@ -151,8 +155,8 @@
                         <label>Certification Validity Upto<span class="redTxt">*</span></label>
                         <div class="date-relative">
                           <div style="width: 100%;">
-                            <input matInput class="input" [min]="minToDate" [max]="maxToDate" [matDatepicker]="picker1"
-                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto" (dateInput)="toDateChange('input', $event)">
+                            <input matInput class="input" [min]="minToDate[i]" [max]="maxToDate[i]" [matDatepicker]="picker1"
+                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto" (dateInput)="toDateChange('input', $event, i)">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
 
@@ -171,12 +175,17 @@
                               </div>
                               <div class="err"
                                 *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin">
-                                {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin?.min
+                                <!-- {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin?.min
                                 ?
-                                'Minimum date should be ' +
+                                'Valid upto Date should be greater than Valid From Date: ' +
                                 momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin.min)
-                                : ''}}
+                                : ''}} -->
+                                {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin?.min
+                                  ?
+                                  'Valid upto Date should be greater than Valid From Date': ''}}
                               </div>
+                              
+                             
                               <div class="err"
                                 *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerParse">
                                 Invalid Date Format</div>
@@ -229,7 +238,7 @@
                         <div class="form-error"
                           *ngIf="getawardsArr.controls[i].get(form_award_title).invalid && getawardsArr.controls[i].get(form_award_title).touched">
                           <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.required">
-                            Awarded Title is Required</div>
+                            Award Title is Required</div>
                           <div class="err" *ngIf="getawardsArr.controls[i].get(form_award_title).errors?.alphaNum255">
                             Alpha numeric with maximum of 255 characters only
                             allowed</div>

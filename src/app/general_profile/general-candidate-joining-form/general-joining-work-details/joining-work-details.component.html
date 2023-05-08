@@ -27,7 +27,7 @@
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div class="d-flex" >
-                    <h6  class=" pl-4 keyHead">Key Skills <span class="redTxt">*</span></h6>
+                    <h6  class=" pl-4 keyHead">Key Skills<span class="redTxt">*</span></h6>
                     <div class="d-flex skilLvl">
                       <h6  class=" levelHead">Level - &nbsp;</h6>
                     <span [ngClass]="{'Nov':getSkillSelection(i) == 'Novice','beg':getSkillSelection(i) == 'Beginner','ske':getSkillSelection(i) == 'Skillfull','expNC':getSkillSelection(i) == 'Experienced','exprt':getSkillSelection(i) == 'Expert'}" >{{getSkillSelection(i)}}</span>
@@ -99,7 +99,7 @@
           <label>Total Experience<span class="redTxt">*</span></label>
           <div class="inpu-preview w-100 d-flex f_size_16 bold-700 color-black">
             <div class="w-50">
-              <input class="in width-20 p-1 mr-2"  [formControlName]="form_total_exp_years" >Years
+              <input class="in width-20 p-1 mr-2" placeholder="Enter here" [formControlName]="form_total_exp_years" >Years
               <div class="form-error"
                 *ngIf="total_exp_years?.invalid && total_exp_years?.touched">
                 <div  *ngIf="total_exp_years?.errors?.required">
@@ -110,13 +110,14 @@
             </div>
 
             <span class="ml-2 inpu-preview f_size_16 bold-700 color-black ">
-              <input class="in width-20 p-1 mr-2" [formControlName]="form_total_exp_months"  style="border: 0.5px solid #707070;border-radius: 3px;" >Months
+              <input class="in width-20 p-1 mr-2" placeholder="Enter here" [formControlName]="form_total_exp_months"  style="border: 0.5px solid #707070;border-radius: 3px;" >Months
               <div class="form-error"
               *ngIf="total_exp_months?.invalid && total_exp_months?.touched">
               <div class="err" *ngIf="total_exp_months?.errors?.required">
                 Total Month of Experience is Required</div>
                 <div *ngIf="total_exp_months?.errors?.maxlength">Maximum of 2 characters only allowed</div>
         <div *ngIf="total_exp_months?.errors?.numberOnly">Numerics only Allowed</div>
+        <div *ngIf="total_exp_months?.errors?.numberMax11">Months Should be less than or equal to 11</div>
             </div>
             </span>
           </div>
@@ -126,7 +127,7 @@
             <div class="container-wrapper mb-0 mt-0 flex-container pt-3  pl-4 pr-4  pb-4 justify-content-between align-items-center">
               <div class="form-grouping w-100">
                 <div class="d-flex justify-content-between">
-                  <h6>Employment{{i+1}}</h6>
+                  <h6>Employment {{i+1}}</h6>
                   <div class="remove-wrapper">
                     <div (click)="removeData(i,'employment')" *ngIf="i !==0" matTooltip="Remove" class="remove">
                       <i class="icon-BinDelete pointer ag-icon-font-size"></i>
@@ -136,7 +137,7 @@
                 <div class="row-wrapper">
                   <ng-container >
                     <div class="overall-input-wrapper width-100">
-                      <label style="">Employer Name<span class="redTxt">*</span></label>
+                      <label>Employer Name<span class="redTxt">*</span></label>
                       <div style="width:100%">
                       <input matInput placeholder="Enter here" class="input text-area" type="text"
                         [formControlName]="form_employment_name_address">
@@ -279,7 +280,7 @@
                               <label>Duration From<span class="redTxt">*</span></label>
                                 <div class="date-relative">
                                     <div style="width:100%">
-                                    	<input matInput class="input" [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="frompicker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from"(dateInput)="fromDateChange('input', $event)">
+                                    	<input matInput class="input" [min]="minFromDate[i]" [max]="maxFromDate[i]" [matDatepicker]="frompicker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from"(dateInput)="fromDateChange('input', $event, i)">
 
                                       <!-- <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_from"> -->
                                     <mat-datepicker-toggle matSuffix [for]="frompicker"></mat-datepicker-toggle>
@@ -295,12 +296,18 @@
                               <div class="form-error" *ngIf="getEmploymentArr.controls[i].get(form_duration_from).invalid && getEmploymentArr.controls[i].get(form_duration_from).touched">
                                 <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.required">
                                   Duration  From is Required</div>
-                                <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax">
+                                <!-- <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax">
                                     {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' + momentForm(getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax.max) : ''}}
                                 </div>
                                 <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin">
                                     {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' + momentForm(getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin.min) : ''}}
-                                </div>
+                                </div> -->
+                                <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax">
+                                  {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMax?.max ? 'Duration From Date Should be less than Duration To Date' : ''}}
+                              </div>
+                              <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin">
+                                  {{getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerMin?.min ? 'Duration From Date Should be less than Duration To Date': ''}}
+                              </div>
                                 <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_from)?.errors?.matDatepickerParse">
                                     Invalid Date Format</div>
                             </div>
@@ -365,7 +372,7 @@
                       <label>Duration To<span class="redTxt">*</span></label>
                       <div style="width:100%">
                         <div class="date-relative">
-                          <input matInput  class="input" [min]="minToDate" [max]="maxToDate" [matDatepicker]="topicker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_to" (dateInput)="toDateChange('input', $event)">
+                          <input matInput  class="input" [min]="minToDate[i]" [max]="maxToDate[i]" [matDatepicker]="topicker" placeholder="DD-MM-YYYY" [formControlName]="form_duration_to" (dateInput)="toDateChange('input', $event, i)">
 
                           <!-- <input matInput class="input"  [min]="minDate" [max]="maxDate1" [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_duration_to"> -->
                             <mat-datepicker-toggle matSuffix [for]="topicker"></mat-datepicker-toggle>
@@ -383,7 +390,7 @@
                         *ngIf="getEmploymentArr.controls[i].get(form_duration_to).invalid && getEmploymentArr.controls[i]?.get(form_duration_to).touched">
                         <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.required">
                           Duration To is Required</div>
-                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax">
+                        <!-- <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax">
                           {{getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax?.max ?
                           'Maximum date should be ' +
                           momentForm(getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax.max)
@@ -394,6 +401,14 @@
                           'Minimum date should be ' +
                           momentForm(getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin.min)
                           : ''}}
+                        </div> -->
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax">
+                          {{getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMax?.max ?
+                          'Duration To date should be greater than Duration From date': ''}}
+                        </div>
+                        <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin">
+                          {{getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerMin?.min ?
+                          'Duration To date should be greater than Duration From date': ''}}
                         </div>
                         <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_duration_to)?.errors?.matDatepickerParse">
                           Invalid Date Format</div>
@@ -531,7 +546,7 @@
                       <label>Period From<span class="redTxt">*</span></label>
                       <div class="date-relative">
                         <div style="width: 100%;">
-                          <input matInput class="input" [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="pickerTraining" placeholder="DD-MM-YYYY" [formControlName]="form_training_from_date"(dateInput)="fromDateChange('input', $event)">
+                          <input matInput class="input" [min]="minperiodFromDate[i]" [max]="maxperiodFromDate[i]" [matDatepicker]="pickerTraining" placeholder="DD-MM-YYYY" [formControlName]="form_training_from_date"(dateInput)="fromperiodDateChange('input', $event, i)">
 
                         <!-- <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTraining"
                           placeholder="DD-MM-YYYY" [formControlName]="form_training_from_date"> -->
@@ -543,7 +558,7 @@
                         *ngIf="getTrainingArr.controls[i].get(form_training_from_date).invalid && getTrainingArr.controls[i].get(form_training_from_date).touched">
                         <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.required">
                           Period From is Required</div>
-                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax">
+                        <!-- <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax">
                           {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax?.max ?
                           'Maximum date should be ' +
                           momentForm(getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax.max)
@@ -554,6 +569,14 @@
                           'Minimum date should be ' +
                           momentForm(getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin.min)
                           : ''}}
+                        </div> -->
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax">
+                          {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMax?.max ?
+                          'Period From date should be less than Period To Date' : ''}}
+                        </div>
+                        <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin">
+                          {{getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerMin?.min ?
+                          'Period From date should be less than Period To Date': ''}}
                         </div>
                         <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_from_date)?.errors?.matDatepickerParse">
                           Invalid Date Format</div>
@@ -567,7 +590,7 @@
                         <label>Period To<span class="redTxt">*</span></label>
                         <div class="date-relative">
                           <div style="width: 100%;">
-                            <input matInput class="input" [min]="minToDate" [max]="maxToDate" [matDatepicker]="picker1Training" placeholder="DD-MM-YYYY" [formControlName]="form_training_to_date"(dateInput)="fromDateChange('input', $event)">
+                            <input matInput class="input" [min]="minperiodToDate[i]" [max]="maxperiodToDate[i]" [matDatepicker]="picker1Training" placeholder="DD-MM-YYYY" [formControlName]="form_training_to_date"(dateInput)="toperiodDateChange('input', $event, i)">
 
 
                           <!-- <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="picker1Training"
@@ -579,7 +602,7 @@
                           *ngIf="getTrainingArr.controls[i].get(form_training_to_date).invalid && getTrainingArr.controls[i].get(form_training_to_date).touched">
                           <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.required">
                             Period To is Required</div>
-                          <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax">
+                          <!-- <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax">
                             {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax?.max ?
                             'Maximum date should be ' +
                             momentForm(getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax.max)
@@ -590,6 +613,14 @@
                             'Minimum date should be ' +
                             momentForm(getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin.min)
                             : ''}}
+                          </div> -->
+                          <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax">
+                            {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMax?.max ?
+                            'Period To Date should be greater than Period From date' : ''}}
+                          </div>
+                          <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin">
+                            {{getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerMin?.min ?
+                            'Period To Date should be greater than Period From date': ''}}
                           </div>
                           <div class="err"  *ngIf="getTrainingArr.controls[i].get(form_training_to_date)?.errors?.matDatepickerParse">
                             Invalid Date Format</div>
