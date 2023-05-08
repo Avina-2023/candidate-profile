@@ -2,6 +2,10 @@
 .joining-personal-wrapper::-webkit-scrollbar {
   display: none;
 }
+.err_flx{
+    display: flex;
+    flex-direction: column;
+}
 .joining-personal-wrapper {
     width: 100%;
     padding-top: 0px !important;

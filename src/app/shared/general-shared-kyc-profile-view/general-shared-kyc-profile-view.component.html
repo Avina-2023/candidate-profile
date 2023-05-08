@@ -262,11 +262,14 @@
                 </ng-container>
               </ng-container>
               <ng-template #noLanguage>
-                <div class="inpu-preview size-16 bold-700 color-black" style="font-size: 16px;
-                 width: 100%;
-                 font-weight: 600;
-                 text-align: center;">
-                  {{ "No Language details available" }}
+                <div class="inpu-preview size-16 bold-700 color-black"
+                style = "
+                 font-size: 16px;
+                width: 100%;
+                font-weight: 600;
+                text-align: center; "
+                >
+                  {{ "No Language Details Available" }}
                 </div>
               </ng-template>
             </div>
@@ -678,6 +681,22 @@
                   {{ education[form_cgpa] }}
                 </div>
               </div>
+
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>History of Backlogs</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{ education[form_historyOfbacklog] }}
+                </div>
+              </div>
+
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>No. of Active Backlogs (if any)</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{ education[form_noActivebacklog] }}
+                </div>
+              </div>
+
+              
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Do you have any gap during the education?</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -700,18 +719,12 @@
                 </div>
               </div> -->
               <ng-container *ngIf="education[form_gap] == 'Yes'">
-                <div class="overall-input-wrapper mt-3 width-32">
+                <!-- <div class="overall-input-wrapper mt-3 width-32">
                   <label>History of Backlogs</label>
                   <div class="inpu-preview" style="font-size: 14px; color: black;">
                     {{ education[form_historyOfbacklog] }}
                   </div>
-                </div>
-                <div class="overall-input-wrapper mt-3 width-32">
-                  <label>No. of Active Backlogs (if any)</label>
-                  <div class="inpu-preview" style="font-size: 14px; color: black;">
-                    {{ education[form_noActivebacklog] }}
-                  </div>
-                </div>
+                </div> -->
                 <div class="overall-input-wrapper mt-3 width-32">
                   <label>Reason for the gap</label>
                   <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -1135,7 +1148,7 @@
         </div>
         <ng-container *ngIf="projectDetailsMap && projectDetailsMap.length > 0;else noproject">
           <ng-container *ngFor="let project of projectDetailsMap; let i = index">
-            <h6 class="mt-4">project {{i+1}}</h6>
+            <h6 class="mt-4">Project {{i+1}}</h6>
             <div class="row-wrapper mt-0">
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Project Type</label>
@@ -1228,8 +1241,10 @@
               </div>
               <div *ngIf="certification[form_isexpire] != true" class="overall-input-wrapper mt-3 width-32">
                 <label>Certification Validity upto</label>
-            <div class="inpu-preview " style="font-size: 14px; color: black;">
-                  {{ dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto]) | date : 'MMM y' ):'NIL'}}
+                <div class="inpu-preview " style="font-size: 14px; color: black;">
+                  {{
+                  dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto])|
+                  date : 'MMM y' ):'NIL'}}
                 </div>
               </div>
               <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
@@ -2172,7 +2187,7 @@
   <div class="nodata mt-4">No Research Publication/Journal Entry Details Available</div>
 </ng-template>
 <ng-template #noCertification>
-  <div class="nodata mt-4">No Certification Details Available</div>
+  <div class="nodata mt-4">No Certifications Details Available</div>
 </ng-template>
 <ng-template #noContact>
   <div class="nodata">No Contact Details Available</div>
