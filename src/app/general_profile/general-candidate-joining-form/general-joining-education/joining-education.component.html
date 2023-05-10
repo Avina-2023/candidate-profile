@@ -597,7 +597,7 @@
                           <input matInput placeholder="Enter here" class="input" type="text"
                             [formControlName]="form_noActivebacklog">
 
-                          <div class="form-error"
+                          <div class="form-error err_flx"
                             *ngIf="getEducationArr.controls[i].get(form_noActivebacklog).invalid && getEducationArr.controls[i].get(form_noActivebacklog).touched">
                             <div class="err"
                               *ngIf="getEducationArr.controls[i].get(form_noActivebacklog)?.errors?.required">
@@ -789,6 +789,9 @@
                             <div class="err"
                               *ngIf="getEducationArr.controls[i].get(form_reasonForbacklog).errors?.backlog">
                               Accept Numbers only and Maximum of 2 digits only Allowed </div>
+                              <div *ngIf="getEducationArr.controls[i].get(form_reasonForbacklog).errors?.alphaNum255">
+                                Alpha numeric with maximum of 255 characters only
+                                allowed</div>
                           </div>
                         </div>
                       </div>
