@@ -451,7 +451,9 @@
                   </div>
                 </div> -->
                 <div  *ngIf="getEmploymentArr.controls.length-1 == i " class="overall-input-wrapper mt-2  width-100">
-                  <div > <mat-checkbox (change)="currentWrk($event, i)" [formControlName]="form_isWorkingHere" class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
+                  <div > <mat-checkbox (change)="currentWrk($event, i)" [formControlName]="form_isWorkingHere" 
+                    class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span>
+                  </div>
                 </div>
                 <div class="form-error mt-2 custom-error-border"
                   *ngIf="getEmploymentArr.controls[i].invalid && getEmploymentArr.controls[i]?.errors ">

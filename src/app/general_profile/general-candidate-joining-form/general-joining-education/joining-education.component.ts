@@ -460,6 +460,7 @@ constructor(
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.educationDetails = this.candidateService.getLocaleducation_details().educations;
+      console.log(this.educationDetails,'eduuuuuuuuuuuu')
       // this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
       this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
       this.getSelectedPost();
@@ -845,6 +846,7 @@ validSelectedPost() {
       this.check = false
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].updateValueAndValidity();
+      //  this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValidators([Validators.required],{ emitEvent: false });
 
     }
   }
