@@ -65,7 +65,7 @@
       explain your conduct in any matter at the time you served notice for resignation?
     </div>
 
-    <div class="row-wrapper mt-2">
+    <!-- <div class="row-wrapper mt-2">
       <div class="overall-input-wrapper">
         <label>Please give full particulars of the case/arrest/detention/conviction/punishment etc. and / or
           nature of the case pending in the Court/University/Educational Authority at the time of filling
@@ -80,6 +80,19 @@
             allowed</div>
         </div>
       </div>
+      </div>
+    </div> -->
+    <div class="row-wrapper mt-2">
+      <div class="overall-input-wrapper">
+        <label>Please give full particulars of the case/arrest/detention/conviction/punishment etc. and / or nature of the case pending in the Court/University/Educational Authority at the time of filling this form?<span></span></label>
+        <div>
+          <textarea #customInput matInput placeholder="Enter here" [formControlName]="form_full_particulars" class="input text-area mb-2"
+            style="width: 100% !important; height: 200px !important;" [readonly]="checkbtn" [disabled]="isTextAreaDisabled"></textarea>
+          <div class="form-error" *ngIf="full_particulars?.invalid && full_particulars?.touched">
+            <div class="err" *ngIf="full_particulars?.errors?.required">Particulars is Required</div>
+            <div class="err" *ngIf="full_particulars?.errors?.address255">Alpha numeric with maximum of 255 characters only allowed</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

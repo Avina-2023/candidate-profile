@@ -21,6 +21,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   @ViewChild('myTextarea') myTextarea: ElementRef;
 
   checkbtn:any=true;
+  isTextAreaDisabled: boolean = true;
 
   discipilinaryForm: FormGroup;
   joiningFormDataPassingSubscription: Subscription;
@@ -104,14 +105,51 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   //   }
 
 
+  // requiredDesc(event) {
+  //   //console.log(event, 'aaa');
+  //   if (event.checked == true) {
+  //     this.checkbtn = false;
+  //   }
+  //     if (event.checked == false){
+  //     this.checkbtn = true;
+  //     this.discipilinaryForm.get(this.form_full_particulars).setValue(''); // add this line to clear the text area
+  //   }
+
+  //   let formValues = this.discipilinaryForm.getRawValue();
+  //   const bgvDetails = {
+  //     [this.form_convicted_by_Court]: formValues[this.form_convicted_by_Court] && (formValues[this.form_convicted_by_Court] == '1' || formValues[this.form_convicted_by_Court] == true) ? '1' : '0',
+  //     [this.form_arrested]: formValues[this.form_arrested] && (formValues[this.form_arrested] == '1' || formValues[this.form_arrested] == true) ? '1' : '0',
+  //     [this.form_prosecuted]: formValues[this.form_prosecuted] && (formValues[this.form_prosecuted] == '1' || formValues[this.form_prosecuted] == true) ? '1' : '0',
+  //     [this.form_detention]: formValues[this.form_detention] && (formValues[this.form_detention] == '1' || formValues[this.form_detention] == true) ? '1' : '0',
+  //     [this.form_fined_by_court]: formValues[this.form_fined_by_court] && (formValues[this.form_fined_by_court] == '1' || formValues[this.form_fined_by_court] == true) ? '1' : '0',
+  //     [this.form_debarred_exam_university]: formValues[this.form_debarred_exam_university] && (formValues[this.form_debarred_exam_university] == '1' || formValues[this.form_debarred_exam_university] == true) ? '1' : '0',
+  //     [this.form_debarred_psc_company]: formValues[this.form_debarred_psc_company] && (formValues[this.form_debarred_psc_company] == '1' || formValues[this.form_debarred_psc_company] == true) ? '1' : '0',
+  //     [this.form_court_case_pending]: formValues[this.form_court_case_pending] && (formValues[this.form_court_case_pending] == '1' || formValues[this.form_court_case_pending] == true) ? '1' : '0',
+  //     [this.form_university_case_pending]: formValues[this.form_university_case_pending] && (formValues[this.form_university_case_pending] == '1' || formValues[this.form_university_case_pending] == true) ? '1' : '0',
+  //     [this.form_disciplinary_proceedings]: formValues[this.form_disciplinary_proceedings] && (formValues[this.form_disciplinary_proceedings] == '1' || formValues[this.form_disciplinary_proceedings] == true) ? '1' : '0',
+  //     [this.form_full_particulars]: formValues[this.form_full_particulars]
+  //   }
+  //   if (bgvDetails[this.form_convicted_by_Court] == '1' || bgvDetails[this.form_arrested] == '1' || bgvDetails[this.form_prosecuted] == '1' || bgvDetails[this.form_detention] == '1' || bgvDetails[this.form_fined_by_court] == '1' || bgvDetails[this.form_debarred_exam_university] == '1' || bgvDetails[this.form_debarred_psc_company] == '1' || bgvDetails[this.form_court_case_pending] == '1' || bgvDetails[this.form_university_case_pending] == '1' || bgvDetails[this.form_disciplinary_proceedings] == '1') {
+  //     this.discipilinaryForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.address255()]), { emitEvent: false };
+  //   } else {
+  //     this.discipilinaryForm.get(this.form_full_particulars).setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]), { emitEvent: false };
+  //   }
+  //   this.discipilinaryForm.get(this.form_full_particulars).updateValueAndValidity(), { emitEvent: false };
+  // }
+
   requiredDesc(event) {
-    console.log(event, 'aaa');
-    if (event.checked == true) {
+    //console.log(event, 'aaa');
+    if (event.checked) {
       this.checkbtn = false;
-    }
-      if (event.checked == false){
-      this.checkbtn = true;
-      this.discipilinaryForm.get(this.form_full_particulars).setValue(''); // add this line to clear the text area
+      this.isTextAreaDisabled = false;
+    } else {
+      // Check if any other mat-checkbox is checked
+      const anyCheckboxChecked = this.isAnyCheckboxChecked();
+      if (!anyCheckboxChecked) {
+        this.checkbtn = true;
+        this.isTextAreaDisabled = true;
+        this.discipilinaryForm.get(this.form_full_particulars).setValue(''); // Clear the textarea
+      }
     }
 
     let formValues = this.discipilinaryForm.getRawValue();
@@ -135,6 +173,24 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     }
     this.discipilinaryForm.get(this.form_full_particulars).updateValueAndValidity(), { emitEvent: false };
   }
+
+  isAnyCheckboxChecked() {
+    const formValues = this.discipilinaryForm.getRawValue();
+    const checkboxes = [
+      formValues[this.form_convicted_by_Court],
+      formValues[this.form_arrested],
+      formValues[this.form_prosecuted],
+      formValues[this.form_detention],
+      formValues[this.form_fined_by_court],
+      formValues[this.form_debarred_exam_university],
+      formValues[this.form_debarred_psc_company],
+      formValues[this.form_court_case_pending],
+      formValues[this.form_university_case_pending],
+      formValues[this.form_disciplinary_proceedings],
+    ];
+    return checkboxes.some(checkbox => checkbox === true || checkbox === '1');
+  }
+
 
   saveRequestRxJs() {
     this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
