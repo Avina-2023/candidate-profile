@@ -6,10 +6,10 @@ export const environment = {
   production: false,
   Image_Base_Url:"",
   cryptoEncryptionKey:"(!@#Passcode!@#)",
-  SKILLEX_BASE_URL:"https://skilledgeqa.lntedutech.com",
+  SKILLEX_BASE_URL:"https://skilledgedev.lntedutech.com",
   MASTER_BASE_URL:"https://campus-dev.lntedutech.com/dcampus",
   supportEmail:"assess.support@lntedutech.com",
-  register_Redirect:"https://skillexchange-qa.lntedutech.com/register",
+  register_Redirect:"https://skillexchange-dev.lntedutech.com/register",
   encryptionKey: 'unifiedReports',
   blobToken:"?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2221-11-23T19:12:41Z&st=2021-11-23T11:12:41Z&spr=https,http&sig=R6%2BlZGrzjuFs1aAy2uUG%2BNkjVig5%2F8disv01i86VK8M%3D",
 
