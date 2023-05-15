@@ -82,6 +82,7 @@ export class GeneralMasterComponent implements OnInit {
           let ProfileUpdated = JSON.parse(localStorage.getItem("profileData"))  ;
           ProfileUpdated.updatedAt = this.Details.updatedAt ;
           ProfileUpdated.createdAt = this.Details.createdAt ;
+          localStorage.setItem("updatedAt", ProfileUpdated.updatedAt)
           localStorage.setItem("createdAt",ProfileUpdated.createdAt); // on init load member since date
           localStorage.setItem("profileData",JSON.stringify(ProfileUpdated));
 

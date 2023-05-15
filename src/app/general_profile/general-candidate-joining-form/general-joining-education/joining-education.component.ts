@@ -69,6 +69,22 @@ export const MY_FORMATS_Month = {
 export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
 
+  // day = new FormControl(moment());
+
+  // setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+  //   const ctrlValue = this.date.value!;
+  //   ctrlValue.month(normalizedMonthAndYear.month());
+  //   ctrlValue.year(normalizedMonthAndYear.year());
+  //   this.day.setValue(ctrlValue);
+  //   datepicker.close();
+  // }
+
+  
+  
+  
+  
+  
+
   showWorkExp: any = '0';
   mastersList: any;
   educationForm: FormGroup;
@@ -224,6 +240,8 @@ joiningFormDataPassingSubscription: Subscription;
   maxFromDate: Date | null;
   minToDate: Date | null;
   maxToDate: Date;
+  minPassDate: Date;
+  maxPassDate: Date | null;
   clgList: any;
 constructor(
     private appConfig: AppConfigService,
@@ -246,33 +264,66 @@ constructor(
     this.maxFromDate = new Date();
 
     this.minToDate = new Date(1900, 0, 1);
-    this.maxToDate = new Date();}
+    this.maxToDate = new Date();
+  
+    this.minPassDate = new Date(1900, 0, 1);
+    this.maxPassDate = new Date();
+  }
 
 
-    fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-      console.log(`${type}: ${event.value}`);
-      this.minToDate = event.value;
+  
+  
+  
+  
 
-      if (event.value !== null) {
-        this.maxToDate = new Date(
-          event!.value.getFullYear(),
-          event!.value.getMonth(),
-          event!.value.getDate() + 30
-        );
-      }
+
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    this.minToDate[i] = event.value;
+
+    if (event.value != null) {
+      this.maxToDate[i] = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
     }
+  }
+  
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    //this.minPassDate[i] = event.value;
+    this.maxFromDate[i] = event.value;
 
-    toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-      this.maxFromDate = event.value;
+    if (event.value != null) {
+      this.minFromDate[i] = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
 
-      if (event.value !== null) {
-        this.minFromDate = new Date(
-          event!.value.getFullYear(),
-          event!.value.getMonth(),
-          event!.value.getDate() - 30
-        );
-      }
+      // this.maxPassDate[i] = new Date(
+      //   event!.value.getFullYear(),
+      //   event!.value.getMonth(),
+      //   event!.value.getDate() - 30
+      // );
     }
+  }
+
+
+  passDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    // this.maxToDate[i] = event.value;
+
+    // if (event.value != null) {
+    //   this.minToDate[i] = new Date(
+    //     event!.value.getFullYear(),
+    //     event!.value.getMonth(),
+    //     event!.value.getDate() - 30
+    //   );
+    // }
+  }
+  
 
   //  {
   //   this.dateValidation();
@@ -460,7 +511,6 @@ constructor(
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
       this.educationDetails = this.candidateService.getLocaleducation_details().educations;
-      console.log(this.educationDetails,'eduuuuuuuuuuuu')
       // this.selectedPost = this.candidateService.getLocaleducation_details().selected_post ? this.candidateService.getLocaleducation_details().selected_post : null;
       this.candidateService.getLocaleducation_details().ca_bothgroup_status ? this.ca_bothgroup_status.setValue(true) : this.ca_bothgroup_status.setValue(false);
       this.getSelectedPost();
@@ -846,7 +896,6 @@ validSelectedPost() {
       this.check = false
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].updateValueAndValidity();
-      //  this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValidators([Validators.required],{ emitEvent: false });
 
     }
   }

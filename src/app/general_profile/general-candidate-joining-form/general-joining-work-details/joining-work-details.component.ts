@@ -174,6 +174,12 @@ check: any;
   maxFromDate: Date | null;
   minToDate: Date | null;
   maxToDate: Date;
+
+  minperiodFromDate: Date;
+  maxperiodFromDate: Date | null;
+  minperiodToDate: Date | null;
+  maxperiodToDate: Date;
+
   workexp:any
 
   constructor(
@@ -195,18 +201,24 @@ check: any;
     this.minFromDate = new Date(1900, 0, 1);
     this.maxFromDate = new Date();
 
+    this.minperiodFromDate = new Date(1900, 0, 1);
+    this.maxperiodFromDate = new Date();
+
     this.minToDate = new Date(1900, 0, 1);
     this.maxToDate = new Date();
+
+    this.minperiodToDate = new Date(1900, 0, 1);
+    this.maxperiodToDate = new Date();
 
   }
 
 
-  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
-    this.minToDate = event.value;
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    this.minToDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.maxToDate = new Date(
+    if (event.value != null) {
+      this.maxToDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() + 30
@@ -214,11 +226,39 @@ check: any;
     }
   }
 
-  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.maxFromDate = event.value;
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    this.maxFromDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.minFromDate = new Date(
+    if (event.value != null) {
+      this.minFromDate[i] = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() - 30
+      );
+    }
+  }
+
+
+  fromperiodDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    this.minperiodToDate[i] = event.value;
+
+    if (event.value != null) {
+      this.maxperiodToDate[i] = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
+    }
+  }
+
+  toperiodDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    this.maxperiodFromDate[i] = event.value;
+
+    if (event.value != null) {
+      this.minperiodFromDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() - 30
@@ -575,7 +615,7 @@ check: any;
       this.expChange = true
       if(this.getEmploymentArr.length == 0){
         this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
-      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
+      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
         this.getEmploymentArr.controls[0]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -666,8 +706,8 @@ check: any;
     this.getEmploymentArr.controls.forEach((data, i) => {
 
     if(this.workDetailsForm.controls[this.form_isWorkExp].value == 'true' ){
-      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
-      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
+      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
+      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -712,8 +752,8 @@ check: any;
 
     }
     else{
-      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
-      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
+      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
+      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -860,7 +900,7 @@ changeInIsArticleship(event){
       [this.form_training_Array]: this.fb.array([]),
       [this.form_is_training_status]: ['false'],
       [this.form_total_exp_years]: [null,[Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]],
-      [this.form_total_exp_months]: [null,[Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]],
+      [this.form_total_exp_months]: [null,[Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]],
       [this.form_isWorkExp]: ['false'],
       // [this.form_convicted_by_Court]: [null],
       // [this.form_arrested]: [null],
@@ -1200,6 +1240,7 @@ changeInIsArticleship(event){
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Skills_Array]) as FormArray);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_training_Array]) as FormArray);
+      console.log(this.workDetailsForm, 'workcheck');
     }
   }
 

@@ -191,7 +191,7 @@
 // }
 
 :host ::ng-deep input.ng-invalid.ng-touched,
-
+:host ::ng-deep .submitted input.ng-invalid,
 :host ::ng-deep nz-select.input.select.ant-select-single.ng-dirty.ng-invalid.ng-touched nz-select-top-control.ant-select-selector {
 
  border: 1px solid red !important;

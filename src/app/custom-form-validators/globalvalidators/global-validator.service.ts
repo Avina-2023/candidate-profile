@@ -123,6 +123,12 @@ export class GlobalValidatorService {
       return this.regexValidator(numberOnly, {numberOnly: true});
     }
 
+    validateNumberMax11() {
+      const numberMax11 = /^(?:0|[1-9][0-1]?)$/;
+      return this.regexValidator(numberMax11, { numberMax11: true });
+    }
+    
+
     zipOnly() {
       const zipOnly: RegExp = /^[0-9]{6}$/;
       return this.regexValidator(zipOnly, {zipOnly: true});

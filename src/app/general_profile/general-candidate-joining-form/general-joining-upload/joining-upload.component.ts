@@ -537,7 +537,7 @@ export class GeneralJoiningUploadComponent
     // this.getEducationDocuments =
     //   data && data['education_documents'] ? data['education_documents'] : [];
     this.getResumeDocuments = data && data['resume'] ? data['resume'] : [];
-    this.pdfdoc = this.getResumeDocuments[0].file_path;
+    this.pdfdoc = this.getResumeDocuments[0]?.file_path;
     this.Pre_written_phrase = data.preWrittenPhrase;
     // console.log(this.getResumeDocuments,'getResumeDocuments');
     // console.log(this.getResumeDocuments[0].file_path,'ifDocumentDetails');

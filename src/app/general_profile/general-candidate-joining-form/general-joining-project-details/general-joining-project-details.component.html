@@ -10,7 +10,7 @@
 
   </div>
   <div class="grids-wrapper">
-    <form class="personalForm" [formGroup]="projectForm" (ngSubmit)="formSubmit()">
+    <form class="personalForm" id="projectFormId" [formGroup]="projectForm" (ngSubmit)="formSubmit()">
       <div class="row-wrapper">
         <ng-container *ngIf="getprojectArr && getprojectArr.controls"  [formArrayName]="form_projectArray">
           <ng-container *ngFor="let item of getprojectArr.controls; let i = index;" [formGroupName]="i">
@@ -89,25 +89,33 @@
                   <label>Period From<span class="redTxt">*</span></label>
                     <div class="date-relative">
                      <div style="width: 100%;">
-                      <input matInput class="input" [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="pickerProject" placeholder="DD-MM-YYYY" [formControlName]="form_periodFrom"(dateInput)="fromDateChange('input', $event)">
+                      <input matInput class="input" [min]="minFromDate[i]" [max]="maxFromDate[i]" [matDatepicker]="pickerProject" placeholder="DD-MM-YYYY" [formControlName]="form_periodFrom"(dateInput)="fromDateChange('input', $event, i)">
 
                       <!-- <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerProject"
                         placeholder="DD-MM-YYYY" [formControlName]="form_periodFrom"> -->
                       <mat-datepicker-toggle matSuffix [for]="pickerProject"></mat-datepicker-toggle>
                       <mat-datepicker #pickerProject></mat-datepicker>
 
+                      
+
                   <div class="form-error"
-                      *ngIf="getprojectArr.controls[i].get(form_periodFrom).invalid && getprojectArr.controls[i].get(form_periodFrom).touched">
+                      *ngIf="(getprojectArr.controls[i].get(form_periodFrom).invalid && getprojectArr.controls[i].get(form_periodFrom).touched) || (getprojectArr.controls[i].get(form_periodFrom).invalid && getprojectArr.controls[i].get(form_periodTo).touched)">
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodFrom)?.errors?.required">
                         Period From is Required</div>
-                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMax">
+                      <!-- <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMax">
                         {{getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMax?.max ?
                         'Maximum date should be ' +
                         momentForm(getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMax.max)
                         : ''}}
+                      </div> -->
+                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMax">
+                        {{getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMax?.max 
+                          ?
+                           'Period From Date Should be less than Period To date ' : ''}}
                       </div>
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMin">
-                        {{getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMin?.min ?
+                        {{getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMin?.min 
+                          ?
                         'Minimum date should be ' +
                         momentForm(getprojectArr.controls[i].get(form_periodFrom)?.errors?.matDatepickerMin.min)
                         : ''}}
@@ -124,7 +132,7 @@
                   <label>Period To<span class="redTxt">*</span></label>
                     <div class="date-relative">
                       <div style="width: 100%;">
-                        <input matInput class="input" [min]="minToDate" [max]="maxToDate" [matDatepicker]="pickerProject1" placeholder="DD-MM-YYYY" [formControlName]="form_periodTo"(dateInput)="fromDateChange('input', $event)">
+                        <input matInput class="input" [min]="minToDate[i]" [max]="maxToDate[i]" [matDatepicker]="pickerProject1" placeholder="DD-MM-YYYY" [formControlName]="form_periodTo"(dateInput)="toDateChange('input', $event, i)">
 
                       <!-- <input matInput class="input" [min]="minDate" [max]="maxDate" [matDatepicker]="pickerProject1"
                         placeholder="DD-MM-YYYY" [formControlName]="form_periodTo"> -->
@@ -141,11 +149,15 @@
                         momentForm(getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerMax.max)
                         : ''}}
                       </div>
-                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerMin">
+                      <!-- <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerMin">
                         {{getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerMin?.min ?
                         'Minimum date should be ' +
                         momentForm(getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerMin.min)
                         : ''}}
+                      </div> -->
+                      <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerMin">
+                        {{getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerMin?.min ?
+                        'Period To date should be greater than Period From Date ': ''}}
                       </div>
                       <div class="err"  *ngIf="getprojectArr.controls[i].get(form_periodTo)?.errors?.matDatepickerParse">
                         Invalid Date Format</div>

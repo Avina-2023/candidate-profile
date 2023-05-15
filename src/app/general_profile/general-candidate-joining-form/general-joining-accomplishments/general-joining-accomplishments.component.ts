@@ -135,15 +135,15 @@ check: any;
 
     this.minJournalDate = new Date(1900, 0, 1);
     this.maxJournalDate = new Date();
-
+    
   }
 
-  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
-    this.minToDate = event.value;
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    this.minToDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.maxToDate = new Date(
+    if (event.value != null) {
+      this.maxToDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() + 30
@@ -151,11 +151,12 @@ check: any;
     }
   }
 
-  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.maxFromDate = event.value;
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    console.log(`${type}: ${event.value}, ${i}`);
+    this.maxFromDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.minFromDate = new Date(
+    if (event.value != null) {
+      this.minFromDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() - 30
@@ -171,7 +172,7 @@ check: any;
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.getAccomplishmentsApiDetails();
     this.check = this.getCertificationsArr?.controls[this.getCertificationsArr.controls.length-1]?.value?.isexpire
-
+    
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
