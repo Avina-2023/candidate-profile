@@ -522,8 +522,9 @@
                 <div class="form-error" *ngIf="date_of_issue?.invalid && date_of_issue?.touched">
                   <div *ngIf="date_of_issue?.errors?.required">Issued Date is Required</div>
                   <div *ngIf="date_of_issue?.errors?.matDatepickerMax">
-                    {{date_of_issue?.errors?.matDatepickerMax?.max ? 'Maximum date should be ' +
-                    momentForm(date_of_issue?.errors?.matDatepickerMax.max) : ''}}
+                    <!-- {{date_of_issue?.errors?.matDatepickerMax?.max ? 'Passport Issued date should be less than Passport valid date: ' +
+                    momentForm(date_of_issue?.errors?.matDatepickerMax.max) : ''}} -->
+                    {{date_of_issue?.errors?.matDatepickerMax?.max ? 'Passport Issued date should be less than Passport valid date ' : ''}}
                   </div>
                   <div *ngIf="date_of_issue?.errors?.matDatepickerMin">
                     {{date_of_issue?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' +
@@ -544,7 +545,7 @@
                   [formControlName]="form_valid_upto"> -->
 
                   <input matInput class="input" style="width:100% !important" [min]="minToDate"
-                  [max]="maxToDate" [matDatepicker]="picker_dateValidUpto" placeholder="DD-MM-YYYY"
+                  [matDatepicker]="picker_dateValidUpto" placeholder="DD-MM-YYYY"
                   [formControlName]="form_valid_upto" (dateInput)="toDateChange('input', $event)">
 
                   
@@ -558,8 +559,9 @@
                     momentForm(valid_upto?.errors?.matDatepickerMax.max) : ''}}
                   </div>
                   <div *ngIf="valid_upto?.errors?.matDatepickerMin">
-                    {{valid_upto?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' +
-                    momentForm(valid_upto?.errors?.matDatepickerMin.min) : ''}}
+                    <!-- {{valid_upto?.errors?.matDatepickerMin?.min ? 'Passport Valid upto date should be greater than Issued Date ' +
+                    momentForm(valid_upto?.errors?.matDatepickerMin.min) : ''}} -->
+                    {{valid_upto?.errors?.matDatepickerMin?.min ? 'Passport Valid upto date should be greater than Issued Date ' : ''}}
                   </div>
                   <div *ngIf="valid_upto?.errors?.matDatepickerParse">Invalid Date Format</div>
                 </div>
@@ -650,7 +652,7 @@
                 <div class="physicaldisability"
                   *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
 
-                   <input matInput placeholder="Enter Physical Disability" class="input" type="text"
+                   <input  (change)="physicdisabledefault()" matInput placeholder="Enter Physical Disability" class="input" type="text"
                      [formControlName]="form_physical_disability_rsn">
 
                    <div class="form-error"

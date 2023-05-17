@@ -267,6 +267,7 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
   adrsCity: any;
   stateName: any;
   candycreateddate: any;
+  candyupdateddate: any;
   constructor(
     private skillexService: SkillexService,
     private loadingService: LoaderService,
@@ -285,6 +286,9 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
   ngAfterViewChecked(){
     if (this.candycreateddate == null){
     this.candycreateddate = localStorage.getItem('createdAt');
+    }
+    if(this.candyupdateddate == null){
+      this.candyupdateddate = localStorage.getItem('updatedAt');
     }
   }
 
@@ -320,9 +324,8 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
 
     this.getprofileimageFromLocal();
     this.getStateAPI();
-    // console.log(this.getAllStates , 'venkattesting');
-
   }
+
 
   activeSelectorRxJs() {
     this.joiningFormActiveSelectorSubscribe =
@@ -417,17 +420,14 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
     this.candidateService.updatedState(datas).subscribe(
       (data: any) => {
         this.getAllStates = data[0];
-        console.log(this.getAllStates);
         this.getAllStates.forEach((element) => {
           if (element.id == this.addressState) {
             this.stateName = element.name;
-            console.log(this.stateName, 'AddressState');
             this.getAllPermanentCities(
               element.id,
               this.addressCity,
               (callback) => {
                 this.adrsCity = callback ? callback : 'NIL';
-                console.log(this.adrsCity,'adrsCity');
 
               }
             );
@@ -448,23 +448,22 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
   getprofileimageFromLocal() {
     let candyprofileimage = JSON.parse(localStorage.getItem('profileData'));
     //this.candycreateddate = localStorage.getItem('createdAt');
-    //console.log(this.candycreateddate, 'createddatefinal');
     // localStorage.setItem("profileData",JSON.stringify(candidateProfileimage));
     this.createdOn = candyprofileimage;
-    console.log(this.createdOn, 'abovecreated');
     this.cadidatefinalimage = candyprofileimage.personal_details.profileImage;
     if (this.cadidatefinalimage && this.productionUrl == true) {
       this.cadidatefinalimage = this.cadidatefinalimage + environment.blobToken;
     } else if (this.cadidatefinalimage && this.productionUrl == false) {
       this.cadidatefinalimage = this.cadidatefinalimage;
     }
-    // console.log(this.cadidatefinalimage,'this.cadidatefinalimagethis.cadidatefinalimage');
 
     this.gender = candyprofileimage.personal_details.gender;
     this.addressCity = candyprofileimage.contact_details.permanent_city;
     this.addressState = candyprofileimage.contact_details.permanent_state;
     this.addressCountry = candyprofileimage.contact_details.permanent_country;
+    //if (this.updatedOn){
     this.updatedOn = candyprofileimage.acknowledgement.acknowledgement.ack_date;
+    //}
     console.log(this.updatedOn, 'profile updated');
   }
 

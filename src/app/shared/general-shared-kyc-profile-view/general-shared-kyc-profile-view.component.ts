@@ -16,6 +16,7 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+// import { Console } from 'console';
 
 export const MY_FORMATS = {
   parse: {
@@ -473,6 +474,7 @@ form_projectDescription = 'projectDescription';
 
     this.educationDetails = data && data.education_details && data.education_details.educations && data.education_details.educations.length > 0 ? data.education_details.educations : [];
     this.educationDetailsAllData = data.education_details ? data.education_details : null;
+    
     this.selectedPost = data && data.education_details && data.education_details.selected_post ? data.education_details.selected_post : '';
     if (this.educationDetails.length > 0) {
       this.patchEducation();
@@ -842,7 +844,8 @@ form_projectDescription = 'projectDescription';
         element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : '';
         element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : '';
         element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
-        element[this.isHighLevelEdu] = element?.[this.isHighLevelEdu] && element[this.isHighLevelEdu]  == 'true' ? true : false;
+        element[this.isHighLevelEdu] = element && element[this.isHighLevelEdu]!= undefined && element[this.isHighLevelEdu]? true : false;
+       // console.log("element[this.isHighLevelEdu]",element)
         element[this.form_cgpa] = element?.[this.form_cgpa] ? element?.[this.form_cgpa] : 'NIL';
         element[this.form_gap] = element?.[this.form_gap] && (element[this.form_gap] == 'true')? 'Yes' : 'No';
         element[this.form_finalcgpa] = element?.[this.form_finalcgpa] ? element?.[this.form_finalcgpa] : 'NIL';
@@ -852,6 +855,7 @@ form_projectDescription = 'projectDescription';
         element[this.form_yearpassing] = element[this.form_yearpassing] ? this.dateConvertionMonth(element[this.form_yearpassing]) : '';
         element[this.form_mode] = element[this.form_mode] == 'fulltime' ? 'Full time' : element[this.form_mode] == 'parttime' ? 'Part-time' : 'NIL';
         this.educationDetailsMap.push(element);
+
       }
     });
     // console.log(this.educationDetailsMap[this.educationDetailsMap.length-1],'educationDetailsMap');
@@ -1201,7 +1205,6 @@ form_projectDescription = 'projectDescription';
   }
   closeDialog(e) {
     if (e == 'save') {
-       console.log(new Date,'Final Updated date');
       this.dialog.closeAll();
       this.isDisabled = true;
  return this.matSuccessMsgOpen()
@@ -1364,8 +1367,7 @@ form_projectDescription = 'projectDescription';
 
       this.loadingService.setLoading(true);
       const data = await (await this.skillexService.uploadfile(file)).subscribe((data:any)=>{
-        console.log('data',data);
-        console.log('data.success',data.success);
+        
 
         if (data && !data.success) {
                 this.loadingService.setLoading(false);
@@ -1421,7 +1423,6 @@ form_projectDescription = 'projectDescription';
         fd.append('uploadFile', image);
         fd.append('uploadType', "signature");
         this.uploadImage(fd);
-        console.log('signature',this.signature);
 
 
        }

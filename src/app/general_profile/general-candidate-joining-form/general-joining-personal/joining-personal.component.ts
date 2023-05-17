@@ -282,12 +282,12 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     this.minFromDate = new Date(1900, 0, 1);
     this.maxFromDate = new Date();
 
+
     this.minToDate = new Date(1900, 0, 1);
     this.maxToDate = new Date();
   }
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
     this.minToDate = event.value;
 
     if (event.value !== null) {
@@ -319,8 +319,8 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
-    console.log(this.personalForm);
-
+    this.personalForm.controls[this.form_physical_disability_rsn].markAsUntouched();
+    //this.physicdisabledefault();
   }
 
   // onKeyDown(event: KeyboardEvent) {
@@ -341,7 +341,22 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
 
 
 
+  physicdisabledefault(){
+    //console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'checkinputfield');
+    if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true') && (this.personalForm.controls[this.form_physical_disability_rsn].value == "")) {
+      this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
+      this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
+    }
+    else{
+    }
 
+    // if ((this.personalForm.controls[this.form_physical_disability].value == 'true') && (this.personalForm.controls[this.form_physical_disability_rsn].touched) && (this.personalForm.controls[this.form_physical_disability_rsn].value == "")) {
+    //   console.log('correctdata')
+    //   }
+    //   else{
+    //   console.log('Incorrectdata')
+    //   }
+  }
 
 
   add(event: MatChipInputEvent): void {
@@ -357,20 +372,17 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     }
   }
   physicalDisabilityChange(event) {
-    console.log(this.personalForm.controls[this.form_physical_disability].value);
 
     // this.form_Employment_Array['controls'][this.isWorkExp].setValue('1');
-    if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true')) {
+    if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true') && (this.personalForm.controls[this.form_physical_disability].value == null)) {
       this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-      console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'true');
     }
     else if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'false')) {
 
       this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
       this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-      console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'false');
 
     }
     else{
@@ -901,7 +913,7 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
       [this.form_no_of_days]: [null, [RemoveWhitespace.whitespace(), Validators.maxLength(5), this.glovbal_validators.numberOnly()]],
       [this.form_nature_of_illness]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_physical_disability]: ['false'],
-      [this.form_physical_disability_rsn]: [null, Validators.required],
+      [this.form_physical_disability_rsn]: [null],
       // [this.form_left_eyepower_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       // [this.form_right_eye_power_glass]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.eyenumberDecimals()]],
       [this.form_language_array]: this.fb.array([this.initLanguageArray()])

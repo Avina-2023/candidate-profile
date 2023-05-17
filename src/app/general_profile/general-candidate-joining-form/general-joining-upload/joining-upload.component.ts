@@ -321,7 +321,6 @@ export class GeneralJoiningUploadComponent
 
   onFileSelected(event: any,isDragged:boolean) {
      let files = isDragged ? event[0] : event.target.files[0];
-    console.log(files,'resume file')
     const fd = new FormData();
     if(!files){
       return this.appConfig.nzNotification('error', 'File not Found', 'Please upload a file');
@@ -353,7 +352,6 @@ export class GeneralJoiningUploadComponent
         this.loadingService.setLoading(false);
         if (data) {
            this.pdfdoc = data.data;
-          console.log(data.data,'data');
           this.pdfFormControl.setValue(this.pdfdoc);
         }
         this.appConfig.nzNotification('success', 'Uploaded', 'Resume uploaded successfully');
@@ -537,7 +535,7 @@ export class GeneralJoiningUploadComponent
     // this.getEducationDocuments =
     //   data && data['education_documents'] ? data['education_documents'] : [];
     this.getResumeDocuments = data && data['resume'] ? data['resume'] : [];
-    this.pdfdoc = this.getResumeDocuments[0].file_path;
+    this.pdfdoc = this.getResumeDocuments[0]?.file_path;
     this.Pre_written_phrase = data.preWrittenPhrase;
     // console.log(this.getResumeDocuments,'getResumeDocuments');
     // console.log(this.getResumeDocuments[0].file_path,'ifDocumentDetails');

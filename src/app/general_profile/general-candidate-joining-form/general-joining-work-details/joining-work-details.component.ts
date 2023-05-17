@@ -174,6 +174,12 @@ check: any;
   maxFromDate: Date | null;
   minToDate: Date | null;
   maxToDate: Date;
+
+  minperiodFromDate: Date;
+  maxperiodFromDate: Date | null;
+  minperiodToDate: Date | null;
+  maxperiodToDate: Date;
+
   workexp:any
 
   constructor(
@@ -195,18 +201,23 @@ check: any;
     this.minFromDate = new Date(1900, 0, 1);
     this.maxFromDate = new Date();
 
+    this.minperiodFromDate = new Date(1900, 0, 1);
+    this.maxperiodFromDate = new Date();
+
     this.minToDate = new Date(1900, 0, 1);
     this.maxToDate = new Date();
+
+    this.minperiodToDate = new Date(1900, 0, 1);
+    this.maxperiodToDate = new Date();
 
   }
 
 
-  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
-    this.minToDate = event.value;
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    this.minToDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.maxToDate = new Date(
+    if (event.value != null) {
+      this.maxToDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() + 30
@@ -214,11 +225,36 @@ check: any;
     }
   }
 
-  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.maxFromDate = event.value;
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    this.maxFromDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.minFromDate = new Date(
+    if (event.value != null) {
+      this.minFromDate[i] = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() - 30
+      );
+    }
+  }
+
+
+  fromperiodDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    this.minperiodToDate[i] = event.value;
+
+    if (event.value != null) {
+      this.maxperiodToDate[i] = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
+    }
+  }
+
+  toperiodDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    this.maxperiodFromDate[i] = event.value;
+
+    if (event.value != null) {
+      this.minperiodFromDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() - 30
@@ -237,8 +273,7 @@ check: any;
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.check = this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1].value.is_working_here
 
-    console.log(this.getEmploymentArr.controls[0].get(this.form_duration_from), 'fromdate');
-    console.log(this.getEmploymentArr.controls[0].get(this.form_duration_to), 'fromdate');
+    
 
   }
 
@@ -390,10 +425,8 @@ check: any;
     if (this.workDetailsAllData && this.workDetailsAllData[this.form_Skills_Array] && this.workDetailsAllData[this.form_Skills_Array].length > 0) {
 
       this.getSkillsArr.clear();
-      console.log(this.workDetailsAllData[this.form_Skills_Array],"lol");
 
       this.workDetailsAllData[this.form_Skills_Array].forEach((element, i) => {
-        console.log(this.getSkillsArr,'element');
         element ? this.getSkillsArr.push(this.SkillsArrayPatch(element,i,)) : '';
       });
     }
@@ -575,7 +608,7 @@ check: any;
       this.expChange = true
       if(this.getEmploymentArr.length == 0){
         this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
-      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
+      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
         this.getEmploymentArr.controls[0]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -666,8 +699,8 @@ check: any;
     this.getEmploymentArr.controls.forEach((data, i) => {
 
     if(this.workDetailsForm.controls[this.form_isWorkExp].value == 'true' ){
-      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
-      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
+      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
+      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -712,8 +745,8 @@ check: any;
 
     }
     else{
-      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
-      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,this.glovbal_validators.alphaNum255()]);
+      this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
+      this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -745,7 +778,7 @@ check: any;
         this.getTrainingArr['controls'][i]['controls'][this.form_training_to_date].updateValueAndValidity();
         this.getTrainingArr['controls'][i]['controls'][this.form_training_work_responsiability].updateValueAndValidity();
       }
-      if(this.workDetailsForm.controls[this.form_is_training_status].value == 'false' && this.getTrainingArr.length){
+      if(this.workDetailsForm.controls[this.form_is_training_status].value == 'false' ){
 
         this.getTrainingArr.controls[i]['controls'][this.form_training_employer_name].setValue(null);
         this.getTrainingArr.controls[i]['controls'][this.form_training_from_date].setValue(null);
@@ -823,7 +856,6 @@ check: any;
         }
 
 changeInIsArticleship(event){
-  console.log('gg',event.value);
 
   // console.log(this.getTrainingArr.controls[this.form_training_employer_name]);
   if(event.value == 'true'){
@@ -860,7 +892,7 @@ changeInIsArticleship(event){
       [this.form_training_Array]: this.fb.array([]),
       [this.form_is_training_status]: ['false'],
       [this.form_total_exp_years]: [null,[Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]],
-      [this.form_total_exp_months]: [null,[Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly()]],
+      [this.form_total_exp_months]: [null,[Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]],
       [this.form_isWorkExp]: ['false'],
       // [this.form_convicted_by_Court]: [null],
       // [this.form_arrested]: [null],
@@ -1182,7 +1214,6 @@ changeInIsArticleship(event){
       this.loadingService.setLoading(true)
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(WorkExperienceApiRequestDetails).subscribe((data: any) => {
       this.loadingService.setLoading(false)
-      console.log(data,'data.data');
       if(data?.success) {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);

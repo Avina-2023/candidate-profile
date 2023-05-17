@@ -151,10 +151,8 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
   matchangeYes(e) {
     if (e.checked) {
       this.updatePermanentAsPerPresent();
-      console.log(this.contactForm.controls[this.form_permanent_address_1]);
 
     } else {
-      console.log(this.contactForm.controls[this.form_permanent_address_1]);
 
       this.contactForm.controls[this.form_permanent_address_1].setValue(null);
       this.contactForm.controls[this.form_permanent_address_2].setValue(null);
@@ -232,7 +230,6 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
           this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');
           this.msgData.sendMessage("saved",true);
-          console.log(this.form_permanent_city,'c');
 
           this.msgData.sendMessage("city",data.data.saved_data.permanent_city);
 

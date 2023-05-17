@@ -262,11 +262,14 @@
                 </ng-container>
               </ng-container>
               <ng-template #noLanguage>
-                <div class="inpu-preview size-16 bold-700 color-black" style="font-size: 16px;
-                 width: 100%;
-                 font-weight: 600;
-                 text-align: center;">
-                  {{ "No Language details available" }}
+                <div class="inpu-preview size-16 bold-700 color-black"
+                style = "
+                 font-size: 16px;
+                width: 100%;
+                font-weight: 600;
+                text-align: center; "
+                >
+                  {{ "No Language Details Available" }}
                 </div>
               </ng-template>
             </div>
@@ -678,6 +681,22 @@
                   {{ education[form_cgpa] }}
                 </div>
               </div>
+
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>History of Backlogs</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{ education[form_historyOfbacklog] }}
+                </div>
+              </div>
+
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>No. of Active Backlogs (if any)</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{ education[form_noActivebacklog] }}
+                </div>
+              </div>
+
+              
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Do you have any gap during the education?</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -700,18 +719,12 @@
                 </div>
               </div> -->
               <ng-container *ngIf="education[form_gap] == 'Yes'">
-                <div class="overall-input-wrapper mt-3 width-32">
+                <!-- <div class="overall-input-wrapper mt-3 width-32">
                   <label>History of Backlogs</label>
                   <div class="inpu-preview" style="font-size: 14px; color: black;">
                     {{ education[form_historyOfbacklog] }}
                   </div>
-                </div>
-                <div class="overall-input-wrapper mt-3 width-32">
-                  <label>No. of Active Backlogs (if any)</label>
-                  <div class="inpu-preview" style="font-size: 14px; color: black;">
-                    {{ education[form_noActivebacklog] }}
-                  </div>
-                </div>
+                </div> -->
                 <div class="overall-input-wrapper mt-3 width-32">
                   <label>Reason for the gap</label>
                   <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -743,13 +756,51 @@
 
             </div>
 
+            <!-- {{ education.is_highLevelEdu}} -->
+
+            <div *ngIf="education.is_highLevelEdu == true"
+            class="overall-input-wrapper mt-3  width-100">
+            <div> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
+                class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
+            </div>
           </div>
-          <div *ngIf="educationDetailsMap[educationDetailsMap.length-1]?.is_highLevelEdu == true"
+
+          </div>
+
+          <!-- <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
+            <div> <mat-checkbox [disabled]="true" [checked]="certification[form_isexpire]"
+                class="checkqualify mr-2 "></mat-checkbox><span>This Certification does not expire</span></div>
+          </div> -->
+
+          <!-- <div *ngIf="educationDetailsMap[educationDetailsMap.length-1]?.is_highLevelEdu == true"
             class="overall-input-wrapper mt-3  width-100">
             <div> <mat-checkbox [checked]="educationDetailsMap[isHighLevelEdu]" [disabled]="true"
                 class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
             </div>
+          </div> -->
+
+          <!-- <div *ngIf="work[form_isWorkingHere] == true" class="overall-input-wrapper mt-3  width-100">
+            <div> <mat-checkbox [checked]="work[form_isWorkingHere]" [disabled]="true"
+                class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
+          </div> -->
+
+          <!-- <div *ngIf="work[form_isWorkingHere] == true" class="overall-input-wrapper mt-3  width-100">
+            <div> <mat-checkbox [checked]="work[form_isWorkingHere]" [disabled]="true"
+                class="checkqualify mr-2 "></mat-checkbox><span>I am currently working here</span></div>
+          </div> -->
+
+          <!-- <div *ngIf="education[isHighLevelEdu] == true" class="overall-input-wrapper mt-3  width-100">
+            <div> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
+                class="checkqualify mr-2 "></mat-checkbox><span> Highest Level of I am currently working here</span></div>
+          </div> -->
+
+          <!-- <div *ngIf="educationDetailsMap[is_highLevelEdu] == true"
+          class="overall-input-wrapper mt-3  width-100">
+          <div> <mat-checkbox [checked]="educationDetailsMap[isHighLevelEdu]" [disabled]="true"
+              class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
           </div>
+        </div> -->
+          
         </ng-container>
       </div>
 
@@ -1135,7 +1186,7 @@
         </div>
         <ng-container *ngIf="projectDetailsMap && projectDetailsMap.length > 0;else noproject">
           <ng-container *ngFor="let project of projectDetailsMap; let i = index">
-            <h6 class="mt-4">project {{i+1}}</h6>
+            <h6 class="mt-4">Project {{i+1}}</h6>
             <div class="row-wrapper mt-0">
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Project Type</label>
@@ -1228,8 +1279,10 @@
               </div>
               <div *ngIf="certification[form_isexpire] != true" class="overall-input-wrapper mt-3 width-32">
                 <label>Certification Validity upto</label>
-            <div class="inpu-preview " style="font-size: 14px; color: black;">
-                  {{ dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto]) | date : 'MMM y' ):'NIL'}}
+                <div class="inpu-preview " style="font-size: 14px; color: black;">
+                  {{
+                  dateConvertion(certification[form_certification_validityUpto])?(dateConvertion(certification[form_certification_validityUpto])|
+                  date : 'MMM y' ):'NIL'}}
                 </div>
               </div>
               <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
@@ -1247,13 +1300,29 @@
           *ngIf="accomplishmentsMap[form_awardsArray] && accomplishmentsMap[form_awardsArray].length > 0;else noAwards">
           <ng-container *ngFor="let awards of accomplishmentsMap[form_awardsArray];let i = index">
             <h6 class="mt-3">Awards {{i+1}}</h6>
+            <div class="row-wrapper mt-0">
             <div class="overall-input-wrapper mt-3 width-32">
               <!-- <label>Symposium - Technical Paper Design</label>
-  <label>April 2013</label> -->
+  <label>April 2013</label>
               <label>{{awards[form_award_title]}}</label><br>
               <label>{{awards[form_award_date]?(dateConvertion(awards[form_award_date])| date : 'MMM y')
-                :'NIL'}}</label>
+                :'NIL'}}</label> -->
+                  <label>Award Title</label>
+                  <div class="inpu-preview" style="font-size: 14px; color: black;">
+                    {{awards[form_award_title]}}
+                  </div>
             </div>
+
+            <div class="overall-input-wrapper mt-3 width-32">
+              <label>Awarded Date*</label>
+              <div class="inpu-preview" style="font-size: 14px; color: black;">
+                {{awards[form_award_date]?(dateConvertion(awards[form_award_date])| date : 'MMM y')
+                :'NIL'}}
+              </div>
+            </div>  
+
+
+          </div>
           </ng-container>
         </ng-container>
         <!--journal-->
@@ -2172,7 +2241,7 @@
   <div class="nodata mt-4">No Research Publication/Journal Entry Details Available</div>
 </ng-template>
 <ng-template #noCertification>
-  <div class="nodata mt-4">No Certification Details Available</div>
+  <div class="nodata mt-4">No Certifications Details Available</div>
 </ng-template>
 <ng-template #noContact>
   <div class="nodata">No Contact Details Available</div>

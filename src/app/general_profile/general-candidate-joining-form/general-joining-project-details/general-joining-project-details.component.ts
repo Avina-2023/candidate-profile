@@ -110,12 +110,11 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
 
 
 
-  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
-    this.minToDate = event.value;
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>, i:number) {
+    this.minToDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.maxToDate = new Date(
+    if (event.value != null) {
+      this.maxToDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() + 30
@@ -123,11 +122,11 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     }
   }
 
-  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.maxFromDate = event.value;
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+    this.maxFromDate[i] = event.value;
 
-    if (event.value !== null) {
-      this.minFromDate = new Date(
+    if (event.value != null) {
+      this.minFromDate[i] = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
         event!.value.getDate() - 30
@@ -142,6 +141,9 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     this.getProjectApiDetails();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
+    document.getElementById("projectFormId").addEventListener("submit", function() {
+      this.classList.add("submitted");
+    });
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
