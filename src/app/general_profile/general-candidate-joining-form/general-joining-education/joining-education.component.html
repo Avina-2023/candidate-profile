@@ -64,7 +64,7 @@
                     <ng-container>
                       <div *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC')"
                         class="overall-input-wrapper mb-0 width-100">
-                        <label>Qualification<!-- Asterick -->
+                        <label style="width:35%">Qualification<!-- Asterick -->
 
                           <!-- <span
                             *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value != 'HSC' && getEducationArr.controls[i].get(form_qualification_type).value != 'Diploma')"
@@ -80,30 +80,31 @@
                           <input matInput placeholder="Enter here" class="input width-60" type="text"
                             [formControlName]="form_qualification">
                         </ng-container>
+                        <div style="width:70%">
                         <ng-container
                           *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma')">
-                          <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of diplamoSpecialization" [nzLabel]="active.value"
                               [nzValue]="active.value"></nz-option>
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'UG')">
-                          <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of ugSpecializationList" [nzLabel]="active.specification_name"
                               [nzValue]="active.specification_name"></nz-option>
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'PG')">
-                          <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of pgSpecializationList" [nzLabel]="active.specification_name"
                               [nzValue]="active.specification_name"></nz-option>
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA')">
-                          <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+\                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of CAQualificationList" [nzLabel]="active.label"
                               [nzValue]="active.value"></nz-option>
@@ -111,32 +112,35 @@
                         </ng-container>
                         <ng-container
                           *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'ICWA')">
-                          <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of ICWAQualificationList" [nzLabel]="active.label"
                               [nzValue]="active.value"></nz-option>
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CS')">
-                          <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of CSQualificationList" [nzLabel]="active.label"
                               [nzValue]="active.value"></nz-option>
                           </nz-select>
                         </ng-container>
-                      </div>
                       <div class="form-error"
                         *ngIf="getEducationArr.controls[i].get(form_qualification).invalid && getEducationArr.controls[i].get(form_qualification).touched">
                         <div class="err" *ngIf="getEducationArr.controls[i].get(form_qualification)?.errors?.required">
                           Qualification is Required</div>
                       </div>
+                    </div>
+                  </div>
                     </ng-container>
                     <ng-container>
                       <div class="overall-input-wrapper mb-0 width-100">
-                        <label>{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&
+                        <label style="width:35%">{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&
                           getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&
                           getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'Specialization' :
                           'Main Subject'}}<span class="redTxt">*</span></label>
+                          <div style="width:70%">
+                            <div>
                         <ng-container
                           *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' else showCASpecialization">
                           <nz-select class="input select" [formControlName]="form_specialization" nzAllowClear
@@ -181,6 +185,8 @@
                           allowed</div>
 
                       </div>
+                    </div>
+                  </div>
                     </ng-container>
                   </ng-container>
                   <ng-container>
@@ -693,7 +699,7 @@
                         </div>
                       </div>
 
-                      
+
                   </ng-container>
 
                   <!-- history of backlogs -->
