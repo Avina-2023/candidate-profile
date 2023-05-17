@@ -20,7 +20,7 @@ import { LoaderService } from 'src/app/service/loader-service.service';
 export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('myTextarea') myTextarea: ElementRef;
 
-  checkbtn:any=true;
+  checkbtn:any  = true;
   isTextAreaDisabled: boolean = true;
 
   discipilinaryForm: FormGroup;
@@ -64,6 +64,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
+    this.requiredDesc(event);
   }
 
   formInitialize() {
@@ -139,18 +140,22 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
 
   requiredDesc(event) {
     //console.log(event, 'aaa');
-    if (event.checked) {
+    const anyCheckboxChecked = this.isAnyCheckboxChecked();
+    console.log(anyCheckboxChecked, 'defaultcheckvlaue')
+    if ((event.checked) || (anyCheckboxChecked == true)) {
       this.checkbtn = false;
       this.isTextAreaDisabled = false;
-    } else {
+    } 
+    
       // Check if any other mat-checkbox is checked
-      const anyCheckboxChecked = this.isAnyCheckboxChecked();
-      if (!anyCheckboxChecked) {
+      
+      
+      if (anyCheckboxChecked == false) {
         this.checkbtn = true;
         this.isTextAreaDisabled = true;
         this.discipilinaryForm.get(this.form_full_particulars).setValue(''); // Clear the textarea
       }
-    }
+    
 
     let formValues = this.discipilinaryForm.getRawValue();
     const bgvDetails = {

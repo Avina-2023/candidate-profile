@@ -785,7 +785,7 @@ check: any;
         this.getTrainingArr['controls'][i]['controls'][this.form_training_to_date].updateValueAndValidity();
         this.getTrainingArr['controls'][i]['controls'][this.form_training_work_responsiability].updateValueAndValidity();
       }
-      if(this.workDetailsForm.controls[this.form_is_training_status].value == 'false' && this.getTrainingArr.length){
+      if(this.workDetailsForm.controls[this.form_is_training_status].value == 'false' ){
 
         this.getTrainingArr.controls[i]['controls'][this.form_training_employer_name].setValue(null);
         this.getTrainingArr.controls[i]['controls'][this.form_training_from_date].setValue(null);
