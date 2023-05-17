@@ -405,7 +405,7 @@ check: any;
       this.getEmploymentArr.clear();
       this.workDetails.employment.forEach((element) => {
         this.getEmploymentArr.push(this.EmploymentArrayPatch(element));
-        this.setEmploymentArrValidation();
+        // this.setEmploymentArrValidation();
       });
     } else {
       this.getEmploymentArr.push(this.initEmploymentArray());
@@ -450,7 +450,7 @@ check: any;
       [this.form_isWorkExp]:( this.workDetailsAllData[this.form_isWorkExp] && this.workDetailsAllData[this.form_isWorkExp] == true)  ? 'true' : 'false' ,
     });
     this.setArticleshipArrValidation();
-    this.setEmploymentArrValidation();
+    // this.setEmploymentArrValidation();
   }
 
   // OtherConditionsPatch(data) {
@@ -1137,6 +1137,8 @@ changeInIsArticleship(event){
   formSubmit(routeValue?: any) {
     // this.requiredDesc();
     // let some =  this.workDetailsForm.getRawValue()[this.form_Employment_Array];
+    console.log(this.workDetailsForm,'workDetailsForm');
+    
     if (this.workDetailsForm.valid) {
       let formValues = this.workDetailsForm.getRawValue();
       const work_details = {
