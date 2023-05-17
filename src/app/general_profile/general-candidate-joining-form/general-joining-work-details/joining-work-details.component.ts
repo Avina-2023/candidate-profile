@@ -214,7 +214,6 @@ check: any;
 
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.minToDate[i] = event.value;
 
     if (event.value != null) {
@@ -227,7 +226,6 @@ check: any;
   }
 
   toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.maxFromDate[i] = event.value;
 
     if (event.value != null) {
@@ -241,7 +239,6 @@ check: any;
 
 
   fromperiodDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.minperiodToDate[i] = event.value;
 
     if (event.value != null) {
@@ -254,7 +251,6 @@ check: any;
   }
 
   toperiodDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.maxperiodFromDate[i] = event.value;
 
     if (event.value != null) {
@@ -277,8 +273,7 @@ check: any;
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.check = this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1].value.is_working_here
 
-    console.log(this.getEmploymentArr.controls[0].get(this.form_duration_from), 'fromdate');
-    console.log(this.getEmploymentArr.controls[0].get(this.form_duration_to), 'fromdate');
+    
 
   }
 
@@ -430,10 +425,8 @@ check: any;
     if (this.workDetailsAllData && this.workDetailsAllData[this.form_Skills_Array] && this.workDetailsAllData[this.form_Skills_Array].length > 0) {
 
       this.getSkillsArr.clear();
-      console.log(this.workDetailsAllData[this.form_Skills_Array],"lol");
 
       this.workDetailsAllData[this.form_Skills_Array].forEach((element, i) => {
-        console.log(this.getSkillsArr,'element');
         element ? this.getSkillsArr.push(this.SkillsArrayPatch(element,i,)) : '';
       });
     }
@@ -863,7 +856,6 @@ check: any;
         }
 
 changeInIsArticleship(event){
-  console.log('gg',event.value);
 
   // console.log(this.getTrainingArr.controls[this.form_training_employer_name]);
   if(event.value == 'true'){
@@ -1222,7 +1214,6 @@ changeInIsArticleship(event){
       this.loadingService.setLoading(true)
      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(WorkExperienceApiRequestDetails).subscribe((data: any) => {
       this.loadingService.setLoading(false)
-      console.log(data,'data.data');
       if(data?.success) {
         this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
         this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
@@ -1240,7 +1231,6 @@ changeInIsArticleship(event){
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Employment_Array]) as FormArray);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_Skills_Array]) as FormArray);
       this.glovbal_validators.validateAllFormArrays(this.workDetailsForm.get([this.form_training_Array]) as FormArray);
-      console.log(this.workDetailsForm, 'workcheck');
     }
   }
 

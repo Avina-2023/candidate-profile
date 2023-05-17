@@ -278,7 +278,6 @@ constructor(
 
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.minToDate[i] = event.value;
 
     if (event.value != null) {
@@ -291,7 +290,6 @@ constructor(
   }
   
   toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     //this.minPassDate[i] = event.value;
     this.maxFromDate[i] = event.value;
 
@@ -312,7 +310,6 @@ constructor(
 
 
   passDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     // this.maxToDate[i] = event.value;
 
     // if (event.value != null) {
