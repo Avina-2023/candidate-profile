@@ -139,9 +139,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   // }
 
   requiredDesc(event) {
-    //console.log(event, 'aaa');
     const anyCheckboxChecked = this.isAnyCheckboxChecked();
-    console.log(anyCheckboxChecked, 'defaultcheckvlaue')
     if ((event.checked) || (anyCheckboxChecked == true)) {
       this.checkbtn = false;
       this.isTextAreaDisabled = false;
@@ -207,7 +205,6 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
   }
 
   formSubmit(routeValue?: any) {
-    // console.log(this.discipilinaryForm);
     // this.requiredDesc();
     let formValues = this.discipilinaryForm.getRawValue();
     if (this.discipilinaryForm.valid) {

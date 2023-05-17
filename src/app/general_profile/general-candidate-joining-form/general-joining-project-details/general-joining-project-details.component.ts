@@ -111,7 +111,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
 
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>, i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.minToDate[i] = event.value;
 
     if (event.value != null) {
@@ -124,7 +123,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   }
 
   toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.maxFromDate[i] = event.value;
 
     if (event.value != null) {

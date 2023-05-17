@@ -42,7 +42,7 @@
                 <div class="form-grouping">
                   <div class="row-wrapper">
                     <div class="dependent-head">
-                      <h6>Certification{{i+1}}</h6>
+                      <h6>Certification {{i+1}}</h6>
                       <div class="remove-wrapper">
                         <div (click)="removeData(i,'certification')" *ngIf="i >= 0  " matTooltip="Remove"
                           class="remove">
@@ -221,7 +221,7 @@
                     <h5 class="h">Awards</h5>
                   </div>
                   <div class="dependent-head">
-                    <h6 style="margin-top: 30px;">Awards{{i+1}}</h6>
+                    <h6 style="margin-top: 30px;">Awards {{i+1}}</h6>
                     <div class="remove-wrapper">
                       <div (click)="removeData(i,'awards')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
                         <i class="icon-BinDelete pointer ag-icon-font-size"></i>
@@ -307,7 +307,7 @@
                 <ng-container *ngFor="let item of getJournalEntryArr.controls; let i = index;" [formGroupName]="i">
 
                   <div class="dependent-head">
-                    <h6 style="margin-top: 30px;">Research Publication{{i+1}}</h6>
+                    <h6 style="margin-top: 30px;">Research Publication {{i+1}}</h6>
                     <div class="remove-wrapper">
                       <div (click)="removeData(i,'journalEntry')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
                         <i class="icon-BinDelete pointer ag-icon-font-size"></i>

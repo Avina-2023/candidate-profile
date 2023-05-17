@@ -139,7 +139,6 @@ check: any;
   }
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.minToDate[i] = event.value;
 
     if (event.value != null) {
@@ -152,7 +151,6 @@ check: any;
   }
 
   toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
-    console.log(`${type}: ${event.value}, ${i}`);
     this.maxFromDate[i] = event.value;
 
     if (event.value != null) {
@@ -183,13 +181,10 @@ check: any;
 
    getAccomplishmentsApiDetails() {
     if (this.candidateService.getLocalProfileData()) {
-      // console.log(this.candidateService.getLocalProfileData(),'this.candidateService.getLocalProfileData()');
-      // console.log(this.candidateService.getLocalaccomplishments_details(),'this.candidateService.this.candidateService.getLocalaccomplishments_details()()');
 
       this.formInitialize();
       this.accomplishmentDetails = this.candidateService.getLocalaccomplishments_details();
       // this.accomplishmentsDetailsAllData = this.candidateService.getLocalAccomplishment_details();
-      // console.log(this.accomplishmentDetails,'accomplishmentsDetails');
 
 this.patchaccomplishmentsForm();
     } else {
@@ -256,7 +251,6 @@ this.setAwardArrValidation();
 
   formSubmit(routeValue?: any) {
     // let rawaccomplishmentsFormValue = this.accomplishmentsForm.getRawValue();
-    // console.log(rawaccomplishmentsFormValue,'rawaccomplishmentsFormValue');
     if(this.accomplishmentsForm.valid) {
       // const accomplishmentsobj = {
       //   [this.form_certificationsArray]: rawaccomplishmentsFormValue[this.form_certificationsArray],
@@ -468,10 +462,8 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
   
   setCertificationArrValidation(){
     this.getCertificationsArr.controls.forEach((data, index) => {
-      console.log(this.getCertificationsArr.controls[index]['controls'][this.form_isexpire]);
 
     if(this.getCertificationsArr?.length && this.getCertificationsArr.controls[index]['controls'][this.form_isexpire]?.value == false){
-      console.log('false');
 
 
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -487,12 +479,10 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
     }
     if(this.getCertificationsArr?.length && this.getCertificationsArr.controls[index]['controls'][this.form_isexpire]?.value == true) {
-      console.log('tru');
 
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValue(null);
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].clearValidators();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
-      console.log(this.getCertificationsArr.controls[index],'tru');
 
     } 
   
@@ -561,7 +551,6 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
   }
   setjournalArrValidation(){
     this.getJournalEntryArr.controls.forEach((data, index) => {
-      console.log(this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney]);
     //if(this.getJournalEntryArr.length){
       if(this.getJournalEntryArr?.length && this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney]?.value == false){
       this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });

@@ -288,7 +288,6 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
   }
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
     this.minToDate = event.value;
 
     if (event.value !== null) {
@@ -320,7 +319,6 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
-    console.log(this.personalForm);
     this.personalForm.controls[this.form_physical_disability_rsn].markAsUntouched();
     //this.physicdisabledefault();
   }
@@ -348,10 +346,8 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true') && (this.personalForm.controls[this.form_physical_disability_rsn].value == "")) {
       this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-      console.log('correct')
     }
     else{
-      console.log('Data');
     }
 
     // if ((this.personalForm.controls[this.form_physical_disability].value == 'true') && (this.personalForm.controls[this.form_physical_disability_rsn].touched) && (this.personalForm.controls[this.form_physical_disability_rsn].value == "")) {
@@ -376,20 +372,17 @@ export class GeneralJoiningPersonalComponent implements OnInit, AfterViewInit, O
     }
   }
   physicalDisabilityChange(event) {
-    console.log(this.personalForm.controls[this.form_physical_disability].value);
 
     // this.form_Employment_Array['controls'][this.isWorkExp].setValue('1');
     if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'true') && (this.personalForm.controls[this.form_physical_disability].value == null)) {
       this.personalForm.controls[this.form_physical_disability_rsn].setValidators([Validators.required, this.glovbal_validators.alphaNum255()]);
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-      console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'true');
     }
     else if (this.personalForm.controls[this.form_physical_disability] && (this.personalForm.controls[this.form_physical_disability].value == 'false')) {
 
       this.personalForm.controls[this.form_physical_disability_rsn].setValue(null);
       this.personalForm.controls[this.form_physical_disability_rsn].clearValidators();
       this.personalForm['controls'][this.form_physical_disability_rsn].updateValueAndValidity();
-      console.log(this.personalForm.controls[this.form_physical_disability_rsn], 'false');
 
     }
     else{
