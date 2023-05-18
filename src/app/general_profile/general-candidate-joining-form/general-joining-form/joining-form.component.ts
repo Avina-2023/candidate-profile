@@ -461,9 +461,9 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
     this.addressCity = candyprofileimage.contact_details.permanent_city;
     this.addressState = candyprofileimage.contact_details.permanent_state;
     this.addressCountry = candyprofileimage.contact_details.permanent_country;
-    //if (this.updatedOn){
+    if (this.updatedOn){
     this.updatedOn = candyprofileimage.acknowledgement.acknowledgement.ack_date;
-    //}
+    }
     console.log(this.updatedOn, 'profile updated');
   }
 
