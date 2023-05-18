@@ -266,14 +266,15 @@ check: any;
 
   ngOnInit() {
     this.customerName = this.appConfig.getSelectedCustomerName();
+
     this.formInitialize();
+
     this.getWorkApiDetails();
+    this.check = this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1].value.is_working_here
+
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
-    this.check = this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1].value.is_working_here
-
-    
 
   }
 
@@ -450,7 +451,7 @@ check: any;
       [this.form_isWorkExp]:( this.workDetailsAllData[this.form_isWorkExp] && this.workDetailsAllData[this.form_isWorkExp] == true)  ? 'true' : 'false' ,
     });
     this.setArticleshipArrValidation();
-    // this.setEmploymentArrValidation();
+    this.setEmploymentArrValidation();
   }
 
   // OtherConditionsPatch(data) {
@@ -699,6 +700,7 @@ check: any;
     this.getEmploymentArr.controls.forEach((data, i) => {
 
     if(this.workDetailsForm.controls[this.form_isWorkExp].value == 'true' ){
+      
       this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
       this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -716,6 +718,14 @@ check: any;
       this.getEmploymentArr['controls'][i]['controls'][this.form_duration_from].updateValueAndValidity();
       this.getEmploymentArr['controls'][i]['controls'][this.form_duration_to].updateValueAndValidity();
 
+     if(this.getEmploymentArr.controls[this.getEmploymentArr.controls.length-1].value.is_working_here == true){
+      this.getEmploymentArr.controls[i]['controls'][this.form_duration_to].clearValidators();
+      this.getEmploymentArr['controls'][i]['controls'][this.form_duration_to].updateValueAndValidity();
+     }else if(this.check = false){
+      this.getEmploymentArr.controls[i]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
+      this.getEmploymentArr['controls'][i]['controls'][this.form_duration_to].updateValueAndValidity();
+
+     }
     }
     else if(this.workDetailsForm.controls[this.form_isWorkExp].value == 'false' ){
 
@@ -742,9 +752,11 @@ check: any;
       this.getEmploymentArr['controls'][i]['controls'][this.form_achievement].updateValueAndValidity();
       this.getEmploymentArr['controls'][i]['controls'][this.form_duration_from].updateValueAndValidity();
       this.getEmploymentArr['controls'][i]['controls'][this.form_duration_to].updateValueAndValidity();
+      
 
     }
     else{
+
       this.workDetailsForm.controls[this.form_total_exp_years].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly()]);
       this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -1137,7 +1149,7 @@ changeInIsArticleship(event){
   formSubmit(routeValue?: any) {
     // this.requiredDesc();
     // let some =  this.workDetailsForm.getRawValue()[this.form_Employment_Array];
-    console.log(this.workDetailsForm,'workDetailsForm');
+    // console.log(this.workDetailsForm,'workDetailsForm');
     
     if (this.workDetailsForm.valid) {
       let formValues = this.workDetailsForm.getRawValue();

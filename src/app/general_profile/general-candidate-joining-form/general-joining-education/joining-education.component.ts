@@ -1091,7 +1091,8 @@ validSelectedPost() {
 
         element['controls'][this.form_specialization].setValidators([Validators.required],{ emitEvent: false });
         element['controls'][this.form_qualification].setValidators([RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-        element['controls'][this.form_collegeName].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        // element['controls'][this.form_collegeName].setValidators([RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        element['controls'][this.form_collegeName].setValidators([RemoveWhitespace.whitespace(), Validators.required],{ emitEvent: false });
         element['controls'][this.form_boardUniversity].setValidators([Validators.required],{ emitEvent: false });
 
         element['controls'][this.form_qualification].updateValueAndValidity({ emitEvent: false });
