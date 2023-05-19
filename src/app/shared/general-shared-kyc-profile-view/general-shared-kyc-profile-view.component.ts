@@ -539,7 +539,7 @@ form_projectDescription = 'projectDescription';
       this.documentDetails.joining_details = joinCheck;
       this.documentDetails.banking_details = Banking_Details;
       this.documentDetails.resume = Resume;
-      this.pdfsrc = this.documentDetails.resume[0].file_path;
+      this.pdfsrc = this.documentDetails.resume[0]?.file_path;
       if (this.pdfsrc && this.productionUrl == true) {
         this.pdfsrc = this.pdfsrc + environment.blobToken
       } else if (this.pdfsrc && this.productionUrl == false) {

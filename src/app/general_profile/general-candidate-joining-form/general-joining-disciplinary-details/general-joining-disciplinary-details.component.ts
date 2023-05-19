@@ -315,7 +315,7 @@ export class GeneralJoiningDisciplinaryDetailsComponent implements OnInit, After
     }
   }
   patchWorkForm() {
-    if (this.disciplinaryDetails.bgv_details) {
+    if (this.disciplinaryDetails?.bgv_details) {
       this.OtherConditionsPatch(this.disciplinaryDetails.bgv_details);
     }
   }
