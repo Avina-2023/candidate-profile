@@ -155,7 +155,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
    getProjectApiDetails() {
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
-      this.projectDetails = this.candidateService.getLocalproject_details().projects;
+      this.projectDetails = this.candidateService.getLocalproject_details()?.projects;
       this.projectDetails && this.projectDetails.length >0 ? this.ifProjectDetails() : this.ifNotProjectDetails();
     } else {
     }
