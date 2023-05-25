@@ -2000,7 +2000,7 @@
                     <div class="row-wrapper mt-0 w-100 justify-content-start hanging flex-column">
                       <h6 class="d-head">Background Verification Declaration</h6>
                       <div>
-                        <mat-checkbox [formControlName]="form_bgv" class="mr-2"></mat-checkbox>
+                        <mat-checkbox  [formControlName]="form_bgv" class="mr-2"></mat-checkbox>
                         I agree to have read and understood the
                         <span *ngIf="customerCode == lttsCustomerCode else nonLtts" style="
                         color: #007bff;
@@ -2060,7 +2060,7 @@
                   <div class="row-wrapper mt-2 w-100 justify-content-start hanging flex-column">
                     <h6 class="d-head">Terms & Conditions Declaration</h6>
                     <div style="width: 93%;">
-                      <mat-checkbox [formControlName]="form_terms_conditions" class="mr-2">
+                      <mat-checkbox color="primary" [formControlName]="form_terms_conditions" class="mr-2">
                       </mat-checkbox>
                       I agree to have read and understood the
                       <span *ngIf="customerCode == lttsCustomerCode else nonLtts" style="
