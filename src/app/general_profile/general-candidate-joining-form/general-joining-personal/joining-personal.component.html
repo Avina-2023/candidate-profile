@@ -692,26 +692,31 @@
             <div class="overall-input-wrapper width-45">
               <label>Height (in cms)<span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
-              <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_height">
+             <div style="width:100%;margin: 0 2%;"><input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_height">
+              <div class="form-error" *ngIf="height?.invalid && height?.touched">
+                <div class="err" *ngIf="height?.errors?.required">Height (in cms) is Required</div>
+                <div class="err" *ngIf="height?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
+                </div>
+            </div> 
+             
             </div>
-            <div class="form-error" *ngIf="height?.invalid && height?.touched">
-              <div class="err" *ngIf="height?.errors?.required">Height (in cms) is Required</div>
-              <div class="err" *ngIf="height?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
-              </div>
             </div>
+            
           </ng-container>
           <ng-container>
             <div class="overall-input-wrapper width-45">
               <label>Weight (in kgs)<span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
-              <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_weight">
+              <div style="width:100%;margin: 0 2%;"><input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_weight">
+                <div class="form-error" *ngIf="weight?.invalid && weight?.touched">
+                  <div class="err" *ngIf="weight?.errors?.required">Weight (in kgs) is Required</div>
+                  <div class="err" *ngIf="weight?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
+                  </div>
+                </div>
+              </div>
 
             </div>
-            <div class="form-error" *ngIf="weight?.invalid && weight?.touched">
-              <div class="err" *ngIf="weight?.errors?.required">Weight (in kgs) is Required</div>
-              <div class="err" *ngIf="weight?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
-              </div>
-            </div>
+            
           </ng-container>
 
           <div class="overall-input-wrapper width-45">

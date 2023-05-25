@@ -531,7 +531,7 @@ check: any;
       [this.form_training_employer_name]: [null, [ RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
       [this.form_training_from_date]: [null],
       [this.form_training_to_date]: [null],
-      [this.form_training_work_responsiability]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.address255()]]
+      [this.form_training_work_responsiability]: [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.descr255()]]
     })
   }
 
@@ -612,7 +612,7 @@ check: any;
       this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required, Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
         this.getEmploymentArr.controls[0]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-        this.getEmploymentArr.controls[0]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getEmploymentArr.controls[0]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.descr255()],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_duration_from].setValidators([Validators.required],{ emitEvent: false });
         this.getEmploymentArr.controls[0]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
       }
@@ -705,7 +705,7 @@ check: any;
       this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.descr255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_duration_from].setValidators([Validators.required],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
 
@@ -761,7 +761,7 @@ check: any;
       this.workDetailsForm.controls[this.form_total_exp_months].setValidators([Validators.required,Validators.maxLength(2), this.glovbal_validators.numberOnly(),this.glovbal_validators.validateNumberMax11()]);
       this.getEmploymentArr.controls[i]['controls'][this.form_employment_name_address].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_postion_field].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+      this.getEmploymentArr.controls[i]['controls'][this.form_achievement].setValidators([Validators.required,this.glovbal_validators.descr255()],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_duration_from].setValidators([Validators.required],{ emitEvent: false });
       this.getEmploymentArr.controls[i]['controls'][this.form_duration_to].setValidators([Validators.required],{ emitEvent: false });
 
@@ -783,7 +783,7 @@ check: any;
         this.getTrainingArr.controls[i]['controls'][this.form_training_employer_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
         this.getTrainingArr.controls[i]['controls'][this.form_training_from_date].setValidators([Validators.required],{ emitEvent: false });
         this.getTrainingArr.controls[i]['controls'][this.form_training_to_date].setValidators([Validators.required],{ emitEvent: false });
-        this.getTrainingArr.controls[i]['controls'][this.form_training_work_responsiability].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getTrainingArr.controls[i]['controls'][this.form_training_work_responsiability].setValidators([Validators.required,this.glovbal_validators.descr255()],{ emitEvent: false });
 
         this.getTrainingArr['controls'][i]['controls'][this.form_training_employer_name].updateValueAndValidity();
         this.getTrainingArr['controls'][i]['controls'][this.form_training_from_date].updateValueAndValidity();
@@ -874,7 +874,7 @@ changeInIsArticleship(event){
     this.getTrainingArr.controls[0]['controls'][this.form_training_employer_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
     this.getTrainingArr.controls[0]['controls'][this.form_training_from_date].setValidators([Validators.required],{ emitEvent: false });
     this.getTrainingArr.controls[0]['controls'][this.form_training_to_date].setValidators([Validators.required],{ emitEvent: false });
-    this.getTrainingArr.controls[0]['controls'][this.form_training_work_responsiability].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+    this.getTrainingArr.controls[0]['controls'][this.form_training_work_responsiability].setValidators([Validators.required,this.glovbal_validators.descr255()],{ emitEvent: false });
   }
   if(event.value == 'false'){
     this.getTrainingArr.clear();

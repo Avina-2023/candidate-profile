@@ -271,6 +271,8 @@
                         <div class="err"  *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.address255">
                           Alpha numeric with maximum of 255 characters only
                           allowed</div>
+                          <div class="err"  *ngIf="getEmploymentArr.controls[i].get(form_achievement).errors?.descr255">
+                            Maximum of 255 characters only allowed</div>
                       </div>
                     </div>
                   </div>
@@ -646,6 +648,9 @@
                       *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).errors?.address255">
                       Alpha numeric with maximum of 255 characters only
                       allowed</div>
+                      <div class="err"
+                      *ngIf="getTrainingArr.controls[i].get(form_training_work_responsiability).errors?.descr255">
+                      Maximum of 255 characters only allowed</div>
                   </div>
                 </div>
               </div>
