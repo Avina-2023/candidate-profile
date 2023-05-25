@@ -238,6 +238,10 @@
                             Alpha numeric with maximum of 255 characters only
                             allowed
                           </div>
+                          <div class="err"
+                            *ngIf="getEducationArr.controls[i].get(form_collegeName).errors?.descr255">
+                            Maximum of 255 characters only allowed.
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -598,7 +602,7 @@
                         <input matInput placeholder="Enter here" class="input" type="text"
                           [formControlName]="form_cgpercentage">
 
-                        <div class="form-error"
+                        <div class="form-error err_flx"
                           *ngIf="getEducationArr.controls[i].get(form_cgpercentage).invalid && getEducationArr.controls[i].get(form_cgpercentage).touched">
                           <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpercentage).errors?.required">
                             Grade Points is Required</div>
@@ -618,7 +622,7 @@
                         <input matInput placeholder="Enter here" class="input" type="text"
                           [formControlName]="form_Finalcgpa">
 
-                        <div class="form-error"
+                        <div class="form-error err_flx"
                           *ngIf="getEducationArr.controls[i].get(form_Finalcgpa).invalid && getEducationArr.controls[i].get(form_Finalcgpa).touched">
                           <div class="err" *ngIf="getEducationArr.controls[i].get(form_Finalcgpa).errors?.required">
                             Total Grade Points is Required</div>
@@ -637,7 +641,7 @@
                       <div class="width-100">
                         <input matInput placeholder="Enter here" class="input" type="text"
                           [formControlName]="form_cgpa">
-                        <div class="form-error"
+                        <div class="form-error err_flx"
                           *ngIf="getEducationArr.controls[i].get(form_cgpa).invalid && getEducationArr.controls[i].get(form_cgpa).touched">
                           <div class="err" *ngIf="getEducationArr.controls[i].get(form_cgpa).errors?.required">
                             Percentage is Required</div>
@@ -779,7 +783,7 @@
                         </ng-container> -->
                   <div class="overall-input-wrapper mb-0 width-100" style="padding: 10px 0px;">
                     <label>Do you have any gap during the education?<span></span></label>
-                    <div style="width: 100% !important;">
+                    <div style="width: 100% !important;margin: 0 2%;">
                       <mat-radio-group (change)="anyGap($event,i)" [formControlName]="form_gap">
                         <mat-radio-button style="width: 12% !important;" value="true">Yes</mat-radio-button>
                         <mat-radio-button style="width: 12% !important;" value="false">No</mat-radio-button>
