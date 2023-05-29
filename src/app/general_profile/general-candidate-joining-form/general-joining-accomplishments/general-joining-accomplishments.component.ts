@@ -67,6 +67,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   removeArr1: boolean = false;
   removeArr2: boolean = false;
   removeArr3: boolean = false;
+  removeArr4: boolean = false;
   currentDeleteIndex: number ;
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
@@ -82,6 +83,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 form_certificationsArray = 'certifications';
 form_journalEntryArray = 'journals';
 form_awardsArray = 'awards';
+form_assesmentArray = 'assesments';
 form_certification_name = 'certificationName';
 form_certification_issuedFrom = 'certificationIssuedFrom';
 form_certification_description = 'certificationDescription';
@@ -92,6 +94,9 @@ form_isjourney = 'isJourney';
 form_isaward = 'isAward';
 form_award_date = 'awardDate';
 form_award_title = 'awardTitle';
+form_isassesment = 'isAssesment';
+form_assesment_date = 'assesmentDate';
+form_assesment_title = 'assesmentTitle';
 form_journalEntity_title = 'journalEntityTitle';
 form_journalEntity_url = 'journalEntityUrl';
 form_journalEntity_publishedOn = 'journalEntityPublishedOn';
@@ -205,6 +210,12 @@ if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_awardsArra
     this.getawardsArr.push(this.patchingAwards(element, i));
   });
 }
+if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_assesmentArray] && this.accomplishmentDetails[this.form_assesmentArray].length > 0 ){
+  this.getassesmentArr.clear();
+  this.accomplishmentDetails[this.form_assesmentArray].forEach((element, i) => {
+    this.getassesmentArr.push(this.patchingAssesments(element, i));
+  });
+}
 if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_journalEntryArray] && this.accomplishmentDetails[this.form_journalEntryArray].length > 0 ){
   this.getJournalEntryArr.clear();
   this.accomplishmentDetails[this.form_journalEntryArray].forEach((element, i) => {
@@ -214,6 +225,7 @@ if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_journalEnt
 this.setCertificationArrValidation();
 this.setjournalArrValidation();
 this.setAwardArrValidation();
+this.setAssesmentArrValidation();
   }
   dateValidation() {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
@@ -255,14 +267,17 @@ this.setAwardArrValidation();
       // const accomplishmentsobj = {
       //   [this.form_certificationsArray]: rawaccomplishmentsFormValue[this.form_certificationsArray],
       //   [this.form_awardsArray]: rawaccomplishmentsFormValue[this.form_awardsArray],
+      //   [this.form_assesmentArray]: rawaccomplishmentsFormValue[this.form_assesmentArray],
       //   [this.form_journalEntryArray]: rawaccomplishmentsFormValue[this.form_journalEntryArray],
       // };
       const certifications =  this.accomplishmentsForm.getRawValue()[this.form_certificationsArray];
       let awards =  this.accomplishmentsForm.getRawValue()[this.form_awardsArray];
+      let assesments = this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
       let journals =  this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
       let apiData = {
         certifications,
         awards,
+        assesments,
         journals
       }
       const AccomplishmentsApiRequestDetails = {
@@ -288,7 +303,8 @@ this.setAwardArrValidation();
       this.glovbal_validators.validateAllFields(this.accomplishmentsForm);
       this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
       this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_awardsArray]) as FormArray);
-this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
+      this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
+      this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
     }
   }
 
@@ -316,6 +332,15 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
       [this.form_award_date]: [this.dateConvertion(data[this.form_award_date])],
  })
   }
+
+  patchingAssesments(data, i){
+    return this.fb.group({
+     [this.form_assesment_title]: [data[this.form_assesment_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+    // [this.form_assesment_date]: [this.dateConvertion(data[this.form_assesment_date]), [RemoveWhitespace.whitespace(), Validators.required,, this.startTrue(true)]],
+     [this.form_assesment_date]: [this.dateConvertion(data[this.form_assesment_date])],
+})
+ }
+
   patchingjournalentry(data, i){
     return this.fb.group({
       [this.form_journalEntity_title]: [data[this.form_journalEntity_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
@@ -356,6 +381,7 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
     this.accomplishmentsForm = this.fb.group({
       [this.form_certificationsArray]: this.fb.array([]),
       [this.form_awardsArray]: this.fb.array([]),
+      [this.form_assesmentArray]: this.fb.array([]),
       [this.form_journalEntryArray]: this.fb.array([]),
     })
   }
@@ -410,6 +436,7 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
   // convenience getters for easy access to form fields
   get getCertificationsArr() { return this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray; }
   get getawardsArr() { return this.accomplishmentsForm.get([this.form_awardsArray]) as FormArray; }
+  get getassesmentArr() { return this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray; }
   get getJournalEntryArr() { return this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray; }
 
   get certificationName() {
@@ -436,6 +463,12 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
            get awardDate() {
             return this.accomplishmentsForm.get(this.form_award_date);
             }
+            get assesmentTitle() {
+              return this.accomplishmentsForm.get(this.form_assesment_title);
+              }
+             get assesmentDate() {
+              return this.accomplishmentsForm.get(this.form_assesment_date);
+              }
           get journalEntityTitle() {
             return this.accomplishmentsForm.get(this.form_journalEntity_title);
             }
@@ -540,6 +573,61 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
   
   })
     }
+
+
+    initassesmentArray(){
+      return this.fb.group({
+        [this.form_assesment_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+        [this.form_assesment_date]: [null,[Validators.required]],
+        [this.form_isassesment]:[false]
+      })
+    }
+
+    setAssesmentArrValidation(){
+      this.getassesmentArr.controls.forEach((data, index) => {
+      // if(this.getassesmentArr.length){
+        if(this.getassesmentArr?.length && this.getassesmentArr.controls[index]['controls'][this.form_isassesment]?.value == false){
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_title].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].setValidators([Validators.required],{ emitEvent: false });
+  
+        this.getassesmentArr['controls'][index]['controls'][this.form_assesment_title].updateValueAndValidity();
+        this.getassesmentArr['controls'][index]['controls'][this.form_assesment_date].updateValueAndValidity();
+      }
+      if(this.getassesmentArr?.length && this.getassesmentArr.controls[index]['controls'][this.form_isassesment]?.value == true){
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_title].setValue(null);
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].setValue(null);
+  
+        //this.getassesmentArr.controls[index]['controls'][this.form_assesment_title].clearValidators();
+        //this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].clearValidators();
+  
+        this.getassesmentArr['controls'][index]['controls'][this.form_assesment_title].updateValueAndValidity();
+        this.getassesmentArr['controls'][index]['controls'][this.form_assesment_date].updateValueAndValidity();
+      } 
+  
+      else{
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_title].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].setValidators([Validators.required],{ emitEvent: false });
+      }
+    
+    })
+      }
+
+      isAssesmentbox(e, i:number) {
+        if (e.checked) {
+            this.check = true
+          //  this.getassesmentArr.controls[this.getassesmentArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValue(null);
+          //   this.getassesmentArr.controls[this.getassesmentArr.controls.length-1]['controls'][this.form_certification_validityUpto].clearValidators();
+          //   this.getassesmentArr.controls[this.getassesmentArr.controls.length-1]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
+          }  
+          else{
+          // this.check = false
+          // this.getassesmentArr.controls[this.getassesmentArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValidators([Validators.required],{ emitEvent: false });
+          // //this.getassesmentArr.controls[this.getassesmentArr.controls.length-1]['controls'][this.form_certification_validityUpto].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
+          // this.getassesmentArr.controls[this.getassesmentArr.controls.length-1]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
+        }
+      }
+
+
   initJournalEntryArray(){
     return this.fb.group({
       [this.form_journalEntity_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
@@ -614,6 +702,9 @@ this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this
       if(this.getJournalEntryArr.length && this.removeArr3){
         this.getJournalEntryArr.removeAt(this.currentDeleteIndex );
       }
+      if(this.getassesmentArr.length && this.removeArr4){
+        this.getassesmentArr.removeAt(this.currentDeleteIndex );
+      }
     }
   });
 }
@@ -625,6 +716,12 @@ removeData(i,removeArr) {
   }
   if(removeArr == "awards"){
     this.removeArr2=true;
+    this.currentDeleteIndex = i
+
+  }
+  if(removeArr == "assessments"){
+    console.log('working assessment');
+    this.removeArr4=true;
     this.currentDeleteIndex = i
 
   }
@@ -686,6 +783,37 @@ addMoreAwards(){
    }
    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_awardsArray]) as FormArray);
 }
+
+// addToassesment() {
+//   if (this.getassesmentArr.length == 0) {
+//    return this.getassesmentArr.push(this.initassesmentArray());
+//   }
+//   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
+// }
+
+addToassesment(event: any) {
+  if (event.checked) {
+    if (this.getassesmentArr.length === 0) {
+      this.getassesmentArr.push(this.initassesmentArray());
+    }
+    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
+  } else {
+    if (this.getassesmentArr.length > 0) {
+      this.getassesmentArr.removeAt(this.getassesmentArr.length - 1);
+    }
+  }
+}
+
+
+
+addMoreAssesments(){
+  if (this.getassesmentArr.valid) {
+    this.setAssesmentArrValidation();
+    return this.getassesmentArr.push(this.initassesmentArray());
+   }
+   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
+}
+
 // removeawardsArray(i) {
 //   this.getawardsArr.removeAt(i);
 // }
@@ -714,4 +842,6 @@ ngOnDestroy() {
   this.joiningFormDataPassingSubscription ? this.joiningFormDataPassingSubscription.unsubscribe() : '';
   this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
 }
+
+
 }
