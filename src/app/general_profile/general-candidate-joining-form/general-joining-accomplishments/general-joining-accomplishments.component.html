@@ -68,12 +68,19 @@
                       </div>
                     </div>
                   </div>
+
                   <ng-container>
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Assesment Name<span class="redTxt">*</span></label>
                       <div style="width: 100%;">
-                        <input matInput placeholder="Enter here" class="input" type="text"
-                          [formControlName]="form_assesment_title">
+                        <!-- <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_assesment_title"> -->
+                          <nz-select class="input select" [formControlName]="form_assesment_title" nzAllowClear nzShowSearch
+                          nzPlaceHolder="<--Select-->">
+                          <nz-option *ngFor="let typeList of assesmentList" [nzLabel]="typeList.label"
+                            [nzValue]="typeList.value"></nz-option>
+                        </nz-select>
+
                         <div class="form-error"
                           *ngIf="getassesmentArr.controls[i].get(form_assesment_title).invalid && getassesmentArr.controls[i].get(form_assesment_title).touched">
                           <div class="err" *ngIf="getassesmentArr.controls[i].get(form_assesment_title).errors?.required">
@@ -85,6 +92,7 @@
                       </div>
                     </div>
                   </ng-container>
+                  
                   <ng-container>
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Assesment Date<span class="redTxt">*</span></label>

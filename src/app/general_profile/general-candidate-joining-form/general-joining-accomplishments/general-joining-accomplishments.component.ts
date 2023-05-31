@@ -102,6 +102,29 @@ form_journalEntity_url = 'journalEntityUrl';
 form_journalEntity_publishedOn = 'journalEntityPublishedOn';
 form_journalEntity_description = 'journalEntityDescription';
 check: any;
+assessmentChecked: boolean[] = [];
+
+
+
+assesmentList = [
+  {
+    label: 'Assesment1',
+    value: 'Assesment1'
+  },
+  {
+    label: 'Assesment2',
+    value: 'Assesment2'
+  },
+  {
+    label: 'Assesment3',
+    value: 'Assesment3'
+  },
+  {
+    label: 'Assesment4',
+    value: 'Assesment4'
+  }
+
+]
 
   minFromDate: Date;
   maxFromDate: Date | null;
@@ -712,24 +735,22 @@ removeData(i,removeArr) {
   if(removeArr == "certification"){
     this.removeArr1=true;
     this.currentDeleteIndex = i
-
   }
   if(removeArr == "awards"){
     this.removeArr2=true;
     this.currentDeleteIndex = i
-
-  }
-  if(removeArr == "assessments"){
-    console.log('working assessment');
-    this.removeArr4=true;
-    this.currentDeleteIndex = i
-
   }
   if(removeArr == "journalEntry"){
     this.removeArr3=true;
     this.currentDeleteIndex = i
-
   }
+
+  if(removeArr == "assessments"){
+    console.log('working assessment');
+    this.removeArr4=true;
+    this.currentDeleteIndex = i
+  }
+
   const data = {
     iconName: '',
     sharedData: {
@@ -791,15 +812,30 @@ addMoreAwards(){
 //   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
 // }
 
+// addToassesment(event: any) {
+//   if (event.checked) {
+//     if (this.getassesmentArr.length === 0) {
+//       this.getassesmentArr.push(this.initassesmentArray());
+//     }
+//     this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
+//   } else {
+//     if (this.getassesmentArr.length > 0) {
+//       this.getassesmentArr.removeAt(this.getassesmentArr.length - 1);
+//     }
+//   }
+// }
+
 addToassesment(event: any) {
   if (event.checked) {
     if (this.getassesmentArr.length === 0) {
       this.getassesmentArr.push(this.initassesmentArray());
+      this.assessmentChecked.push(true); // Push the initial checked state as true
     }
     this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
   } else {
     if (this.getassesmentArr.length > 0) {
       this.getassesmentArr.removeAt(this.getassesmentArr.length - 1);
+      this.assessmentChecked.pop(); // Remove the last checked state
     }
   }
 }
