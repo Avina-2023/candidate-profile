@@ -581,3 +581,17 @@ min-width: 100px !important;
   min-height: 35px !important;
   max-height: 35px !important;
 }
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  // margin-left: 16px;
+  // display: flex;
+  // justify-content: space-between;
+}
+.radio-group-container {
+  //  display: flex;
+  //  flex-direction: row;
+  // justify-content: space-between;
+}
+.mat-radio-button{
+  display: flex;
+}
