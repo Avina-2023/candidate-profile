@@ -186,6 +186,10 @@ form_awardsArray = 'awards';
 form_award_date = 'awardDate';
 form_award_title = 'awardTitle';
 
+form_assesmentArray = 'assesments';
+form_assesment_date = 'assesmentDate';
+form_assesment_title = 'assesmentTitle';
+
 form_journalEntryArray = 'journals';
 form_journalEntity_title = 'journalEntityTitle';
 form_journalEntity_url = 'journalEntityUrl';
@@ -1064,6 +1068,7 @@ form_projectDescription = 'projectDescription';
       [this.form_certificationsArray]: this.accomplishmentDetails?.[this.form_certificationsArray] && this.accomplishmentDetails?.[this.form_certificationsArray].length > 0 ? this.accomplishmentDetails[this.form_certificationsArray] : [],
       [this.form_journalEntryArray]: this.accomplishmentDetails?.[this.form_journalEntryArray] && this.accomplishmentDetails?.[this.form_journalEntryArray].length > 0 ? this.accomplishmentDetails[this.form_journalEntryArray] : [],
       [this.form_awardsArray]: this.accomplishmentDetails?.[this.form_awardsArray] && this.accomplishmentDetails?.[this.form_awardsArray].length > 0 ? this.accomplishmentDetails[this.form_awardsArray] : [],
+      [this.form_assesmentArray]: this.accomplishmentDetails?.[this.form_assesmentArray] && this.accomplishmentDetails?.[this.form_assesmentArray].length > 0 ? this.accomplishmentDetails[this.form_assesmentArray] : [],
 
     };
     this.accomplishmentsMap = data;
