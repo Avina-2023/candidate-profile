@@ -2,6 +2,7 @@
   <div class="headcard pb-2">
     <h5 class="">
       Accomplishments
+
     </h5>
     <label class="h">
       Accomplishments will help you stand out to employers and increase your chances of landing a job interview. You can
@@ -39,15 +40,25 @@
               Journal Entry</button>
           </div>
         </div>
+
+        <!-- add course button -->
+
+        <div class="pr-3">
+          <div class="overall-input-wrapper">
+            <button [ngClass]="getCoursesArr.controls.length == 0 ? 'onFocusButton' : ' onFocusButtondisabled' "
+              class=" common-button-height-35 " mat-raised-button type="button" (click)="addToCourses()">+ Add
+              Courses</button>
+          </div>
+        </div>
       </div>
 
       <div class="actions mt-0 mb-3 divcard pl-4">
-        <div class="headcard pb-2"> 
+        <div class="headcard pb-2">
           <mat-checkbox class="checkqualify mr-2" (change)="addToassesment($event)"></mat-checkbox>
           <span>I am Assessed by L&T Edutech</span>
       </div>
       </div>
-      
+
 
       <ng-container>
         <!-- assesments -->
@@ -92,7 +103,7 @@
                       </div>
                     </div>
                   </ng-container>
-                  
+
                   <ng-container>
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Assesment Date<span class="redTxt">*</span></label>
@@ -124,7 +135,7 @@
                         </div>
                       </div>
                     </div>
-                  </ng-container>                 
+                  </ng-container>
                 </div>
               </div>
             </div>
@@ -156,11 +167,44 @@
                       </div>
                     </div>
                     <ng-container>
+                      <mat-radio-group aria-label="Select an option"(change)="onCertificationChange($event)">
+                        <mat-radio-button value="1">L&T Certification</mat-radio-button>
+                        <mat-radio-button value="2"> Others</mat-radio-button>
+                      </mat-radio-group>
+                    </ng-container>
+
+                    <!-- L&T certification drop down -->
+                    <ng-container *ngIf="selectedCertification === '1'">
+                      <div class="overall-input-wrapper width-32 0">
+                        <label>Certification Name DROP<span class="redTxt">*</span></label>
+                        <div style="width: 100%;">
+                          <select matNativeControl [formControlName]="form_certification_name" class="input">
+                            <option value="">Select a Certification</option>
+                            <option value="certification1">Certification 1</option>
+                            <option value="certification2">Certification 2</option>
+                            <option value="certification3">Certification 3</option>
+                            <!-- Add more options as needed -->
+                          </select>
+
+                          <div class="form-error"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.required">
+                              Certification Name is Required</div>
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.alphaNum255">
+                              Alpha numeric with a maximum of 255 characters only allowed</div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <!-- others certificate text box -->
+                    <ng-container *ngIf="selectedCertification === '2'">
                       <div class="overall-input-wrapper width-32 0">
                         <label>Certification Name<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
                           <input matInput placeholder="Enter here" class="input" type="text"
-                            [formControlName]="form_certification_name">
+                            [formControlName]="form_certification_name" >
 
                           <div class="form-error"
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
@@ -175,7 +219,7 @@
                         </div>
                       </div>
                     </ng-container>
-                    <ng-container>
+                    <!-- <ng-container>
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Issued From<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
@@ -195,6 +239,48 @@
                           </div>
                         </div>
                       </div>
+                    </ng-container> -->
+
+                    <ng-container *ngIf="selectedCertification === '1'">
+                      <div class="overall-input-wrapper width-32 mb-0">
+                        <label>Issued From l&t<span class="redTxt">*</span></label>
+                        <div style="width: 100%;">
+                          <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_certification_issuedFrom"
+                            [value]="certificationValue">
+
+                          <div class="form-error"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
+                              Certification issued From</div>
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
+                              Alpha numeric with maximum of 255 characters only allowed
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="selectedCertification === '2'">
+                      <div class="overall-input-wrapper width-32 mb-0">
+                        <label>Issued From<span class="redTxt">*</span></label>
+                        <div style="width: 100%;">
+                          <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_certification_issuedFrom"
+                            [value]="certificationValue">
+
+                          <div class="form-error"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
+                              Certification issued From</div>
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
+                              Alpha numeric with maximum of 255 characters only allowed
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </ng-container>
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Description</label>
@@ -203,7 +289,7 @@
                         [formControlName]="form_certification_description">
                         <div class="form-error"
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_description).invalid && getCertificationsArr.controls[i].get(form_certification_description).touched">
-                            
+
                             <div class="err"
                               *ngIf="getCertificationsArr.controls[i].get(form_certification_description).errors?.alphaNum255">
                               Alpha numeric with maximum of 255 characters only
@@ -211,7 +297,7 @@
                           </div>
                         </div>
                     </div>
-                    
+
                     <ng-container>
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Certification Validity From<span class="redTxt">*</span></label>
@@ -289,8 +375,8 @@
                                   ?
                                   'Valid upto Date should be greater than Valid From Date': ''}}
                               </div>
-                              
-                             
+
+
                               <div class="err"
                                 *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerParse">
                                 Invalid Date Format</div>
@@ -334,6 +420,7 @@
                     </div>
                   </div>
                   <ng-container>
+
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Award Title<span class="redTxt">*</span></label>
                       <div style="width: 100%;">
@@ -483,13 +570,13 @@
                       [formControlName]="form_journalEntity_description">
                       <div class="form-error"
                             *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_description).touched">
-                            
+
                             <div class="err"
                               *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).errors?.alphaNum255">
                               Alpha numeric with maximum of 255 characters only
                               allowed</div>
                           </div>
-                        
+
                       </div>
                   </div>
                 </ng-container>
@@ -497,7 +584,7 @@
               </div>
             </div>
           </div>
-          
+
         <div style="height: 68px !important ;" class="pt-3 pb-3 "
         *ngIf="getJournalEntryArr && getJournalEntryArr.controls && getJournalEntryArr.controls.length > 0 ">
         <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
@@ -505,6 +592,114 @@
       </div>
         </ng-container>
 
+
+        <!-- add course -->
+        <ng-container *ngIf="getCoursesArr && getCoursesArr.controls"
+        [formArrayName]="form_CoursesArray">
+        <ng-container *ngFor="let item of getCoursesArr.controls; let i = index;" [formGroupName]="i">
+          <div>
+            <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
+              <div class="form-grouping">
+                <div class="row-wrapper">
+                  <div class="dependent-head">
+                    <h6>Courses {{i+1}}</h6>
+                    <div class="remove-wrapper">
+                      <div (click)="removeData(i,'courses')" *ngIf="i >= 0  " matTooltip="Remove"
+                        class="remove">
+                        <i class="icon-BinDelete pointer ag-icon-font-size"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container>
+                    <mat-radio-group aria-label="Select an option"(change)="onCertificationChange($event)">
+                      <mat-radio-button value="1">L&T Certification</mat-radio-button>
+                      <mat-radio-button value="2"> Others</mat-radio-button>
+                    </mat-radio-group>
+                  </ng-container>
+<!-- l&t Course Name drop -->
+                  <ng-container *ngIf="selectedCertification === '1'">
+                    <div class="overall-input-wrapper width-32 0">
+                      <label>Course Name DROP<span class="redTxt">*</span></label>
+                      <div style="width: 100%;">
+                        <select matNativeControl [formControlName]="form_course_name" class="input" [disabled]="isCertificationNameDropdownDisabled" #selectElement>
+                          <option value="">Select a Certification</option>
+                          <option value="certification1">Certification 1</option>
+                          <option value="certification2">Certification 2</option>
+                          <option value="certification3">Certification 3</option>
+                          <!-- Add more options as needed -->
+                        </select>
+
+                        <div class="form-error"
+                          *ngIf="getCoursesArr.controls[i].get(form_course_name).invalid && getCoursesArr.controls[i].get(form_course_name).touched">
+                          <div class="err"
+                            *ngIf="getCoursesArr.controls[i].get(form_course_name).errors?.required">
+                            Certification Name is Required</div>
+                          <div class="err"
+                            *ngIf="getCoursesArr.controls[i].get(form_course_name).errors?.alphaNum255">
+                            Alpha numeric with a maximum of 255 characters only allowed</div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngIf="selectedCertification === '2'">
+                    <div class="overall-input-wrapper width-32 0">
+                      <label>Course Name<span class="redTxt">*</span></label>
+                      <div style="width: 100%;">
+                        <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_course_name">
+
+                        <div class="form-error"
+                          *ngIf="getCoursesArr.controls[i].get(form_course_name).invalid && getCoursesArr.controls[i].get(form_course_name).touched">
+                          <div class="err"
+                            *ngIf="getCoursesArr.controls[i].get(form_course_name).errors?.required">
+                            Certification Name is Required</div>
+                          <div class="err"
+                            *ngIf="getCoursesArr.controls[i].get(form_course_name).errors?.alphaNum255">
+                            Alpha numeric with maximum of 255 characters only
+                            allowed</div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+
+
+
+
+
+                  <div class="overall-input-wrapper width-32 mb-0">
+                    <label>Description</label>
+
+                    <div style="width:100%"><input matInput placeholder="Enter here" class="input" type="text"
+                      [formControlName]="form_course_description">
+                      <div class="form-error"
+                          *ngIf="getCoursesArr.controls[i].get(form_course_description).invalid && getCoursesArr.controls[i].get(form_course_description).touched">
+
+                          <div class="err"
+                            *ngIf="getCoursesArr.controls[i].get(form_course_description).errors?.alphaNum255">
+                            Alpha numeric with maximum of 255 characters only
+                            allowed</div>
+                        </div>
+                      </div>
+                  </div>
+
+                </div>
+                <!-- <div *ngIf="getCertificationsArr.controls.length-1 == i "
+                  class="overall-input-wrapper mt-2  width-100">
+                  <div> <mat-checkbox (change)="isCertificateExpire($event, i)" [formControlName]="form_isexpire"
+                      class="checkqualify mr-2 "></mat-checkbox><span>This certificate does not expire</span></div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div style="height: 68px !important ;"
+          *ngIf="getCoursesArr && getCoursesArr.controls && getCoursesArr.controls.length > 0  "
+          class="pt-3  pb-3">
+          <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+            (click)="addMoreCourses()">+ Add More Courses</button>
+        </div>
+      </ng-container>
       </ng-container>
       <div class="row-wrapper justify-content-between d-flex flex-column  align-items-center mt-3 mb-3 footer">
         <!-- <div (click)="routeNext('contact')" class="d-flex align-content-center align-items-center position-relative"
