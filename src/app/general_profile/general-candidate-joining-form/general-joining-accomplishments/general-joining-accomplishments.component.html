@@ -54,7 +54,7 @@
 
       <div class="actions mt-0 mb-3 divcard pl-4">
         <div class="headcard pb-2">
-          <mat-checkbox class="checkqualify mr-2" (change)="addToassesment($event)"></mat-checkbox>
+          <mat-checkbox class="checkqualify mr-2" (change)="addToassesment($event)" [formControlName]="form_isassesment"></mat-checkbox>
           <span>I am Assessed by L&T Edutech</span>
       </div>
       </div>
@@ -167,10 +167,11 @@
                       </div>
                     </div>
                     <ng-container>
+                      <div class="rad">
                       <mat-radio-group aria-label="Select an option"(change)="onCertificationChange($event)">
                         <mat-radio-button value="1">L&T Certification</mat-radio-button>
-                        <mat-radio-button value="2"> Others</mat-radio-button>
-                      </mat-radio-group>
+                        <mat-radio-button value="2" style="padding-left: 130px;"> Others</mat-radio-button>
+                      </mat-radio-group> </div>
                     </ng-container>
 
                     <!-- L&T certification drop down -->
@@ -611,10 +612,11 @@
                     </div>
                   </div>
                   <ng-container>
+                    <div class="rad">
                     <mat-radio-group aria-label="Select an option"(change)="onCertificationChange($event)">
                       <mat-radio-button value="1">L&T Certification</mat-radio-button>
-                      <mat-radio-button value="2"> Others</mat-radio-button>
-                    </mat-radio-group>
+                      <mat-radio-button value="2" style="padding-left: 130px;"> Others</mat-radio-button>
+                    </mat-radio-group></div>
                   </ng-container>
 <!-- l&t Course Name drop -->
                   <ng-container *ngIf="selectedCertification === '1'">

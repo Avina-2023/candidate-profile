@@ -268,7 +268,7 @@ if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_CoursesArr
 this.setCertificationArrValidation();
 this.setjournalArrValidation();
 this.setAwardArrValidation();
-this.setAssesmentArrValidation();
+//this.setAssesmentArrValidation();
 this.setCoursesArrValidation();
   }
   dateValidation() {
@@ -384,6 +384,7 @@ this.setCoursesArrValidation();
     return this.fb.group({
      [this.form_assesment_title]: [data[this.form_assesment_title], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
     // [this.form_assesment_date]: [this.dateConvertion(data[this.form_assesment_date]), [RemoveWhitespace.whitespace(), Validators.required,, this.startTrue(true)]],
+    [this.form_isassesment]: [data[this.form_isassesment]],
      [this.form_assesment_date]: [this.dateConvertion(data[this.form_assesment_date])],
 })
  }
@@ -430,6 +431,7 @@ this.setCoursesArrValidation();
       [this.form_awardsArray]: this.fb.array([]),
       [this.form_assesmentArray]: this.fb.array([]),
       [this.form_journalEntryArray]: this.fb.array([]),
+      [this.form_isassesment]:[false],
       [this.form_CoursesArray]: this.fb.array([]),
     })
   }
@@ -511,6 +513,9 @@ this.setCoursesArrValidation();
             }
            get awardDate() {
             return this.accomplishmentsForm.get(this.form_award_date);
+            }
+            get isAssesment(){
+              return this.accomplishmentsForm.get(this.form_isassesment);
             }
             get assesmentTitle() {
               return this.accomplishmentsForm.get(this.form_assesment_title);
@@ -640,7 +645,7 @@ this.setCoursesArrValidation();
       return this.fb.group({
         [this.form_assesment_title]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
         [this.form_assesment_date]: [null,[Validators.required]],
-        [this.form_isassesment]:[false]
+        //[this.form_isassesment]:[false]
       })
     }
 
@@ -774,11 +779,15 @@ this.setCoursesArrValidation();
       if(this.getJournalEntryArr.length && this.removeArr3){
         this.getJournalEntryArr.removeAt(this.currentDeleteIndex );
       }
-
       if(this.getassesmentArr.length && this.removeArr4){
         this.getassesmentArr.removeAt(this.currentDeleteIndex );
-      }
+        if(this.getassesmentArr.length == 0) {
+          console.log(this.getassesmentArr,'false')
 
+          this.accomplishmentsForm.controls[this.form_isassesment].setValue(false);
+
+        }
+      }
       if(this.getCoursesArr.length && this.removeArr5){
         this.getCoursesArr.removeAt(this.currentDeleteIndex );
       }
@@ -903,7 +912,7 @@ addToassesment(event: any) {
 
 addMoreAssesments(){
   if (this.getassesmentArr.valid) {
-    this.setAssesmentArrValidation();
+    //this.setAssesmentArrValidation();
     return this.getassesmentArr.push(this.initassesmentArray());
    }
    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
