@@ -735,12 +735,12 @@ this.setCoursesArrValidation();
     initCourseArray(){
       return this.fb.group({
         [this.form_course_name]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
-        [this.form_course_From]: [null,[Validators.required]],
-        [this.form_course_Upto]: [null,[Validators.required]],
+        // [this.form_course_From]: [null,[Validators.required]],
+        // [this.form_course_Upto]: [null,[Validators.required]],
         [this.form_course_description]:[null,[this.glovbal_validators.alphaNum255()]],
 
         [this.form_isexpire]:[false]
-      })
+       })
     }
     setCoursesArrValidation(){
 
