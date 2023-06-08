@@ -237,6 +237,7 @@ form_journalEntity_description = 'journalEntityDescription';
   form_qualification = 'specification';
   form_specialization = 'discipline';
   form_collegeName = 'institute';
+  form_othercollegeName = 'other_collegename';
   form_boardUniversity = 'board_university';
   form_startDate = 'start_date';
   form_endDate = 'end_date';
@@ -847,6 +848,7 @@ form_projectDescription = 'projectDescription';
         element[this.form_qualification] = element?.[this.form_qualification] ? element?.[this.form_qualification] : '';
         element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : '';
         element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : '';
+        element[this.form_othercollegeName] = element?.[this.form_othercollegeName] ? element?.[this.form_othercollegeName] : '';
         element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
         element[this.isHighLevelEdu] = element && element[this.isHighLevelEdu]!= undefined && element[this.isHighLevelEdu]? true : false;
        // console.log("element[this.isHighLevelEdu]",element)
