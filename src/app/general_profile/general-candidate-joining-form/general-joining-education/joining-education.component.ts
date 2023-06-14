@@ -758,7 +758,7 @@ validSelectedPost() {
     });
   // }
   // debugger
-    if (this.educationForm.valid ) {
+    if (this.educationForm.valid && (this.check) ) {
       // let entryValid = this.validSelectedPost();
       // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
@@ -792,6 +792,8 @@ validSelectedPost() {
       this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
     }
   }
+
+  
 
   saveRequestRxJs() {
     this.sendPopupResultSubscription =  this.sharedService.sendPopupResult.subscribe((result: any)=> {
@@ -855,7 +857,8 @@ validSelectedPost() {
       [this.form_yearpassing]: [{ value: this.dateConvertionMonth(data[this.form_yearpassing]), disabled: false }, [Validators.required, this.startTrue(true)]],
       //  [this.form_backlog]: [{ value: data[this.form_backlog], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? (data[this.form_qualification_type] == 'SSLC' || data[this.form_qualification_type] == 'HSC' ? true : false) : false}, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.backlog()]],
       // [this.form_reasonForbacklog]: [data[this.form_reasonForbacklog],( data[this.form_reasonForbacklog] && (data[this.form_gap] == 'true'))  ? [Validators.required] : data[this.form_reasonForbacklog],(data[this.form_reasonForbacklog] && (data[this.form_gap] == 'false'))  ? [] : [] ],
-      [this.isHighLevelEdu]:[data[this.isHighLevelEdu] ? data[this.isHighLevelEdu]:false],
+      // [this.isHighLevelEdu]:[data[this.isHighLevelEdu] ? data[this.isHighLevelEdu]:false],
+      [this.isHighLevelEdu]: [data[this.isHighLevelEdu] ? data[this.isHighLevelEdu] : false],  
       [this.form_reasonForbacklog]: [{ value: data[this.form_reasonForbacklog], disabled: false },[Validators.required] ],
       // [this.form_historyOfbacklog]: [ data[this.form_historyOfbacklog], [Validators.required]],
      // [this.form_noActivebacklog]: [{ value: data[this.form_noActivebacklog], disabled: false },[Validators.required]],
@@ -903,6 +906,8 @@ validSelectedPost() {
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
   }
+
+  
   eduLevel(e, i:number) {
     if (e.checked) {
       this.check = true
@@ -917,6 +922,8 @@ validSelectedPost() {
 
     }
   }
+  
+
   anyGap(event,i){
     if(event.value == 'true'){
   //this.getEducationArr.controls[i]['controls'][this.form_historyOfbacklog].setValidators([Validators.required,this.glovbal_validators.numberOnly(),Validators.maxLength(2)],{ emitEvent: false });
