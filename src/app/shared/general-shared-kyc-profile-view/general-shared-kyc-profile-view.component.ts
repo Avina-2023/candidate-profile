@@ -190,6 +190,10 @@ form_assesmentArray = 'assesments';
 form_assesment_date = 'assesmentDate';
 form_assesment_title = 'assesmentTitle';
 
+form_CoursesArray = 'courses';
+form_course_name = 'coursesName';
+form_course_description = 'coursesdescription'
+
 form_journalEntryArray = 'journals';
 form_journalEntity_title = 'journalEntityTitle';
 form_journalEntity_url = 'journalEntityUrl';
@@ -478,7 +482,7 @@ form_projectDescription = 'projectDescription';
 
     this.educationDetails = data && data.education_details && data.education_details.educations && data.education_details.educations.length > 0 ? data.education_details.educations : [];
     this.educationDetailsAllData = data.education_details ? data.education_details : null;
-    
+
     this.selectedPost = data && data.education_details && data.education_details.selected_post ? data.education_details.selected_post : '';
     if (this.educationDetails.length > 0) {
       this.patchEducation();
@@ -1372,7 +1376,7 @@ form_projectDescription = 'projectDescription';
 
       this.loadingService.setLoading(true);
       const data = await (await this.skillexService.uploadfile(file)).subscribe((data:any)=>{
-        
+
 
         if (data && !data.success) {
                 this.loadingService.setLoading(false);

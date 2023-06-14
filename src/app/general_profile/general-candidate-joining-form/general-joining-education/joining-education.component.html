@@ -36,7 +36,7 @@
                     </div>
                   </div>
                 </div>
-                <ng-container>
+                <!-- <ng-container>
                   <div class="overall-input-wrapper mb-0 width-100">
                     <label style="width:35%">Qualification Type<span class="redTxt">*</span></label>
                     <div style="width:70%"> <nz-select class="input select" (ngModelChange)="educationLevelChange(i)"
@@ -55,8 +55,39 @@
                       </div>
                     </div>
                   </div>
-                </ng-container>
+                </ng-container> -->
 
+                <!-- disable sslc code -->
+                <ng-container>
+                  <div class="overall-input-wrapper mb-0 width-100">
+                    <label style="width:35%">Qualification Type<span class="redTxt">*</span></label>
+                    <div style="width:70%"> <nz-select class="input select" (ngModelChange)="educationLevelChange(i)"
+                        [formControlName]="form_qualification_type" nzAllowClear nzShowSearch nzPlaceHolder="Select">
+
+                        <!-- <nz-option *ngFor="let level of educationLevels" [nzLabel]="level.label"
+                       [nzValue]="level.education"></nz-option> -->
+                        <!-- <nz-option *ngFor="let level of educationLevels; let isFirst = first" [nzLabel]="level.label"
+                        [nzValue]="level.education" [nzDisabled]="i >= 1 && isFirst"></nz-option> -->
+
+                    <!-- <ng-container *ngFor="let level of educationLevels; let j = index">
+                        <nz-option *ngIf="!(i >= 1 && j === 0) && !(i >= 2 && j === 1)" [nzLabel]="level.label"
+                        [nzValue]="level.education"></nz-option>
+                        </ng-container> -->
+
+                        <ng-container *ngFor="let level of educationLevels; let j = index">
+                          <nz-option [nzLabel]="level.label" [nzValue]="level.education"
+                            [nzDisabled]="(i >= 1 && j === 0) || (i >= 2 && j === 1)">
+                          </nz-option>
+                        </ng-container>
+                      </nz-select>
+                      <div class="form-error"
+                        *ngIf="getEducationArr.controls[i].get(form_qualification_type).invalid && getEducationArr.controls[i].get(form_qualification_type).touched">
+                        <div class="err" *ngIf="getEducationArr.controls[i].get(form_qualification_type)?.errors?.required">
+                          Qualification Type is Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
 
                 <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value)">
 
@@ -104,7 +135,7 @@
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA')">
-\                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+                           <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of CAQualificationList" [nzLabel]="active.label"
                               [nzValue]="active.value"></nz-option>
