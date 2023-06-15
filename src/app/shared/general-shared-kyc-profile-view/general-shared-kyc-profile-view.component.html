@@ -602,13 +602,9 @@
                   {{ education[form_boardUniversity]?"- " + "(" + education[form_boardUniversity] + ")" + "," :'' }}<br>
                   {{ education[form_qualification]?education[form_qualification] + ",":'' }}
                   {{ education[form_specialization]?education[form_specialization] + ",":'' }}
-                  <div *ngIf="education[form_collegeName] !== 'Others'"> {{ education[form_collegeName]?education[form_collegeName]+ ",":'' }}</div>
-                  <div *ngIf="education[form_collegeName] == 'Others'"> {{ education[form_othercollegeName]?education[form_othercollegeName]+ ",":'' }}</div>
-                 
+                  {{ education[form_collegeName]?education[form_collegeName]+ ",":'' }}<br>
                   {{ education[form_startDate] | date : 'MMM y' }} - {{ education[form_endDate] | date : 'MMM y' }}
                 </div>
-
-                
               </div>
 
               <!-- <div
@@ -1269,6 +1265,10 @@
                   {{ certification[form_certification_issuedFrom]}}
                 </div>
               </div>
+
+
+
+
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Description</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -1352,7 +1352,7 @@
             <div class="overall-input-wrapper mt-3 width-32">
               <label>Assesment Date</label>
               <div class="inpu-preview" style="font-size: 14px; color: black;">
-                {{assesments[form_award_date]?(dateConvertion(assesments[form_assesment_date])| date : 'MMM y')
+                {{assesments[form_assesment_date]?(dateConvertion(assesments[form_assesment_date])| date : 'MMM y')
                 :'NIL'}}
               </div>
             </div>

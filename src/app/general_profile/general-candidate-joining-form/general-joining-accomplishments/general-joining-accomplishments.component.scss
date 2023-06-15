@@ -502,7 +502,11 @@ padding: 0 2% 2% 0;
           padding: 3% 3% 3% 3%;
           // border-radius: 5px;
           margin-top: 1em;
+
       }
+      // .container-wrapper {
+      //   overflow-y: auto;
+      // }
       .container-wrapper:first-child {
           background-color: #ffffff;
           padding:3% 3% 3% 3%;
@@ -597,4 +601,13 @@ min-width: 100px !important;
 }
 .rad{
   padding-left: 279px;
+  // justify-content: left;
+}
+.container {
+  /* Other styles for the container */
+
+  /* Enable smooth scrolling */
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  height: 400px; /* Adjust the height as needed */
 }

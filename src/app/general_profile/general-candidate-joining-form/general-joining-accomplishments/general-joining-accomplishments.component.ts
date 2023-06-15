@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { Component, OnInit , ViewChild, TemplateRef,ElementRef } from '@angular/core';
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
 import { FormGroup, FormBuilder, FormArray, Validators, AbstractControl, ValidationErrors, ValidatorFn, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,8 @@ import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
-
+import { MatRadioChange } from '@angular/material/radio';
+import { HttpClient } from '@angular/common/http';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD-MM-YYYY',
@@ -64,11 +65,12 @@ export const MY_FORMATS_Month = {
 })
 export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
+  @ViewChild('awardsscroll') awardsscroll: ElementRef;
   removeArr1: boolean = false;
   removeArr2: boolean = false;
   removeArr3: boolean = false;
   removeArr4: boolean = false;
-  removeArr5: boolean = false;
+  // removeArr5: boolean = false;
   currentDeleteIndex: number ;
   checkFormValidRequest: Subscription;
   sendPopupResultSubscription: Subscription;
@@ -81,10 +83,17 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   minDate: Date;
   certificationValue: string = '';
   isIssuedFromDisabled: boolean = false;
-  // isCertificationNameDropdownDisabled: boolean = true;
-  // isCertificationNameInputDisabled: boolean = false;
-  form: FormGroup;
-  selectedCertification: string;
+
+formGroup: FormGroup;
+selectedCertification: string;
+selectedOption: string;
+
+eduTechCourses: any[];
+certifications: string[] = [];
+
+
+
+
 
 @ViewChild('selectElement') selectElement!: ElementRef;
 //form variable
@@ -95,12 +104,14 @@ form_assesmentArray = 'assesments';
 form_CoursesArray = 'courses';
 form_certification_name = 'certificationName';
 form_certification_issuedFrom = 'certificationIssuedFrom';
+form_certification_issuedFrom_Edutech ='certificationIssuedFromedutech';
 form_certification_description = 'certificationDescription';
 form_certification_validityFrom = 'certificationValidityFrom';
 form_certification_validityUpto = 'certificationValidityUpto';
 form_isexpire = 'isexpire';
 form_isjourney = 'isJourney';
 form_isaward = 'isAward';
+form_iscourse = 'isCourse';
 form_award_date = 'awardDate';
 form_award_title = 'awardTitle';
 form_isassesment = 'isAssesment';
@@ -111,12 +122,12 @@ form_journalEntity_url = 'journalEntityUrl';
 form_journalEntity_publishedOn = 'journalEntityPublishedOn';
 form_journalEntity_description = 'journalEntityDescription';
 form_course_name = 'coursesName';
-form_course_From = 'coursesFrom';
-form_course_Upto = 'coursesTo';
+// form_course_From = 'coursesFrom';
+// form_course_Upto = 'coursesTo';
 form_course_description = 'coursesdescription';
 check: any;
 assessmentChecked: boolean[] = [];
-
+certificationFormGroups: FormGroup[] = [];
 
 
 assesmentList = [
@@ -148,6 +159,11 @@ assesmentList = [
 
   minJournalDate: Date | null;
   maxJournalDate: Date;
+  getCourselist: any;
+  getListofcourses: any;
+  formCertification: FormGroup;
+  checked: boolean;
+
   // removeArr5: number;
 
   constructor(
@@ -162,9 +178,24 @@ assesmentList = [
     private glovbal_validators: GlobalValidatorService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
-    private msgData:InterComponentMessenger
+    private msgData:InterComponentMessenger,
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private elementRef: ElementRef,
+  )
 
-  ) {
+  {
+
+
+
+
+    // this.formGroup = this.formBuilder.group({
+    //   form_certification_name: ['', Validators.required],
+    //   form_certification_issuedFrom: ['', Validators.required]
+    // });
+
+
+
     this.dateValidation();
     this.minFromDate = new Date(1900, 0, 1);
     this.maxFromDate = new Date();
@@ -178,7 +209,12 @@ assesmentList = [
     this.minJournalDate = new Date(1900, 0, 1);
     this.maxJournalDate = new Date();
 
+
+
   }
+
+
+
 
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
     this.minToDate[i] = event.value;
@@ -213,7 +249,18 @@ assesmentList = [
     this.getAccomplishmentsApiDetails();
     this.check = this.getCertificationsArr?.controls[this.getCertificationsArr.controls.length-1]?.value?.isexpire
     this.selectedCertification = '1';
+    this.getCertificationsArr.get('form_certification_issuedFrom')?.setValue('LnTeduTech');
+    //  this.fetchCertifications("getCourselist");
+    //  console.log(this.getCourselist, 'list');
+    // console.log(this.selectedCertification,'edutech test');
+
+    const getCourseToken = 'Bearer 104150f8e66cae68b40203e1dbba7b4529231970'; // Add the necessary token or parameter to retrieve course list
+    this.fetchCertifications(getCourseToken);
+
   }
+
+
+
 
   joiningFormDataFromJoiningFormComponentRxjs() {
     this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any)=> {
@@ -259,17 +306,17 @@ if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_journalEnt
     this.getJournalEntryArr.push(this.patchingjournalentry(element, i));
   });
 }
-if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_CoursesArray] && this.accomplishmentDetails[this.form_CoursesArray].length > 0 ){
-  this.getCoursesArr.clear();
-  this.accomplishmentDetails[this.form_CoursesArray].forEach((element, i) => {
-    this.getCoursesArr.push(this.patchingjournalentry(element, i));
-  });
-}
+// if(this.accomplishmentDetails && this.accomplishmentDetails[this.form_CoursesArray] && this.accomplishmentDetails[this.form_CoursesArray].length > 0 ){
+//   this.getCoursesArr.clear();
+//   this.accomplishmentDetails[this.form_CoursesArray].forEach((element, i) => {
+//     this.getCoursesArr.push(this.patchingjournalentry(element, i));
+//   });
+// }
 this.setCertificationArrValidation();
 this.setjournalArrValidation();
 this.setAwardArrValidation();
 //this.setAssesmentArrValidation();
-this.setCoursesArrValidation();
+// this.setCoursesArrValidation();
   }
   dateValidation() {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
@@ -360,7 +407,9 @@ this.setCoursesArrValidation();
   patchingCertifications(data, i){
  return this.fb.group({
   [this.form_certification_name]: [data[this.form_certification_name], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
+
   [this.form_certification_issuedFrom]: [data[this.form_certification_issuedFrom], [Validators.required]],
+  // [this.form_certification_issuedFrom_Edutech]: [data[this.form_certification_issuedFrom_Edutech], [Validators.required]],
   [this.form_certification_description]: [data[this.form_certification_description], [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]],
  // [this.form_certification_validityFrom]: [this.dateConvertion(data[this.form_certification_validityFrom]), [ Validators.required, this.startTrue(true)]],
  // [this.form_certification_validityUpto]: [this.dateConvertion(data[this.form_certification_validityUpto]), [this.startTrue(true)]],
@@ -440,6 +489,7 @@ this.setCoursesArrValidation();
     this.sharedService.joiningFormActiveSelector.next('accomplishments');
   }
   ngAfterViewInit() {
+
     this.showStepper();
     // Hack: Scrolls to top of Page after page view initialized
     let top = document.getElementById('top');
@@ -496,6 +546,10 @@ this.setCoursesArrValidation();
     get certificationIssuedFrom() {
       return this.accomplishmentsForm.get(this.form_certification_issuedFrom);
       }
+      get certificationIssuedFromedutech() {
+        return this.accomplishmentsForm.get(this.form_certification_issuedFrom_Edutech);
+        }
+
       get certificationDescription() {
         return this.accomplishmentsForm.get(this.form_certification_description);
         }
@@ -538,12 +592,12 @@ this.setCoursesArrValidation();
                   get coursesName() {
                     return this.accomplishmentsForm.get(this.form_course_name);
                     }
-                    get coursesFrom() {
-                      return this.accomplishmentsForm.get(this.form_course_From);
-                      }
-                      get coursesTo() {
-                        return this.accomplishmentsForm.get(this.form_course_Upto);
-                        }
+                    // get coursesFrom() {
+                    //   return this.accomplishmentsForm.get(this.form_course_From);
+                    //   }
+                    //   get coursesTo() {
+                    //     return this.accomplishmentsForm.get(this.form_course_Upto);
+                    //     }
                         get coursesdescription() {
                           return this.accomplishmentsForm.get(this.form_course_description);
                           }
@@ -551,6 +605,8 @@ this.setCoursesArrValidation();
     return this.fb.group({
       [this.form_certification_name]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
       [this.form_certification_issuedFrom]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+      // [this.form_certification_issuedFrom_Edutech]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
+
       [this.form_certification_description]:[null,[this.glovbal_validators.alphaNum255()]],
       [this.form_certification_validityFrom]: [null,[Validators.required]],
       [this.form_certification_validityUpto]: [null,[Validators.required]],
@@ -567,13 +623,11 @@ this.setCoursesArrValidation();
 
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_issuedFrom].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
-      // this.getCertificationsArr.controls[index]['controls'][this.form_certification_description].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityFrom].setValidators([Validators.required,],{ emitEvent: false });
       this.getCertificationsArr.controls[index]['controls'][this.form_certification_validityUpto].setValidators([Validators.required],{ emitEvent: false });
 
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_issuedFrom].updateValueAndValidity();
-      // this.getCertificationsArr['controls'][index]['controls'][this.form_certification_description].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityFrom].updateValueAndValidity();
       this.getCertificationsArr['controls'][index]['controls'][this.form_certification_validityUpto].updateValueAndValidity();
     }
@@ -732,19 +786,39 @@ this.setCoursesArrValidation();
 
   })
     }
-    initCourseArray(){
-      return this.fb.group({
-        [this.form_course_name]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
-        // [this.form_course_From]: [null,[Validators.required]],
-        // [this.form_course_Upto]: [null,[Validators.required]],
-        [this.form_course_description]:[null,[this.glovbal_validators.alphaNum255()]],
+//     initCourseArray(){
+//       return this.fb.group({
+//         [this.form_course_name]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
 
-        [this.form_isexpire]:[false]
-       })
-    }
-    setCoursesArrValidation(){
+//         [this.form_course_description]:[null,[this.glovbal_validators.alphaNum255()]],
 
-    }
+//         [this.form_iscourse]:[false]
+//        })
+//     }
+//     setCoursesArrValidation(){
+//       this.getCoursesArr.controls.forEach((data, index) => {
+// if(this.getCoursesArr?.length && this.getCoursesArr.controls[index]['controls'][this.form_iscourse]?.value == false){
+//   this.getCoursesArr.controls[index]['controls'][this.form_course_name].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+//   this.getCoursesArr.controls[index]['controls'][this.form_course_description].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+
+//   this.getCoursesArr['controls'][index]['controls'][this.form_course_name].updateValueAndValidity();
+//   this.getCoursesArr['controls'][index]['controls'][this.form_course_description].updateValueAndValidity();
+// }
+
+// if(this.getCoursesArr?.length && this.getCoursesArr.controls[index]['controls'][this.form_iscourse]?.value == true){
+//   this.getCoursesArr.controls[index]['controls'][this.form_course_name].setValue(null);
+//   this.getCoursesArr.controls[index]['controls'][this.form_course_description].setValue(null);
+
+//   this.getCoursesArr['controls'][index]['controls'][this.form_course_name].updateValueAndValidity();
+//   this.getCoursesArr['controls'][index]['controls'][this.form_course_description].updateValueAndValidity();
+// }
+// else{
+//   this.getCoursesArr.controls[index]['controls'][this.form_course_name]?.setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+//   this.getCoursesArr.controls[index]['controls'][this.form_course_description]?.setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+// }
+
+    // })
+  // }
  // Open dailog
  openDialog(component, data) {
   let dialogDetails: any;
@@ -782,15 +856,15 @@ this.setCoursesArrValidation();
       if(this.getassesmentArr.length && this.removeArr4){
         this.getassesmentArr.removeAt(this.currentDeleteIndex );
         if(this.getassesmentArr.length == 0) {
-          console.log(this.getassesmentArr,'false')
+          // console.log(this.getassesmentArr,'false')
 
           this.accomplishmentsForm.controls[this.form_isassesment].setValue(false);
 
         }
       }
-      if(this.getCoursesArr.length && this.removeArr5){
-        this.getCoursesArr.removeAt(this.currentDeleteIndex );
-      }
+      // if(this.getCoursesArr.length && this.removeArr5){
+      //   this.getCoursesArr.removeAt(this.currentDeleteIndex );
+      // }
     }
   });
 }
@@ -809,16 +883,16 @@ removeData(i,removeArr) {
   }
 
   if(removeArr == "assessments"){
-    console.log('working assessment');
+    // console.log('working assessment');
     this.removeArr4=true;
     this.currentDeleteIndex = i
   }
 
-  if(removeArr == "courses"){
-    this.removeArr5=true;
-    this.currentDeleteIndex = i
+  // if(removeArr == "courses"){
+  //   this.removeArr5=true;
+  //   this.currentDeleteIndex = i
 
-  }
+  // }
   const data = {
     iconName: '',
     sharedData: {
@@ -839,31 +913,68 @@ removeData(i,removeArr) {
   //   this.getCertificationsArr.removeAt(i);
   // }
 
+// addToCertifications() {
+// if(this.getCertificationsArr.length == 0){
+//   if (this.accomplishmentsForm) {
+//     return this.getCertificationsArr.push(this.initCertificationsArray());
+//    }
+//    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
+// }
+
+// }
+
 addToCertifications() {
-if(this.getCertificationsArr.length == 0){
-  if (this.accomplishmentsForm) {
-    return this.getCertificationsArr.push(this.initCertificationsArray());
-   }
-   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
+  if (this.getCertificationsArr.length === 0) {
+    if (this.accomplishmentsForm) {
+      this.getCertificationsArr.push(this.initCertificationsArray());
+    }
+  } else {
+    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
+  }
+
+  // Scroll to the last added container after a slight delay
+  setTimeout(() => {
+    const containerId = 'certificationContainer' + (this.getCertificationsArr.controls.length - 1);
+    const element = document.getElementById(containerId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100);
 }
 
-}
 
 addMoreCertifications(){
   if (this.getCertificationsArr.valid && this.getCertificationsArr.length > 0) {
   this.setCertificationArrValidation();
 
+
+
     return this.getCertificationsArr.push(this.initCertificationsArray());
    }
    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_certificationsArray]) as FormArray);
-}
+
+  }
+
 
 addToawards() {
-  if (this.getawardsArr.length == 0) {
-   return this.getawardsArr.push(this.initawardsArray());
+  if (this.getawardsArr.length === 0) {
+    this.getawardsArr.push(this.initawardsArray());
+  } else {
+    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_awardsArray]) as FormArray);
   }
-  this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_awardsArray]) as FormArray);
+
+  // Scroll to the last added container after a slight delay
+  setTimeout(() => {
+    const containerId = 'awardsContainer' + (this.getawardsArr.controls.length - 1);
+    const element = document.getElementById(containerId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100);
 }
+
+
+
 
 addMoreAwards(){
   if (this.getawardsArr.valid) {
@@ -922,12 +1033,30 @@ addMoreAssesments(){
 //   this.getawardsArr.removeAt(i);
 // }
 
+// addToJournalEntry() {
+//   if (this.getJournalEntryArr.length == 0) {
+//    return this.getJournalEntryArr.push(this.initJournalEntryArray());
+//   }
+//   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
+// }
+
 addToJournalEntry() {
-  if (this.getJournalEntryArr.length == 0) {
-   return this.getJournalEntryArr.push(this.initJournalEntryArray());
+  if (this.getJournalEntryArr.length === 0) {
+    this.getJournalEntryArr.push(this.initJournalEntryArray());
+  } else {
+    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
   }
-  this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
+
+  // Scroll to the last added container after a slight delay
+  setTimeout(() => {
+    const containerId = 'journalEntryContainer' + (this.getJournalEntryArr.controls.length - 1);
+    const element = document.getElementById(containerId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100);
 }
+
 
 addMoreJournalEntry() {
   if (this.getJournalEntryArr.valid  && this.getJournalEntryArr.length > 0 ) {
@@ -936,20 +1065,20 @@ addMoreJournalEntry() {
   }
   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_journalEntryArray]) as FormArray);
 }
-addToCourses(){
-  if (this.getCoursesArr.length == 0) {
-    return this.getCoursesArr.push(this.initCourseArray());
-   }
-   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_CoursesArray]) as FormArray);
-}
+// addToCourses(){
+//   if (this.getCoursesArr.length == 0) {
+//     return this.getCoursesArr.push(this.initCourseArray());
+//    }
+//    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_CoursesArray]) as FormArray);
+// }
 
-addMoreCourses(){
-  if (this.getCoursesArr.valid  && this.getCoursesArr.length > 0 ) {
-    this.setCoursesArrValidation();
-    return this.getCoursesArr.push(this.initCourseArray());
-   }
-   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_CoursesArray]) as FormArray);
-}
+// addMoreCourses(){
+//   if (this.getCoursesArr.valid  && this.getCoursesArr.length > 0 ) {
+//     this.setCoursesArrValidation();
+//     return this.getCoursesArr.push(this.initCourseArray());
+//    }
+//    this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_CoursesArray]) as FormArray);
+// }
 ngOnDestroy() {
   this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';
   this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';
@@ -957,36 +1086,80 @@ ngOnDestroy() {
   this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
 }
 
-onCertificationChange(event: any) {
+onCertificationChange(event: any, i) {
+  this.selectedCertification = event.value;
+  // console.log(this.selectedCertification,'edutech test');
 
+  if (event.value === '1') {
+ this.onchangeCert(i)
+    this.getCertificationsArr.controls[i]['controls'][this.form_certification_issuedFrom].setValue('L&T EduTech');
+    // this.certificationValue = 'L&T EduTech';
+    this.isIssuedFromDisabled = true;
+    console.log( this.getCertificationsArr.controls[i]['controls'][this.form_certification_issuedFrom],'this.form_certification_issuedFrom');
+
+  } else if (event.value === '2')
   {
-    this.selectedCertification = event.value;
+    this.onchangeCert(i)
+
+    // this.certificationValue = '';
+    console.log( this.getCertificationsArr.controls[0]['controls'][this.form_certification_issuedFrom],'this.form_certification_issuedFrom');
+
   }
-
-
-  // if (event.value === '1') {
-  //   this.certificationValue = 'L&T EduTech';
-  // } else {
-  //   this.certificationValue = '';
-  // }
-
-
-  // if (event.value === '1') {
-  //   this.isCertificationNameDropdownDisabled = false;
-  //   this.isCertificationNameInputDisabled = true;
-  // } else {
-  //   this.isCertificationNameDropdownDisabled = true
-
-// }
 }
-// onCertificationChange(event: any) {
-//   if (event.value === '1') {
-//     this.certificationValue = 'L&T EduTech';
-//     this.isIssuedFromDisabled = true;
-//   } else {
-//     this.certificationValue = '';
-//     this.isIssuedFromDisabled = false;
-//   }
-// }
+onchangeCert(i){
+  this.getCertificationsArr.controls[i]['controls'][this.form_certification_name].setValue(null);
+  this.getCertificationsArr.controls[i]['controls'][this.form_certification_issuedFrom].setValue(null);
+  this.getCertificationsArr.controls[i]['controls'][this.form_certification_description].setValue(null);
+  this.getCertificationsArr.controls[i]['controls'][this.form_certification_validityFrom].setValue(null);
+  this.getCertificationsArr.controls[i]['controls'][this.form_certification_validityUpto].setValue(null);
+  this.getCertificationsArr.controls[i]['controls'][this.form_isexpire].setValue(null);
 
 }
+createCertificationFormGroup(): FormGroup {
+  return this.formBuilder.group({
+    selectedCertification: ['1'],
+    certificationName: ['', Validators.required],
+    issuedFrom: ['LnTeduTech', Validators.required],
+    // Add other form controls for the section
+  });
+}
+
+
+onCourseChange(){
+
+}
+
+
+// fetchCertifications(getCourseToken: any) {
+//   console.log('test');
+
+//   this.apiService.courseList(getCourseToken).subscribe(
+//     (response: any) => {
+//       console.log(getCourseToken, 'list');
+//       this.certifications = response.data.map((certification: any) => certification.name);
+//       console.log(this.certifications);
+//     },
+//     (error) => {
+//       console.log('API error:', error);
+//     }
+//   );
+// }
+fetchCertifications(getCourseToken: any) {
+  console.log('test');
+
+  this.apiService.geteduTechCourses().subscribe(
+    (response: any) => {
+      console.log(getCourseToken, 'list');
+      this.certifications = response.data.map((certification: any) => certification.name);
+      console.log(this.certifications);
+    },
+    (error) => {
+      console.log('API error:', error);
+    }
+  );
+}
+
+}
+
+
+

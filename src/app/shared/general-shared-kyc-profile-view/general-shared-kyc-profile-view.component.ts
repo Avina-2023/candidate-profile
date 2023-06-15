@@ -190,6 +190,10 @@ form_assesmentArray = 'assesments';
 form_assesment_date = 'assesmentDate';
 form_assesment_title = 'assesmentTitle';
 
+form_CoursesArray = 'courses';
+form_course_name = 'coursesName';
+form_course_description = 'coursesdescription'
+
 form_journalEntryArray = 'journals';
 form_journalEntity_title = 'journalEntityTitle';
 form_journalEntity_url = 'journalEntityUrl';
@@ -237,7 +241,6 @@ form_journalEntity_description = 'journalEntityDescription';
   form_qualification = 'specification';
   form_specialization = 'discipline';
   form_collegeName = 'institute';
-  form_othercollegeName = 'other_collegename';
   form_boardUniversity = 'board_university';
   form_startDate = 'start_date';
   form_endDate = 'end_date';
@@ -479,7 +482,7 @@ form_projectDescription = 'projectDescription';
 
     this.educationDetails = data && data.education_details && data.education_details.educations && data.education_details.educations.length > 0 ? data.education_details.educations : [];
     this.educationDetailsAllData = data.education_details ? data.education_details : null;
-    
+
     this.selectedPost = data && data.education_details && data.education_details.selected_post ? data.education_details.selected_post : '';
     if (this.educationDetails.length > 0) {
       this.patchEducation();
@@ -848,7 +851,6 @@ form_projectDescription = 'projectDescription';
         element[this.form_qualification] = element?.[this.form_qualification] ? element?.[this.form_qualification] : '';
         element[this.form_boardUniversity] = element?.[this.form_boardUniversity] ? element?.[this.form_boardUniversity] : '';
         element[this.form_collegeName] = element?.[this.form_collegeName] ? element?.[this.form_collegeName] : '';
-        element[this.form_othercollegeName] = element?.[this.form_othercollegeName] ? element?.[this.form_othercollegeName] : '';
         element[this.form_specialization] = element?.[this.form_specialization] ? element?.[this.form_specialization] : '';
         element[this.isHighLevelEdu] = element && element[this.isHighLevelEdu]!= undefined && element[this.isHighLevelEdu]? true : false;
        // console.log("element[this.isHighLevelEdu]",element)
@@ -1374,7 +1376,7 @@ form_projectDescription = 'projectDescription';
 
       this.loadingService.setLoading(true);
       const data = await (await this.skillexService.uploadfile(file)).subscribe((data:any)=>{
-        
+
 
         if (data && !data.success) {
                 this.loadingService.setLoading(false);
