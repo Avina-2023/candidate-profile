@@ -605,7 +605,6 @@ this.setAwardArrValidation();
     return this.fb.group({
       [this.form_certification_name]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
       [this.form_certification_issuedFrom]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
-      // [this.form_certification_issuedFrom_Edutech]: [null,[Validators.required,this.glovbal_validators.alphaNum255()]],
 
       [this.form_certification_description]:[null,[this.glovbal_validators.alphaNum255()]],
       [this.form_certification_validityFrom]: [null,[Validators.required]],
@@ -1144,13 +1143,14 @@ onCourseChange(){
 //     }
 //   );
 // }
+
 fetchCertifications(getCourseToken: any) {
   console.log('test');
 
-  this.apiService.geteduTechCourses().subscribe(
+  this.skillexService.geteduTechCourses().subscribe(
     (response: any) => {
       console.log(getCourseToken, 'list');
-      this.certifications = response.data.map((certification: any) => certification.name);
+      this.certifications = response && response.data ? response.data : [];
       console.log(this.certifications);
     },
     (error) => {
@@ -1158,6 +1158,9 @@ fetchCertifications(getCourseToken: any) {
     }
   );
 }
+
+
+
 
 }
 

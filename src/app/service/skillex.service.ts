@@ -105,6 +105,25 @@ constructor(
 
     return this.http.post(`${environment.SKILLEX_BASE_URL}/getprofileSummary`,data)
   }
+
+  // LMSCOURSE //
+
+  getCourseToken(): HttpHeaders {
+    const headers = new HttpHeaders()
+
+         .set('Authorization',"Bearer 104150f8e66cae68b40203e1dbba7b4529231970")
+         .set('requestId', 'integrSer')
+
+         return headers;
+  }
+
+  geteduTechCourses(){
+    const headers = this.getCourseToken();
+    const LMSBASE_URL = 'https://devfacade.lntedutech.com';
+    return this.http.get(`${LMSBASE_URL}/getCourses`,
+     { headers: headers});
+ }
+
   //get JOB Description page
   getJobDetail(jobdata){
     return this.http.post(`${environment.SKILLEX_BASE_URL}/getJobDetail`,jobdata);

@@ -12,7 +12,7 @@ export class ApiServiceService {
   // BASE_URL_CITY = environment.API_BASE_URL_city;
   httpOptions: { headers: HttpHeaders; };
   EncryptKEY = environment.cryptoEncryptionKey;
-  LMSBASE_URL: 'https://devfacade.lntedutech.com';
+  LMSBASE_URL = environment.LMSBASE_URL;
 
 
 
@@ -40,19 +40,16 @@ export class ApiServiceService {
 
   getCourseToken(): HttpHeaders {
     const headers = new HttpHeaders()
-      .set('Access-Control-Allow-Origin', '*.lntedutech.com')
-      .set('Access-Control-Allow-Credentials', 'true')
+
          .set('Authorization',"Bearer 104150f8e66cae68b40203e1dbba7b4529231970")
          .set('requestId', 'integrSer')
-           .set('Content-Type', 'application/json');
-
          return headers;
   }
 
   geteduTechCourses(){
      const headers = this.getCourseToken();
-    return this.http.get(`${this.LMSBASE_URL}/getCourses`,
-    { headers: this.getCourseToken(), withCredentials: true })
+     return this.http.get(`${this.LMSBASE_URL}/getCourses`,
+     { headers: headers});
   }
 
   getAfterCustomHeaders(): HttpHeaders {
