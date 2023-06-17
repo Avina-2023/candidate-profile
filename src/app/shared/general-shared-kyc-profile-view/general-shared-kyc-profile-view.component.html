@@ -602,7 +602,9 @@
                   {{ education[form_boardUniversity]?"- " + "(" + education[form_boardUniversity] + ")" + "," :'' }}<br>
                   {{ education[form_qualification]?education[form_qualification] + ",":'' }}
                   {{ education[form_specialization]?education[form_specialization] + ",":'' }}
-                  {{ education[form_collegeName]?education[form_collegeName]+ ",":'' }}<br>
+                  <!-- {{ education[form_collegeName]?education[form_collegeName]+ ",":'' }}<br> -->
+                  <div *ngIf="education[form_collegeName] !== 'Others'"> {{ education[form_collegeName]?education[form_collegeName]+ ",":'' }}</div>
+                  <div *ngIf="education[form_collegeName] == 'Others'"> {{ education[form_othercollegeName]?education[form_othercollegeName]+ ",":'' }}</div>
                   {{ education[form_startDate] | date : 'MMM y' }} - {{ education[form_endDate] | date : 'MMM y' }}
                 </div>
               </div>

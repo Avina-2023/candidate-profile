@@ -191,6 +191,8 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   form_qualification = 'specification';
   form_specialization = 'discipline';
   form_collegeName = 'institute';
+  form_othercollegeName = 'other_collegename';
+  form_othercollegeState = 'other_collegestate';
   form_boardUniversity = 'board_university';
   form_startDate = 'start_date';
   form_endDate = 'end_date';
@@ -220,6 +222,8 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   diplomaInstitutesList: any;
   pgInstitutesList: any;
   ugInstitutesList: any;
+  initialvalue:any;
+  initialIndex:any;
 
 educationDetails: any;
 selectedPost: any;
@@ -243,6 +247,8 @@ joiningFormDataPassingSubscription: Subscription;
   minPassDate: Date;
   maxPassDate: Date | null;
   clgList: any;
+  allStatesList: any;
+
 constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -341,6 +347,7 @@ constructor(
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
+    this.getAllStates();
 
  this.check = this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu
 //  console.log(this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu,'j');
@@ -570,6 +577,8 @@ constructor(
           [this.form_qualification]: null,
           [this.form_specialization]: null,
           [this.form_collegeName]: null,
+          [this.form_othercollegeName]:null,
+          [this.form_othercollegeState]:null,
           [this.form_boardUniversity]: null,
           [this.form_startDate]: null,
           [this.form_endDate]: null,
@@ -824,6 +833,7 @@ validSelectedPost() {
     });
     this.setValidations( );
     this.edugapValidation();
+    this.otherclgnameValidation(this.initialvalue,this.initialIndex);
   }
 
   patching(data, i) {
@@ -832,6 +842,8 @@ validSelectedPost() {
       [this.form_qualification]: [{ value: data[this.form_qualification], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_specialization]: [{ value: data[this.form_specialization], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_collegeName]: [{ value: data[this.form_collegeName], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
+      [this.form_othercollegeName]: [{ value: data[this.form_othercollegeName], disabled: false },[Validators.required] ],
+      [this.form_othercollegeState]: [{ value: data[this.form_othercollegeState], disabled: false },[Validators.required] ],
       [this.form_boardUniversity]: [{ value: data[this.form_boardUniversity], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_startDate]: [this.dateConvertion(data[this.form_startDate]), [Validators.required, this.startTrue(false)] ],
       [this.form_endDate]: [this.dateConvertion(data[this.form_endDate]), [Validators.required, this.startTrue(false)] ],
@@ -864,6 +876,8 @@ validSelectedPost() {
       [this.form_qualification]: [null, [Validators.required]],
       [this.form_specialization]: [null, [Validators.required]],
       [this.form_collegeName]: [null, [Validators.required]],
+      [this.form_othercollegeName]: [null],
+      [this.form_othercollegeState]: [null],
       [this.form_boardUniversity]: [null, [Validators.required]],
       [this.form_startDate]: [null,  [Validators.required, this.startTrue(true)] ],
       [this.form_gap]:['false'],
@@ -1069,6 +1083,15 @@ validSelectedPost() {
     }
   });
 }
+dependentChange(i) {
+  console.log('coming inside2')
+  this.getEducationArr.at(i).patchValue({
+    [this.form_othercollegeName]: [null],
+    [this.form_othercollegeState]: [null]
+    });
+// return this.otherclgnameValidation(selectedValue: any,index);
+}
+
   setValidations() {
       this.getEducationArr.controls.forEach((element: any, j) => {
       if (element['controls'][this.form_qualification_type]['value'] == 'SSLC') {
@@ -1232,6 +1255,7 @@ validSelectedPost() {
       this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
       this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
       this.clgList = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
+      // this.clgList.push({ id: 0, college_name: "Others" });
       // this.ugInstitutesList = list;
       // // const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
       // this.pgInstitutesList =  list;
@@ -1254,6 +1278,48 @@ validSelectedPost() {
     });
     return ca;
   }
+
+  getAllStates() {
+    const datas = {
+      country_id: '101'
+    };
+    this.candidateService.updatedState(datas).subscribe((data: any) => {
+      this.allStatesList = data[0];
+      console.log(this.allStatesList,'AllState LIST');
+      
+    }, (err) => {
+
+    });
+  }
+
+
+
+  otherclgnameValidation(selectedValue: any,index:number) {
+
+    this.getEducationArr.controls.forEach((data,index) => {
+   // console.log('Selected value:', selectedValue);
+   if (this.getEducationArr?.controls[index]['controls'][this.form_collegeName].value == 'Others') {
+    console.log('true');
+    
+    this.getEducationArr.controls[index]['controls'][this.form_othercollegeName].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+    this.getEducationArr.controls[index]['controls'][this.form_othercollegeState].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+    this.getEducationArr['controls'][index]['controls'][this.form_othercollegeName].updateValueAndValidity();
+    this.getEducationArr['controls'][index]['controls'][this.form_othercollegeState].updateValueAndValidity();
+
+  }else{
+    console.log('false');
+    
+    this.getEducationArr.controls[index]['controls'][this.form_othercollegeName].setValue(null);
+    this.getEducationArr.controls[index]['controls'][this.form_othercollegeState].setValue(null);
+    this.getEducationArr.controls[index]['controls'][this.form_othercollegeName].clearValidators();
+    this.getEducationArr.controls[index]['controls'][this.form_othercollegeState].clearValidators();
+    this.getEducationArr['controls'][index]['controls'][this.form_othercollegeName].updateValueAndValidity();
+    this.getEducationArr['controls'][index]['controls'][this.form_othercollegeState].updateValueAndValidity();
+
+  }
+    }) 
+  }
+
   ngOnDestroy() {
     this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';
     this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';
