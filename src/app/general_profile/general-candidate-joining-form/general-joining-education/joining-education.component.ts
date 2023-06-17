@@ -1084,7 +1084,7 @@ validSelectedPost() {
   });
 }
 dependentChange(i) {
-  console.log('coming inside2')
+  // console.log('coming inside2')
   this.getEducationArr.at(i).patchValue({
     [this.form_othercollegeName]: [null],
     [this.form_othercollegeState]: [null]
@@ -1285,7 +1285,7 @@ dependentChange(i) {
     };
     this.candidateService.updatedState(datas).subscribe((data: any) => {
       this.allStatesList = data[0];
-      console.log(this.allStatesList,'AllState LIST');
+      // console.log(this.allStatesList,'AllState LIST');
       
     }, (err) => {
 
@@ -1299,7 +1299,7 @@ dependentChange(i) {
     this.getEducationArr.controls.forEach((data,index) => {
    // console.log('Selected value:', selectedValue);
    if (this.getEducationArr?.controls[index]['controls'][this.form_collegeName].value == 'Others') {
-    console.log('true');
+    // console.log('true');
     
     this.getEducationArr.controls[index]['controls'][this.form_othercollegeName].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
     this.getEducationArr.controls[index]['controls'][this.form_othercollegeState].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
@@ -1307,7 +1307,7 @@ dependentChange(i) {
     this.getEducationArr['controls'][index]['controls'][this.form_othercollegeState].updateValueAndValidity();
 
   }else{
-    console.log('false');
+    // console.log('false');
     
     this.getEducationArr.controls[index]['controls'][this.form_othercollegeName].setValue(null);
     this.getEducationArr.controls[index]['controls'][this.form_othercollegeState].setValue(null);

@@ -130,26 +130,6 @@ assessmentChecked: boolean[] = [];
 certificationFormGroups: FormGroup[] = [];
 
 
-assesmentList = [
-  {
-    label: 'Assesment1',
-    value: 'Assesment1'
-  },
-  {
-    label: 'Assesment2',
-    value: 'Assesment2'
-  },
-  {
-    label: 'Assesment3',
-    value: 'Assesment3'
-  },
-  {
-    label: 'Assesment4',
-    value: 'Assesment4'
-  }
-
-]
-
   minFromDate: Date;
   maxFromDate: Date | null;
   minToDate: Date | null;
@@ -163,6 +143,8 @@ assesmentList = [
   getListofcourses: any;
   formCertification: FormGroup;
   checked: boolean;
+  assesmentData: any;
+  assesmentList: any;
 
   // removeArr5: number;
 
@@ -242,6 +224,7 @@ assesmentList = [
 
   ngOnInit(): void {
     // this.customerName = this.appConfig.getSelectedCustomerName();
+    this.getassessmentData();
     this.formInitialize();
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
@@ -1154,12 +1137,20 @@ fetchCertifications(getCourseToken: any) {
       console.log(this.certifications);
     },
     (error) => {
-      console.log('API error:', error);
+      console.log('API error:', error); 
     }
   );
 }
+getassessmentData(){
+  this.skillexService.getassesment({}).subscribe((assessdata:any) => {
 
-
+    if(assessdata.success){
+      this.assesmentList = assessdata && assessdata.data ? assessdata.data : [];
+    }else{
+      this.appConfig.error(assessdata.message);
+    }
+  });
+}
 
 
 }

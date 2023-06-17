@@ -140,5 +140,8 @@ constructor(
     return this.http.post(`${environment.SKILLEX_BASE_URL}/externallogin`, loginData);
   }
 
+  getassesment(assessdata){
+    return this.http.post(`${ environment.SKILLEX_BASE_URL}/getTasktype`, assessdata)
+  }
 
 }

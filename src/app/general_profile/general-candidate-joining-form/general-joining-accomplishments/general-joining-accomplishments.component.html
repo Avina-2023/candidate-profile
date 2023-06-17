@@ -85,8 +85,8 @@
                           [formControlName]="form_assesment_title"> -->
                         <nz-select class="input select" [formControlName]="form_assesment_title" nzAllowClear
                           nzShowSearch nzPlaceHolder="<--Select-->">
-                          <nz-option *ngFor="let typeList of assesmentList" [nzLabel]="typeList.label"
-                            [nzValue]="typeList.value"></nz-option>
+                          <nz-option *ngFor="let typeList of assesmentList" [nzLabel]="typeList.type"
+                            [nzValue]="typeList.type"></nz-option>
                         </nz-select>
 
                         <div class="form-error"
