@@ -224,7 +224,7 @@ certificationFormGroups: FormGroup[] = [];
 
   ngOnInit(): void {
     // this.customerName = this.appConfig.getSelectedCustomerName();
-     this.getassessmentData();
+    this.getassessmentData();
     this.formInitialize();
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
@@ -1141,8 +1141,6 @@ fetchCertifications(getCourseToken: any) {
     }
   );
 }
-
-
 getassessmentData(){
   this.skillexService.getassesment({}).subscribe((assessdata:any) => {
 
@@ -1153,8 +1151,6 @@ getassessmentData(){
     }
   });
 }
-
-
 
 
 }
