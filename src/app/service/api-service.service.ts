@@ -197,5 +197,8 @@ getdescription(data:any){
       { headers: this.getCustomHeaders(), withCredentials: true });
   }
 
+  getassesment(data:any){
+    return this.http.post(`${ this.BASE_URL}/getTasktype`, data)
+  }
 
 }
