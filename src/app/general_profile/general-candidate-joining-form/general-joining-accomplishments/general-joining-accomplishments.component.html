@@ -190,7 +190,8 @@
                         <div style="width: 100%;">
                           <mat-select matNativeControl [formControlName]="form_certification_name" class="input">
 
-                            <mat-option *ngFor="let certification of certifications" [value]="certification.courseId">{{
+                            <mat-option *ngFor="let certification of certifications"
+                              [value]="certification.courseName">{{
                               certification.courseName }}</mat-option>
                           </mat-select>
 
@@ -249,12 +250,12 @@
                       </div>
                     </ng-container> -->
 
-                    <ng-container *ngIf="selectedCertification === '1'">
+                    <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '1' ">
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Issued From l&t<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
                           <input matInput placeholder="Enter here" class="input" type="text"
-                            [formControlName]="form_certification_issuedFrom" value="LnTeduTech">
+                            [formControlName]="form_certification_issuedFrom" value="LnTeduTech" readonly>
                           <div class="form-error"
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom)?.invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
                             <div class="err"
@@ -269,7 +270,7 @@
                       </div>
                     </ng-container>
 
-                    <ng-container *ngIf="selectedCertification === '2'">
+                    <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '2' ">
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Issued From<span class="redTxt">*</span></label>
                         <div style="width: 100%;">

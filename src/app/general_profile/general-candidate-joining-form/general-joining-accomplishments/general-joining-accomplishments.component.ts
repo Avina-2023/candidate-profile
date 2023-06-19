@@ -752,7 +752,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       ],
       [this.form_certification_issuedFrom]: [
         'L&T Edutech',
-        [Validators.required, this.glovbal_validators.alphaNum255()],
+        [Validators.required],
       ],
 
       [this.form_certification_description]: [
@@ -1500,4 +1500,9 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       }
     });
   }
+
+  // getCourseName(courseId: string): string {
+  //   const course = this.certifications.find((c) => c.courseId === courseId);
+  //   return course ? course.courseName : '';
+  // }
 }
