@@ -147,25 +147,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   assessmentChecked: boolean[] = [];
   certificationFormGroups: FormGroup[] = [];
 
-  assesmentList = [
-    {
-      label: 'Assesment1',
-      value: 'Assesment1',
-    },
-    {
-      label: 'Assesment2',
-      value: 'Assesment2',
-    },
-    {
-      label: 'Assesment3',
-      value: 'Assesment3',
-    },
-    {
-      label: 'Assesment4',
-      value: 'Assesment4',
-    },
-  ];
-
   minFromDate: Date;
   maxFromDate: Date | null;
   minToDate: Date | null;
@@ -179,6 +160,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   getListofcourses: any;
   formCertification: FormGroup;
   checked: boolean;
+  assesmentData: any;
+  assesmentList: any;
 
   // removeArr5: number;
 
@@ -248,6 +231,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.customerName = this.appConfig.getSelectedCustomerName();
+    this.getassessmentData();
     this.formInitialize();
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
@@ -261,9 +245,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     this.getCertificationsArr
       .get('form_certification_issuedFrom')
       ?.setValue('LnTeduTech');
-    //  this.fetchCertifications("getCourselist");
-    //  console.log(this.getCourselist, 'list');
-    // console.log(this.selectedCertification,'edutech test');
 
     const getCourseToken = 'Bearer 104150f8e66cae68b40203e1dbba7b4529231970'; // Add the necessary token or parameter to retrieve course list
     this.fetchCertifications(getCourseToken);
@@ -1471,21 +1452,28 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     });
   }
 
-  onCourseChange() {}
-
   // fetchCertifications(getCourseToken: any) {
   //   console.log('test');
 
-  //   this.apiService.courseList(getCourseToken).subscribe(
+  //   this.skillexService.geteduTechCourses().subscribe(
   //     (response: any) => {
   //       console.log(getCourseToken, 'list');
-  //       this.certifications = response.data.map((certification: any) => certification.name);
+  //       this.certifications = response && response.data ? response.data : [];
   //       console.log(this.certifications);
   //     },
   //     (error) => {
   //       console.log('API error:', error);
   //     }
   //   );
+  // }
+
+  // createCertificationFormGroup(): FormGroup {
+  //   return this.formBuilder.group({
+  //     selectedCertification: ['1'],
+  //     certificationName: ['', Validators.required],
+  //     issuedFrom: ['LnTeduTech', Validators.required],
+  //     // Add other form controls for the section
+  //   });
   // }
 
   fetchCertifications(getCourseToken: any) {
@@ -1501,5 +1489,15 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         console.log('API error:', error);
       }
     );
+  }
+  getassessmentData() {
+    this.skillexService.getassesment({}).subscribe((assessdata: any) => {
+      if (assessdata.success) {
+        this.assesmentList =
+          assessdata && assessdata.data ? assessdata.data : [];
+      } else {
+        this.appConfig.error(assessdata.message);
+      }
+    });
   }
 }
