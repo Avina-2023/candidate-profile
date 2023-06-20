@@ -2,6 +2,7 @@
   <div class="headcard pb-2">
     <h5 class="">
       Accomplishments
+
     </h5>
     <label class="h">
       Accomplishments will help you stand out to employers and increase your chances of landing a job interview. You can
@@ -23,8 +24,16 @@
             <button [ngClass]="getawardsArr.controls.length == 0 ? 'onFocusButton' : ' onFocusButtondisabled' "
               class=" common-button-height-35 " mat-raised-button type="button" (click)="addToawards()">+ Add
               Awards</button>
+            <!-- <div id="scrollTarget"></div> -->
           </div>
         </div>
+        <!-- <div class="pr-3">
+          <div class="overall-input-wrapper">
+            <button [ngClass]="getassesmentArr.controls.length == 0 ? 'onFocusButton' : ' onFocusButtondisabled' "
+              class=" common-button-height-35 " mat-raised-button type="button" (click)="addToassesment()">+ Add
+              Assesments</button>
+          </div>
+        </div> -->
         <div class="pr-3">
           <div class="overall-input-wrapper">
             <button [ngClass]="getJournalEntryArr.controls.length == 0 ? 'onFocusButton' : ' onFocusButtondisabled' "
@@ -32,13 +41,126 @@
               Journal Entry</button>
           </div>
         </div>
+
+        <!-- add course button -->
+
+
       </div>
+
+      <div class="actions mt-0 mb-3 divcard pl-4">
+        <div class="headcard pb-2">
+          <mat-checkbox class="checkqualify mr-2" (change)="addToassesment($event)"
+            [formControlName]="form_isassesment"></mat-checkbox>
+          <span>I am Assessed by L&T Edutech</span>
+        </div>
+      </div>
+
+
       <ng-container>
+        <!-- assesments -->
+
+        <ng-container *ngIf="getassesmentArr && getassesmentArr.controls && getassesmentArr.controls.length "
+          [formArrayName]="form_assesmentArray">
+          <ng-container *ngFor="let item of getassesmentArr.controls; let i = index;" [formGroupName]="i">
+            <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
+              <div class="form-grouping">
+                <div class="row-wrapper">
+                  <div class="divcard m-0">
+                    <h5 class="h">Assesments</h5>
+                  </div>
+                  <div class="dependent-head">
+                    <h6 style="margin-top: 30px;">Assesments {{i+1}}</h6>
+                    <div class="remove-wrapper">
+                      <div (click)="removeData(i,'assessments')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
+                        <i class="icon-BinDelete pointer ag-icon-font-size"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ng-container>
+                    <div class="overall-input-wrapper width-32 mb-0">
+                      <label>Assesment Name<span class="redTxt">*</span></label>
+                      <div style="width: 100%;">
+                        <!-- <input matInput placeholder="Enter here" class="input" type="text"
+                          [formControlName]="form_assesment_title"> -->
+                        <nz-select class="input select" [formControlName]="form_assesment_title" nzAllowClear
+                          nzShowSearch nzPlaceHolder="<--Select-->">
+                          <nz-option *ngFor="let typeList of assesmentList" [nzLabel]="typeList.type"
+                            [nzValue]="typeList.type"></nz-option>
+                        </nz-select>
+
+                        <div class="form-error"
+                          *ngIf="getassesmentArr.controls[i].get(form_assesment_title).invalid && getassesmentArr.controls[i].get(form_assesment_title).touched">
+                          <div class="err"
+                            *ngIf="getassesmentArr.controls[i].get(form_assesment_title).errors?.required">
+                            Assesment Name is Required</div>
+                          <div class="err"
+                            *ngIf="getassesmentArr.controls[i].get(form_assesment_title).errors?.alphaNum255">
+                            Alpha numeric with maximum of 255 characters only
+                            allowed</div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <ng-container>
+                    <div class="overall-input-wrapper width-32 mb-0">
+                      <label>Assesment Date<span class="redTxt">*</span></label>
+                      <div class="date-relative">
+                        <div style="width: 100%;">
+                          <input matInput class="input" [min]="minAwardDate" [max]="maxAwardDate"
+                            [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_assesment_date">
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                          <div class="form-error"
+                            *ngIf="getassesmentArr.controls[i]?.get(form_assesment_date).invalid && getassesmentArr.controls[i]?.get(form_assesment_date).touched">
+                            <div class="err"
+                              *ngIf="getassesmentArr.controls[i].get(form_assesment_date)?.errors?.required">
+                              Assesment Date is Required</div>
+                            <div class="err"
+                              *ngIf="getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMax">
+                              {{getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMax?.max ?
+                              'Maximum date should be ' +
+                              momentForm(getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMax.max)
+                              : ''}}
+                            </div>
+                            <div class="err"
+                              *ngIf="getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMin">
+                              {{getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMin?.min ?
+                              'Minimum date should be ' +
+                              momentForm(getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMin.min)
+                              : ''}}
+                            </div>
+                            <div class="err"
+                              *ngIf="getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerParse">
+                              Invalid Date Format</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div style="height: 68px !important ;"
+            *ngIf="getassesmentArr && getassesmentArr.controls && getassesmentArr.controls.length < 5 "
+            class=" pt-3 pb-3">
+            <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+              (click)="addMoreAssesments()">+ Add More Assesments</button>
+          </div>
+        </ng-container>
+
+        <!-- assesments end -->
+
+        <!--certifications-->
         <ng-container *ngIf="getCertificationsArr && getCertificationsArr.controls"
           [formArrayName]="form_certificationsArray">
-          <ng-container *ngFor="let item of getCertificationsArr.controls; let i = index;" [formGroupName]="i">
-            <div>
-              <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
+          <ng-container *ngFor="let item of getCertificationsArr.controls; let i = index;">
+            <div [formGroupName]="i">
+              <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0"
+                [id]="'certificationContainer' + i"
+                [ngClass]="{'highlight': i === getCertificationsArr.controls.length - 1}">
                 <div class="form-grouping">
                   <div class="row-wrapper">
                     <div class="dependent-head">
@@ -51,6 +173,42 @@
                       </div>
                     </div>
                     <ng-container>
+                      <div class="rad">
+                        <mat-radio-group aria-label="Select an option" formControlName="lntCertificationFlag"
+                          (change)="onCertificationChange($event, i)">
+                          <mat-radio-button value="1">L&T Certification</mat-radio-button>
+                          <mat-radio-button value="2" style="padding-left: 130px;"> Others</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                    </ng-container>
+
+                    <!-- L&T certification drop down -->
+                    <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '1' ">
+                      <div class="overall-input-wrapper width-32 0">
+                        <label>Certification Name DROP<span class="redTxt">*</span></label>
+                        <!-- {{certifications | json}} -->
+                        <div style="width: 100%;">
+                          <mat-select matNativeControl [formControlName]="form_certification_name" class="input">
+
+                            <mat-option *ngFor="let certification of certifications"
+                              [value]="certification.courseName">{{
+                              certification.courseName }}</mat-option>
+                          </mat-select>
+
+                          <div class="form-error"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.required">
+                              Certification Name is Required</div>
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_name).errors?.alphaNum255">
+                              Alpha numeric with a maximum of 255 characters only allowed</div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <!-- others certificate text box -->
+                    <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '2' ">
                       <div class="overall-input-wrapper width-32 0">
                         <label>Certification Name<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
@@ -70,7 +228,7 @@
                         </div>
                       </div>
                     </ng-container>
-                    <ng-container>
+                    <!-- <ng-container>
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Issued From<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
@@ -90,30 +248,73 @@
                           </div>
                         </div>
                       </div>
+                    </ng-container> -->
+
+                    <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '1' ">
+                      <div class="overall-input-wrapper width-32 mb-0">
+                        <label>Issued From l&t<span class="redTxt">*</span></label>
+                        <div style="width: 100%;">
+                          <input matInput placeholder="Enter here" class="input" type="text"
+                            [formControlName]="form_certification_issuedFrom" value="LnTeduTech" readonly>
+                          <div class="form-error"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom)?.invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
+                              Certification issued From</div>
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
+                              Alpha numeric with a maximum of 255 characters only allowed
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '2' ">
+                      <div class="overall-input-wrapper width-32 mb-0">
+                        <label>Issued From<span class="redTxt">*</span></label>
+                        <div style="width: 100%;">
+                          <input matInput placeholder="Enter here" class="input" type="text"
+                            [formControlName]="form_certification_issuedFrom">
+
+                          <div class="form-error"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
+                              Certification issued From</div>
+                            <div class="err"
+                              *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
+                              Alpha numeric with maximum of 255 characters only allowed
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </ng-container>
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Description</label>
 
                       <div style="width:100%"><input matInput placeholder="Enter here" class="input" type="text"
-                        [formControlName]="form_certification_description">
+                          [formControlName]="form_certification_description">
                         <div class="form-error"
-                            *ngIf="getCertificationsArr.controls[i].get(form_certification_description).invalid && getCertificationsArr.controls[i].get(form_certification_description).touched">
-                            
-                            <div class="err"
-                              *ngIf="getCertificationsArr.controls[i].get(form_certification_description).errors?.alphaNum255">
-                              Alpha numeric with maximum of 255 characters only
-                              allowed</div>
-                          </div>
+                          *ngIf="getCertificationsArr.controls[i].get(form_certification_description).invalid && getCertificationsArr.controls[i].get(form_certification_description).touched">
+
+                          <div class="err"
+                            *ngIf="getCertificationsArr.controls[i].get(form_certification_description).errors?.alphaNum255">
+                            Alpha numeric with maximum of 255 characters only
+                            allowed</div>
                         </div>
+                      </div>
                     </div>
-                    
+
                     <ng-container>
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Certification Validity From<span class="redTxt">*</span></label>
                         <div class="date-relative">
                           <div style="width: 100%;">
-                            <input matInput class="input" [min]="minFromDate[i]" [max]="maxFromDate[i]" [matDatepicker]="picker"
-                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityFrom" (dateInput)="fromDateChange('input', $event, i)">
+                            <input matInput class="input" [min]="minFromDate[i]" [max]="maxFromDate[i]"
+                              [matDatepicker]="picker" placeholder="DD-MM-YYYY"
+                              [formControlName]="form_certification_validityFrom"
+                              (dateInput)="fromDateChange('input', $event, i)">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
 
@@ -131,8 +332,8 @@
                                 : ''}} -->
 
                                 {{getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMax?.max
-                                  ?
-                                  'Valid From should be less than Valid upto date': ''}}
+                                ?
+                                'Valid From should be less than Valid upto date': ''}}
                               </div>
                               <div class="err"
                                 *ngIf="getCertificationsArr.controls[i].get(form_certification_validityFrom)?.errors?.matDatepickerMin">
@@ -155,8 +356,10 @@
                         <label>Certification Validity Upto<span class="redTxt">*</span></label>
                         <div class="date-relative">
                           <div style="width: 100%;">
-                            <input matInput class="input" [min]="minToDate[i]" [max]="maxToDate[i]" [matDatepicker]="picker1"
-                              placeholder="DD-MM-YYYY" [formControlName]="form_certification_validityUpto" (dateInput)="toDateChange('input', $event, i)">
+                            <input matInput class="input" [min]="minToDate[i]" [max]="maxToDate[i]"
+                              [matDatepicker]="picker1" placeholder="DD-MM-YYYY"
+                              [formControlName]="form_certification_validityUpto"
+                              (dateInput)="toDateChange('input', $event, i)">
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
 
@@ -181,11 +384,11 @@
                                 momentForm(getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin.min)
                                 : ''}} -->
                                 {{getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerMin?.min
-                                  ?
-                                  'Valid upto Date should be greater than Valid From Date': ''}}
+                                ?
+                                'Valid upto Date should be greater than Valid From Date': ''}}
                               </div>
-                              
-                             
+
+
                               <div class="err"
                                 *ngIf="getCertificationsArr.controls[i].get(form_certification_validityUpto)?.errors?.matDatepickerParse">
                                 Invalid Date Format</div>
@@ -212,9 +415,14 @@
           </div>
         </ng-container>
         <!-- awards -->
-        <ng-container *ngIf="getawardsArr && getawardsArr.controls && getawardsArr.controls.length" [formArrayName]="form_awardsArray">
+        <ng-container *ngIf="getawardsArr && getawardsArr.controls && getawardsArr.controls.length"
+          [formArrayName]="form_awardsArray">
           <ng-container *ngFor="let item of getawardsArr.controls; let i = index;" [formGroupName]="i">
-            <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
+            <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0"
+              [id]="'awardsContainer' + i" [ngClass]="{'highlight': i === getawardsArr.controls.length - 1}">
+
+
+
               <div class="form-grouping">
                 <div class="row-wrapper">
                   <div class="divcard m-0">
@@ -229,6 +437,7 @@
                     </div>
                   </div>
                   <ng-container>
+
                     <div class="overall-input-wrapper width-32 mb-0">
                       <label>Award Title<span class="redTxt">*</span></label>
                       <div style="width: 100%;">
@@ -252,8 +461,8 @@
 
                       <div class="date-relative">
                         <div style="width: 100%;">
-                          <input matInput class="input" [min]="minAwardDate" [max]="maxAwardDate" [matDatepicker]="picker1"
-                            placeholder="DD-MM-YYYY" [formControlName]="form_award_date">
+                          <input matInput class="input" [min]="minAwardDate" [max]="maxAwardDate"
+                            [matDatepicker]="picker1" placeholder="DD-MM-YYYY" [formControlName]="form_award_date">
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
 
@@ -289,22 +498,26 @@
 
           </ng-container>
           <div style="height: 68px !important ;"
-              *ngIf="getawardsArr && getawardsArr.controls && getawardsArr.controls.length < 5 " class=" pt-3 pb-3">
-              <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
-                (click)="addMoreAwards()">+ Add More Awards</button>
-            </div>
+            *ngIf="getawardsArr && getawardsArr.controls && getawardsArr.controls.length < 5 " class=" pt-3 pb-3">
+            <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+              (click)="addMoreAwards()">+ Add More Awards</button>
+          </div>
         </ng-container>
         <!--journal entry-->
 
         <ng-container *ngIf="getJournalEntryArr && getJournalEntryArr.controls && getJournalEntryArr.controls.length"
           [formArrayName]="form_journalEntryArray">
-          <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0">
-            <div class="form-grouping">
-              <div class="row-wrapper">
-                <div class="divcard m-0">
-                   <h5 class="h">Research Publication/Journal Entry</h5>
-                </div>
-                <ng-container *ngFor="let item of getJournalEntryArr.controls; let i = index;" [formGroupName]="i">
+          <ng-container *ngFor="let item of getJournalEntryArr.controls; let i = index;" [formGroupName]="i">
+
+            <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0"
+              [id]="'journalEntryContainer' + i"
+              [ngClass]="{'highlight': i === getJournalEntryArr.controls.length - 1}">
+              <div class="form-grouping">
+                <div class="row-wrapper">
+                  <div class="divcard m-0">
+                    <h5 class="h">Research Publication/Journal Entry</h5>
+                  </div>
+                  <!-- <ng-container *ngFor="let item of getJournalEntryArr.controls; let i = index;" [formGroupName]="i"> -->
 
                   <div class="dependent-head">
                     <h6 style="margin-top: 30px;">Research Publication {{i+1}}</h6>
@@ -356,17 +569,18 @@
                   <div class="overall-input-wrapper width-32 mb-0">
                     <label>Published On<span class="redTxt">*</span></label>
                     <div class="date-relative">
-                      <input matInput class="input" style="width:100% !important" [min]="minJournalDate" [max]="maxJournalDate" [matDatepicker]="picker_dateofIssue"
-                        placeholder="DD-MM-YYYY" [formControlName]="form_journalEntity_publishedOn">
+                      <input matInput class="input" style="width:100% !important" [min]="minJournalDate"
+                        [max]="maxJournalDate" [matDatepicker]="picker_dateofIssue" placeholder="DD-MM-YYYY"
+                        [formControlName]="form_journalEntity_publishedOn">
                       <mat-datepicker-toggle matSuffix [for]="picker_dateofIssue"></mat-datepicker-toggle>
                       <mat-datepicker #picker_dateofIssue></mat-datepicker>
 
                       <div class="form-error"
-                          *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).touched">
-                          <div class="err"
-                            *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).errors?.required">
-                            Published on Date is Required</div>
-                        </div>
+                        *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).touched">
+                        <div class="err"
+                          *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_publishedOn).errors?.required">
+                          Published on Date is Required</div>
+                      </div>
 
 
 
@@ -375,29 +589,34 @@
                   <div class="overall-input-wrapper width-32 mb-0">
                     <label>Description</label>
                     <div style="width:100%;"><input matInput placeholder="Enter here" class="input" type="text"
-                      [formControlName]="form_journalEntity_description">
+                        [formControlName]="form_journalEntity_description">
                       <div class="form-error"
-                            *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_description).touched">
-                            
-                            <div class="err"
-                              *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).errors?.alphaNum255">
-                              Alpha numeric with maximum of 255 characters only
-                              allowed</div>
-                          </div>
-                        
-                      </div>
-                  </div>
-                </ng-container>
+                        *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_description).touched">
 
+                        <div class="err"
+                          *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_description).errors?.alphaNum255">
+                          Alpha numeric with maximum of 255 characters only
+                          allowed</div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- </ng-container> -->
+
+                </div>
               </div>
             </div>
+          </ng-container>
+          <div style="height: 68px !important ;" class="pt-3 pb-3 "
+            *ngIf="getJournalEntryArr && getJournalEntryArr.controls && getJournalEntryArr.controls.length > 0 ">
+            <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
+              (click)="addMoreJournalEntry()">+ Add More Journal Entry</button>
           </div>
         </ng-container>
-        <div style="height: 68px !important ;" class="pt-3 pb-3 "
-          *ngIf="getJournalEntryArr && getJournalEntryArr.controls && getJournalEntryArr.controls.length > 0 ">
-          <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
-            (click)="addMoreJournalEntry()">+ Add More Journal Entry</button>
-        </div>
+
+
+        <!-- add course -->
+
       </ng-container>
       <div class="row-wrapper justify-content-between d-flex flex-column  align-items-center mt-3 mb-3 footer">
         <!-- <div (click)="routeNext('contact')" class="d-flex align-content-center align-items-center position-relative"
@@ -408,7 +627,8 @@
             <div class="value">Contact Details</div>
           </div>
         </div> -->
-        <button style="font-family: lato;"  class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button type="submit">Save &
+        <button style="font-family: lato;" class="common-button joining-form-submit mt-1 animation-zoom"
+          mat-raised-button type="submit">Save &
           Continue</button>
         <!-- <div (click)="routeNext('education')"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"

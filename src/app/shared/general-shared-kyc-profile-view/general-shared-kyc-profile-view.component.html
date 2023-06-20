@@ -262,13 +262,11 @@
                 </ng-container>
               </ng-container>
               <ng-template #noLanguage>
-                <div class="inpu-preview size-16 bold-700 color-black"
-                style = "
+                <div class="inpu-preview size-16 bold-700 color-black" style="
                  font-size: 16px;
                 width: 100%;
                 font-weight: 600;
-                text-align: center; "
-                >
+                text-align: center; ">
                   {{ "No Language Details Available" }}
                 </div>
               </ng-template>
@@ -602,7 +600,11 @@
                   {{ education[form_boardUniversity]?"- " + "(" + education[form_boardUniversity] + ")" + "," :'' }}<br>
                   {{ education[form_qualification]?education[form_qualification] + ",":'' }}
                   {{ education[form_specialization]?education[form_specialization] + ",":'' }}
-                  {{ education[form_collegeName]?education[form_collegeName]+ ",":'' }}<br>
+                  <!-- {{ education[form_collegeName]?education[form_collegeName]+ ",":'' }}<br> -->
+                  <div *ngIf="education[form_collegeName] !== 'Others'"> {{
+                    education[form_collegeName]?education[form_collegeName]+ ",":'' }}</div>
+                  <div *ngIf="education[form_collegeName] == 'Others'"> {{
+                    education[form_othercollegeName]?education[form_othercollegeName]+ ",":'' }}</div>
                   {{ education[form_startDate] | date : 'MMM y' }} - {{ education[form_endDate] | date : 'MMM y' }}
                 </div>
               </div>
@@ -696,7 +698,7 @@
                 </div>
               </div>
 
-              
+
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Do you have any gap during the education?</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -758,12 +760,11 @@
 
             <!-- {{ education.is_highLevelEdu}} -->
 
-            <div *ngIf="education.is_highLevelEdu == true"
-            class="overall-input-wrapper mt-3  width-100">
-            <div> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
-                class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
+            <div *ngIf="education.is_highLevelEdu == true" class="overall-input-wrapper mt-3  width-100">
+              <div> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
+                  class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
+              </div>
             </div>
-          </div>
 
           </div>
 
@@ -800,7 +801,7 @@
               class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
           </div>
         </div> -->
-          
+
         </ng-container>
       </div>
 
@@ -1033,8 +1034,7 @@
             </div>
             <!-- <ng-container
               *ngIf="workDetailsAlldata && workDetailsAlldata[this.form_training_Array] && workDetailsAlldata[this.form_training_Array].length > 0;else noArticleshipTraining"> -->
-              <ng-container
-               *ngIf="this.workDetailsAlldata.is_intern_status==true else noArticleshipTraining">
+            <ng-container *ngIf="this.workDetailsAlldata.is_intern_status==true else noArticleshipTraining">
               <div class="row-wrapper mt-4" [ngClass]="i == 0 ? 'padding-0' : 'border-wrapper'"
                 *ngFor="let training of workDetailsAlldata[this.form_training_Array]; let i = index">
 
@@ -1256,6 +1256,7 @@
                 <label>Certification Name</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{ certification[form_certification_name]}}
+                  <!-- {{ certification[form_certification_name].courseName }} -->
                 </div>
               </div>
 
@@ -1265,11 +1266,16 @@
                   {{ certification[form_certification_issuedFrom]}}
                 </div>
               </div>
+
+
+
+
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Description</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
-                  {{ certification[form_certification_description] ? certification[form_certification_description] : "NIL" }}
-                  
+                  {{ certification[form_certification_description] ? certification[form_certification_description] :
+                  "NIL" }}
+
                 </div>
               </div>
               <div class="overall-input-wrapper mt-3 width-32">
@@ -1302,30 +1308,89 @@
           <ng-container *ngFor="let awards of accomplishmentsMap[form_awardsArray];let i = index">
             <h6 class="mt-3">Awards {{i+1}}</h6>
             <div class="row-wrapper mt-0">
-            <div class="overall-input-wrapper mt-3 width-32">
-              <!-- <label>Symposium - Technical Paper Design</label>
+              <div class="overall-input-wrapper mt-3 width-32">
+                <!-- <label>Symposium - Technical Paper Design</label>
   <label>April 2013</label>
               <label>{{awards[form_award_title]}}</label><br>
               <label>{{awards[form_award_date]?(dateConvertion(awards[form_award_date])| date : 'MMM y')
                 :'NIL'}}</label> -->
-                  <label>Award Title</label>
-                  <div class="inpu-preview" style="font-size: 14px; color: black;">
-                    {{awards[form_award_title]}}
-                  </div>
-            </div>
-
-            <div class="overall-input-wrapper mt-3 width-32">
-              <label>Awarded Date</label>
-              <div class="inpu-preview" style="font-size: 14px; color: black;">
-                {{awards[form_award_date]?(dateConvertion(awards[form_award_date])| date : 'MMM y')
-                :'NIL'}}
+                <label>Award Title</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{awards[form_award_title]}}
+                </div>
               </div>
-            </div>  
+
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>Awarded Date</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{awards[form_award_date]?(dateConvertion(awards[form_award_date])| date : 'MMM y')
+                  :'NIL'}}
+                </div>
+              </div>
 
 
-          </div>
+            </div>
           </ng-container>
         </ng-container>
+
+        <!--assesments-->
+
+        <div class="header d-flex justify-content-between mb-1 mt-3 p-0 align-items-center custom-header-padding">
+          <h6>Assesments</h6>
+        </div>
+        <ng-container
+          *ngIf="accomplishmentsMap[form_assesmentArray] && accomplishmentsMap[form_assesmentArray].length > 0;else noAssesments">
+          <ng-container *ngFor="let assesments of accomplishmentsMap[form_assesmentArray];let i = index">
+            <h6 class="mt-3">Assesments {{i+1}}</h6>
+            <div class="row-wrapper mt-0">
+              <div class="overall-input-wrapper mt-3 width-32">
+
+                <label>Assesment Title</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{assesments[form_assesment_title]}}
+                </div>
+              </div>
+
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>Assesment Date</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{assesments[form_assesment_date]?(dateConvertion(assesments[form_assesment_date])| date : 'MMM y')
+                  :'NIL'}}
+                </div>
+              </div>
+
+
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!--Add Course-->
+
+
+        <!-- <div class="header d-flex justify-content-between mb-1 mt-3 p-0 align-items-center custom-header-padding">
+          <h6>Courses</h6>
+        </div>
+        <ng-container
+          *ngIf="accomplishmentsMap[form_CoursesArray] && accomplishmentsMap[form_CoursesArray].length > 0;else noCourses">
+          <ng-container *ngFor="let courses of accomplishmentsMap[form_CoursesArray];let i = index">
+            <h6 class="mt-3">Courses {{i+1}}</h6>
+            <div class="row-wrapper mt-0">
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>Course Name </label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{courses[form_course_name]}}
+                </div>
+              </div>
+              <div class="overall-input-wrapper mt-3 width-32">
+                <label>Description</label>
+                <div class="inpu-preview" style="font-size: 14px; color: black;">
+                  {{ courses[form_course_description] }}
+                  {{ courses[form_course_description] ? courses[form_course_description] : "NIL" }}
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container> -->
         <!--journal-->
         <div class="header d-flex justify-content-between mb-3 mt-3 p-0 align-items-center custom-header-padding">
           <h6>Research Publication/Journal Entry</h6>
@@ -1357,7 +1422,8 @@
                 <label>Description</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{ journalEntry[form_journalEntity_description] }}
-                  {{ journalEntry[form_journalEntity_description] ? journalEntry[form_journalEntity_description] : "NIL" }}
+                  {{ journalEntry[form_journalEntity_description] ? journalEntry[form_journalEntity_description] : "NIL"
+                  }}
 
                 </div>
               </div>
@@ -2000,7 +2066,7 @@
                     <div class="row-wrapper mt-0 w-100 justify-content-start hanging flex-column">
                       <h6 class="d-head">Background Verification Declaration</h6>
                       <div>
-                        <mat-checkbox  [formControlName]="form_bgv" class="mr-2"></mat-checkbox>
+                        <mat-checkbox [formControlName]="form_bgv" class="mr-2"></mat-checkbox>
                         I agree to have read and understood the
                         <span *ngIf="customerCode == lttsCustomerCode else nonLtts" style="
                         color: #007bff;
@@ -2240,8 +2306,14 @@
 <ng-template #noAwards>
   <div class="nodata mt-4">No Awards Details Available</div>
 </ng-template>
+<ng-template #noAssesments>
+  <div class="nodata mt-4">No Assesments Details Available</div>
+</ng-template>
 <ng-template #noJournalEntry>
   <div class="nodata mt-4">No Research Publication/Journal Entry Details Available</div>
+</ng-template>
+<ng-template #noCourses>
+  <div class="nodata mt-4">No Course Details Available</div>
 </ng-template>
 <ng-template #noCertification>
   <div class="nodata mt-4">No Certifications Details Available</div>

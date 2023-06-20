@@ -36,7 +36,7 @@
                     </div>
                   </div>
                 </div>
-                <ng-container>
+                <!-- <ng-container>
                   <div class="overall-input-wrapper mb-0 width-100">
                     <label style="width:35%">Qualification Type<span class="redTxt">*</span></label>
                     <div style="width:70%"> <nz-select class="input select" (ngModelChange)="educationLevelChange(i)"
@@ -55,8 +55,29 @@
                       </div>
                     </div>
                   </div>
-                </ng-container>
+                </ng-container> -->
 
+                <!-- disable sslc code -->
+                <ng-container>
+                  <div class="overall-input-wrapper mb-0 width-100">
+                    <label style="width:35%">Qualification Type<span class="redTxt">*</span></label>
+                    <div style="width:70%"> <nz-select class="input select" (ngModelChange)="educationLevelChange(i)"
+                        [formControlName]="form_qualification_type" nzAllowClear nzShowSearch nzPlaceHolder="Select">
+
+                        <ng-container *ngFor="let level of educationLevels; let j = index">
+                          <nz-option [nzLabel]="level.label" [nzValue]="level.education"
+                            [nzDisabled]="(i >= 1 && j === 0) || (i >= 2 && j === 1)">
+                          </nz-option>
+                        </ng-container>
+                      </nz-select>
+                      <div class="form-error"
+                        *ngIf="getEducationArr.controls[i].get(form_qualification_type).invalid && getEducationArr.controls[i].get(form_qualification_type).touched">
+                        <div class="err" *ngIf="getEducationArr.controls[i].get(form_qualification_type)?.errors?.required">
+                          Qualification Type is Required</div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
 
                 <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value)">
 
@@ -104,7 +125,7 @@
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA')">
-\                            <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
+                           <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
                             nzShowSearch nzPlaceHolder="Select">
                             <nz-option *ngFor="let active of CAQualificationList" [nzLabel]="active.label"
                               [nzValue]="active.value"></nz-option>
@@ -189,7 +210,7 @@
                   </div>
                     </ng-container>
                   </ng-container>
-                  <ng-container>
+                  <!-- <ng-container>
                     <div class="overall-input-wrapper mb-0 width-100">
                       <label style="width:35%">{{getEducationArr.controls[i].get(form_qualification_type).value != 'CA'
                         && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&
@@ -245,8 +266,101 @@
                         </div>
                       </div>
                     </div>
+                  </ng-container> -->
+
+                  <ng-container>
+                    <div class="overall-input-wrapper mb-0 width-100">
+                      <label style="width:35%">
+                        {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name' : 'Institute Name'}}
+                        <span class="redTxt">*</span>
+                      </label>
+                      <div style="width:70%">
+                        <ng-template #showCollegeTextBox>
+                          <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_collegeName">
+                        </ng-template>
+                        <ng-container  *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'SSLC' && getEducationArr.controls[i].get(form_qualification_type).value != 'HSC' && getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS'; else showCollegeTextBox">
+                          <nz-select class="input select" (ngModelChange)="otherclgnameValidation($event,index)" [formControlName]="form_collegeName" nzAllowClear nzShowSearch nzPlaceHolder="Select">
+                            <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma'">
+                              <nz-option *ngFor="let institute of clgList" [nzLabel]="institute.college_name" [nzValue]="institute.college_name"></nz-option>
+                            </ng-container>
+                            <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value == 'UG'">
+                              <nz-option *ngFor="let institute of clgList" [nzLabel]="institute.college_name" [nzValue]="institute.college_name"></nz-option>
+                            </ng-container>
+                            <ng-container *ngIf="getEducationArr.controls[i].get(form_qualification_type).value == 'PG'">
+                              <nz-option *ngFor="let institute of clgList" [nzLabel]="institute.college_name" [nzValue]="institute.college_name"></nz-option>
+                            </ng-container>
+                          </nz-select>
+                        </ng-container>
+          
+                        <div class="form-error" *ngIf="getEducationArr.controls[i].get(form_collegeName).invalid && getEducationArr.controls[i].get(form_collegeName).touched">
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_collegeName).errors?.required">
+                            {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&  getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&  getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name is Required' : 'Institute Name is Required'}}
+                          </div>
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_collegeName).errors?.alphaNum255">
+                            Alpha numeric with a maximum of 255 characters only allowed
+                          </div>
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_collegeName).errors?.descr255">
+                            Maximum of 255 characters only allowed.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </ng-container>
 
+          <!--College name if value is others Start-->
+
+                <ng-container>
+                  <ng-container *ngIf="getEducationArr.controls[i].get(form_collegeName).value === 'Others'">
+                    <div class="overall-input-wrapper mb-0 width-100">
+                      <label style="width:35%">College Name<span class="redTxt">*</span></label>
+                      <div style="width:70%; display: flex; flex-direction: column; ">
+                        <div><input matInput placeholder="Enter other college name" class="input" type="text"
+                            [formControlName]="form_othercollegeName"></div>
+                        <div class="form-error"
+                          *ngIf="getEducationArr.controls[i].get(form_othercollegeName).invalid && getEducationArr.controls[i].get(form_othercollegeName).touched">
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeName).errors?.required">
+                            {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&
+                            getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&
+                            getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name is Required' :
+                            'Institute Name is Required'}}
+                          </div>
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeName).errors?.alphaNum255">
+                            Alpha numeric with a maximum of 255 characters only allowed
+                          </div>
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeName).errors?.descr255">
+                            Maximum of 255 characters only allowed.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="overall-input-wrapper mb-0 width-100">
+                      <label style="width:35%">State<span class="redTxt">*</span></label>
+                      <div style="width:70%; display: flex; flex-direction: column; ">
+                        <div>
+                          <nz-select class="input select" (ngModelChange)="disableOrEnableState(form_othercollegeState)"
+                            [formControlName]="form_othercollegeState" nzAllowClear nzShowSearch nzPlaceHolder="<--Select-->">
+                            <nz-option *ngFor="let state of allStatesList" [nzLabel]="state.name" [nzValue]="state.id"></nz-option>
+                          </nz-select>
+                        </div>
+                        <div class="form-error"
+                          *ngIf="getEducationArr.controls[i].get(form_othercollegeState).invalid && getEducationArr.controls[i].get(form_othercollegeState).touched">
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeState).errors?.required">
+                            {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&  getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'State Name is Required' : 'State  name is Required'}}
+                          </div>
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeState).errors?.alphaNum255">
+                            Alpha numeric with a maximum of 255 characters only allowed
+                          </div>
+                          <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeState).errors?.descr255">
+                            Maximum of 255 characters only allowed.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>    
+                </ng-container>
+
+                   <!--College name if value is others Start-->
+                   
                   <ng-container
                     *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS'">
                     <div class="overall-input-wrapper mb-0 width-100">
@@ -893,11 +1007,30 @@
               </div>
 
             </div>
-            <div *ngIf="getEducationArr.controls.length-1 == i " class="overall-input-wrapper mt-2  width-100">
+            <!-- <div *ngIf="getEducationArr.controls.length-1 == i " class="overall-input-wrapper mt-2  width-100">
               <div> <mat-checkbox (change)="eduLevel($event, i)" [formControlName]="isHighLevelEdu"
                   class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
               </div>
+            </div> -->
+
+            <div *ngIf="getEducationArr.controls.length-1 == i" class="overall-input-wrapper mt-2 width-100">
+              <div>
+                <mat-checkbox (change)="eduLevel($event, i)" [formControlName]="isHighLevelEdu" class="checkqualify mr-2"></mat-checkbox>
+                <span>Highest Level of Education/Currently Pursuing</span>
+              </div>
+              <span *ngIf="!this.check" class="validation-message">This field is required</span>
             </div>
+            
+            <!-- <div *ngIf="getEducationArr.controls.length - 1 === i" class="overall-input-wrapper mt-2 width-100">
+              <div>
+                <mat-checkbox (change)="eduLevel($event, i)" [formControlName]="isHighLevelEdu" class="checkqualify mr-2"></mat-checkbox>
+                <span>Highest Level of Education/Currently Pursuing</span>
+              </div>
+              <div *ngIf="getEducationArr.controls[i]['controls'][isHighLevelEdu].invalid && getEducationArr.controls[i]['controls'][isHighLevelEdu].touched" class="error-message" style="color: red;">
+                This field is required.
+              </div>
+            </div> -->
+            
           </div>
         </ng-container>
         <div class="d-flex ">
