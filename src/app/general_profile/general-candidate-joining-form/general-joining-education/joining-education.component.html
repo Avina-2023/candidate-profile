@@ -1016,9 +1016,9 @@
             <div *ngIf="getEducationArr.controls.length-1 == i" class="overall-input-wrapper mt-2 width-100">
               <div>
                 <mat-checkbox (change)="eduLevel($event, i)" [formControlName]="isHighLevelEdu" class="checkqualify mr-2"></mat-checkbox>
-                <span>Highest Level of Education/Currently Pursuing</span>
+                <span>Highest Level of Education/Currently Pursuing</span><span class="redTxt">*</span>
               </div>
-              <span *ngIf="!this.check" class="validation-message">This field is required</span>
+              <span *ngIf='errortext' class="redTxt">This field is required</span>
             </div>
             
             <!-- <div *ngIf="getEducationArr.controls.length - 1 === i" class="overall-input-wrapper mt-2 width-100">

@@ -249,6 +249,8 @@ joiningFormDataPassingSubscription: Subscription;
   clgList: any;
   allStatesList: any;
 
+  errortext:any=false;
+
 constructor(
     private appConfig: AppConfigService,
     private apiService: ApiServiceService,
@@ -719,7 +721,9 @@ validSelectedPost() {
 
 }
   formSubmit(routeValue?: any) {
-    this.loadingService.setLoading(true)
+    if(this.check == true && this.educationForm.valid){
+      this.errortext = false
+      this.loadingService.setLoading(true)
     // if (this.candidateService.checkKycOrJoiningForm()) {
     this.getEducationArr.controls.forEach((element: any, j) => {
       if (element['controls'][this.form_qualification_type]['value'] == 'CA' || element['controls'][this.form_qualification_type]['value'] == 'ICWA' || element['controls'][this.form_qualification_type]['value'] == 'CS') {
@@ -755,7 +759,6 @@ validSelectedPost() {
     });
   // }
   // debugger
-    if (this.educationForm.valid && (this.check) ) {
       // let entryValid = this.validSelectedPost();
       // if (entryValid.valid) {
         let formArray = this.educationForm.getRawValue()[this.form_educationArray];
@@ -778,16 +781,17 @@ validSelectedPost() {
         return routeValue ? this.appConfig.routeNavigation(routeValue) : this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
       });
 
-
       // } else {
       //   this.appConfig.nzNotification('error', 'Not Submitted', entryValid?.value?.label == 'gct' ? '12th or Diploma and Undergraduate are mandatory' : entryValid?.value?.label == 'pgct' ? '12th or Diploma, Undergraduate and Postgraduate are mandatory' : entryValid?.value?.label == 'det' ? 'Diploma is mandatory' : 'CA or IGWA or CS is mandatory');
       // }
-    } else {
-      this.ngAfterViewInit();
-      this.loadingService.setLoading(false);
-      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
-      this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
-    }
+    
+  }else{
+    this.errortext = true;
+    this.ngAfterViewInit();
+    this.loadingService.setLoading(false);
+    this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+    this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
+  }
   }
 
   
@@ -1255,6 +1259,7 @@ dependentChange(i) {
       this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
       this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
       this.clgList = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
+      this.clgList.push({ id: 0, college_name: "Others" });
       // this.clgList.push({ id: 0, college_name: "Others" });
       // this.ugInstitutesList = list;
       // // const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
