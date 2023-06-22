@@ -51,7 +51,7 @@
         <div class="headcard pb-2">
           <mat-checkbox class="checkqualify mr-2" (change)="addToassesment($event)"
             [formControlName]="form_isassesment"></mat-checkbox>
-          <span>I am Assessed by L&T Edutech</span>
+          <span>I am Assessed by L&T EduTech</span>
         </div>
       </div>
 
@@ -69,7 +69,7 @@
                     <h5 class="h">Assesments</h5>
                   </div>
                   <div class="dependent-head">
-                    <h6 style="margin-top: 30px;">Assesments {{i+1}}</h6>
+                    <h6 style="margin-top: 30px;">Assesment {{i+1}}</h6>
                     <div class="remove-wrapper">
                       <div (click)="removeData(i,'assessments')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
                         <i class="icon-BinDelete pointer ag-icon-font-size"></i>
@@ -259,7 +259,7 @@
 
                     <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '1' ">
                       <div class="overall-input-wrapper width-32 mb-0">
-                        <label>Issued From l&t<span class="redTxt">*</span></label>
+                        <label>Issued From L&T<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
                           <input matInput placeholder="Enter here" class="input" type="text"
                             [formControlName]="form_certification_issuedFrom" value="LnTeduTech" readonly>

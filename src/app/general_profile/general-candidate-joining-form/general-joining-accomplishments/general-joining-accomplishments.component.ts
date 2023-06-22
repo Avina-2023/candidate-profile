@@ -1325,9 +1325,9 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.getassesmentArr.push(this.initassesmentArray());
         this.assessmentChecked.push(true); // Push the initial checked state as true
       }
-      this.glovbal_validators.validateAllFormArrays(
-        this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray
-      );
+      // this.glovbal_validators.validateAllFormArrays(
+      //   this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray
+      // );
     } else {
       if (this.getassesmentArr.length > 0) {
         this.getassesmentArr.removeAt(this.getassesmentArr.length - 1);
