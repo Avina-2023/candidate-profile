@@ -175,8 +175,9 @@
                     <ng-container>
                       <div class="rad">
                         <mat-radio-group aria-label="Select an option" formControlName="lntCertificationFlag"
-                          (change)="onCertificationChange($event, i)">
-                          <mat-radio-button value="1">L&T Certification</mat-radio-button>
+                          (change)="onCertificationChange($event, i)" [value]="getCertificationFlag(i)">
+                          <mat-radio-button value="1">L&T
+                            Certification</mat-radio-button>
                           <mat-radio-button value="2" style="padding-left: 130px;"> Others</mat-radio-button>
                         </mat-radio-group>
                       </div>
@@ -188,12 +189,18 @@
                         <label>Certification Name DROP<span class="redTxt">*</span></label>
                         <!-- {{certifications | json}} -->
                         <div style="width: 100%;">
+
                           <mat-select matNativeControl [formControlName]="form_certification_name" class="input">
 
                             <mat-option *ngFor="let certification of certifications"
                               [value]="certification.courseName">{{
                               certification.courseName }}</mat-option>
+                            <!-- <span class="close-icon" (click)="clearSelection(certificationSelect)">
+                              <mat-icon>close</mat-icon>
+                            </span> -->
                           </mat-select>
+
+
 
                           <div class="form-error"
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
@@ -401,7 +408,8 @@
                   <div *ngIf="getCertificationsArr.controls.length-1 == i "
                     class="overall-input-wrapper mt-2  width-100">
                     <div> <mat-checkbox (change)="isCertificateExpire($event, i)" [formControlName]="form_isexpire"
-                        class="checkqualify mr-2 "></mat-checkbox><span>This certificate does not expire</span></div>
+                        class="checkqualify mr-2 "></mat-checkbox><span class="doesnot_expire">This certificate does not
+                        expire</span></div>
                   </div>
                 </div>
               </div>
