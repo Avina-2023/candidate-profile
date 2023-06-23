@@ -43,6 +43,7 @@ import { InterComponentMessenger } from 'src/app/service/interComponentMessenger
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatRadioChange } from '@angular/material/radio';
 import { HttpClient } from '@angular/common/http';
+import { MatSelect } from '@angular/material/select';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD-MM-YYYY',
@@ -109,7 +110,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   formGroup: FormGroup;
   selectedCertification: string;
   selectedOption: string;
-
+  checkboxevent: any;
   eduTechCourses: any[];
   certifications: string[] = [];
 
@@ -246,7 +247,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       .get('form_certification_issuedFrom')
       ?.setValue('LnTeduTech');
 
-    const getCourseToken = 'Bearer 104150f8e66cae68b40203e1dbba7b4529231970'; // Add the necessary token or parameter to retrieve course list
+    const getCourseToken = 'Bearer 104150f8e66cae68b40203e1dbba7b4529231970';
     this.fetchCertifications(getCourseToken);
   }
 
@@ -380,17 +381,21 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.accomplishmentsForm.getRawValue()[this.form_awardsArray];
       let assesments =
         this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
+      let assementvalue =
+        this.accomplishmentsForm.getRawValue()[this.form_isassesment];
+
       let journals =
         this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
-      let courses =
-        this.accomplishmentsForm.getRawValue()[this.form_CoursesArray];
+      // let courses =
+      //   this.accomplishmentsForm.getRawValue()[this.form_CoursesArray];
 
       let apiData = {
         certifications,
         awards,
         assesments,
         journals,
-        courses,
+        assementvalue,
+        // courses,
       };
       const AccomplishmentsApiRequestDetails = {
         email: this.appConfig.getLocalData('userEmail')
@@ -454,7 +459,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 
   patchingCertifications(data, i) {
     return this.fb.group({
-      lntCertificationFlag: ['1'],
+      // lntCertificationFlag: ['1'],
+      lntCertificationFlag: [data.lntCertificationFlag],
       [this.form_certification_name]: [
         data[this.form_certification_name],
         [
@@ -579,12 +585,13 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     // return this.regexValidator({notValid: true}, param);
   }
   formInitialize() {
+    let getcheckboxvalue = localStorage.getItem('checkboxvalue');
     this.accomplishmentsForm = this.fb.group({
       [this.form_certificationsArray]: this.fb.array([]),
       [this.form_awardsArray]: this.fb.array([]),
       [this.form_assesmentArray]: this.fb.array([]),
       [this.form_journalEntryArray]: this.fb.array([]),
-      [this.form_isassesment]: [false],
+      [this.form_isassesment]: [getcheckboxvalue],
       [this.form_CoursesArray]: this.fb.array([]),
     });
   }
@@ -882,7 +889,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.getawardsArr.controls[index]['controls'][
           this.form_award_date
         ].setValidators([Validators.required], { emitEvent: false });
-
         this.getawardsArr['controls'][index]['controls'][
           this.form_award_title
         ].updateValueAndValidity();
@@ -901,10 +907,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.getawardsArr.controls[index]['controls'][
           this.form_award_date
         ].setValue(null);
-
         //this.getawardsArr.controls[index]['controls'][this.form_award_title].clearValidators();
         //this.getawardsArr.controls[index]['controls'][this.form_award_date].clearValidators();
-
         this.getawardsArr['controls'][index]['controls'][
           this.form_award_title
         ].updateValueAndValidity();
@@ -953,7 +957,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.getassesmentArr.controls[index]['controls'][
           this.form_assesment_date
         ].setValidators([Validators.required], { emitEvent: false });
-
         this.getassesmentArr['controls'][index]['controls'][
           this.form_assesment_title
         ].updateValueAndValidity();
@@ -972,10 +975,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.getassesmentArr.controls[index]['controls'][
           this.form_assesment_date
         ].setValue(null);
-
         //this.getassesmentArr.controls[index]['controls'][this.form_assesment_title].clearValidators();
         //this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].clearValidators();
-
         this.getassesmentArr['controls'][index]['controls'][
           this.form_assesment_title
         ].updateValueAndValidity();
@@ -1048,7 +1049,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
           [Validators.required, this.glovbal_validators.urlRegex()],
           { emitEvent: false }
         );
-
         this.getJournalEntryArr['controls'][index]['controls'][
           this.form_journalEntity_title
         ].updateValueAndValidity();
@@ -1078,7 +1078,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       } else {
         // this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].clearValidators();
         // this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].clearValidators();
-
         this.getJournalEntryArr.controls[index]['controls'][
           this.form_journalEntity_title
         ].setValidators(
@@ -1164,8 +1163,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         if (this.getassesmentArr.length && this.removeArr4) {
           this.getassesmentArr.removeAt(this.currentDeleteIndex);
           if (this.getassesmentArr.length == 0) {
-            // console.log(this.getassesmentArr,'false')
-
             this.accomplishmentsForm.controls[this.form_isassesment].setValue(
               false
             );
@@ -1192,7 +1189,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     }
 
     if (removeArr == 'assessments') {
-      // console.log('working assessment');
       this.removeArr4 = true;
       this.currentDeleteIndex = i;
     }
@@ -1300,27 +1296,9 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     );
   }
 
-  // addToassesment() {
-  //   if (this.getassesmentArr.length == 0) {
-  //    return this.getassesmentArr.push(this.initassesmentArray());
-  //   }
-  //   this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
-  // }
-
-  // addToassesment(event: any) {
-  //   if (event.checked) {
-  //     if (this.getassesmentArr.length === 0) {
-  //       this.getassesmentArr.push(this.initassesmentArray());
-  //     }
-  //     this.glovbal_validators.validateAllFormArrays(this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray);
-  //   } else {
-  //     if (this.getassesmentArr.length > 0) {
-  //       this.getassesmentArr.removeAt(this.getassesmentArr.length - 1);
-  //     }
-  //   }
-  // }
-
   addToassesment(event: any) {
+    this.checkboxevent = event.checked;
+    localStorage.setItem('checkboxvalue', this.checkboxevent);
     if (event.checked) {
       if (this.getassesmentArr.length === 0) {
         this.getassesmentArr.push(this.initassesmentArray());
@@ -1414,7 +1392,10 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       : '';
   }
 
-  onCertificationChange(event: any, i) {
+  onCertificationChange(event: any, i: number) {
+    // const flag = event.value;
+    // localStorage.setItem(`lntCertificationFlag_${i}`, flag);
+
     if (event.value === '1') {
       this.getCertificationsArr.controls[i]['controls'][
         this.form_certification_issuedFrom
@@ -1423,6 +1404,16 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     }
     this.onchangeCert(i, event.value);
   }
+
+  getCertificationFlag(i: number): string {
+    const storedFlag = localStorage.getItem(`lntCertificationFlag_${i}`);
+    return storedFlag !== null ? storedFlag : '1';
+  }
+
+  hasStoredFlag(i: number): boolean {
+    return localStorage.getItem(`lntCertificationFlag_${i}`) !== null;
+  }
+
   onchangeCert(i, type) {
     this.getCertificationsArr.controls[i]['controls'][
       this.form_certification_name
@@ -1445,48 +1436,20 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   }
   createCertificationFormGroup(): FormGroup {
     return this.formBuilder.group({
-      selectedCertification: ['1'],
+      // selectedCertification: ['1'],
       certificationName: ['', Validators.required],
       issuedFrom: ['LnTeduTech', Validators.required],
       // Add other form controls for the section
     });
   }
 
-  // fetchCertifications(getCourseToken: any) {
-  //   console.log('test');
-
-  //   this.skillexService.geteduTechCourses().subscribe(
-  //     (response: any) => {
-  //       console.log(getCourseToken, 'list');
-  //       this.certifications = response && response.data ? response.data : [];
-  //       console.log(this.certifications);
-  //     },
-  //     (error) => {
-  //       console.log('API error:', error);
-  //     }
-  //   );
-  // }
-
-  // createCertificationFormGroup(): FormGroup {
-  //   return this.formBuilder.group({
-  //     selectedCertification: ['1'],
-  //     certificationName: ['', Validators.required],
-  //     issuedFrom: ['LnTeduTech', Validators.required],
-  //     // Add other form controls for the section
-  //   });
-  // }
-
   fetchCertifications(getCourseToken: any) {
-    console.log('test');
 
     this.skillexService.geteduTechCourses().subscribe(
       (response: any) => {
-        console.log(getCourseToken, 'list');
         this.certifications = response && response.data ? response.data : [];
-        console.log(this.certifications);
       },
       (error) => {
-        console.log('API error:', error);
       }
     );
   }
@@ -1501,8 +1464,18 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     });
   }
 
+  // clearSelection(certificationSelect: MatSelect): void {
+  //   certificationSelect.value = null;
+  // }
+
   // getCourseName(courseId: string): string {
   //   const course = this.certifications.find((c) => c.courseId === courseId);
   //   return course ? course.courseName : '';
+  // }
+
+  // clearCertification(i: number) {
+  //   this.getCertificationsArr.controls[i]
+  //     .get(this.form_certification_name)
+  //     .setValue(null);
   // }
 }

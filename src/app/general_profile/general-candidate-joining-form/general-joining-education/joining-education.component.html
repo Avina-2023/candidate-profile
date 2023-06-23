@@ -271,8 +271,7 @@
                   <ng-container>
                     <div class="overall-input-wrapper mb-0 width-100">
                       <label style="width:35%">
-                        {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name' : 'Institute Name'}}
-                        <span class="redTxt">*</span>
+                        {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' && getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name' : 'Institute Name'}}<span class="redTxt">*</span>
                       </label>
                       <div style="width:70%">
                         <ng-template #showCollegeTextBox>
@@ -321,7 +320,7 @@
                           <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeName).errors?.required">
                             {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&
                             getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&
-                            getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name is Required' :
+                            getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'College Name is Required' :
                             'Institute Name is Required'}}
                           </div>
                           <div class="err" *ngIf="getEducationArr.controls[i].get(form_othercollegeName).errors?.alphaNum255">
@@ -1016,7 +1015,7 @@
             <div *ngIf="getEducationArr.controls.length-1 == i" class="overall-input-wrapper mt-2 width-100">
               <div>
                 <mat-checkbox (change)="eduLevel($event, i)" [formControlName]="isHighLevelEdu" class="checkqualify mr-2"></mat-checkbox>
-                <span>Highest Level of Education/Currently Pursuing</span><span class="redTxt">*</span>
+                <span class="highest-level">Highest Level of Education/Currently Pursuing</span><span class="redTxt">*</span>
               </div>
               <span *ngIf='errortext' class="redTxt">This field is required</span>
             </div>
