@@ -785,7 +785,15 @@ validSelectedPost() {
       //   this.appConfig.nzNotification('error', 'Not Submitted', entryValid?.value?.label == 'gct' ? '12th or Diploma and Undergraduate are mandatory' : entryValid?.value?.label == 'pgct' ? '12th or Diploma, Undergraduate and Postgraduate are mandatory' : entryValid?.value?.label == 'det' ? 'Diploma is mandatory' : 'CA or IGWA or CS is mandatory');
       // }
     
-  }else{
+  }
+  if(this.check == true && this.educationForm.invalid){
+    this.errortext = false;
+    this.ngAfterViewInit();
+    this.loadingService.setLoading(false);
+    this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+    this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
+  }
+  if ((this.check == false && this.educationForm.valid) || (this.check == false && this.educationForm.invalid)){
     this.errortext = true;
     this.ngAfterViewInit();
     this.loadingService.setLoading(false);
@@ -908,12 +916,14 @@ validSelectedPost() {
   eduLevel(e, i:number) {
     if (e.checked) {
       this.check = true
+      this.errortext = false;
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValue(null);
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].clearValidators();
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].updateValueAndValidity();
 
     } else {
-      this.check = false
+      this.check = false;
+     // this.errortext = true;
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
       // this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].updateValueAndValidity();
 
@@ -1306,7 +1316,7 @@ dependentChange(i) {
    if (this.getEducationArr?.controls[index]['controls'][this.form_collegeName].value == 'Others') {
     // console.log('true');
     
-    this.getEducationArr.controls[index]['controls'][this.form_othercollegeName].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+    this.getEducationArr.controls[index]['controls'][this.form_othercollegeName].setValidators([Validators.required,this.glovbal_validators.descr255()],{ emitEvent: false });
     this.getEducationArr.controls[index]['controls'][this.form_othercollegeState].setValidators([Validators.required,this.glovbal_validators.alphaNum255()],{ emitEvent: false });
     this.getEducationArr['controls'][index]['controls'][this.form_othercollegeName].updateValueAndValidity();
     this.getEducationArr['controls'][index]['controls'][this.form_othercollegeState].updateValueAndValidity();
