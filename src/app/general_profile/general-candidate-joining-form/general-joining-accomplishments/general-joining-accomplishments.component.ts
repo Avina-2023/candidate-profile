@@ -110,7 +110,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   formGroup: FormGroup;
   selectedCertification: string;
   selectedOption: string;
-
+  checkboxevent:any;
   eduTechCourses: any[];
   certifications: string[] = [];
 
@@ -367,6 +367,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   }
 
   formSubmit(routeValue?: any) {
+    console.log(this.accomplishmentsForm.value,'hvhsdvyuvyvuv ')
     // let rawaccomplishmentsFormValue = this.accomplishmentsForm.getRawValue();
     if (this.accomplishmentsForm.valid) {
       // const accomplishmentsobj = {
@@ -381,6 +382,11 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.accomplishmentsForm.getRawValue()[this.form_awardsArray];
       let assesments =
         this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
+        console.log(assesments,'assesment det');
+        let assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment]
+        console.log(assementvalue, 'assementvalue' );
+        
+        
       let journals =
         this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
       // let courses =
@@ -391,6 +397,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         awards,
         assesments,
         journals,
+        assementvalue
         // courses,
       };
       const AccomplishmentsApiRequestDetails = {
@@ -401,14 +408,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         saving_data: apiData,
       };
       this.loadingService.setLoading(true);
-      this.newSaveProfileDataSubscription = this.skillexService
-        .saveCandidateProfile(AccomplishmentsApiRequestDetails)
-        .subscribe((data: any) => {
-          this.loadingService.setLoading(false);
-          this.candidateService.saveFormtoLocalDetails(
-            data.data.section_name,
-            data.data.saved_data
-          );
+      this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(AccomplishmentsApiRequestDetails).subscribe((data: any) => { this.loadingService.setLoading(false);
+          this.candidateService.saveFormtoLocalDetails( data.data.section_name, data.data.saved_data );
           this.candidateService.saveFormtoLocalDetails(
             'section_flags',
             data.data.section_flags
@@ -581,12 +582,13 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     // return this.regexValidator({notValid: true}, param);
   }
   formInitialize() {
+    let getcheckboxvalu= localStorage.getItem('checkboxval')
     this.accomplishmentsForm = this.fb.group({
       [this.form_certificationsArray]: this.fb.array([]),
       [this.form_awardsArray]: this.fb.array([]),
       [this.form_assesmentArray]: this.fb.array([]),
       [this.form_journalEntryArray]: this.fb.array([]),
-      [this.form_isassesment]: [false],
+      [this.form_isassesment]: [getcheckboxvalu],
       [this.form_CoursesArray]: this.fb.array([]),
     });
   }
@@ -859,10 +861,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 
   initawardsArray() {
     return this.fb.group({
-      [this.form_award_title]: [
-        null,
-        [Validators.required, this.glovbal_validators.alphaNum255()],
-      ],
+      [this.form_award_title]: [null,[Validators.required, this.glovbal_validators.alphaNum255()],],
       [this.form_award_date]: [null, [Validators.required]],
       [this.form_isaward]: [false],
     });
@@ -870,70 +869,30 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   setAwardArrValidation() {
     this.getawardsArr.controls.forEach((data, index) => {
       // if(this.getawardsArr.length){
-      if (
-        this.getawardsArr?.length &&
-        this.getawardsArr.controls[index]['controls'][this.form_isaward]
-          ?.value == false
-      ) {
-        this.getawardsArr.controls[index]['controls'][
-          this.form_award_title
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
-        this.getawardsArr.controls[index]['controls'][
-          this.form_award_date
-        ].setValidators([Validators.required], { emitEvent: false });
-
-        this.getawardsArr['controls'][index]['controls'][
-          this.form_award_title
-        ].updateValueAndValidity();
-        this.getawardsArr['controls'][index]['controls'][
-          this.form_award_date
-        ].updateValueAndValidity();
+      if ( this.getawardsArr?.length && this.getawardsArr.controls[index]['controls'][this.form_isaward] ?.value == false ) {
+        this.getawardsArr.controls[index]['controls'][this.form_award_title ].setValidators([Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getawardsArr.controls[index]['controls'][this.form_award_date ].setValidators([Validators.required], { emitEvent: false });
+        this.getawardsArr['controls'][index]['controls'][this.form_award_title].updateValueAndValidity();
+        this.getawardsArr['controls'][index]['controls'][this.form_award_date].updateValueAndValidity();
       }
-      if (
-        this.getawardsArr?.length &&
-        this.getawardsArr.controls[index]['controls'][this.form_isaward]
-          ?.value == true
-      ) {
-        this.getawardsArr.controls[index]['controls'][
-          this.form_award_title
-        ].setValue(null);
-        this.getawardsArr.controls[index]['controls'][
-          this.form_award_date
-        ].setValue(null);
-
-        //this.getawardsArr.controls[index]['controls'][this.form_award_title].clearValidators();
+      if (this.getawardsArr?.length &&this.getawardsArr.controls[index]['controls'][this.form_isaward] ?.value == true ) {
+        this.getawardsArr.controls[index]['controls'][this.form_award_title].setValue(null);
+        this.getawardsArr.controls[index]['controls'][this.form_award_date].setValue(null);
+       //this.getawardsArr.controls[index]['controls'][this.form_award_title].clearValidators();
         //this.getawardsArr.controls[index]['controls'][this.form_award_date].clearValidators();
-
-        this.getawardsArr['controls'][index]['controls'][
-          this.form_award_title
-        ].updateValueAndValidity();
-        this.getawardsArr['controls'][index]['controls'][
-          this.form_award_date
-        ].updateValueAndValidity();
+        this.getawardsArr['controls'][index]['controls'][this.form_award_title].updateValueAndValidity();
+        this.getawardsArr['controls'][index]['controls'][this.form_award_date].updateValueAndValidity();
       } else {
-        this.getawardsArr.controls[index]['controls'][
-          this.form_award_title
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
-        this.getawardsArr.controls[index]['controls'][
-          this.form_award_date
-        ].setValidators([Validators.required], { emitEvent: false });
+        this.getawardsArr.controls[index]['controls'][this.form_award_title ].setValidators( [Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getawardsArr.controls[index]['controls'][this.form_award_date ].setValidators([Validators.required], { emitEvent: false });
       }
     });
   }
 
   initassesmentArray() {
     return this.fb.group({
-      [this.form_assesment_title]: [
-        null,
-        [Validators.required, this.glovbal_validators.alphaNum255()],
-      ],
-      [this.form_assesment_date]: [null, [Validators.required]],
+      [this.form_assesment_title]: [null, [Validators.required, this.glovbal_validators.alphaNum255()],],
+      [this.form_assesment_date]: [null,  [Validators.required]],
       //[this.form_isassesment]:[false]
     });
   }
@@ -941,59 +900,22 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   setAssesmentArrValidation() {
     this.getassesmentArr.controls.forEach((data, index) => {
       // if(this.getassesmentArr.length){
-      if (
-        this.getassesmentArr?.length &&
-        this.getassesmentArr.controls[index]['controls'][this.form_isassesment]
-          ?.value == false
-      ) {
-        this.getassesmentArr.controls[index]['controls'][
-          this.form_assesment_title
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
-        this.getassesmentArr.controls[index]['controls'][
-          this.form_assesment_date
-        ].setValidators([Validators.required], { emitEvent: false });
-
-        this.getassesmentArr['controls'][index]['controls'][
-          this.form_assesment_title
-        ].updateValueAndValidity();
-        this.getassesmentArr['controls'][index]['controls'][
-          this.form_assesment_date
-        ].updateValueAndValidity();
+      if (this.getassesmentArr?.length && this.getassesmentArr.controls[index]['controls'][this.form_isassesment] ?.value == false) {
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_title].setValidators([Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].setValidators([Validators.required], { emitEvent: false });
+        this.getassesmentArr['controls'][index]['controls'][this.form_assesment_title ].updateValueAndValidity();
+        this.getassesmentArr['controls'][index]['controls'][this.form_assesment_date].updateValueAndValidity();
       }
-      if (
-        this.getassesmentArr?.length &&
-        this.getassesmentArr.controls[index]['controls'][this.form_isassesment]
-          ?.value == true
-      ) {
-        this.getassesmentArr.controls[index]['controls'][
-          this.form_assesment_title
-        ].setValue(null);
-        this.getassesmentArr.controls[index]['controls'][
-          this.form_assesment_date
-        ].setValue(null);
-
+      if ( this.getassesmentArr?.length && this.getassesmentArr.controls[index]['controls'][this.form_isassesment] ?.value == true) {
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_title ].setValue(null);
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].setValue(null);
         //this.getassesmentArr.controls[index]['controls'][this.form_assesment_title].clearValidators();
         //this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].clearValidators();
-
-        this.getassesmentArr['controls'][index]['controls'][
-          this.form_assesment_title
-        ].updateValueAndValidity();
-        this.getassesmentArr['controls'][index]['controls'][
-          this.form_assesment_date
-        ].updateValueAndValidity();
+        this.getassesmentArr['controls'][index]['controls'][ this.form_assesment_title].updateValueAndValidity();
+        this.getassesmentArr['controls'][index]['controls'][this.form_assesment_date].updateValueAndValidity();
       } else {
-        this.getassesmentArr.controls[index]['controls'][
-          this.form_assesment_title
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
-        this.getassesmentArr.controls[index]['controls'][
-          this.form_assesment_date
-        ].setValidators([Validators.required], { emitEvent: false });
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_title ].setValidators([Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getassesmentArr.controls[index]['controls'][this.form_assesment_date].setValidators([Validators.required], { emitEvent: false });
       }
     });
   }
@@ -1014,85 +936,34 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 
   initJournalEntryArray() {
     return this.fb.group({
-      [this.form_journalEntity_title]: [
-        null,
-        [Validators.required, this.glovbal_validators.alphaNum255()],
-      ],
-      [this.form_journalEntity_url]: [
-        null,
-        [Validators.required, this.glovbal_validators.urlRegex()],
-      ],
+      [this.form_journalEntity_title]:[null,[Validators.required, this.glovbal_validators.alphaNum255()],],
+      [this.form_journalEntity_url]:[null,[Validators.required, this.glovbal_validators.urlRegex()],],
       [this.form_journalEntity_publishedOn]: [null, [Validators.required]],
-      [this.form_journalEntity_description]: [
-        null,
-        [this.glovbal_validators.alphaNum255()],
-      ],
+      [this.form_journalEntity_description]: [null,[this.glovbal_validators.alphaNum255()],],
       [this.form_isjourney]: [false],
     });
   }
   setjournalArrValidation() {
     this.getJournalEntryArr.controls.forEach((data, index) => {
       //if(this.getJournalEntryArr.length){
-      if (
-        this.getJournalEntryArr?.length &&
-        this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney]
-          ?.value == false
-      ) {
-        this.getJournalEntryArr.controls[index]['controls'][
-          this.form_journalEntity_title
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
-        this.getJournalEntryArr.controls[index]['controls'][
-          this.form_journalEntity_url
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.urlRegex()],
-          { emitEvent: false }
-        );
-
-        this.getJournalEntryArr['controls'][index]['controls'][
-          this.form_journalEntity_title
-        ].updateValueAndValidity();
-        this.getJournalEntryArr['controls'][index]['controls'][
-          this.form_journalEntity_url
-        ].updateValueAndValidity();
-      }
-      if (
-        this.getJournalEntryArr?.length &&
-        this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney]
-          ?.value == true
-      ) {
-        this.getJournalEntryArr.controls[index]['controls'][
-          this.form_journalEntity_title
-        ].setValue(null);
-        this.getJournalEntryArr.controls[index]['controls'][
-          this.form_journalEntity_url
-        ].setValue(null);
+      if (this.getJournalEntryArr?.length &&this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney] ?.value == false) {
+        this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title ].setValidators([Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false });
+        this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url ].setValidators( [Validators.required, this.glovbal_validators.urlRegex()],{ emitEvent: false });
+        this.getJournalEntryArr['controls'][index]['controls'][this.form_journalEntity_title].updateValueAndValidity();
+        this.getJournalEntryArr['controls'][index]['controls'][this.form_journalEntity_url].updateValueAndValidity(); }
+      if ( this.getJournalEntryArr?.length && this.getJournalEntryArr.controls[index]['controls'][this.form_isjourney] ?.value == true) {
+        this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].setValue(null);
+        this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].setValue(null);
 
         //this.getJournalEntryArr['controls'][index]['controls'][this.form_certification_name].updateValueAndValidity();
-        this.getJournalEntryArr['controls'][index]['controls'][
-          this.form_journalEntity_title
-        ].updateValueAndValidity();
-        this.getJournalEntryArr['controls'][index]['controls'][
-          this.form_journalEntity_url
-        ].updateValueAndValidity();
+        this.getJournalEntryArr['controls'][index]['controls'][this.form_journalEntity_title].updateValueAndValidity();
+        this.getJournalEntryArr['controls'][index]['controls'][this.form_journalEntity_url].updateValueAndValidity();
       } else {
         // this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_title].clearValidators();
         // this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].clearValidators();
-
         this.getJournalEntryArr.controls[index]['controls'][
-          this.form_journalEntity_title
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
-        this.getJournalEntryArr.controls[index]['controls'][
-          this.form_journalEntity_url
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.urlRegex()],
-          { emitEvent: false }
-        );
+        this.form_journalEntity_title].setValidators([Validators.required, this.glovbal_validators.alphaNum255()],{ emitEvent: false } );
+        this.getJournalEntryArr.controls[index]['controls'][this.form_journalEntity_url].setValidators([Validators.required, this.glovbal_validators.urlRegex()],{ emitEvent: false });
       }
     });
   }
@@ -1320,7 +1191,9 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   // }
 
   addToassesment(event: any) {
-    if (event.checked) {
+    this.checkboxevent = event.checked
+    localStorage.setItem('checkboxval',this.checkboxevent)
+    if (event.checked) {   
       if (this.getassesmentArr.length === 0) {
         this.getassesmentArr.push(this.initassesmentArray());
         this.assessmentChecked.push(true); // Push the initial checked state as true
@@ -1335,6 +1208,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       }
     }
   }
+
+
 
   addMoreAssesments() {
     if (this.getassesmentArr.valid) {
