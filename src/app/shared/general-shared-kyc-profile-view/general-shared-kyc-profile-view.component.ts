@@ -31,6 +31,7 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
+// import { log } from 'console';
 // import { Console } from 'console';
 
 export const MY_FORMATS = {
@@ -1409,8 +1410,7 @@ export class GeneralSharedKycProfileViewComponent
     //   }
     // });
     const data = {
-      [this.form_certificationsArray]:
-        this.accomplishmentDetails?.[this.form_certificationsArray] &&
+      [this.form_certificationsArray]: this.accomplishmentDetails?.[this.form_certificationsArray] &&
         this.accomplishmentDetails?.[this.form_certificationsArray].length > 0
           ? this.accomplishmentDetails[this.form_certificationsArray]
           : [],
@@ -1424,14 +1424,13 @@ export class GeneralSharedKycProfileViewComponent
         this.accomplishmentDetails?.[this.form_awardsArray].length > 0
           ? this.accomplishmentDetails[this.form_awardsArray]
           : [],
-      [this.form_assesmentArray]:
-        this.accomplishmentDetails?.[this.form_assesmentArray] &&
-        this.accomplishmentDetails?.[this.form_assesmentArray].length > 0
-          ? this.accomplishmentDetails[this.form_assesmentArray]
+      [this.form_assesmentArray]: this.accomplishmentDetails?.[this.form_assesmentArray] && this.accomplishmentDetails?.[this.form_assesmentArray].length > 0 ? this.accomplishmentDetails[this.form_assesmentArray][0].assesments
           : [],
+          
     };
     this.accomplishmentsMap = data;
   }
+  
 
   patchPersonalForm() {
     let stateOfBirth: any;
