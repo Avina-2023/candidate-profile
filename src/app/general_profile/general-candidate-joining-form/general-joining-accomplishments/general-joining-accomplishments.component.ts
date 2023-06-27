@@ -302,11 +302,10 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       this.accomplishmentDetails[this.form_assesmentArray].length > 0
     ) {
       this.getassesmentArr.clear();
-      this.accomplishmentDetails[this.form_assesmentArray].forEach(
-        (element, i) => {
-          this.getassesmentArr.push(this.patchingAssesments(element, i));
-        }
-      );
+      this.accomplishmentsForm.controls[this.form_isassesment].setValue(this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue);
+      this.accomplishmentDetails[this.form_assesmentArray][0].assesments.forEach((element, i) => {
+        this.getassesmentArr.push(this.patchingAssesments(element, i));
+      });
     }
     if (
       this.accomplishmentDetails &&
@@ -379,11 +378,22 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.accomplishmentsForm.getRawValue()[this.form_certificationsArray];
       let awards =
         this.accomplishmentsForm.getRawValue()[this.form_awardsArray];
-      let assesments =
-        this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
-      let assementvalue =
-        this.accomplishmentsForm.getRawValue()[this.form_isassesment];
 
+      let assessmentDetail = {
+        assesments:this.accomplishmentsForm.getRawValue()[this.form_assesmentArray],
+        assementvalue:this.accomplishmentsForm.getRawValue()[this.form_isassesment]
+      }
+
+      let assesments = assessmentDetail;
+      
+      //   let assesments:any  = this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
+      // assesments.assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
+      //   console.log(assesments,'assesmentsassesments')
+      // let assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
+
+
+
+      // console.log(assementvalue,'assementvalue')
       let journals =
         this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
       // let courses =
@@ -394,7 +404,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         awards,
         assesments,
         journals,
-        assementvalue,
+        // assementvalue
         // courses,
       };
       const AccomplishmentsApiRequestDetails = {
@@ -517,8 +527,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 
   patchingAssesments(data, i) {
     return this.fb.group({
-      [this.form_assesment_title]: [
-        data[this.form_assesment_title],
+
+      [this.form_assesment_title]: [data[this.form_assesment_title],
         [
           RemoveWhitespace.whitespace(),
           Validators.required,
@@ -526,7 +536,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         ],
       ],
       // [this.form_assesment_date]: [this.dateConvertion(data[this.form_assesment_date]), [RemoveWhitespace.whitespace(), Validators.required,, this.startTrue(true)]],
-      [this.form_isassesment]: [data[this.form_isassesment]],
+      // [this.form_isassesment]: [data[this.form_isassesment]],
       [this.form_assesment_date]: [
         this.dateConvertion(data[this.form_assesment_date]),
       ],
@@ -585,13 +595,14 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     // return this.regexValidator({notValid: true}, param);
   }
   formInitialize() {
-    let getcheckboxvalue = localStorage.getItem('checkboxvalue');
+    // let getcheckboxvalue = localStorage.getItem('checkboxvalue');
     this.accomplishmentsForm = this.fb.group({
       [this.form_certificationsArray]: this.fb.array([]),
       [this.form_awardsArray]: this.fb.array([]),
       [this.form_assesmentArray]: this.fb.array([]),
       [this.form_journalEntryArray]: this.fb.array([]),
-      [this.form_isassesment]: [getcheckboxvalue],
+      // [this.form_isassesment]: [getcheckboxvalue],
+       [this.form_isassesment]: [false],
       [this.form_CoursesArray]: this.fb.array([]),
     });
   }
@@ -1166,6 +1177,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
             this.accomplishmentsForm.controls[this.form_isassesment].setValue(
               false
             );
+            // localStorage.setItem('checkboxvalue', 'false');
           }
         }
         // if(this.getCoursesArr.length && this.removeArr5){
@@ -1298,9 +1310,10 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 
   addToassesment(event: any) {
     this.checkboxevent = event.checked;
-    localStorage.setItem('checkboxvalue', this.checkboxevent);
+    // localStorage.setItem('checkboxvalue', this.checkboxevent);
     if (event.checked) {
       if (this.getassesmentArr.length === 0) {
+
         this.getassesmentArr.push(this.initassesmentArray());
         this.assessmentChecked.push(true); // Push the initial checked state as true
       }
