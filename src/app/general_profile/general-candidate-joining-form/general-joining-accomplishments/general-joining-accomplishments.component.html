@@ -66,10 +66,10 @@
               <div class="form-grouping">
                 <div class="row-wrapper">
                   <div class="divcard m-0">
-                    <h5 class="h">Assesments</h5>
+                    <h5 class="h">Assessments</h5>
                   </div>
                   <div class="dependent-head">
-                    <h6 style="margin-top: 30px;">Assesment {{i+1}}</h6>
+                    <h6 style="margin-top: 30px;">Assessment {{i+1}}</h6>
                     <div class="remove-wrapper">
                       <div (click)="removeData(i,'assessments')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
                         <i class="icon-BinDelete pointer ag-icon-font-size"></i>
@@ -79,7 +79,7 @@
 
                   <ng-container>
                     <div class="overall-input-wrapper width-32 mb-0">
-                      <label>Assesment Name<span class="redTxt">*</span></label>
+                      <label>Assessment Name<span class="redTxt">*</span></label>
                       <div style="width: 100%;">
                         <!-- <input matInput placeholder="Enter here" class="input" type="text"
                           [formControlName]="form_assesment_title"> -->
@@ -105,7 +105,7 @@
 
                   <ng-container>
                     <div class="overall-input-wrapper width-32 mb-0">
-                      <label>Assesment Date<span class="redTxt">*</span></label>
+                      <label>Assessment Date<span class="redTxt">*</span></label>
                       <div class="date-relative">
                         <div style="width: 100%;">
                           <input matInput class="input" [min]="minAwardDate" [max]="maxAwardDate"
@@ -147,7 +147,7 @@
             *ngIf="getassesmentArr && getassesmentArr.controls && getassesmentArr.controls.length < 5 "
             class=" pt-3 pb-3">
             <button class="onFocusButton common-button-height-35 " mat-raised-button type="button"
-              (click)="addMoreAssesments()">+ Add More Assesments</button>
+              (click)="addMoreAssesments()">+ Add More Assessments</button>
           </div>
         </ng-container>
 
@@ -163,6 +163,7 @@
                 [ngClass]="{'highlight': i === getCertificationsArr.controls.length - 1}">
                 <div class="form-grouping">
                   <div class="row-wrapper">
+                    <h5 class="h">Certifications</h5>
                     <div class="dependent-head">
                       <h6>Certification {{i+1}}</h6>
                       <div class="remove-wrapper">
@@ -186,7 +187,7 @@
                     <!-- L&T certification drop down -->
                     <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '1' ">
                       <div class="overall-input-wrapper width-32 0">
-                        <label>Certification Name DROP<span class="redTxt">*</span></label>
+                        <label>Certification Name<span class="redTxt">*</span></label>
                         <!-- {{certifications | json}} -->
                         <div style="width: 100%;">
 
@@ -259,7 +260,7 @@
 
                     <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '1' ">
                       <div class="overall-input-wrapper width-32 mb-0">
-                        <label>Issued From L&T<span class="redTxt">*</span></label>
+                        <label>Issued By<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
                           <input matInput placeholder="Enter here" class="input" type="text"
                             [formControlName]="form_certification_issuedFrom" value="LnTeduTech" readonly>
@@ -279,7 +280,7 @@
 
                     <ng-container *ngIf="this.getCertificationsArr.controls[i].value.lntCertificationFlag == '2' ">
                       <div class="overall-input-wrapper width-32 mb-0">
-                        <label>Issued From<span class="redTxt">*</span></label>
+                        <label>Issued By<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
                           <input matInput placeholder="Enter here" class="input" type="text"
                             [formControlName]="form_certification_issuedFrom">
@@ -408,7 +409,7 @@
                   <div *ngIf="getCertificationsArr.controls.length-1 == i "
                     class="overall-input-wrapper mt-2  width-100">
                     <div> <mat-checkbox (change)="isCertificateExpire($event, i)" [formControlName]="form_isexpire"
-                        class="checkqualify mr-2 "></mat-checkbox><span class="doesnot_expire">This certificate does not
+                        class="checkqualify mr-2 "></mat-checkbox><span class="doesnot_expire">This Certification does not
                         expire</span></div>
                   </div>
                 </div>

@@ -1294,7 +1294,7 @@
               </div>
               <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
                 <div> <mat-checkbox [disabled]="true" [checked]="certification[form_isexpire]"
-                    class="checkqualify mr-2 "></mat-checkbox><span>This Certification does not expire</span></div>
+                    class="checkqualify mr-2 "></mat-checkbox><span>This Certifications does not expire</span></div>
               </div>
             </div>
           </ng-container>
@@ -1336,23 +1336,23 @@
         <!--assesments-->
 
         <div class="header d-flex justify-content-between mb-1 mt-3 p-0 align-items-center custom-header-padding">
-          <h6>Assesments</h6>
+          <h6>Assessments</h6>
         </div>
         <ng-container
           *ngIf="accomplishmentsMap[form_assesmentArray] && accomplishmentsMap[form_assesmentArray].length > 0;else noAssesments">
           <ng-container *ngFor="let assesments of accomplishmentsMap[form_assesmentArray];let i = index">
-            <h6 class="mt-3">Assesments {{i+1}}</h6>
+            <h6 class="mt-3">Assessments {{i+1}}</h6>
             <div class="row-wrapper mt-0">
               <div class="overall-input-wrapper mt-3 width-32">
 
-                <label>Assesment Title</label>
+                <label>Assessment Name</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{assesments[form_assesment_title]}}
                 </div>
               </div>
 
               <div class="overall-input-wrapper mt-3 width-32">
-                <label>Assesment Date</label>
+                <label>Assessment Date</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{assesments[form_assesment_date]?(dateConvertion(assesments[form_assesment_date])| date : 'MMM y')
                   :'NIL'}}
@@ -2307,7 +2307,7 @@
   <div class="nodata mt-4">No Awards Details Available</div>
 </ng-template>
 <ng-template #noAssesments>
-  <div class="nodata mt-4">No Assesments Details Available</div>
+  <div class="nodata mt-4">No Assessments Details Available</div>
 </ng-template>
 <ng-template #noJournalEntry>
   <div class="nodata mt-4">No Research Publication/Journal Entry Details Available</div>
