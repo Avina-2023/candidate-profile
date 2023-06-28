@@ -769,7 +769,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         [Validators.required, this.glovbal_validators.alphaNum255()],
       ],
       [this.form_certification_issuedFrom]: [
-        'L&T Edutech',
+        'L&T EduTech',
         [Validators.required],
       ],
 
@@ -1322,8 +1322,11 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       // );
     } else {
       if (this.getassesmentArr.length > 0) {
-        this.getassesmentArr.removeAt(this.getassesmentArr.length - 1);
-        this.assessmentChecked.pop(); // Remove the last checked state
+        // this.getassesmentArr.removeAt(this.getassesmentArr.length - 1);
+        // this.assessmentChecked.pop(); // Remove the last checked state
+
+        this.getassesmentArr.clear();
+        this.assessmentChecked = []; // Reset the assessmentChecked array
       }
     }
   }
