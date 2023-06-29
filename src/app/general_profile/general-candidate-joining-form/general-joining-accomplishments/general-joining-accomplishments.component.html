@@ -93,7 +93,7 @@
                           *ngIf="getassesmentArr.controls[i].get(form_assesment_title).invalid && getassesmentArr.controls[i].get(form_assesment_title).touched">
                           <div class="err"
                             *ngIf="getassesmentArr.controls[i].get(form_assesment_title).errors?.required">
-                            Assesment Name is Required</div>
+                            Assessment Name is Required</div>
                           <div class="err"
                             *ngIf="getassesmentArr.controls[i].get(form_assesment_title).errors?.alphaNum255">
                             Alpha numeric with maximum of 255 characters only
@@ -116,7 +116,7 @@
                             *ngIf="getassesmentArr.controls[i]?.get(form_assesment_date).invalid && getassesmentArr.controls[i]?.get(form_assesment_date).touched">
                             <div class="err"
                               *ngIf="getassesmentArr.controls[i].get(form_assesment_date)?.errors?.required">
-                              Assesment Date is Required</div>
+                              Assessment Date is Required</div>
                             <div class="err"
                               *ngIf="getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMax">
                               {{getassesmentArr.controls[i].get(form_assesment_date)?.errors?.matDatepickerMax?.max ?
@@ -163,9 +163,10 @@
                 [ngClass]="{'highlight': i === getCertificationsArr.controls.length - 1}">
                 <div class="form-grouping">
                   <div class="row-wrapper">
-                    <h5 class="h">Certifications</h5>
+                    <div class="divcard m-0">
+                    <h5 class="h">Certifications</h5></div>
                     <div class="dependent-head">
-                      <h6>Certification {{i+1}}</h6>
+                      <h6 style="margin-top: 30px;">Certification {{i+1}}</h6>
                       <div class="remove-wrapper">
                         <div (click)="removeData(i,'certification')" *ngIf="i >= 0  " matTooltip="Remove"
                           class="remove">
@@ -268,7 +269,7 @@
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom)?.invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
                             <div class="err"
                               *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
-                              Certification issued From</div>
+                              Certification Issued By is Required</div>
                             <div class="err"
                               *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
                               Alpha numeric with a maximum of 255 characters only allowed
@@ -289,7 +290,7 @@
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
                             <div class="err"
                               *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.required">
-                              Certification issued From</div>
+                              Certification Issued By is Required</div>
                             <div class="err"
                               *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom).errors?.alphaNum255">
                               Alpha numeric with maximum of 255 characters only allowed
@@ -438,7 +439,7 @@
                     <h5 class="h">Awards</h5>
                   </div>
                   <div class="dependent-head">
-                    <h6 style="margin-top: 30px;">Awards {{i+1}}</h6>
+                    <h6 style="margin-top: 30px;">Award {{i+1}}</h6>
                     <div class="remove-wrapper">
                       <div (click)="removeData(i,'awards')" *ngIf="i >= 0  " matTooltip="Remove" class="remove">
                         <i class="icon-BinDelete pointer ag-icon-font-size"></i>
