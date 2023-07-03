@@ -12,7 +12,8 @@
             <hr>
           </div>
           <div>
-            <div class="pre_button" (click)="showDialog = !showDialog">
+            <!-- <div class="pre_button" (click)="showDialog = !showDialog"> -->
+              <div class="pre_button" (click)= "openDialog()" >
               <div style="border: none;background-color: #FFFFFF;">
                 <em style="cursor: pointer"
                   [ngClass]="{'icon-circled_X_icon x_circle_icon': showDialog, 'icon-circled_plus_icon plus_icon': !showDialog }"></em>
@@ -21,25 +22,63 @@
                 Pre-written Phrases
               </div>
             </div>
-            <div *ngIf="showDialog">
+
+            <ng-template #matDialog>
               <div class="dlog_box">
-                <mat-form-field class="searchbox">
-                  <!-- <mat-label>Filter phrases by keyword and job title</mat-label> -->
-                  <mat-icon matPrefix>search </mat-icon>
-                  <input  type="text" matInput placeholder="Filter phrases by keyword and job title" (keyup)="applyFilter($event.target.value)">
-                </mat-form-field>
+              <div class="popup">
+                <div class="icon">
+                  <div class="searc">
+                  <div >
+                    <mat-icon matPrefix>search </mat-icon>
+                  </div>
+                    <div class="searc-icon">
+                      <input style="width: 102%;" type="text" matInput placeholder="Filter phrases by keyword and job title" (keyup)="applyFilter($event.target.value)">
+                    </div>
+                </div>
+                  <div class="clos">
+                    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+                      <mat-icon class="close-icon" color="warn">close</mat-icon>
+                    </button>
+                  </div>
+                </div>
                 <div><label class="most_popular"><span class="icon-awesome_crown_icon"></span>
                   Most Popular</label></div>
-                <div *ngFor="let content of contents;let i = index" style="padding:0px 0px 0px 20px">
+                <div *ngFor="let content of contents;let i = index">
                   <div (click)="appendPara(content,i)">
-
-                    <p class="phrase_1 targetcontent"><span class="rem">{{content.description}}</span><span id="rem_id"
-                        [ngClass]="{'icon-circled_tick_icon circled_tick': selectedFlag && selectedContentIndex === i, 'icon-right_arrow_circled right_arrow': !selectedFlag || selectedContentIndex !== i}"></span>
+                    <p class="phrase_1 targetcontent" style="display: flex; flex-direction: row; justify-content: space-between;">
+                      <span class="rem">{{content.description}}</span>
+                      <span id="rem_id" [ngClass]="{'icon-circled_tick_icon circled_tick': selectedFlag && selectedContentIndex === i,
+                                   'icon-right_arrow_circled right_arrow': !selectedFlag || selectedContentIndex !== i}"></span>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+              </ng-template>
+
+            <div *ngIf="showDialog">
+              <div class="dlog_box">
+                <!-- <mat-form-field class="searchbox">
+                  <mat-icon matPrefix>search </mat-icon>
+                  <div class="searc">
+                  <div><input  type="text" matInput placeholder="Filter phrases by keyword and job title" (keyup)="applyFilter($event.target.value)"></div>
+                  <div><em style="cursor: pointer" (click)="showDialog = !showDialog"
+                  [ngClass]="{'icon-circled_X_icon x_circle_icon': showDialog, 'icon-circled_plus_icon plus_icon': !showDialog }"></em></div>
+                  </div>
+                </mat-form-field> -->
+                <!-- <div><label class="most_popular"><span class="icon-awesome_crown_icon"></span>
+                  Most Popular</label></div> -->
+
+                <!-- <div *ngFor="let content of contents;let i = index" style="padding:0px 0px 0px 20px">
+                  <div (click)="appendPara(content,i)">
+                    <p class="phrase_1 targetcontent"><span class="rem">{{content.description}}</span><span id="rem_id"
+                        [ngClass]="{'icon-circled_tick_icon circled_tick': selectedFlag && selectedContentIndex === i, 'icon-right_arrow_circled right_arrow': !selectedFlag || selectedContentIndex !== i}"></span>
+                    </p>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+
           </div>
 
           <div class="written_phrase_border">
@@ -92,14 +131,13 @@
                   <!-- <input  class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
                     (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" /> -->
 
-                  <input  class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
+                  <input class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
                   (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" required />
 
                   <label for="upload" class="uploadbutton">
                     <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "No file chosen"}}
                   </label>
                 </div>
-
                 <div (click)="downloadFile(pdfdoc)" matTooltip="Download" class="download_btn">
                   <span class="icon-download_icon dwlnd_icon"></span>
                 </div>
@@ -108,6 +146,7 @@
                 </div>
               </div>
             </div>
+
             <div class="note_upload">
               <span class="note_clr">Note:</span>
               <span class="note_text"> .PDF format only supported. Maximum upload size is 2MB</span>
