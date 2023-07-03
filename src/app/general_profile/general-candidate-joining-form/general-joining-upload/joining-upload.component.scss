@@ -903,7 +903,7 @@ opacity: 1;
 .x_circle_icon{
   // display: none;
 color: #EF2917;
-font-size: 17px;
+font-size: 14px;
 
 
 
@@ -1014,7 +1014,7 @@ text-align: left;
 font: normal normal medium 14px/17px Lato;
 letter-spacing: 0.36px;
 color: #EC930C;
-// padding: 0px 0px 0px 17px;
+ padding: 0px 0px 0px 17px;
 
 opacity: 1;
 }
@@ -1169,15 +1169,15 @@ opacity: 1;
   // display: flex;
   position: absolute;
   justify-content: center;
-  top: 41%;
- //right: 3%;
+  top: 3%;
+  right: 69%;
   left: 2%;
   z-index: 999;
   background: white;
   border: 1px solid;
   width: -moz-fit-content;
   width: fit-content;
-  max-height: 357px!important;
+  max-height: 350px!important;
   overflow: auto;
   line-height: 0.9;
   background: #F9F9F9 0% 0% no-repeat padding-box;
@@ -1300,7 +1300,7 @@ height: 40px;
         padding:  0px 0px 0px 20px;
         height: 357px;
         max-width: 379px ;
-        
+
         .icon{
             display: flex;
             flex-direction: row;

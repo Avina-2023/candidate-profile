@@ -302,8 +302,12 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       this.accomplishmentDetails[this.form_assesmentArray].length > 0
     ) {
       this.getassesmentArr.clear();
-      this.accomplishmentsForm.controls[this.form_isassesment].setValue(this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue);
-      this.accomplishmentDetails[this.form_assesmentArray][0].assesments.forEach((element, i) => {
+      this.accomplishmentsForm.controls[this.form_isassesment].setValue(
+        this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue
+      );
+      this.accomplishmentDetails[
+        this.form_assesmentArray
+      ][0].assesments.forEach((element, i) => {
         this.getassesmentArr.push(this.patchingAssesments(element, i));
       });
     }
@@ -380,18 +384,18 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         this.accomplishmentsForm.getRawValue()[this.form_awardsArray];
 
       let assessmentDetail = {
-        assesments:this.accomplishmentsForm.getRawValue()[this.form_assesmentArray],
-        assementvalue:this.accomplishmentsForm.getRawValue()[this.form_isassesment]
-      }
+        assesments:
+          this.accomplishmentsForm.getRawValue()[this.form_assesmentArray],
+        assementvalue:
+          this.accomplishmentsForm.getRawValue()[this.form_isassesment],
+      };
 
       let assesments = assessmentDetail;
-      
+
       //   let assesments:any  = this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
       // assesments.assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
       //   console.log(assesments,'assesmentsassesments')
       // let assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
-
-
 
       // console.log(assementvalue,'assementvalue')
       let journals =
@@ -527,8 +531,8 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
 
   patchingAssesments(data, i) {
     return this.fb.group({
-
-      [this.form_assesment_title]: [data[this.form_assesment_title],
+      [this.form_assesment_title]: [
+        data[this.form_assesment_title],
         [
           RemoveWhitespace.whitespace(),
           Validators.required,
@@ -602,7 +606,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       [this.form_assesmentArray]: this.fb.array([]),
       [this.form_journalEntryArray]: this.fb.array([]),
       // [this.form_isassesment]: [getcheckboxvalue],
-       [this.form_isassesment]: [false],
+      [this.form_isassesment]: [false],
       [this.form_CoursesArray]: this.fb.array([]),
     });
   }
@@ -799,10 +803,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
         );
         this.getCertificationsArr.controls[index]['controls'][
           this.form_certification_issuedFrom
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
+        ].setValidators([Validators.required], { emitEvent: false });
         this.getCertificationsArr.controls[index]['controls'][
           this.form_certification_validityFrom
         ].setValidators([Validators.required], { emitEvent: false });
@@ -1313,7 +1314,6 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     // localStorage.setItem('checkboxvalue', this.checkboxevent);
     if (event.checked) {
       if (this.getassesmentArr.length === 0) {
-
         this.getassesmentArr.push(this.initassesmentArray());
         this.assessmentChecked.push(true); // Push the initial checked state as true
       }
@@ -1460,13 +1460,11 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   }
 
   fetchCertifications(getCourseToken: any) {
-
     this.skillexService.geteduTechCourses().subscribe(
       (response: any) => {
         this.certifications = response && response.data ? response.data : [];
       },
-      (error) => {
-      }
+      (error) => {}
     );
   }
   getassessmentData() {
