@@ -144,6 +144,9 @@ export class GeneralJoiningUploadComponent
     this.files = event.dataTransfer.files;
   }
 
+  openDialog() {
+		this.dialog.open(this.matDialogRef);
+	}
 
   toggleButtonSelection() {
     this.selectedFlag = !this.selectedFlag;
@@ -305,7 +308,6 @@ export class GeneralJoiningUploadComponent
   // public fileLeave(event:any){
   //   console.log(event);
   // }
-
   downloadFiledata() {
     const downloadLink = document.createElement('a');
     downloadLink.href = window.URL.createObjectURL(this.pdfdoc);
