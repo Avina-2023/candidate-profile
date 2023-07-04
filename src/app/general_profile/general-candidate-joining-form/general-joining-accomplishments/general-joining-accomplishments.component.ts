@@ -477,10 +477,11 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       lntCertificationFlag: [data.lntCertificationFlag],
       [this.form_certification_name]: [
         data[this.form_certification_name],
+
         [
           RemoveWhitespace.whitespace(),
           Validators.required,
-          this.glovbal_validators.alphaNum255(),
+          // this.glovbal_validators.alphaNum255(),
         ],
       ],
 
@@ -768,10 +769,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   initCertificationsArray() {
     return this.fb.group({
       lntCertificationFlag: ['1'],
-      [this.form_certification_name]: [
-        null,
-        [Validators.required, this.glovbal_validators.alphaNum255()],
-      ],
+      [this.form_certification_name]: [null, [Validators.required]],
       [this.form_certification_issuedFrom]: [
         'L&T EduTech',
         [Validators.required],
@@ -797,10 +795,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       ) {
         this.getCertificationsArr.controls[index]['controls'][
           this.form_certification_name
-        ].setValidators(
-          [Validators.required, this.glovbal_validators.alphaNum255()],
-          { emitEvent: false }
-        );
+        ].setValidators([Validators.required], { emitEvent: false });
         this.getCertificationsArr.controls[index]['controls'][
           this.form_certification_issuedFrom
         ].setValidators([Validators.required], { emitEvent: false });

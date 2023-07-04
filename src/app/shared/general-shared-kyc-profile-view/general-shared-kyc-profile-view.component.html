@@ -761,7 +761,7 @@
             <!-- {{ education.is_highLevelEdu}} -->
 
             <div *ngIf="education.is_highLevelEdu == true" class="overall-input-wrapper mt-3  width-100">
-              <div  class="checkk"> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
+              <div class="checkk"> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
                   class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
               </div>
             </div>
@@ -1256,6 +1256,7 @@
                 <label>Certification Name</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{ certification[form_certification_name]}}
+
                   <!-- {{ certification[form_certification_name].courseName }} -->
                 </div>
               </div>
@@ -1287,7 +1288,7 @@
                 </div>
               </div>
               <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
-                <div  class="checkk"> <mat-checkbox [disabled]="true" [checked]="certification[form_isexpire]"
+                <div class="checkk"> <mat-checkbox [disabled]="true" [checked]="certification[form_isexpire]"
                     class="checkqualify mr-2 "></mat-checkbox><span>This Certification does not expire</span></div>
               </div>
             </div>

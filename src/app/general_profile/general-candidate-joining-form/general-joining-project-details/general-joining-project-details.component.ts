@@ -1,6 +1,12 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormCustomValidators } from 'src/app/custom-form-validators/autocompleteDropdownMatch';
-import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormArray,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from 'src/app/config/app-config.service';
 import { CONSTANT } from 'src/app/constants/app-constants.service';
@@ -10,15 +16,22 @@ import { ApiServiceService } from 'src/app/service/api-service.service';
 import { CandidateMappersService } from 'src/app/service/candidate-mappers.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
-import * as  moment from 'moment';
+import * as moment from 'moment';
 import { LoaderService } from 'src/app/service/loader-service.service';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_LOCALE,
+  MAT_DATE_FORMATS,
+} from '@angular/material/core';
+import {
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalBoxComponent } from 'src/app/shared/modal-box/modal-box.component';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
-import {MatDatepicker} from '@angular/material/datepicker';
-import { MatDatepickerInputEvent } from "@angular/material/datepicker";
+import { MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 export const MY_FORMATS = {
   parse: {
@@ -43,31 +56,30 @@ export const MY_FORMATS = {
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
 
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ]
+  ],
 })
 export class GeneralJoiningProjectDetailsComponent implements OnInit {
   @ViewChild('confirmDialog', { static: false }) matDialogRef: TemplateRef<any>;
-  currentDeleteIndex: number ;
+  currentDeleteIndex: number;
 
   projectForm: FormGroup;
   form_projectArray = 'projects';
-  form_projectDetails = "projectDetails";
+  form_projectDetails = 'projectDetails';
 
   projectTypeList = [
     {
       label: 'Academy',
-      value: 'Academy'
+      value: 'Academy',
     },
     {
       label: 'Industry',
-      value: 'Industry'
-    }
-
-  ]
+      value: 'Industry',
+    },
+  ];
   minDate: Date;
   maxDate: Date;
   form_projectTitle = 'projectTitle';
@@ -94,23 +106,26 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     // private adminService: AdminServiceService,
     private sharedService: SharedServiceService,
     public candidateService: CandidateMappersService,
-    private loadingService:LoaderService,
-    private skillexService:SkillexService,
+    private loadingService: LoaderService,
+    private skillexService: SkillexService,
     private fb: FormBuilder,
     private glovbal_validators: GlobalValidatorService,
     private matDialog: MatDialog,
     public dialog: MatDialog,
-    private msgData:InterComponentMessenger
-  ) {this.minFromDate = new Date(1900, 0, 1);
+    private msgData: InterComponentMessenger
+  ) {
+    this.minFromDate = new Date(1900, 0, 1);
     this.maxFromDate = new Date();
 
     this.minToDate = new Date(1900, 0, 1);
-    this.maxToDate = new Date();}
+    this.maxToDate = new Date();
+  }
 
-
-
-
-  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>, i:number) {
+  fromDateChange(
+    type: string,
+    event: MatDatepickerInputEvent<Date>,
+    i: number
+  ) {
     this.minToDate[i] = event.value;
 
     if (event.value != null) {
@@ -122,7 +137,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     }
   }
 
-  toDateChange(type: string, event: MatDatepickerInputEvent<Date>,i:number) {
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>, i: number) {
     this.maxFromDate[i] = event.value;
 
     if (event.value != null) {
@@ -141,22 +156,28 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     this.getProjectApiDetails();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
-    document.getElementById("projectFormId").addEventListener("submit", function() {
-      this.classList.add("submitted");
-    });
+    document
+      .getElementById('projectFormId')
+      .addEventListener('submit', function () {
+        this.classList.add('submitted');
+      });
   }
 
   joiningFormDataFromJoiningFormComponentRxjs() {
-    this.joiningFormDataPassingSubscription = this.sharedService.joiningFormDataPassing.subscribe((data: any)=> {
-       this.getProjectApiDetails();
-     });
-   }
+    this.joiningFormDataPassingSubscription =
+      this.sharedService.joiningFormDataPassing.subscribe((data: any) => {
+        this.getProjectApiDetails();
+      });
+  }
 
-   getProjectApiDetails() {
+  getProjectApiDetails() {
     if (this.candidateService.getLocalProfileData()) {
       this.formInitialize();
-      this.projectDetails = this.candidateService.getLocalproject_details()?.projects;
-      this.projectDetails && this.projectDetails.length >0 ? this.ifProjectDetails() : this.ifNotProjectDetails();
+      this.projectDetails =
+        this.candidateService.getLocalproject_details()?.projects;
+      this.projectDetails && this.projectDetails.length > 0
+        ? this.ifProjectDetails()
+        : this.ifNotProjectDetails();
     } else {
     }
   }
@@ -166,7 +187,7 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   ifNotProjectDetails() {
     this.projectDetails = [];
     //this.getprojectArr.push(this.initProjectArray()); // Show the form by default
-    }
+  }
 
   // removeProjectArray(i) {
   //   this.getprojectArr.removeAt(i);
@@ -191,33 +212,33 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
       width: 'auto',
       height: 'auto',
       autoFocus: false,
-      data: dialogDetails
+      data: dialogDetails,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.getprojectArr.removeAt(this.currentDeleteIndex);
       }
     });
   }
   removeData(i) {
-   // console.log(i);
-   // 
-   /*this.getprojectArr.removeAt(i);
+    // console.log(i);
+    //
+    /*this.getprojectArr.removeAt(i);
     console.log(this.getprojectArr.controls[i]);
     this.getprojectArr.push(this.initProjectArray());*/
-    this.currentDeleteIndex = i
+    this.currentDeleteIndex = i;
     const data = {
       iconName: '',
       sharedData: {
         confirmText: 'Are you sure you want to delete?',
         componentData: '',
         type: 'delete',
-        identity: 'logout'
+        identity: 'logout',
       },
       showConfirm: 'Ok',
       showCancel: 'Cancel',
-      showOk: ''
+      showOk: '',
     };
     this.openDialog(ModalBoxComponent, data);
   }
@@ -244,7 +265,6 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     }
   }
 
-
   dateConvertion(date) {
     if (date) {
       const split = moment(date).format();
@@ -256,121 +276,213 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
     }
   }
   patchProjectForm() {
-      // this.getprojectArr.clear();
-      // this.projectDetails[this.form_projectArray].forEach((element, i) => {
-      //   this.getprojectArr.push(this.patchingProjectdetails(element, i));
-      // });
-
+    // this.getprojectArr.clear();
+    // this.projectDetails[this.form_projectArray].forEach((element, i) => {
+    //   this.getprojectArr.push(this.patchingProjectdetails(element, i));
+    // });
 
     this.getprojectArr.clear();
     this.projectDetails.forEach((element, i) => {
       this.getprojectArr.push(this.patchingProjectdetails(element, i));
     });
   }
-  patchingProjectdetails(data, i){
+  patchingProjectdetails(data, i) {
     return this.fb.group({
-      [this.form_typeList]: [data[this.form_typeList], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_teamSize]: [data[this.form_teamSize], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_projectTitle]: [data[this.form_projectTitle], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodFrom]:[this.dateConvertion(data[this.form_periodFrom]) , [Validators.required]],
-      [this.form_periodTo]:[this.dateConvertion(data[this.form_periodTo]) , [Validators.required]],
-      [this.form_projectDescription]: [data[this.form_projectDescription], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_projectOrganization]: [data[this.form_projectOrganization], [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-    })
-     }
-
+      [this.form_typeList]: [
+        data[this.form_typeList],
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.alphaNum255(),
+        ],
+      ],
+      [this.form_teamSize]: [
+        data[this.form_teamSize],
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.alphaNum255(),
+        ],
+      ],
+      [this.form_projectTitle]: [
+        data[this.form_projectTitle],
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.alphaNum255(),
+        ],
+      ],
+      [this.form_periodFrom]: [
+        this.dateConvertion(data[this.form_periodFrom]),
+        [Validators.required],
+      ],
+      [this.form_periodTo]: [
+        this.dateConvertion(data[this.form_periodTo]),
+        [Validators.required],
+      ],
+      [this.form_projectDescription]: [
+        data[this.form_projectDescription],
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.alphaNum255(),
+        ],
+      ],
+      [this.form_projectOrganization]: [
+        data[this.form_projectOrganization],
+        [RemoveWhitespace.whitespace(), Validators.required],
+      ],
+    });
+  }
 
   formInitialize() {
     this.projectForm = this.fb.group({
       [this.form_projectArray]: this.fb.array([]),
-    })
+    });
   }
 
-  addMoreCertifications(){
+  addMoreCertifications() {
     if (this.getprojectArr.valid) {
       return this.getprojectArr.push(this.initProjectArray());
-     }
-     this.glovbal_validators.validateAllFormArrays(this.projectForm.get([this.form_projectArray]) as FormArray);
+    }
+    this.glovbal_validators.validateAllFormArrays(
+      this.projectForm.get([this.form_projectArray]) as FormArray
+    );
   }
 
-  get getprojectArr() { return this.projectForm.get([this.form_projectArray]) as FormArray; }
+  get getprojectArr() {
+    return this.projectForm.get([this.form_projectArray]) as FormArray;
+  }
   get typeList() {
     return this.projectForm.get(this.form_typeList);
-    }
-    get teamSize() {
-      return this.projectForm.get(this.form_teamSize);
-      }get projectTitle() {
-        return this.projectForm.get(this.form_projectTitle);
-        }get periodFrom() {
-          return this.projectForm.get(this.form_periodFrom);
-          }get periodTo() {
-            return this.projectForm.get(this.form_periodTo);
-            }get projectDescription() {
-              return this.projectForm.get(this.form_projectDescription);
-              }get projectOrganization() {
-                return this.projectForm.get(this.form_projectOrganization);
-                }
-
-
-  initProjectArray(){
-    return this.fb.group({
-      [this.form_typeList]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_teamSize]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.numberOnly(),Validators.maxLength(5)]],
-      [this.form_projectTitle]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_periodFrom]: [null, [Validators.required]],
-      [this.form_periodTo]: [null, [Validators.required]],
-      [this.form_projectDescription]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-      [this.form_projectOrganization]: [null, [RemoveWhitespace.whitespace(), Validators.required, this.glovbal_validators.alphaNum255()]],
-
-    })
+  }
+  get teamSize() {
+    return this.projectForm.get(this.form_teamSize);
+  }
+  get projectTitle() {
+    return this.projectForm.get(this.form_projectTitle);
+  }
+  get periodFrom() {
+    return this.projectForm.get(this.form_periodFrom);
+  }
+  get periodTo() {
+    return this.projectForm.get(this.form_periodTo);
+  }
+  get projectDescription() {
+    return this.projectForm.get(this.form_projectDescription);
+  }
+  get projectOrganization() {
+    return this.projectForm.get(this.form_projectOrganization);
   }
 
+  initProjectArray() {
+    return this.fb.group({
+      [this.form_typeList]: [
+        null,
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.alphaNum255(),
+        ],
+      ],
+      [this.form_teamSize]: [
+        null,
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.numberOnly(),
+          Validators.maxLength(5),
+        ],
+      ],
+      [this.form_projectTitle]: [
+        null,
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.alphaNum255(),
+        ],
+      ],
+      [this.form_periodFrom]: [null, [Validators.required]],
+      [this.form_periodTo]: [null, [Validators.required]],
+      [this.form_projectDescription]: [
+        null,
+        [
+          RemoveWhitespace.whitespace(),
+          Validators.required,
+          this.glovbal_validators.alphaNum255(),
+        ],
+      ],
+      [this.form_projectOrganization]: [
+        null,
+        [RemoveWhitespace.whitespace(), Validators.required],
+      ],
+    });
+  }
 
-  formSubmit(routeValue?:any) {
+  formSubmit(routeValue?: any) {
     // this.loadingService.setLoading(true)
     // if(this.projectForm.valid) {
     //   let projectobj:any = {};
     //   let formArray = this.projectForm.getRawValue()[this.form_projectArray];
     //   projectobj.project_details = formArray
 
-    this.loadingService.setLoading(true)
+    this.loadingService.setLoading(true);
     let rawprojectFormValue = this.projectForm.getRawValue();
     if (this.projectForm.valid) {
       const projectobj = {
         [this.form_projectArray]: rawprojectFormValue[this.form_projectArray],
-
       };
       const ProjectApiRequestDetails = {
-        email: this.appConfig.getLocalData('userEmail')? this.appConfig.getLocalData('userEmail') : '',
-        section_name: "project_details",
-        saving_data: projectobj
-      }
-      this.loadingService.setLoading(true)
-    this.newSaveProfileDataSubscription = this.skillexService.saveCandidateProfile(ProjectApiRequestDetails).subscribe((data: any)=> {
-      this.loadingService.setLoading(false)
-        this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
-        this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
-        this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Project details is updated');
-        this.msgData.sendMessage("saved",true)
-        this.sharedService.joiningFormStepperStatus.next();
-        return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
-      });
-    }
-        else {
+        email: this.appConfig.getLocalData('userEmail')
+          ? this.appConfig.getLocalData('userEmail')
+          : '',
+        section_name: 'project_details',
+        saving_data: projectobj,
+      };
+      this.loadingService.setLoading(true);
+      this.newSaveProfileDataSubscription = this.skillexService
+        .saveCandidateProfile(ProjectApiRequestDetails)
+        .subscribe((data: any) => {
+          this.loadingService.setLoading(false);
+          this.candidateService.saveFormtoLocalDetails(
+            data.data.section_name,
+            data.data.saved_data
+          );
+          this.candidateService.saveFormtoLocalDetails(
+            'section_flags',
+            data.data.section_flags
+          );
+          this.appConfig.nzNotification(
+            'success',
+            'Saved',
+            data && data.message ? data.message : 'Project details is updated'
+          );
+          this.msgData.sendMessage('saved', true);
+          this.sharedService.joiningFormStepperStatus.next();
+          return this.appConfig.routeNavigation(
+            CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD
+              .GENERAL_JOINING_ACCOMPLISHMENTS
+          );
+        });
+    } else {
       this.ngAfterViewInit();
-      this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the mandatory fields to proceed further');
-      this.loadingService.setLoading(false)
+      this.appConfig.nzNotification(
+        'error',
+        'Not Saved',
+        'Please fill all the mandatory fields to proceed further'
+      );
+      this.loadingService.setLoading(false);
       this.glovbal_validators.validateAllFields(this.projectForm);
     }
   }
 
-   saveRequestRxJs() {
-    this.sendPopupResultSubscription = this.sharedService.sendPopupResult.subscribe((result: any) => {
-
-      if (result.result == 'save') {
-        this.formSubmit(result.route);
-      }
-    });
+  saveRequestRxJs() {
+    this.sendPopupResultSubscription =
+      this.sharedService.sendPopupResult.subscribe((result: any) => {
+        if (result.result == 'save') {
+          this.formSubmit(result.route);
+        }
+      });
   }
 
   showStepper() {
@@ -387,43 +499,72 @@ export class GeneralJoiningProjectDetailsComponent implements OnInit {
   }
 
   checkFormValidRequestFromRxjs() {
-    this.checkFormValidRequest = this.sharedService.StepperNavigationCheck.subscribe((data: any) => {
-      if (data.current == 'project') {
-        if (!this.projectForm.dirty) {
-          return this.appConfig.routeNavigation(data.goto);
-        } else {
-          return this.sharedService.openJoiningRoutePopUp.next(data.goto);
+    this.checkFormValidRequest =
+      this.sharedService.StepperNavigationCheck.subscribe((data: any) => {
+        if (data.current == 'project') {
+          if (!this.projectForm.dirty) {
+            return this.appConfig.routeNavigation(data.goto);
+          } else {
+            return this.sharedService.openJoiningRoutePopUp.next(data.goto);
+          }
         }
-      }
-    });
+      });
   }
 
   routeNext(route) {
     if (!this.projectForm.dirty) {
       if (route == 'work') {
-        return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK);
+        return this.appConfig.routeNavigation(
+          CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK
+        );
       } else {
-        if(this.candidateService.getLocalsection_flags() && this.candidateService.getLocalsection_flags().experience_details == '1') {
-          return this.appConfig.routeNavigation(CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
+        if (
+          this.candidateService.getLocalsection_flags() &&
+          this.candidateService.getLocalsection_flags().experience_details ==
+            '1'
+        ) {
+          return this.appConfig.routeNavigation(
+            CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD
+              .GENERAL_JOINING_ACCOMPLISHMENTS
+          );
         } else {
           if (this.projectForm.valid) {
-            return this.sharedService.openJoiningRoutePopUp.next(route == 'work' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
+            return this.sharedService.openJoiningRoutePopUp.next(
+              route == 'work'
+                ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK
+                : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD
+                    .GENERAL_JOINING_ACCOMPLISHMENTS
+            );
           }
           this.glovbal_validators.validateAllFields(this.projectForm);
           this.ngAfterViewInit();
-          this.appConfig.nzNotification('error', 'Not Saved', 'Please fill all the red highlighted fields to proceed further');
+          this.appConfig.nzNotification(
+            'error',
+            'Not Saved',
+            'Please fill all the red highlighted fields to proceed further'
+          );
         }
       }
     } else {
-      return this.sharedService.openJoiningRoutePopUp.next(route == 'work' ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_ACCOMPLISHMENTS);
+      return this.sharedService.openJoiningRoutePopUp.next(
+        route == 'work'
+          ? CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_WORK
+          : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD
+              .GENERAL_JOINING_ACCOMPLISHMENTS
+      );
     }
-}
+  }
 
-ngOnDestroy() {
-  this.sendPopupResultSubscription ? this.sendPopupResultSubscription.unsubscribe() : '';
-  this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';
-  this.joiningFormDataPassingSubscription ? this.joiningFormDataPassingSubscription.unsubscribe() : '';
-  this.newSaveProfileDataSubscription ? this.newSaveProfileDataSubscription.unsubscribe() : '';
-}
-
+  ngOnDestroy() {
+    this.sendPopupResultSubscription
+      ? this.sendPopupResultSubscription.unsubscribe()
+      : '';
+    this.checkFormValidRequest ? this.checkFormValidRequest.unsubscribe() : '';
+    this.joiningFormDataPassingSubscription
+      ? this.joiningFormDataPassingSubscription.unsubscribe()
+      : '';
+    this.newSaveProfileDataSubscription
+      ? this.newSaveProfileDataSubscription.unsubscribe()
+      : '';
+  }
 }
