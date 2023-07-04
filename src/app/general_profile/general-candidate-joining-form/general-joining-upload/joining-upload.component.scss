@@ -1014,7 +1014,7 @@ text-align: left;
 font: normal normal medium 14px/17px Lato;
 letter-spacing: 0.36px;
 color: #EC930C;
-padding: 0px 0px 0px 17px;
+ padding: 0px 0px 0px 17px;
 
 opacity: 1;
 }
@@ -1171,7 +1171,7 @@ opacity: 1;
   justify-content: center;
   top: 3%;
   right: 69%;
-    left: 2%;
+  left: 2%;
   z-index: 999;
   background: white;
   border: 1px solid;
@@ -1236,7 +1236,11 @@ justify-content: space-evenly;
 justify-content: space-evenly;
 
 }
-
+.searc{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
 }
 
 .redTxt{
@@ -1292,5 +1296,36 @@ height: 40px;
       align-items: center;
       margin: 0px 5px 0px 0px;
     }
+    .popup{
+        padding:  0px 0px 0px 20px;
+        height: 357px;
+        max-width: 379px ;
 
-
+        .icon{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            // padding: 15px 4px ;
+            .searc{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 90%;
+            .searc-icon{
+                width: 100%;
+            }
+            }
+           .clos{
+            display: flex;
+            justify-content: end;
+            margin-bottom: 6px;
+            }
+            .close-icon {
+                font-size: 16px;
+                font-family: cursive;
+                color: red;
+                font-weight: 800;
+            }
+      }
+    }

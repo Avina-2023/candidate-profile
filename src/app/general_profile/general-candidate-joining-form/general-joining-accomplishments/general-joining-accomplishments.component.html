@@ -164,7 +164,8 @@
                 <div class="form-grouping">
                   <div class="row-wrapper">
                     <div class="divcard m-0">
-                    <h5 class="h">Certifications</h5></div>
+                      <h5 class="h">Certifications</h5>
+                    </div>
                     <div class="dependent-head">
                       <h6 style="margin-top: 30px;">Certification {{i+1}}</h6>
                       <div class="remove-wrapper">
@@ -193,16 +194,15 @@
                         <div style="width: 100%;">
 
                           <mat-select matNativeControl [formControlName]="form_certification_name" class="input">
-
-                            <mat-option *ngFor="let certification of certifications"
-                              [value]="certification.courseName">{{
-                              certification.courseName }}</mat-option>
-                            <!-- <span class="close-icon" (click)="clearSelection(certificationSelect)">
+                            <div *ngFor="let certification of certifications">
+                              <mat-option [value]="certification.courseName">{{
+                                certification.courseName }}</mat-option>
+                              <!-- <span class="close-icon" (click)="clearSelection(certificationSelect)">
                               <mat-icon>close</mat-icon>
                             </span> -->
+                              <!-- <input [formControlName]="form_certification_id" type="hidden"> -->
+                            </div>
                           </mat-select>
-
-
 
                           <div class="form-error"
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_name).invalid && getCertificationsArr.controls[i].get(form_certification_name).touched">
@@ -263,7 +263,7 @@
                       <div class="overall-input-wrapper width-32 mb-0">
                         <label>Issued By<span class="redTxt">*</span></label>
                         <div style="width: 100%;">
-                          <input matInput placeholder="Enter here" class="input" type="text"
+                          <input matInput placeholder="Enter here" class="input grey-input" type="text"
                             [formControlName]="form_certification_issuedFrom" value="LnTeduTech" readonly>
                           <div class="form-error"
                             *ngIf="getCertificationsArr.controls[i].get(form_certification_issuedFrom)?.invalid && getCertificationsArr.controls[i].get(form_certification_issuedFrom).touched">
@@ -407,10 +407,10 @@
                       </div>
                     </ng-container>
                   </div>
-                  <div *ngIf="getCertificationsArr.controls.length-1 == i "
-                    class="overall-input-wrapper mt-2  width-100">
+                  <div *ngIf="getCertificationsArr.controls.length" class="overall-input-wrapper mt-2  width-100">
                     <div> <mat-checkbox (change)="isCertificateExpire($event, i)" [formControlName]="form_isexpire"
-                        class="checkqualify mr-2 "></mat-checkbox><span class="doesnot_expire">This Certification does not
+                        class="checkqualify mr-2 "></mat-checkbox><span class="doesnot_expire">This Certification does
+                        not
                         expire</span></div>
                   </div>
                 </div>
@@ -430,9 +430,6 @@
           <ng-container *ngFor="let item of getawardsArr.controls; let i = index;" [formGroupName]="i">
             <div class="container-wrapper flex-container  justify-content-between align-items-center mt-0"
               [id]="'awardsContainer' + i" [ngClass]="{'highlight': i === getawardsArr.controls.length - 1}">
-
-
-
               <div class="form-grouping">
                 <div class="row-wrapper">
                   <div class="divcard m-0">
@@ -548,7 +545,7 @@
                           *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).invalid && getJournalEntryArr.controls[i].get(form_journalEntity_title).touched">
                           <div class="err"
                             *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.required">
-                            Certification Name is Required</div>
+                            Title Name is Required</div>
                           <div class="err"
                             *ngIf="getJournalEntryArr.controls[i].get(form_journalEntity_title).errors?.alphaNum255">
                             Alpha numeric with maximum of 255 characters only allowed</div>

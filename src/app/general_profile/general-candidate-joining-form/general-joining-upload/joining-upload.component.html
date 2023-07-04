@@ -26,10 +26,11 @@
                 <mat-form-field class="searchbox">
                   <!-- <mat-label>Filter phrases by keyword and job title</mat-label> -->
                   <mat-icon matPrefix>search </mat-icon>
-                  <input  type="text" matInput placeholder="Filter phrases by keyword and job title" (keyup)="applyFilter($event.target.value)">
+                  <input type="text" matInput placeholder="Filter phrases by keyword and job title"
+                    (keyup)="applyFilter($event.target.value)">
                 </mat-form-field>
                 <div><label class="most_popular"><span class="icon-awesome_crown_icon"></span>
-                  Most Popular</label></div>
+                    Most Popular</label></div>
                 <div *ngFor="let content of contents;let i = index" style="padding:0px 0px 0px 20px">
                   <div (click)="appendPara(content,i)">
 
@@ -43,8 +44,9 @@
           </div>
 
           <div class="written_phrase_border">
-            <textarea  [(ngModel)]="Pre_written_phrase" [ngModelOptions]="{standalone: true}" class="Eg_phrase"
-              placeholder="E.g. Engineering Graduate with 2+ years of experience..." style="margin:0px 0px 0px 0px"></textarea>
+            <textarea [(ngModel)]="Pre_written_phrase" [ngModelOptions]="{standalone: true}" class="Eg_phrase"
+              placeholder="E.g. Engineering Graduate with 2+ years of experience..."
+              style="margin:0px 0px 0px 0px"></textarea>
           </div>
         </div>
       </div>
@@ -67,7 +69,7 @@
       </div> -->
 
 
-       <div class="backgroundwhite_uploadresume">
+      <div class="backgroundwhite_uploadresume">
         <label class="head_upload">Upload Resume<span class="redTxt">*</span></label>
         <div class="hr_line">
           <hr>
@@ -92,8 +94,9 @@
                   <!-- <input  class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
                     (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" /> -->
 
-                  <input  class="file-input" type="file"  id="upload" name="image" accept="application/pdf"
-                  (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload" required />
+                  <input class="file-input" type="file" id="upload" name="image" accept="application/pdf"
+                    (change)="onFileSelected($event,false)" (click)="$event.target.value=null" type="file" alt="upload"
+                    required />
 
                   <label for="upload" class="uploadbutton">
                     <i class="bi bi-cloud-arrow-up"></i> {{trimFilename(fileName) || "No file chosen"}}
@@ -121,9 +124,3 @@
     </div>
   </form>
 </div>
-
-
-
-
-
-

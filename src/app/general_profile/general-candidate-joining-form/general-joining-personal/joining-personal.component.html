@@ -58,7 +58,8 @@
                   [formControlName]="form_mobile">
                 <div class="form-error" *ngIf="mobile?.invalid && mobile?.touched">
                   <div class="err" *ngIf="mobile?.errors?.required">Mobile No. is Required</div>
-                  <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digits mobile number</div>
+                  <div class="err" *ngIf="mobile?.errors?.mobileRegex">Please enter a valid 10 digits mobile number
+                  </div>
                 </div>
               </div>
             </div>
@@ -447,8 +448,8 @@
                       </div>
                     </ng-container>
                     <mat-chip-list #chipList class=" width-100 mt-2">
-                      <mat-chip *ngFor="let hobbie of hobbies" [selectable]="selectable" [removable]="removable"
-                        (removed)="remove(hobbie)">
+                      <mat-chip #chip (focus)="chip.blur()" *ngFor=" let hobbie of hobbies" [selectable]="selectable"
+                        [removable]="removable" (removed)="remove(hobbie)">
                         {{hobbie.hobbiesAndInterests}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                       </mat-chip>
@@ -461,6 +462,8 @@
             </ng-container>
           </div>
         </div>
+
+
         <div class="carddiv pt-0 pb-4">
           <h6 class="sub-heading" style="border-bottom: 1px solid #BBC2CB99; padding-bottom: 0.5em;">Passport Details
           </h6>
@@ -512,9 +515,9 @@
                   [max]="passportDateOfIssueMaxDate" [matDatepicker]="picker_dateofIssue" placeholder="DD-MM-YYYY"
                   [formControlName]="form_date_of_issue"> -->
 
-                  <input matInput class="input" style="width:100% !important" [min]="minFromDate"
-                  [max]="maxFromDate" [matDatepicker]="picker_dateofIssue" placeholder="DD-MM-YYYY"
-                  [formControlName]="form_date_of_issue" (dateInput)="fromDateChange('input', $event)">
+                <input matInput class="input" style="width:100% !important" [min]="minFromDate" [max]="maxFromDate"
+                  [matDatepicker]="picker_dateofIssue" placeholder="DD-MM-YYYY" [formControlName]="form_date_of_issue"
+                  (dateInput)="fromDateChange('input', $event)">
 
                 <mat-datepicker-toggle matSuffix [for]="picker_dateofIssue"></mat-datepicker-toggle>
                 <mat-datepicker #picker_dateofIssue></mat-datepicker>
@@ -524,7 +527,8 @@
                   <div *ngIf="date_of_issue?.errors?.matDatepickerMax">
                     <!-- {{date_of_issue?.errors?.matDatepickerMax?.max ? 'Passport Issued date should be less than Passport valid date: ' +
                     momentForm(date_of_issue?.errors?.matDatepickerMax.max) : ''}} -->
-                    {{date_of_issue?.errors?.matDatepickerMax?.max ? 'Passport Issued date should be less than Passport valid date ' : ''}}
+                    {{date_of_issue?.errors?.matDatepickerMax?.max ? 'Passport Issued date should be less than Passport
+                    valid date ' : ''}}
                   </div>
                   <div *ngIf="date_of_issue?.errors?.matDatepickerMin">
                     {{date_of_issue?.errors?.matDatepickerMin?.min ? 'Minimum date should be ' +
@@ -544,11 +548,11 @@
                   [max]="passportValidmaxDate" [matDatepicker]="picker_dateValidUpto" placeholder="DD-MM-YYYY"
                   [formControlName]="form_valid_upto"> -->
 
-                  <input matInput class="input" style="width:100% !important" [min]="minToDate"
-                  [matDatepicker]="picker_dateValidUpto" placeholder="DD-MM-YYYY"
-                  [formControlName]="form_valid_upto" (dateInput)="toDateChange('input', $event)">
+                <input matInput class="input" style="width:100% !important" [min]="minToDate"
+                  [matDatepicker]="picker_dateValidUpto" placeholder="DD-MM-YYYY" [formControlName]="form_valid_upto"
+                  (dateInput)="toDateChange('input', $event)">
 
-                  
+
                 <mat-datepicker-toggle matSuffix [for]="picker_dateValidUpto"></mat-datepicker-toggle>
                 <mat-datepicker #picker_dateValidUpto></mat-datepicker>
 
@@ -561,7 +565,8 @@
                   <div *ngIf="valid_upto?.errors?.matDatepickerMin">
                     <!-- {{valid_upto?.errors?.matDatepickerMin?.min ? 'Passport Valid upto date should be greater than Issued Date ' +
                     momentForm(valid_upto?.errors?.matDatepickerMin.min) : ''}} -->
-                    {{valid_upto?.errors?.matDatepickerMin?.min ? 'Passport Valid upto date should be greater than Issued Date ' : ''}}
+                    {{valid_upto?.errors?.matDatepickerMin?.min ? 'Passport Valid upto date should be greater than
+                    Issued Date ' : ''}}
                   </div>
                   <div *ngIf="valid_upto?.errors?.matDatepickerParse">Invalid Date Format</div>
                 </div>
@@ -652,25 +657,24 @@
                 <div class="physicaldisability"
                   *ngIf="personalForm['controls'][this.form_physical_disability].value == 'true'">
 
-                   <input  (change)="physicdisabledefault()" matInput placeholder="Enter Physical Disability" class="input" type="text"
-                     [formControlName]="form_physical_disability_rsn">
+                  <input (change)="physicdisabledefault()" matInput placeholder="Enter Physical Disability"
+                    class="input" type="text" [formControlName]="form_physical_disability_rsn">
 
-                   <div class="form-error"
-                    *ngIf="physical_disability_rsn?.invalid && physical_disability_rsn?.touched">
+                  <div class="form-error" *ngIf="physical_disability_rsn?.invalid && physical_disability_rsn?.touched">
 
-                     <div class="err" *ngIf="physical_disability_rsn?.errors?.required">Physical Disability is
+                    <div class="err" *ngIf="physical_disability_rsn?.errors?.required">Physical Disability is
                       Required</div>
 
-                     <div class="err" *ngIf="physical_disability_rsn?.errors?.alphaNum255">Alpha numeric with
+                    <div class="err" *ngIf="physical_disability_rsn?.errors?.alphaNum255">Alpha numeric with
                       maximum of 255
 
-                       characters only allowed
+                      characters only allowed
 
-                       </div>
+                    </div>
 
-                     </div>
+                  </div>
 
-                   </div>
+                </div>
               </div>
               <!-- <input matInput placeholder="Enter here" class="input" type="text"
   [formControlName]="form_physical_disability">
@@ -692,31 +696,35 @@
             <div class="overall-input-wrapper width-45">
               <label>Height (in cms)<span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
-             <div style="width:100%;margin: 0 2%;"><input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_height">
-              <div class="form-error" *ngIf="height?.invalid && height?.touched">
-                <div class="err" *ngIf="height?.errors?.required">Height (in cms) is Required</div>
-                <div class="err" *ngIf="height?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
+              <div style="width:100%;margin: 0 2%;"><input matInput placeholder="Enter here" class="input" type="text"
+                  [formControlName]="form_height">
+                <div class="form-error" *ngIf="height?.invalid && height?.touched">
+                  <div class="err" *ngIf="height?.errors?.required">Height (in cms) is Required</div>
+                  <div class="err" *ngIf="height?.errors?.numberDecimals">Numerics only allowed with 2 succeeding
+                    decimals
+                  </div>
                 </div>
-            </div> 
-             
+
+              </div>
             </div>
-            </div>
-            
+
           </ng-container>
           <ng-container>
             <div class="overall-input-wrapper width-45">
               <label>Weight (in kgs)<span *ngIf="candidateService.checkKycOrJoiningForm()"
                   class="redTxt">*</span></label>
-              <div style="width:100%;margin: 0 2%;"><input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_weight">
+              <div style="width:100%;margin: 0 2%;"><input matInput placeholder="Enter here" class="input" type="text"
+                  [formControlName]="form_weight">
                 <div class="form-error" *ngIf="weight?.invalid && weight?.touched">
                   <div class="err" *ngIf="weight?.errors?.required">Weight (in kgs) is Required</div>
-                  <div class="err" *ngIf="weight?.errors?.numberDecimals">Numerics only allowed with 2 succeeding decimals
+                  <div class="err" *ngIf="weight?.errors?.numberDecimals">Numerics only allowed with 2 succeeding
+                    decimals
                   </div>
                 </div>
               </div>
 
             </div>
-            
+
           </ng-container>
 
           <div class="overall-input-wrapper width-45">
@@ -786,7 +794,8 @@
             <div class="value">Personal Details</div>
           </div>
         </div> -->
-        <button style="font-family: lato;" class="common-button joining-form-submit mt-1 animation-zoom" mat-raised-button>Save &
+        <button style="font-family: lato;" class="common-button joining-form-submit mt-1 animation-zoom"
+          mat-raised-button>Save &
           Continue</button>
         <!-- <div (click)="routeNext()"
           class="d-flex align-content-center align-items-center text-right position-relative pointer"

@@ -761,7 +761,7 @@
             <!-- {{ education.is_highLevelEdu}} -->
 
             <div *ngIf="education.is_highLevelEdu == true" class="overall-input-wrapper mt-3  width-100">
-              <div  class="checkk"> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
+              <div class="checkk"> <mat-checkbox [checked]="education[isHighLevelEdu]" [disabled]="true"
                   class="checkqualify mr-2 "></mat-checkbox><span>Highest Level of Education/Currently Pursuing</span>
               </div>
             </div>
@@ -1256,26 +1256,21 @@
                 <label>Certification Name</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{ certification[form_certification_name]}}
+
                   <!-- {{ certification[form_certification_name].courseName }} -->
                 </div>
               </div>
-
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Issued From</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{ certification[form_certification_issuedFrom]}}
                 </div>
               </div>
-
-
-
-
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Description</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{ certification[form_certification_description] ? certification[form_certification_description] :
                   "NIL" }}
-
                 </div>
               </div>
               <div class="overall-input-wrapper mt-3 width-32">
@@ -1293,7 +1288,7 @@
                 </div>
               </div>
               <div *ngIf="certification[form_isexpire] == true" class="overall-input-wrapper mt-3  width-100">
-                <div  class="checkk"> <mat-checkbox [disabled]="true" [checked]="certification[form_isexpire]"
+                <div class="checkk"> <mat-checkbox [disabled]="true" [checked]="certification[form_isexpire]"
                     class="checkqualify mr-2 "></mat-checkbox><span>This Certification does not expire</span></div>
               </div>
             </div>
@@ -1319,7 +1314,6 @@
                   {{awards[form_award_title]}}
                 </div>
               </div>
-
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Awarded Date</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -1327,8 +1321,6 @@
                   :'NIL'}}
                 </div>
               </div>
-
-
             </div>
           </ng-container>
         </ng-container>
@@ -1344,13 +1336,11 @@
             <h6 class="mt-3">Assessment {{i+1}}</h6>
             <div class="row-wrapper mt-0">
               <div class="overall-input-wrapper mt-3 width-32">
-
                 <label>Assessment Name</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
                   {{assesments[form_assesment_title]}}
                 </div>
               </div>
-
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Assessment Date</label>
                 <div class="inpu-preview" style="font-size: 14px; color: black;">
@@ -1358,8 +1348,6 @@
                   :'NIL'}}
                 </div>
               </div>
-
-
             </div>
           </ng-container>
         </ng-container>
@@ -1398,7 +1386,7 @@
         <ng-container
           *ngIf="accomplishmentsMap[form_journalEntryArray] && accomplishmentsMap[form_journalEntryArray].length > 0;else noJournalEntry">
           <ng-container *ngFor="let journalEntry of accomplishmentsMap[form_journalEntryArray];let i = index">
-            <h6>Journal {{i+1}}</h6>
+            <h6 class="mt-3">Journal {{i+1}}</h6>
             <div class="row-wrapper mt-0">
               <div class="overall-input-wrapper mt-3 width-32">
                 <label>Title</label>
@@ -1424,12 +1412,12 @@
                   {{ journalEntry[form_journalEntity_description] }}
                   {{ journalEntry[form_journalEntity_description] ? journalEntry[form_journalEntity_description] : "NIL"
                   }}
-
                 </div>
               </div>
             </div>
           </ng-container>
         </ng-container>
+
       </div>
 
       <!--resume-->
