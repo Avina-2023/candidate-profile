@@ -1,0 +1,50 @@
+@import "../../../themes/themes.scss";
+
+.divcard{
+  background-color: #ffffff;
+  padding: 3% 3% 3% 3%;
+  border-bottom: solid 1px #BBC2CB99;
+}
+.h{
+  border-bottom: 1px solid #BBC2CB99;
+  padding-bottom: 10px;
+}
+.input {
+  max-height:100px  !important;
+}
+:host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background: $primary-color !important;
+}
+.form-error {
+  color: $primary-error-text;
+  font-size: 12px;
+  .err{
+    position: relative;
+    // float: right;
+  }
+}
+.input {
+  position: relative;
+  border: solid 0.8px #bebebe;
+  border-radius: 2px;
+  color: #6b6b6b;
+  outline: none;
+  box-sizing: border-box;
+  min-height: 35px !important;
+  max-height: 35px !important;
+  line-height: 35px;
+  padding: 4px 8px;
+  background-color: $white;
+  width: 99%;
+}
+.text-area {
+  min-height: 80px !important;
+  line-height: 1.3em !important;
+  max-height: 80px !important;
+}
+
+:host  textarea.ng-invalid.ng-touched
+{
+    border: solid red 1px !important;
+ }

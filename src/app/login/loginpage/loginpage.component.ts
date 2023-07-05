@@ -116,8 +116,10 @@ export class LoginpageComponent implements OnInit {
         this.skillexService.login(apiData).subscribe((data:any)=> {
           if(data.success)
           {
+
           this.appConfig.setLocalData('userId', data && data.data.userId ? data.data.userId : '');
           this.appConfig.setLocalData('userEmail', data && data.data.email ? data.data.email : '');
+
           this.appConfig.setLocalData('csrf-login', data && data.token ? data.token : '');
           this.candidateService.saveAllProfileToLocal(data.data);
           this.appConfig.setLocalData('username', this.candidateService.getLocalpersonal_details().name);

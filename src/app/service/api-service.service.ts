@@ -12,6 +12,8 @@ export class ApiServiceService {
   // BASE_URL_CITY = environment.API_BASE_URL_city;
   httpOptions: { headers: HttpHeaders; };
   EncryptKEY = environment.cryptoEncryptionKey;
+  LMSBASE_URL = environment.LMSBASE_URL;
+
 
 
   //  --proxy-config proxy.conf.json
@@ -34,6 +36,22 @@ export class ApiServiceService {
       // .set('Access-Control-Allow-Origin', '*');
     return headers;
   }
+
+
+  getCourseToken(): HttpHeaders {
+    const headers = new HttpHeaders()
+
+         .set('Authorization',"Bearer 104150f8e66cae68b40203e1dbba7b4529231970")
+         .set('requestId', 'integrSer')
+         return headers;
+  }
+
+  geteduTechCourses(){
+     const headers = this.getCourseToken();
+     return this.http.get(`${this.LMSBASE_URL}/getCourses`,
+     { headers: headers});
+  }
+
   getAfterCustomHeaders(): HttpHeaders {
     const headers = new HttpHeaders({
       'Access-Control-Allow-Origin': '*.lntedutech.com',
@@ -71,10 +89,6 @@ export class ApiServiceService {
       { headers: this.withoutTokens(), withCredentials: true });
   }
 
-  emailVerification(data) {
-    return this.http.post(`${this.BASE_URL}/rest/verify-account?_format=json`, data,
-      { headers: this.getCustomHeaders(), withCredentials: true });
-  }
 
   // To get all cities
   // getAllCity() {
@@ -118,6 +132,8 @@ export class ApiServiceService {
     return this.http.get(`${this.BASE_URL}/profile/fetch_maintance_status`,
       { headers: this.withoutTokens(), withCredentials: true });
   }
+
+
 
   encrypt(data, customSecretKey) {
     try {
@@ -171,4 +187,18 @@ export class ApiServiceService {
   //   }
   //   return null;
   // }
+
+getdescription(data:any){
+  return this.http.post(`${ this.BASE_URL}/getprofileSummary`,data)
+}
+
+   emailVerification(data) {
+    return this.http.post(`${this.BASE_URL}/rest/verify-account?_format=json`, data,
+      { headers: this.getCustomHeaders(), withCredentials: true });
+  }
+
+  getassesment(data:any){
+    return this.http.post(`${ this.BASE_URL}/getTasktype`, data)
+  }
+
 }

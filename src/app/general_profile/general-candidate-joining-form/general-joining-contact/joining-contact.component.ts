@@ -13,6 +13,7 @@ import { SkillexService } from 'src/app/service/skillex.service';
 import { LoaderService } from 'src/app/service/loader-service.service';
 // import { CandidateMappersService } from 'src/app/services/candidate-mappers.service';
 // import { SharedServiceService } from 'src/app/services/shared-service.service';
+import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 
 @Component({
   selector: 'app-joining-contact',
@@ -64,7 +65,9 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
     public candidateService: CandidateMappersService,
     private fb: FormBuilder,
     public loadingService: LoaderService,
-    private glovbal_validators: GlobalValidatorService
+    private glovbal_validators: GlobalValidatorService,
+    private msgData:InterComponentMessenger
+
   ) {
   }
 
@@ -148,8 +151,19 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
   matchangeYes(e) {
     if (e.checked) {
       this.updatePermanentAsPerPresent();
+
     } else {
-      this.updatePermanentAsPerPresent();
+
+      this.contactForm.controls[this.form_permanent_address_1].setValue(null);
+      this.contactForm.controls[this.form_permanent_address_2].setValue(null);
+      this.contactForm.controls[this.form_permanent_address_3].setValue(null);
+      this.contactForm.controls[this.form_permanent_state].setValue(null);
+      this.contactForm.controls[this.form_permanent_city].setValue(null);
+      this.contactForm.controls[this.form_permanent_zip_code].setValue(null);
+      this.contactForm.controls[this.form_permanent_region].setValue(null);
+
+
+      // this.updatePermanentAsPerPresent();
     }
   }
 
@@ -215,6 +229,10 @@ export class GeneralJoiningContactComponent implements OnInit, AfterViewInit, On
           this.candidateService.saveFormtoLocalDetails(data.data.section_name, data.data.saved_data);
           this.candidateService.saveFormtoLocalDetails('section_flags', data.data.section_flags);
           this.appConfig.nzNotification('success', 'Saved', data && data.message ? data.message : 'Contact details is updated');
+          this.msgData.sendMessage("saved",true);
+
+          this.msgData.sendMessage("city",data.data.saved_data.permanent_city);
+
           this.sharedService.joiningFormStepperStatus.next();
           return this.appConfig.routeNavigation(routeValue ? routeValue : CONSTANT.ENDPOINTS.CANDIDATE_DASHBOARD.GENERAL_JOINING_DEPENDENT);
       });

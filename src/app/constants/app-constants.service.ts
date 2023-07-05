@@ -51,7 +51,10 @@ export const CONSTANT = {
       GENERAL_JOINING_DEPENDENT: 'profile/candidate/dependent',
       GENERAL_JOINING_EDUCATION: 'profile/candidate/education',
       GENERAL_JOINING_WORK: 'profile/candidate/work',
+      GENERAL_JOINING_PROJECT: 'profile/candidate/project',
+      GENERAL_JOINING_ACCOMPLISHMENTS :'profile/candidate/accomplishments',
       GENERAL_JOINING_UPLOAD: 'profile/candidate/upload',
+      GENERAL_JOINING_DISCIPLINARY_DETAILS: 'profile/candidate/disciplinary',
       GENERAL_JOINING_PREVIEW: 'profile/candidate/preview',
       GENERAL_JOINING_SUBMIT: 'profile/candidate/submit',
       GENERAL_JOINING_FAQ: 'profile/candidate/faq',
@@ -112,12 +115,15 @@ export const CONSTANT = {
       GENERAL_JOINING_DEPENDENT: 'dependent',
       GENERAL_JOINING_EDUCATION: 'education',
       GENERAL_JOINING_WORK: 'work',
+      GENERAL_JOINING_PROJECT: 'project',
+      GENERAL_JOINING_ACCOMPLISHMENTS :'accomplishments',
       GENERAL_JOINING_UPLOAD: 'upload',
       GENERAL_JOINING_PREVIEW: 'preview',
       GENERAL_JOINING_SUBMIT: 'submit',
       GENERAL_JOINING_FAQ: 'faq',
       GENERAL_DOCUMENT: 'document',
-      GENERAL_DOCUMENT_LIST: 'list'
+      GENERAL_DOCUMENT_LIST: 'list',
+      GENERAL_JOINING_DISCIPLINARY_DETAILS: 'disciplinary',
       // General Profile Routes End
 
     },

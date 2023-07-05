@@ -358,12 +358,54 @@ mat-drawer ul li span img {
 .main-section-padding {
   padding: 0px 8px;
 }
+.sticky-subheaders::after{
+  content: "Profile Completeness";
+  color: #ffffff;
+  background-color: #284B93;
+  position: absolute;
+  bottom: 30px;
+    float: right;
+    padding: 0.2em 1em;
+  text-align: center;
+  bottom: 0;
+  right: 0;
+}
+.white{
+
+  height: 160px;
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+}
 .sticky-subheaders {
-  position: sticky;
-  top: -4px;
-  z-index: 500;
-  background: white;
+  // position: sticky;
+  position: relative;
+  height: 170px;
+  // top: -425px;
+  z-index: 0;
+  background-color: #565656;
+  align-items: center;
+  // background: white;
   box-shadow: 0 4px 2px -2px #80808038;
+
+  .profilebanner{
+    // width: 100%;
+    // /* z-index: 99; */
+    position: relative;
+    // background-blend-mode: overlay;
+    object-fit: cover;
+    opacity: 0.4;
+    height: 320px;
+    width: 100%;
+    top: -150px;
+  }
+.overlay{
+  height: 170px;
+  width: 100%;
+  background: black;
+  overflow: hidden;
+  position: absolute;
+}
 }
 .footer {
   z-index: 2;
@@ -382,7 +424,7 @@ mat-drawer ul li span img {
   min-height: calc(100% - 30px);
   position: relative;
   width: 100%;
-  padding: 0 6px;
+  // padding: 0 6px;
   box-sizing: border-box;
 }
 .drive-wrapper {
@@ -500,3 +542,97 @@ mat-drawer ul li span img {
     padding-right: 16px !important;
 }
 
+
+.bar{
+  background-color: #FFFFFF;
+  padding-right: 3% !important;
+  border-radius: 100px 0px 0px 100px;
+  padding: 0.5em;
+  float: right;
+  bottom: 43px;
+  position: absolute;
+  right:0;
+  right: 0;
+  z-index: 1;
+  div[role="progressbar"] {
+    --size: 5.5rem;
+    --fg: #6AC259;
+    --bg: #E2E2E2;
+    --pgPercentage: var(--value);
+    animation: growProgressBar 3s 1 forwards;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(
+        closest-side,
+        #fff 80%,
+        transparent 0 99.9%,
+        white 0
+      ),
+      conic-gradient(
+        var(--fg) calc(var(--pgPercentage) * 1%),
+        var(--bg) 0
+      );
+    // font-family: Helvetica, Arial, sans-serif;
+    font-size: calc(var(--size) / 5);
+    color: #000;
+    font-size: 15px;
+    font-family: Lato!important;
+    font-weight: 600;
+  }
+
+  div[role="progressbar"]::before {
+    counter-reset: percentage var(--value);
+    content: counter(percentage) "%";
+    position: relative;
+
+
+  }
+}
+// .subheadercontainer{
+//   display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     position: relative;
+//     top: 20%;
+    .bttn{
+      position: absolute;
+      left: 2%;
+      top: 65px;
+  .backbtn{
+    background: linear-gradient(to right, #27bbee 0%, #88ba2f 100%);
+    color: #FFFFFF;
+  }
+}
+.white-overlay{
+  z-index: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 75px;
+    width: 75%;
+    opacity: 70%;
+}
+.profiletxt{
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-right: 17em;
+  padding-bottom: 0.8em;
+}
+.txt{
+  color: #FFFFFF;
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 1.6em;
+  font-size: 40px;
+  opacity: 0.81;
+  margin-right: 6.9em;
+  margin-right: 6.7em;
+  font-weight: lighter;
+}

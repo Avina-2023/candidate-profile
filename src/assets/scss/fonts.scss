@@ -87,7 +87,47 @@
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+
+
   }
+
+
+  .icon-right_arrow_circled:before {
+    content: "\e9a6";
+  }
+
+  .icon-circled_right_arrow:before {
+    content: "\e9a5";
+  }
+
+
+  .icon-awesome_crown_icon:before {
+    content: "\e9a8";
+  }
+  .icon-circled_tick_icon:before {
+    content: "\e9a9";
+  }
+  .icon-circled_X_icon:before {
+    content: "\e9aa";
+  }
+  .icon-circled_plus_icon:before {
+    content: "\e9ab";
+  }
+
+  .icon-download_icon:before {
+    content: "\e9a7";
+  }
+
+
+  .icon-close-rounded-filled:before {
+    content: "\e9a6";
+  }
+
+  .icon-add-rounded-filled:before {
+    content: "\e9a5";
+  }
+
   .icon-checkbox:before {
     content: "\e9a4";
   }
@@ -174,6 +214,12 @@
   }
   .icon-close_black:before {
     content: "\e987";
+  }
+  .icon-BinDelete:before {
+    content: "\e9a5";
+  }
+  .icon-alert-icon:before {
+    content: "\e9a6";
   }
   .icon-remove_circle:before {
     content: "\e988";

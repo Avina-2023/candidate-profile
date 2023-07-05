@@ -1,13 +1,31 @@
 <app-common-header></app-common-header>
 <div class="scroll-height">
   <div class="sticky-subheaders">
-    <div class="d-flex pl-1 justify-content-between align-content-center drive-wrapper">
-    <div class="heading3">
-      Profile Form
+
+      <div class="overlay">
+      <img class="profilebanner" src="../../../assets/images/candidateprofile/se-banner.png">
+      <div class="bttn">
+         <!-- <span *ngIf="!isExternal" matTooltip="Logout" class="logout" (click)="logOut()">
+        <em class="icon-logout"></em>
+      </span> -->
+      <!-- <span *ngIf="isExternal" matTooltip="Back" class="logout" (click)="extRedir()">
+        <button  class="btn"><div style="display: flex; align-items: center;"><em class="icon-logout"></em>&nbsp; Back</div></button>
+      </span> -->
+        <span *ngIf="isExternal" class="logout">
+          <button class="backbtn" mat-raised-button (click)="extRedir()" matTooltip="Back">Back to Dashboard
+          </button>
+        </span>
+      </div>
+      <div class="bar">
+        <div  role="progressbar" aria-valuenow="{{profilepercentage}}" aria-valuemin="0" aria-valuemax="100"
+          style="--value:{{profilepercentage}}"></div>
+      </div>
     </div>
+  <div class="txt">Start Building Your</div>
+    <img class="profiletxt" src="../../../assets/images/candidateprofile/se-text.png">
+  <img class="white-overlay" src="/assets/images/whiteOverlay.png">
 
   </div>
-</div>
   <router-outlet></router-outlet>
 </div>
 <app-dashboard-header></app-dashboard-header>
