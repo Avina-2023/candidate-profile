@@ -43,8 +43,6 @@ import { CandidateMappersService } from 'src/app/service/candidate-mappers.servi
 import { LoaderService } from 'src/app/service/loader-service.service';
 import { SharedServiceService } from 'src/app/service/shared-service.service';
 import { SkillexService } from 'src/app/service/skillex.service';
-import { environment } from 'src/environments/environment';
-
 // import { Timer } from 'ag-grid-community';
 import { InterComponentMessenger } from 'src/app/service/interComponentMessenger.service';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
