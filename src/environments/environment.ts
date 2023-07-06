@@ -12,7 +12,7 @@ export const environment = {
   SKILL_PROFILE_URL :'https://profile.lntedutech.com',
   supportEmail:"assess.support@lntedutech.com",
   register_Redirect:"https://skillexchange.lntedutech.com/register",
-  LMSBASE_URL:"https://devfacade.lntedutech.com",
+  LMSBASE_URL:"https://lmsfacade.lntedutech.com",
   encryptionKey: 'unifiedReports',
 
 
