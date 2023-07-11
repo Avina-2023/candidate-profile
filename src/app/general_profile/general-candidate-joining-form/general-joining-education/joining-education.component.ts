@@ -1269,7 +1269,7 @@ dependentChange(i) {
       this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
       this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
       this.clgList = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
-      this.clgList.push({ id: 0, college_name: "Others" });
+      // this.clgList.push({ id: 0, college_name: "Others" });
       // this.clgList.push({ id: 0, college_name: "Others" });
       // this.ugInstitutesList = list;
       // // const exceptOthers = list.filter((data: any) => data.college_name !== 'Others');
