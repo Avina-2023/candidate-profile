@@ -213,16 +213,18 @@
                 <ng-container >
                   <div class="overall-input-wrapper width-100">
                     <label>HR Name<span></span></label>
+                    <div style="width:100%">
                     <input matInput placeholder="Enter here" class="input" type="text" [formControlName]="form_hr_name">
-                  </div>
                     <div class="form-error"
                       *ngIf="getEmploymentArr.controls[i].get(form_hr_name).invalid && getEmploymentArr.controls[i].get(form_hr_name).touched">
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.required">
+                      <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.required">
                         HR Name is Required</div>
-                      <div *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.alphaNum255">
+                      <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.alphaNum255">
                         Alpha numeric with maximum of 255 characters only
                         allowed</div>
                     </div>
+                  </div>
+                  </div>
                 </ng-container>
                   <ng-container >
                     <div class="overall-input-wrapper width-100">
