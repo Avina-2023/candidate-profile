@@ -308,7 +308,7 @@ export class GeneralJoiningFormComponent implements OnInit, AfterViewChecked, On
         data.value != undefined
       ) {
         if (data.value && this.productionUrl == true) {
-          this.gender = data.value + environment.blobToken;
+          this.gender = data.value;
         } else if (data.value && this.productionUrl == false) {
           this.gender = data.value;
         }
