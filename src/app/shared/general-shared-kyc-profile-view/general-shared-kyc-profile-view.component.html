@@ -2188,7 +2188,7 @@
                         <img class="sign" *ngIf="signature && signature.file_path"
                           [ngClass]="!signature.file_path ? 'default' : 'profile'" [src]="
             signature && signature.file_path
-              ? signature.file_path
+              ? signature.file_path+blobToken
               : 'assets/images/paper-clip.svg'
           " alt="" srcset="" />
                         <!-- (load)="afterImgLoad()" -->
@@ -2241,8 +2241,7 @@
         <ng-container *ngIf="signature && signature?.file_path; else noSign">
           <div class="row-wrapper mt-0 mb-2" style="padding: 0 16px">
             <div class="signatureShow">
-              <img class="sign" *ngIf="signature && signature?.file_path" [src]="signature && signature?.file_path"
-                alt="" srcset="" />
+              <img class="sign" [src]="signature && signature?.file_path+blobToken" alt="" srcset="" />
             </div>
           </div>
         </ng-container>
@@ -2363,7 +2362,7 @@
       <i (click)="closeBox()" class="icon-cancel_black ag-icon-font-size pointer primary-clr"></i>
     </div>
 
-      <pdf-viewer style="display:contents !important" [src]="pdfsrc+blobToken" [original-size]="true"></pdf-viewer>
+    <pdf-viewer style="display:contents !important" [src]="pdfsrc+blobToken" [original-size]="true"></pdf-viewer>
   </div>
 </ng-template>
 
