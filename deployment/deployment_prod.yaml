@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: candidateprofileui
-          image: uapprod.azurecr.io/candidate_profile_ui:$tag
+          image: unifiedassessprod.azurecr.io/candidate_profile_ui:$tag
           resources:
            limits:
              cpu: "200m"
