@@ -105,23 +105,23 @@
                         <ng-container
                           *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma')">
                             <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
-                            nzShowSearch nzPlaceHolder="Select">
-                            <nz-option *ngFor="let active of diplamoSpecialization" [nzLabel]="active.value"
-                              [nzValue]="active.value"></nz-option>
+                            nzShowSearch nzPlaceHolder="Select" (ngModelChange)="editSpecilization(i)">
+                            <nz-option *ngFor="let specification of diplamoSpecialization" [nzLabel]="specification"
+                              [nzValue]="specification"></nz-option>
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'UG')">
                             <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
-                            nzShowSearch nzPlaceHolder="Select">
-                            <nz-option *ngFor="let active of ugSpecializationList" [nzLabel]="active.specification_name"
-                              [nzValue]="active.specification_name"></nz-option>
+                            nzShowSearch nzPlaceHolder="Select" (ngModelChange)="editSpecilization(i)">
+                            <nz-option *ngFor="let specification of ugSpecializationList" [nzLabel]="specification"
+                              [nzValue]="specification"></nz-option>
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'PG')">
                             <nz-select class="input select" [formControlName]="form_qualification" nzAllowClear
-                            nzShowSearch nzPlaceHolder="Select">
-                            <nz-option *ngFor="let active of pgSpecializationList" [nzLabel]="active.specification_name"
-                              [nzValue]="active.specification_name"></nz-option>
+                            nzShowSearch nzPlaceHolder="Select" (ngModelChange)="editSpecilization(i)">
+                            <nz-option *ngFor="let specification of pgSpecializationList" [nzLabel]="specification"
+                              [nzValue]="specification"></nz-option>
                           </nz-select>
                         </ng-container>
                         <ng-container *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'CA')">
@@ -173,21 +173,21 @@
                             </ng-container>
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'Diploma')">
-                              <nz-option *ngFor="let discipline of diplomaDisciplineList"
-                                [nzLabel]="discipline.discipline_name"
-                                [nzValue]="discipline.discipline_name"></nz-option>
+                              <nz-option *ngFor="let discipline of specializationOptions[i]"
+                                [nzLabel]="discipline"
+                                [nzValue]="discipline"></nz-option>
                             </ng-container>
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'UG')">
-                              <nz-option *ngFor="let discipline of ugDisciplineList"
-                                [nzLabel]="discipline.discipline_name"
-                                [nzValue]="discipline.discipline_name"></nz-option>
+                              <nz-option *ngFor="let discipline of specializationOptions[i]"
+                                [nzLabel]="discipline"
+                                [nzValue]="discipline"></nz-option>
                             </ng-container>
                             <ng-container
                               *ngIf="(getEducationArr.controls[i].get(form_qualification_type).value == 'PG')">
-                              <nz-option *ngFor="let discipline of pgDisciplineList"
-                                [nzLabel]="discipline.discipline_name"
-                                [nzValue]="discipline.discipline_name"></nz-option>
+                              <nz-option *ngFor="let discipline of specializationOptions[i]"
+                                [nzLabel]="discipline"
+                                [nzValue]="discipline"></nz-option>
                             </ng-container>
                           </nz-select>
                         </ng-container>
