@@ -1078,6 +1078,7 @@ validSelectedPost() {
   addToEducationArray() {
     if (this.educationForm.valid) {
      const newIndex = this.getEducationArr.length; 
+     return this.getEducationArr.push(this.initEducationArray(newIndex));
     }
     this.appConfig.nzNotification('error', 'Not added', 'Please fill all the red highlighted fields to proceed further');
     this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
