@@ -148,12 +148,12 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
     }
   ];
 
-  diplamoSpecialization = [
-    {
-      label: 'Diploma Engineering',
-      value: 'Diploma Engineering'
-    }
-  ]
+  // diplamoSpecialization = [
+  //   {
+  //     label: 'Diploma Engineering',
+  //     value: 'Diploma Engineering'
+  //   }
+  // ]
 
   modesList = [
     {
@@ -185,6 +185,8 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
       value: 'inactive'
     }
   ];
+  allSpecializationOptions: any[] = [];
+  specializationOptions: any[][] = [];
   //form Variables
   form_educationArray = 'educationArray';
   form_qualification_type = 'level';
@@ -214,6 +216,7 @@ export class GeneralJoiningEducationComponent implements OnInit, AfterViewInit, 
   isHighLevelEdu = 'is_highLevelEdu';
   TopEducation = false;
   educationLevels: any;
+  diplamoSpecialization: any;
   pgSpecializationList: any;
   ugSpecializationList: any;
   diplomaDisciplineList: any;
@@ -340,18 +343,25 @@ constructor(
   // }
 
   ngOnInit() {
+    this.degreeList();
     this.formInitialize();
     // Getting required datas for dropdowns
     this.getEducationLevels();
+    this.loadingService.setLoading(true);
+    this.skillexService.getDisciplineList().subscribe((result:any) => {
+      this.allSpecializationOptions = result.data;
+      this.getEducationApiDetails();
+      this.check = this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu;
+      this.loadingService.setLoading(false);
+   });
     this.educationDropdownValues();
-    this.getEducationApiDetails();
     // End of Getting required datas for dropdowns
     this.saveRequestRxJs();
     this.checkFormValidRequestFromRxjs();
     this.joiningFormDataFromJoiningFormComponentRxjs();
     this.getAllStates();
 
- this.check = this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu
+//  this.check = this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu
 //  console.log(this.getEducationArr.controls[this.getEducationArr.controls.length-1].value.is_highLevelEdu,'j');
 
   }
@@ -493,6 +503,7 @@ constructor(
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getEducationArr.removeAt(this.currentDeleteIndex );
+        this.specializationOptions.splice(this.currentDeleteIndex, 1);
       }
     });
   }
@@ -561,7 +572,7 @@ constructor(
       }
    } else {
     for (let index = currentCount; index < loopCount; index++) {
-      this.getEducationArr.push(this.initEducationArray());
+      this.getEducationArr.push(this.initEducationArray(index));
       if (index == 0) {
         this.getEducationArr.at(0).patchValue({
           [this.form_qualification_type]: 'SSLC',
@@ -849,6 +860,9 @@ validSelectedPost() {
   }
 
   patching(data, i) {
+    this.specializationOptions[i] = this.allSpecializationOptions
+      .filter(option => option.degree === data[this.form_qualification])
+      .reduce((acc, option) => acc.concat(option.department), []);
     return this.fb.group({
       [this.form_qualification_type]: [{ value: data[this.form_qualification_type], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
       [this.form_qualification]: [{ value: data[this.form_qualification], disabled: (this.candidateService.checkKycOrJoiningForm() && this.isKYCNotExempted) ? true : false }, [Validators.required]],
@@ -882,8 +896,8 @@ validSelectedPost() {
     })
   }
 
-  initEducationArray() {
-    return this.fb.group({
+  initEducationArray(index: number) {
+    const educationFormGroup = this.fb.group({
       [this.form_qualification_type]: [null, [Validators.required]],
       [this.form_qualification]: [null, [Validators.required]],
       [this.form_specialization]: [null, [Validators.required]],
@@ -910,6 +924,15 @@ validSelectedPost() {
 
       [this.form_CARanks] : [null, [RemoveWhitespace.whitespace(), this.glovbal_validators.alphaNum255()]]
     })
+
+    const qualificationControl = educationFormGroup.get(this.form_qualification);
+    if (qualificationControl) {
+      qualificationControl.valueChanges.subscribe((value) => {
+        this.editSpecilization(index);
+      });
+    }
+
+    return educationFormGroup;
   }
 
   
@@ -1054,10 +1077,24 @@ validSelectedPost() {
 
   addToEducationArray() {
     if (this.educationForm.valid) {
-     return this.getEducationArr.push(this.initEducationArray());
+     const newIndex = this.getEducationArr.length; 
     }
     this.appConfig.nzNotification('error', 'Not added', 'Please fill all the red highlighted fields to proceed further');
     this.glovbal_validators.validateAllFormArrays(this.educationForm.get([this.form_educationArray]) as FormArray);
+  }
+
+  editSpecilization(index: number): void {
+    const qualification = this.getEducationArr.at(index).get(this.form_qualification).value;
+
+    this.getEducationArr.at(index).patchValue({
+      [this.form_specialization]: null
+    });
+
+    if (qualification) {
+      this.specializationOptions[index] = this.allSpecializationOptions
+        .filter(option => option.degree === qualification)
+        .reduce((acc, option) => acc.concat(option.department), []);
+    }
   }
 
   removeEducationArray(i) {
@@ -1262,11 +1299,11 @@ dependentChange(i) {
     this.loadingService.setLoading(true)
    this.getAllEducationFormDropdownListSubscription = this.skillexService.collegeList().subscribe((data: any) => {
     this.loadingService.setLoading(false)
-      this.ugSpecializationList = data && data.data.ug_specifications ? data.data.ug_specifications : [];
-      this.pgSpecializationList = data && data.data.pg_specifications ? data.data.pg_specifications : [];
-      this.diplomaDisciplineList = data && data.data.diploma_disciplines ? data.data.diploma_disciplines : [];
-      this.ugDisciplineList = data && data.data.ug_disciplines ? data.data.ug_disciplines : [];
-      this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
+      // this.ugSpecializationList = data && data.data.ug_specifications ? data.data.ug_specifications : [];
+      // this.pgSpecializationList = data && data.data.pg_specifications ? data.data.pg_specifications : [];
+      // this.diplomaDisciplineList = data && data.data.diploma_disciplines ? data.data.diploma_disciplines : [];
+      // this.ugDisciplineList = data && data.data.ug_disciplines ? data.data.ug_disciplines : [];
+      // this.pgDisciplineList = data && data.data.pg_disciplines ? data.data.pg_disciplines : [];
       this.diplomaInstitutesList = data && data.data.diploma_colleges ? data.data.diploma_colleges : [];
       this.clgList = data && data.data.ug_pg_colleges ? data.data.ug_pg_colleges : [];
       // this.clgList.push({ id: 0, college_name: "Others" });
@@ -1333,6 +1370,31 @@ dependentChange(i) {
 
   }
     }) 
+  }
+
+  degreeList() {
+    this.skillexService.getDegreeList().subscribe((data: any) => {
+      if (data.success) {
+        if (data.data.length) {
+          let degreeList = data.data;
+          degreeList.filter((row: any) => {
+
+            if (row.qualification == "Diploma") {
+              this.diplamoSpecialization = row.degree;
+              this.diplamoSpecialization.shift();
+            }
+            if (row.qualification == "UG") {
+              this.ugSpecializationList = row.degree;
+              this.ugSpecializationList.shift();
+            }
+            if (row.qualification == "PG") {
+              this.pgSpecializationList = row.degree;
+              this.pgSpecializationList.shift();
+            }
+          })
+        }
+      }
+    })
   }
 
   ngOnDestroy() {
