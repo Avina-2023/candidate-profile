@@ -188,4 +188,10 @@ export class SkillexService {
       skillData
     );
   }
+  getDegreeList() {
+    return this.http.get(`${environment.SKILLEX_BASE_URL}/getDegreeList`);
+  }
+  getDisciplineList() {
+    return this.http.get(`${environment.SKILLEX_BASE_URL}/getDisciplineList`);
+  }
 }
