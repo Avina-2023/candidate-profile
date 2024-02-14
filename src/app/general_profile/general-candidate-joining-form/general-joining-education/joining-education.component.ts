@@ -946,10 +946,12 @@ validSelectedPost() {
       this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].setValidators([Validators.required, this.startTrue(true) ],{ emitEvent: false });
       this.getEducationArr.controls[this.getEducationArr.controls.length-1]['controls'][this.isHighLevelEdu].updateValueAndValidity();
     }
-    if (this.getEducationArr.controls[this.getEducationArr.controls.length - 1]['controls'][this.isHighLevelEdu].value)
-    { this.check = true }
-    else
-     {this.check = false}
+    if (this.getEducationArr.controls[this.getEducationArr.controls.length - 1]['controls'][this.isHighLevelEdu].value) {
+      this.check = true
+    }
+    else {
+      this.check = false
+    }
   }
 
 
