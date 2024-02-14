@@ -290,7 +290,7 @@
                             </ng-container>
                           </nz-select>
                         </ng-container>
-          
+
                         <div class="form-error" *ngIf="getEducationArr.controls[i].get(form_collegeName).invalid && getEducationArr.controls[i].get(form_collegeName).touched">
                           <div class="err" *ngIf="getEducationArr.controls[i].get(form_collegeName).errors?.required">
                             {{getEducationArr.controls[i].get(form_qualification_type).value != 'CA' &&  getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' &&  getEducationArr.controls[i].get(form_qualification_type).value != 'CS' ? 'School/College Name is Required' : 'Institute Name is Required'}}
@@ -355,11 +355,11 @@
                         </div>
                       </div>
                     </div>
-                  </ng-container>    
+                  </ng-container>
                 </ng-container>
 
                    <!--College name if value is others Start-->
-                   
+
                   <ng-container
                     *ngIf="getEducationArr.controls[i].get(form_qualification_type).value != 'ICWA' && getEducationArr.controls[i].get(form_qualification_type).value != 'CS'">
                     <div class="overall-input-wrapper mb-0 width-100">
@@ -1019,7 +1019,7 @@
               </div>
               <span *ngIf='errortext' class="redTxt">This field is required</span>
             </div>
-            
+
             <!-- <div *ngIf="getEducationArr.controls.length - 1 === i" class="overall-input-wrapper mt-2 width-100">
               <div>
                 <mat-checkbox (change)="eduLevel($event, i)" [formControlName]="isHighLevelEdu" class="checkqualify mr-2"></mat-checkbox>
@@ -1029,7 +1029,7 @@
                 This field is required.
               </div>
             </div> -->
-            
+
           </div>
         </ng-container>
         <div class="d-flex ">
