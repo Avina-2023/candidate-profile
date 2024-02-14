@@ -1949,6 +1949,8 @@
     { "id": "20", "discipline_name": "Zoology" }
   ],
   "pg_disciplines": [
+    {"id": "42","discipline_name": "Civil"},
+    {"id": "43","discipline_name": "Electronics and Communication"},
     { "id": "28", "discipline_name": "Accounts" },
     { "id": "5", "discipline_name": "Architecture" },
     { "id": "33", "discipline_name": "Botany" },
