@@ -264,7 +264,7 @@
                       <label>HR Name<span></span></label>
                       <div style="width:100%">
                         <input matInput placeholder="Enter here" class="input" type="text"
-                          [formControlName]="form_hr_name">
+                          [formControlName]="form_hr_name" pattern="[a-zA-Z\s]+">
                         <div class="form-error"
                           *ngIf="getEmploymentArr.controls[i].get(form_hr_name).invalid && getEmploymentArr.controls[i].get(form_hr_name).touched">
                           <div class="err" *ngIf="getEmploymentArr.controls[i].get(form_hr_name).errors?.required">
