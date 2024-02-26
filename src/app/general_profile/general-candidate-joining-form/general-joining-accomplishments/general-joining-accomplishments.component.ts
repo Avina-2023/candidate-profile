@@ -320,7 +320,7 @@ if (this.gettingassementvalues.assessments?.length > 0) {
       // this.accomplishmentsForm.controls[this.form_isassesment].setValue(
       //   this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue
       // );
-      console.log(this.accomplishmentDetails,'this.accomplishmentDetails')
+
       this.gettingassementvalues.assessments.forEach((element, i) => {
         this.getassesmentArr.push(this.patchingAssesments(element, i));
         
@@ -407,12 +407,6 @@ if (this.gettingassementvalues.assessments?.length > 0) {
 
       let assesments = assessmentDetail;
 
-      //   let assesments:any  = this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
-      // assesments.assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
-      //   console.log(assesments,'assesmentsassesments')
-      // let assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
-
-      // console.log(assementvalue,'assementvalue')
       let journals =
         this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
       // let courses =
@@ -969,28 +963,9 @@ if (this.gettingassementvalues.assessments?.length > 0) {
   }
 
   setAssesmentType(i ,item){
-    console.log('fun calling');
-    // var asses_name =  this.getassesmentArr['controls'][i]['controls'][
-    //   this.form_assesment_title
-    // ]?.value()
-    // console.log(asses_name,'nameeeeee');
-    // console.log(this.fb.group,'fbgroup');
     var asses_name = item.controls['test_name'].value.toLowerCase()
-    item.controls[this.form_assesment_type].setValue(asses_name);
-    console.log(asses_name,'asses_nameasses_name');  
-    // console.log(item.controls['test_name'].value);
+    item.controls[this.form_assesment_type].setValue(asses_name);  
   }
-
-  // convertToLowercase() {
-  //   return (control: AbstractControl) => {
-  //     const value = control.value;
-  //     if (value && typeof value === 'string') {
-  //       control.setValue(value.toLowerCase(), { emitEvent: false });
-  //     }
-  //     return null;
-  //   };
-  // }
-
 
   setAssesmentArrValidation() {
     this.getassesmentArr.controls.forEach((data, index) => {
@@ -1356,7 +1331,6 @@ if (this.gettingassementvalues.assessments?.length > 0) {
       if (this.getassesmentArr.length === 0) {
         this.getassesmentArr.push(this.initassesmentArray());
         this.assessmentChecked.push(true); // Push the initial checked state as true
-        console.log('length'); 
       }
       // this.glovbal_validators.validateAllFormArrays(
       //   this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray
@@ -1368,8 +1342,6 @@ if (this.gettingassementvalues.assessments?.length > 0) {
 
         this.getassesmentArr.clear();
         this.assessmentChecked = []; // Reset the assessmentChecked array
-        console.log('no length');
-        
       }
     }
   }
