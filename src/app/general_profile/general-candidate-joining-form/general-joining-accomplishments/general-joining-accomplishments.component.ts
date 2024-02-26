@@ -317,13 +317,15 @@ if (this.gettingassementvalues.assessments?.length > 0) {
       this.accomplishmentDetails[this.form_assesmentArray].length > 0
     ) {
       this.getassesmentArr.clear();
-      this.accomplishmentsForm.controls[this.form_isassesment].setValue(
-        this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue
-      );
+      // this.accomplishmentsForm.controls[this.form_isassesment].setValue(
+      //   this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue
+      // );
       console.log(this.accomplishmentDetails,'this.accomplishmentDetails')
       this.gettingassementvalues.assessments.forEach((element, i) => {
         this.getassesmentArr.push(this.patchingAssesments(element, i));
+        
       });
+      this.accomplishmentsForm.controls[this.form_isassesment].setValue(true);
     }
     if (
       this.accomplishmentDetails &&
@@ -1354,6 +1356,7 @@ if (this.gettingassementvalues.assessments?.length > 0) {
       if (this.getassesmentArr.length === 0) {
         this.getassesmentArr.push(this.initassesmentArray());
         this.assessmentChecked.push(true); // Push the initial checked state as true
+        console.log('length'); 
       }
       // this.glovbal_validators.validateAllFormArrays(
       //   this.accomplishmentsForm.get([this.form_assesmentArray]) as FormArray
@@ -1365,6 +1368,8 @@ if (this.gettingassementvalues.assessments?.length > 0) {
 
         this.getassesmentArr.clear();
         this.assessmentChecked = []; // Reset the assessmentChecked array
+        console.log('no length');
+        
       }
     }
   }
