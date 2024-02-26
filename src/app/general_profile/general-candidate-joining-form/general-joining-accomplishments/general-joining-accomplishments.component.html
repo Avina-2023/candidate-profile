@@ -83,12 +83,12 @@
                       <div style="width: 100%;">
                         <!-- <input matInput placeholder="Enter here" class="input" type="text"
                           [formControlName]="form_assesment_title"> -->
-                        <nz-select class="input select" [formControlName]="form_assesment_title" nzAllowClear
-                          nzShowSearch nzPlaceHolder="<--Select-->">
-                          <nz-option *ngFor="let typeList of assesmentList" [nzLabel]="typeList.type"
+                        <nz-select class="input select" [formControlName]="form_assesment_title" nzAllowClear 
+                          nzShowSearch nzPlaceHolder="<--Select-->" (ngModelChange) = "setAssesmentType(i, item)">
+                          <nz-option *ngFor="let typeList of assesmentList"   [nzLabel]="typeList.type"
                             [nzValue]="typeList.type"></nz-option>
                         </nz-select>
-
+                        <!-- <input type="text" [formControlName]="form_assesment_type" [(ngModel)]="selectedAssessment" style="visibility: hidden;" /> -->
                         <div class="form-error"
                           *ngIf="getassesmentArr.controls[i].get(form_assesment_title).invalid && getassesmentArr.controls[i].get(form_assesment_title).touched">
                           <div class="err"
