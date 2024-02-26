@@ -165,7 +165,7 @@ export class GeneralMasterComponent implements OnInit {
   extRedir(){
     this.appConfig.clearLocalData();
     // window.open(environment.register_Redirect.replace('/register',''),'skillexchange');
-    window.location.replace(environment.register_Redirect.replace('/register','/candidateview/dashboard'));
+    window.location.replace(environment.register_Redirect.replace('/register','/candidateview/findjobs'));
   }
 
   onSelectFile(event) {
