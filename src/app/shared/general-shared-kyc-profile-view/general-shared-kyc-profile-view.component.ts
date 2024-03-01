@@ -212,9 +212,9 @@ export class GeneralSharedKycProfileViewComponent
   form_award_date = 'awardDate';
   form_award_title = 'awardTitle';
 
-  form_assesmentArray = 'assesments';
-  form_assesment_date = 'assesmentDate';
-  form_assesment_title = 'assesmentTitle';
+  form_assesmentArray = 'assessments';
+  form_assesment_date = 'assesmentDate'; 
+  form_assesment_title = 'test_name';
 
   form_CoursesArray = 'courses';
   form_course_name = 'coursesName';
@@ -1424,7 +1424,10 @@ export class GeneralSharedKycProfileViewComponent
         this.accomplishmentDetails?.[this.form_awardsArray].length > 0
           ? this.accomplishmentDetails[this.form_awardsArray]
           : [],
-      [this.form_assesmentArray]: this.accomplishmentDetails?.[this.form_assesmentArray] && this.accomplishmentDetails?.[this.form_assesmentArray].length > 0 ? this.accomplishmentDetails[this.form_assesmentArray][0].assesments
+      [this.form_assesmentArray]: 
+       this.accomplishmentDetails?.[this.form_assesmentArray] && 
+       this.accomplishmentDetails?.[this.form_assesmentArray].length > 0 
+       ? this.accomplishmentDetails[this.form_assesmentArray]
           : [],
           
     };
