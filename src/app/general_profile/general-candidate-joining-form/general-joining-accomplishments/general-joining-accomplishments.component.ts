@@ -119,7 +119,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   form_certificationsArray = 'certifications';
   form_journalEntryArray = 'journals';
   form_awardsArray = 'awards';
-  form_assesmentArray = 'assesments';
+  form_assesmentArray = 'assessments';
   form_CoursesArray = 'courses';
   form_certification_name = 'certificationName';
   form_certification_issuedFrom = 'certificationIssuedFrom';
@@ -135,7 +135,9 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   form_award_title = 'awardTitle';
   form_isassesment = 'isAssesment';
   form_assesment_date = 'assesmentDate';
-  form_assesment_title = 'assesmentTitle';
+  form_assesment_title = 'test_name';
+  gettingAssessmentvalue:any
+  form_assesment_type = 'type';
   form_journalEntity_title = 'journalEntityTitle';
   form_journalEntity_url = 'journalEntityUrl';
   form_journalEntity_publishedOn = 'journalEntityPublishedOn';
@@ -163,6 +165,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
   checked: boolean;
   assesmentData: any;
   assesmentList: any;
+  gettingassementvalues:any;
 
   // removeArr5: number;
 
@@ -264,10 +267,22 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       this.accomplishmentDetails =
         this.candidateService.getLocalaccomplishments_details();
       // this.accomplishmentsDetailsAllData = this.candidateService.getLocalAccomplishment_details();
+      
+      this.gettingassementvalues =this.accomplishmentDetails;
+     
+    
 
+    const formIsAssesmentControlName = this.form_isassesment; 
+
+if (this.gettingassementvalues.assessments?.length > 0) {
+  this.accomplishmentsForm.controls[formIsAssesmentControlName].setValue(true);
+} else {
+  this.accomplishmentsForm.controls[formIsAssesmentControlName].setValue(false);
+}
+
+    
       this.patchaccomplishmentsForm();
-    } else {
-    }
+    } 
   }
   patchaccomplishmentsForm() {
     if (
@@ -302,14 +317,15 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       this.accomplishmentDetails[this.form_assesmentArray].length > 0
     ) {
       this.getassesmentArr.clear();
-      this.accomplishmentsForm.controls[this.form_isassesment].setValue(
-        this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue
-      );
-      this.accomplishmentDetails[
-        this.form_assesmentArray
-      ][0].assesments.forEach((element, i) => {
+      // this.accomplishmentsForm.controls[this.form_isassesment].setValue(
+      //   this.accomplishmentDetails[this.form_assesmentArray][0].assementvalue
+      // );
+
+      this.gettingassementvalues.assessments.forEach((element, i) => {
         this.getassesmentArr.push(this.patchingAssesments(element, i));
+        
       });
+      this.accomplishmentsForm.controls[this.form_isassesment].setValue(true);
     }
     if (
       this.accomplishmentDetails &&
@@ -386,18 +402,11 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       let assessmentDetail = {
         assesments:
           this.accomplishmentsForm.getRawValue()[this.form_assesmentArray],
-        assementvalue:
-          this.accomplishmentsForm.getRawValue()[this.form_isassesment],
+      
       };
 
       let assesments = assessmentDetail;
 
-      //   let assesments:any  = this.accomplishmentsForm.getRawValue()[this.form_assesmentArray];
-      // assesments.assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
-      //   console.log(assesments,'assesmentsassesments')
-      // let assementvalue = this.accomplishmentsForm.getRawValue()[this.form_isassesment];
-
-      // console.log(assementvalue,'assementvalue')
       let journals =
         this.accomplishmentsForm.getRawValue()[this.form_journalEntryArray];
       // let courses =
@@ -406,7 +415,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
       let apiData = {
         certifications,
         awards,
-        assesments,
+        assessments:this.accomplishmentsForm.getRawValue()[this.form_assesmentArray],
         journals,
         // assementvalue
         // courses,
@@ -540,6 +549,7 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
           this.glovbal_validators.alphaNum255(),
         ],
       ],
+      [this.form_assesment_type]: [data[this.form_assesment_type].toLowerCase(), ],
       // [this.form_assesment_date]: [this.dateConvertion(data[this.form_assesment_date]), [RemoveWhitespace.whitespace(), Validators.required,, this.startTrue(true)]],
       // [this.form_isassesment]: [data[this.form_isassesment]],
       [this.form_assesment_date]: [
@@ -936,15 +946,25 @@ export class GeneralJoiningAccomplishmentsComponent implements OnInit {
     });
   }
 
+
   initassesmentArray() {
     return this.fb.group({
       [this.form_assesment_title]: [
         null,
         [Validators.required, this.glovbal_validators.alphaNum255()],
       ],
+      [this.form_assesment_type]:[''],
+     
       [this.form_assesment_date]: [null, [Validators.required]],
       //[this.form_isassesment]:[false]
+      
     });
+    
+  }
+
+  setAssesmentType(i ,item){
+    var asses_name = item.controls['test_name'].value.toLowerCase()
+    item.controls[this.form_assesment_type].setValue(asses_name);  
   }
 
   setAssesmentArrValidation() {
