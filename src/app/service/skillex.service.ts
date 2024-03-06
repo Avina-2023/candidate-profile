@@ -182,4 +182,17 @@ export class SkillexService {
       assessdata
     );
   }
+
+  getSkill(skillData) {
+    return this.http.post(
+      `${environment.SKILLEX_BASE_URL}/getSkill`,
+      skillData
+    );
+  }
+  getDegreeList() {
+    return this.http.get(`${environment.SKILLEX_BASE_URL}/getDegreeList`);
+  }
+  getDisciplineList() {
+    return this.http.get(`${environment.SKILLEX_BASE_URL}/getDisciplineList`);
+  }
 }
